@@ -3,11 +3,11 @@
 # Subdir relative project main directory: ./sbase/sbred
 # Target is a library:  
 
+SOURCES += sbred.cpp 
+HEADERS += sbred.h 
 TEMPLATE = lib 
 CONFIG += release \
           warn_on \
           staticlib 
 OBJECTS_DIR = .obj 
 MOC_DIR = .moc 
-SOURCES += sbred.cpp 
-HEADERS += sbred.h 

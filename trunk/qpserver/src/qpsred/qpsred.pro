@@ -3,23 +3,23 @@
 # Subdir relative project main directory: ./src/qpsred
 # Target is a library:  
 
-SOURCES += redcliente.cpp \
-           redserver.cpp \
-           srvxmlhandler.cpp 
-HEADERS += redcliente.h \
-           redserver.h \
-           srvxmlhandler.h 
-TEMPLATE = lib 
+TEMPLATE = lib
 CONFIG += release \
-          warn_on \
-          staticlib 
-OBJECTS_DIR = .obj 
-MOC_DIR = .moc 
+warn_on \
+staticlib
+OBJECTS_DIR = .obj
+MOC_DIR = .moc
 INCLUDEPATH = ../../sbase/sbqpserver \
-              ../../sbase/sbred \
-              ../../sbase/sbxml \
-              ../../sbase/sblogica \
-              ../../sbase/sbcontrol \
-              ../../sbase/sbbd 
-LIBS += ../../sbase/sbred/libsbred.a 
-TARGETDEPS += ../../sbase/sbred/libsbred.a 
+../../sbase/sbred \
+../../sbase/sbxml \
+../../sbase/sblogica \
+../../sbase/sbcontrol \
+../../sbase/sbbd
+LIBS += ../../sbase/sbred/libsbred.a
+TARGETDEPS += ../../sbase/sbred/libsbred.a
+SOURCES += srvxmlhandler.cpp \
+           qpsredcliente.cpp \
+           qpsredserver.cpp 
+HEADERS += srvxmlhandler.h \
+           qpsredcliente.h \
+           qpsredserver.h 

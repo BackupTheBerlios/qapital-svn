@@ -1,4 +1,4 @@
-/* Clase: RedServer
+/* Clase: QPSRedServer
  * Autor: CetiSoft
  * Version: 0.0.1
  * Fecha de creacion: 19/06/2004
@@ -28,8 +28,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             			*
  *************************************************************************************/
 
-#ifndef REDSERVER_H
-#define REDSERVER_H
+#ifndef QPSREDSERVER_H
+#define QPSREDSERVER_H
 
 #include <qserversocket.h>
 #include <qsocket.h>
@@ -41,40 +41,42 @@
 #include <qtimer.h>
 
 #include "sbred.h"
-#include "redcliente.h"
+#include "qpsredcliente.h"
 #include "sbqpserver.h"
 
 using sbqpserver::QPLOGGER;
-
-// Prototipos de clases
-class RedServer;
-class RedCliente;
-
-typedef QValueList<RedCliente*> Clientes;
-
-/**
-Esta clase representa el servidor QApital
-@author CetiSoft
-*/
-
-class RedServer : public QServerSocket
-{
-	Q_OBJECT
-			
-	private:
-		Clientes rdsClientes; // Lista que contiene todos los clientes...
-		HashInt conexionesFallidas;
 	
-	public:
-		RedServer(int puerto, int conexiones = 1, QObject* padre = 0);
-		~RedServer();
+namespace qpsred
+{
+	// Prototipos de clases
+	class QPSRedServer;
+	class QPSRedCliente;
 
-		void newConnection(int );
-		void redServerEnviarATodos(QString );
-		void fallo(QString ip);
-	public slots:
-		void removerBans();
-		void redServerQuitarCliente(RedCliente *);
-};
+	typedef QValueList<QPSRedCliente*> Clientes;
+	
+	/**
+	Esta clase representa el servidor QApital
+	@author CetiSoft
+	*/
+	class QPSRedServer : public QServerSocket
+	{
+		Q_OBJECT
+				
+		private:
+			Clientes rdsClientes; // Lista que contiene todos los clientes...
+			HashInt conexionesFallidas;
+		
+		public:
+			QPSRedServer(int puerto, int conexiones = 1, QObject* padre = 0);
+			~QPSRedServer();
+	
+			void newConnection(int );
+			void enviarATodos(QString );
+			void fallo(QString ip);
+		public slots:
+			void removerBans();
+			void quitarCliente(QPSRedCliente *);
+	};
+}
 
 #endif

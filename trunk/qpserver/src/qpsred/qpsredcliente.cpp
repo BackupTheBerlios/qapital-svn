@@ -1,4 +1,4 @@
-/* Clase: RedCliente
+/* Clase: QPSRedCliente
  * Autor: CetiSoft
  * Version: 0.0.1
  * Fecha de creacion: 19/06/2004
@@ -25,9 +25,10 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             	*
  *******************************************************************************/
 
-#include "redcliente.h"
+#include "qpsredcliente.h"
 #include <qdatastream.h>
 #include <qstringlist.h>
+
 
 
 /**
@@ -36,13 +37,13 @@ Constructor
 @param padre: El servidor padre.
 @param nombre: El nombre del objecto.
 */
-RedCliente::RedCliente(int sock, RedServer *padre, const char *nombre)
+qpsred::QPSRedCliente::QPSRedCliente(int sock, QPSRedServer *padre, const char *nombre)
  : QSocket(0, nombre), server(padre)
 {
-	//qDebug("[Construyendo RedCliente]");
+	//qDebug("[Construyendo QPSRedCliente]");
 	INIQPC; 
         // esta listo para leer? lea.
-        connect( this, SIGNAL(readyRead()), SLOT(redClienteLeer()) );
+        connect( this, SIGNAL(readyRead()), SLOT(leer()) );
 	
 	// Se cierra la conexion...
         connect( this, SIGNAL(connectionClosed()), SLOT(deleteLater()) );
@@ -54,9 +55,9 @@ RedCliente::RedCliente(int sock, RedServer *padre, const char *nombre)
 /**
 Destructor
 */
-RedCliente::~RedCliente()
+qpsred::QPSRedCliente::~QPSRedCliente()
 {
-	qDebug("[Destruyendo RedCliente]");	
+	qDebug("[Destruyendo QPSRedCliente]");	
 }
 
 /**
@@ -64,7 +65,7 @@ RedCliente::~RedCliente()
 * @param str cadena de texto enviada al cliente.
 * @see redClienteEnviar(QDomDocument doc)
 */
-void RedCliente::redClienteEnviar(QString str)
+void qpsred::QPSRedCliente::enviarTexto(QString str)
 {
 	QTextStream ts(this);
 	ts << str << endl;
@@ -76,16 +77,16 @@ void RedCliente::redClienteEnviar(QString str)
 * @param doc Documento XML.
 * @see redClienteEnviar(QString str)
 */
-void RedCliente::redClienteEnviar(QDomDocument doc)
+void qpsred::QPSRedCliente::enviarXml(QDomDocument doc)
 {
 	QString str = doc.toString();
-	redClienteEnviar(str);
+	enviarTexto(str);
 }
 
 /**
 Esta funcion es la encargada de leer del canal e interpretar la cadena leida.
 */
-void RedCliente::redClienteLeer()
+void qpsred::QPSRedCliente::leer()
 {
 	// flujo de texto asociado al canal
 	QTextStream ts(this);
@@ -99,7 +100,7 @@ void RedCliente::redClienteLeer()
 	if ( ! state() == QSocket::Connected || state() == QSocket::Closing || state() == QSocket::Idle )
 	{
 		qDebug("No se puede leer");
-		server->redServerQuitarCliente(this);
+		server->quitarCliente(this);
 	}
 	else
 	{
@@ -114,31 +115,31 @@ void RedCliente::redClienteLeer()
 		{
 			// Hubo un error, enviar <ERROR>...</ERROR>
 			SbXMLError paqueteDeError("0", tr("Formato de paquete invalido"));
-			redClienteEnviar(paqueteDeError);
+			enviarXml(paqueteDeError);
 			server->fallo(ipCliente);
-			redClienteCerrarConexion();
+			cerrarConexion();
 		}
 		sourceXML.reset();
 	}
 }
 
-void RedCliente::redClienteCerrarConexion()
+void qpsred::QPSRedCliente::cerrarConexion()
 {
         this->close();
         if ( this->state() == QSocket::Closing )
 	{
-		connect (this , SIGNAL(delayedCloseFinished () ), SLOT(redClienteConexionCerrada() ));
+		connect (this , SIGNAL(delayedCloseFinished () ), SLOT(conexionCerrada() ));
         }
 	else
 	{
-		redClienteConexionCerrada();
+		conexionCerrada();
 	}
 }
 
-void RedCliente::redClienteConexionCerrada()
+void qpsred::QPSRedCliente::conexionCerrada()
 {
 	QPLOGGER.salvarLog(SBLogger::QP_INFO, SBLogger::SERVIDOR, tr("Conexion cerrada por el cliente %1").arg(ipCliente));
-	server->redServerQuitarCliente(this);
+	server->quitarCliente(this);
 }
 
 

@@ -4,8 +4,7 @@
  * Fecha de creacion: 19/06/2004
  * Fecha de modificacion:
  * Relacion con objetos:
- * Descripcion: Clase que se encarga de mantener los clientes, esta clase esta intimamente relacionada con el
- * 			 servidor.
+ * Descripcion: Clase que se encarga de mantener los clientes, esta clase esta intimamente relacionada con el servidor.
  *
 */
 
@@ -29,20 +28,18 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             	*
  *******************************************************************************/
 
-#ifndef REDCLIENTE_H
-#define REDCLIENTE_H
+#ifndef QPSREDCLIENTE_H
+#define QPSREDCLIENTE_H
 
 #include <qsocket.h>
 #include <iostream>
 #include <qobject.h>
 #include <qdom.h>
 #include <qdict.h>
-#include "redserver.h"
+#include "qpsredserver.h"
 #include "srvxmlhandler.h"
 #include "sbxml.h"
 
-
-class RedServer; 
 
 /**
 Esta clase representa el servidor qapital
@@ -52,27 +49,32 @@ Esta clase representa el servidor qapital
 - Recibir paquetes XML e interpretarlos.
 */
 
-class RedCliente : public QSocket
+namespace qpsred
 {
-	Q_OBJECT
-
-	private:
-		RedServer *server;
-		QString ipServer;
-		QString ipCliente;
+	class QPSRedServer;
 	
-	public:
-		RedCliente(int sock, RedServer *padre = 0, const char *nombre = 0 );
-    		~RedCliente();
+	class QPSRedCliente : public QSocket
+	{
+		Q_OBJECT
+	
+		private:
+			QPSRedServer *server;
+			QString ipServer;
+			QString ipCliente;
 		
-		void redClienteEnviarATodos(QString);
-		void redClienteEnviar(QString);
-		void redClienteEnviar(QDomDocument);
-
-	public slots:
-    		void redClienteLeer();
-		void redClienteCerrarConexion();
-		void redClienteConexionCerrada();
-};
+		public:
+			QPSRedCliente(int sock, QPSRedServer *padre = 0, const char *nombre = 0 );
+			~QPSRedCliente();
+			
+			void enviarATodos(QString);
+			void enviarTexto(QString);
+			void enviarXml(QDomDocument);
+	
+		public slots:
+			void leer();
+			void cerrarConexion();
+			void conexionCerrada();
+	};
+}
 
 #endif

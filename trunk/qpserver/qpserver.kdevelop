@@ -96,9 +96,8 @@
       <envvars/>
     </run>
     <general>
-      <activedir></activedir>
+      <activedir>src/qpsred</activedir>
     </general>
-    <subclassing/>
     <make>
       <abortonerror>false</abortonerror>
       <numberofjobs>1</numberofjobs>
@@ -106,6 +105,7 @@
       <makebin/>
       <envvars/>
     </make>
+    <subclassing/>
   </kdevtrollproject>
   <kdevfilecreate>
     <useglobaltypes>
