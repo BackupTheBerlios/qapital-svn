@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<MKTB>
+	<Menu nombre="acciones">
+		<texto>Menu de acciones</texto>
+		<Action nombre="exit" icono="img/exit.png" tooltip="Sale de la aplicacion" />
+	</Menu>
+	<Menu nombre="nombredelmenu">
+		<texto>Mi menu</texto>
+		<Action nombre="crear" icono="img/crear.png" tooltip="Crea una nueva version" />
+		<Action nombre="modificar" icono="img/modificar.png" tooltip="Aplica los cambios a una version" />
+		<Action nombre="obtener" icono="img/obtener.png" tooltip="Obtiene una version para modificarla." />
+		<Action nombre="diagrama" icono="img/diagrama.png" tooltip="Genera un diagrama del arbol de versiones." />
+	</Menu>
+</MKTB>

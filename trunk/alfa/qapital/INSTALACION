@@ -1,0 +1,111 @@
+INSTALACION
+
+Escrito por krawek (krawek@linuxmail.org)
+
+ULTIMA ACTUALIZACION: 25/01/2005
+
+Codigo en desarrollo
+------------------------
+
+- Obtenemos el codigo:
+
+Lo primero que debemos hacer es obtener el codigo, este se puede descargar de la siguiente
+direccion:
+		http://petecuy.univalle.edu.co/~krawek/qapital/
+		
+en esa direccion encontraremos los snapshots del codigo, la sintaxis del archivo es el siguiente:
+
+		qapital-[AÑO]-[MES]-[DIA].tar.bz2   
+		
+por ejemplo:
+		qapital-2004-08-13.tar.bz2
+
+- Descomprimimos el codigo:
+
+para esto utilizamos las ya conocidas (espero...) herramientas de unix, por ejemplo:
+		tar xvjf qapital-2004-08-13.tar.bz2
+
+Si esto es muy complejo para usted, puede utilizar herramientas graficas como 
+		ark (de kde).
+		file-roller (de gnome).
+
+y espero (yo krawek) que no le de un ataque de panico por no ver una ventana de winzip.
+
+- Compilamos el programa
+
+En esta etapa tenemos dos opciones:
+ 
+1. Mediante el script de instalacion
+
+La primera es un script que acabo de diseñar y escribir
+pero aun no se si funciona bien, en mi maquina funciona, sin embargo se deben hacer pruebas
+en maquinas que tengan $QTDIR en otra direccion.
+El script en cuestion se debe ejecutar de la siguiente manera y sobre el directorio del proyecto
+		cd qapital-[AÑO]-[MES]-[DIA]
+		./instalar.sh
+
+o si tienes kde instalado:
+		./kinst.sh 		
+
+		
+2. Mediante el kdevelop
+
+Esta opcion es la mas recomendada para programadores, primero debemos abrir el kdevelop,
+para esto ejecutamos el comando kdevelop de esta forma:
+		kdevelop &
+		
+En este momento no se asuste!, voy a dar la explicacion paso a paso, para los que no se 
+leyendo el 'kdevelop for dummies'
+		
+		- Damos click (con el raton) sobre "Project" o "Proyecto", se encuentra en la barrita de
+		arriba, debajo del titulo, en la cuarta columna.
+		- Ahora le damos click (si! con el raton otra vez) en 'Open project...',
+		o 'Abrir proyecto...'.
+		- En este momento debes buscar el archivo .kdevelop del proyecto y cargarlo
+
+Ahora para compilar, elegimos cada subproyecto que deseemos compilar y le damos click derecho sobre el, y luego ejecutar qmake para actualizar los Makefiles, en el proyecto hay 3 subproyectos, cada uno con sus respectivos componentes, una visto a la estructura:
+
+---------------------------------
+Qapital
+	sbase: (librerias)
+		sbqapital (lib)
+		sbxml (lib)
+		sbcontrol (lib)
+		sblogica (lib)
+		sbgui (lib)
+		sbred (lib)
+
+	qpadmin: (ejecutable)
+		qpadmin (app)
+		gui (lib)
+		red (lib)
+		bd (lib)
+	
+	qpcliente: (ejecutable)
+		qpcliente (app)
+		gui (lib)
+		red (lib)
+		bd (lib)
+	
+	qpserver: (ejecutable)
+		qpserver (app)
+		red (lib)
+		bd (lib)
+		control (lib)
+		logica (lib)
+---------------------------------
+		
+esto lo podemos ver en el recuadro del qmake, le damos click sobre el boton que normalmente 
+esta a la derecha, debajo del icono del libro, es un boton como de una hoja con una piñon
+adentro (Al menos en mi configuracion: Gentoo + plastik + iconos crystal ).
+
+Podemos elegir cada uno de esos componentes y compilarlo, sbase es importante, todos los demas subproyectos dependen de el, para compilar cualquiera de ellos, solo le damos click al
+nombre, por ejemplo qpserver/qpserver y enseguida clickeamos Build->Build subproject (o F7)
+en la barra de herramientas, en este momento deberia empezar a compilar.
+
+Para los demas, repetimos el procedimiento anterior. (espero no le sea dificil de hacer...).
+
+Cuando queramos ejecutar, seleccionamos uno de los componentes ejecutables y clickeamos en
+la barra de herramientas, donde dice Build->Execute subproject, esto tambien esta en el 
+recuadro del qmake.
+

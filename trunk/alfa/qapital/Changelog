@@ -1,0 +1,232 @@
+Log de cambios
+
+Este archivo contiene los cambios que se realizan al programa Qapital.
+
+
+-----------------------------------------------------------------------------------------------------
+QApital
+-----------------------------------------------------------------------------------------------------
+
+General:
+- 11/08/2004: Se comenzo el Changelog. (krawek@linuxmail.org)
+- 11/08/2004: Se incluyen todas las cabeceras de los sistemas base en el respectivo
+		      sb[NOMBRE].h de sbgui.h y sbxml.h. (krawek@linuxmail.org)
+- 11/08/2004: Se añadieron algunas cosas al TODO list. (krawek@linuxmail.org)
+- 12/08/2004: Se creo un directorio de datos denominado "data", que contiene "xml" e 
+		      "iconos" por el momento, las rutas estaran definidas en
+		      sbqapital.h . (krawek@linuxmail.org)
+- 12/08/2004: Se añade una nueva libreria al sistema base llamada sbqapital, en la cual
+		      se esperan guardar los datos globales de la aplicacion, librerias que no 
+		      esten relacionadas con otros sb, etc... (krawek@linuxmail.org)
+- 13/08/2004: Version inicial de instalar.sh, script para instalar. (krawek@linuxmail.org)
+- 21/08/2004: Añadido oficialmente el instalador de qapital v0.0.1. (krawek@linuxmail.org)
+- 21/08/2004: Se completo la documentacion de algunas clases. (krawek@linuxmail.org)
+- 29/08/2004: Añadido soporte para las traducciones, el directorio de datos de
+		      traducciones localizado en DATADIR/traducciones, y el script traducir.sh
+		      para realizar la traduccion de qapital. (krawek@linuxmail.org)
+- 29/08/2004: Añadido el ultimo dump de la base de datos. 	(krawek@linuxmail.org)
+- 12/01/2005: Reactivacion del proyecto. ( krawek@linuxmail.org )
+- 15/01/2005: Liempieza de codigo, actualizacion de algunas partes, separacion
+de los .o y moc_* de las fuentes, y eliminacion de algunos warnings. (
+krawek@linuxmail.org )
+- 15/01/2005: Añadido script kinst.sh para instalar la aplicacion por medio de
+kdialog (krawek@linuxmail.org )
+- 31/01/2005: Añadido espacio de nombres `qapital`. (krawek@linuxmail.org)
+--------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------
+SBQapital
+--------------------------------------------------------------------------------------------------------
+- 12/08/2004: Se creo sbqapital. (krawek@linuxmail.org)
+- 13/08/2004: Se añadieron las macros QPINFO, QPWARN, QPERROR para mostrar
+		      informacion en consola. (krawek@linuxmail.org)
+- 31/08/2004: Añadida las clases SBLogger y SBError. (t763rm3n@linuxmail.org)
+- 01/09/2004: Se hicieron algunas modificacion al SBLogger. (krawek@linuxmail.org)
+- 01/09/2004: Se añadio el objeto global QPLOGGER para loguear los distintos 
+	      eventos. (krawek@linuxmail.org)
+- 12/01/2005: Se cambio los tipos enumerados Prioridad, Nivel, Entidades a la clase SBLogger y se actualizo el codigo. (krawek@linuxmail.org)
+- 12/01/2005: Se añadieron las macros INITQPC y FINQPC para debuggear objetos Qt. (krawek@linuxmail.org )
+  		      
+--------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------
+SBXml
+--------------------------------------------------------------------------------------------------------
+- 11/08/2004: Se incluyeron las cabeceras en sbxml.h (krawek@linuxmail.org)
+- 11/08/2004: Se creo la clase base de documentos XML Qapital:
+	               QPDocumentoXML (krawek@linuxmail.org)
+- 11/08/2004: Se creo el paquete de error XML. (krawek@linuxmail.org)
+- 12/08/2004: Se cambiaron de lugar los documentos XML al directorio de datos del
+		      proyecto. (krawek@linuxmail.org)
+- 12/08/2004: Se agrego el paquete de conexion XML. (krawek@linuxmail.org)
+- 12/08/2004: Se creo la clase SbXmlConfig para crear las configuraciones
+		      del servidor, clientes y administrador. (krawek@linuxmail.org)
+- 27/08/2004: Actualizado paquete CNX. (krawek@linuxmail.org)
+- 27/08/2004: Creada la clase SbXmlQUERY, para la construccion de paquetes
+	      QUERY. (krawek@linuxmail.org)
+- 27/08/2004: Creada la clase SbXmlACP, para la construccion de paquetes
+	      ACP. (krawek@linuxmail.org)
+- 30/08/2004: Añadida clase SbXmlMESSAGE para la construccion de paquetes 
+	      MESSAGE. (krawek@linuxmail.org) 
+- 30/08/2004: Añadida clase SbXmlSUCCESS para la construccion de paquetes 
+	      SUCCESS. (krawek@linuxmail.org) 	 
+- 30/08/2004: Añadida clase SbXmlUPDATECODE para la construccion de paquetes 
+	      UPDATEDATE. (krawek@linuxmail.org) 
+- 30/08/2004: Añadida clase SbXmlANSWER para la construccion de paquetes 
+	      ANSWER. (krawek@linuxmail.org)
+- 12/01/2005: Se cambio el estandar de codificacion de los documentos XML de
+Latin1 a UTF-8 ( krawek@linuxmail.org )
+--------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------
+SBControl
+--------------------------------------------------------------------------------------------------------
+- 12/08/2004: Se removieron las clases SBFormato y SBNumeroALetras, las cuales
+		      fueron movidas a SBLogica. (krawek@linuxmail.org)
+- 12/08/2004: Se removio definitivamente SBCore. (krawek@linuxmail.org)
+--------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------
+SBLogica
+--------------------------------------------------------------------------------------------------------
+- 12/08/2004: Se añadieron las clases SBFormato y 
+		       SBNumeroALetras. (krawek@linuxmail.org)
+--------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------
+SBRed
+--------------------------------------------------------------------------------------------------------
+- Falta por completar.
+--------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------
+SBGui
+--------------------------------------------------------------------------------------------------------
+- 11/08/2004: Se incluyeron todas las cabeceras de este sistema base
+                       en sbgui.h. (krawek@linuxmail.org)
+- 12/08/2004: Se cambiaron los iconos, imagenes y logos  al directorio de datos
+                       del proyecto. (krawek@linuxmail.org)
+- 14/08/2004: Se crearon las clases GUIFormularios, GUIFormularioGeneral, 
+		      GUIDirecciones, GUITelefonos, GUIEMail.  (kuadrosxx@linuxmail.org)
+- 15/08/2004: Se modifico GUITabla para que se construya con un QStringList el cual le 
+		      proporciona el encabezado de cada columna y el numero de 
+		      columnas.	(kuadrosxx@linuxmail.org)
+- 10/02/2005: Se creo la clase GCLPrimerDialogo que se encarga de perdir al usuario la configuracion inicial de qapital. (kuadrosxx@linuxmail.org)
+--------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------
+SBBd
+--------------------------------------------------------------------------------------------------------
+- 13/08/2004: Se inicio la implementacion de este sistema base. (krawek@linuxmail.org)
+- 13/08/2004: Se creo la clase SbBDConexion, la cual mantiene el pool de 
+		      conexiones. (krawek@linuxmail.org)
+--------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------
+QPServer:
+--------------------------------------------------------------------------------------------------------
+
+General
+- 12/08/2004: Se cambiaron los subproyectos red, logica, control, bd a librerias
+ 		      estaticas. (krawek@linuxmail.org)
+- 12/08/2004: Se creo la clase QPSConfigHandler para leer la configuracion del
+                      programa servidor. (krawek@linuxmail.org)
+- 12/08/2004: Se creo el main del QPServer. (krawek@linuxmail.org)
+- 12/08/2004: Se crearon los dos sockets para la conexion con el cliente y con
+                      el admin. (krawek@linuxmail.org)
+- 12/08/2004: Se diseño y escribio el archivo de configuracion del
+		      QPServer. (krawek@linuxmail.org)
+- 12/08/2004: Se añadieron caracteristicas de demonio al servidor, por ahora esta
+		      comentado por compatibilidad con kdevelop. (krawek@linuxmail.org)
+- 12/08/2004: Cuando la configuracion no existe, el servidor esta en capacidad
+		      de crearla. (krawek@linuxmail.org)
+- 13/08/2004: Añadida etiqueta <bddriver>, <bdhost> y <bdpuerto> al la configuracion 
+		      del servidor. (krawek@linuxmail.org)	   
+
+Control:
+- Falta por completar.
+
+Logica:
+- Falta por completar.
+
+Red:
+- 11/08/2004: Se termino la base de las comunicaciones. (krawek@linuxmail.org)
+- 11/08/2004: Se completo el manejador de XML, por ahora lee la etiqueta de conexion
+		      <CNX> y retorna <ERROR> si hay un error. (krawek@linuxmail.org)
+- 29/08/2004: Se añadio soporte para black lists.	(krawek@linuxmail.org)
+- 29/08/2004: Se arreglaron multiples bugs de programación. (krawek@linuxmail.org)
+
+BD:
+- 15/08/2004: Se añadio la clase BDInstrucciones, mantiene un cache de las instrucciones
+		       de la base de datos. (krawek@linuxmail.org)
+--------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------
+QPClient
+--------------------------------------------------------------------------------------------------------
+
+General
+- 12/08/2004: Se creo la clase QPCConfigHandler para leer la configuracion del 
+              programa cliente. (krawek@linuxmail.org)
+- 12/08/2004: Se creo el main del QPClient. (krawek@linuxmail.org)
+- 12/08/2004: Se diseño y escribio el archivo de configuracion del 
+	      QPClient. (krawek@linuxmail.org)
+- 12/08/2004: Se cambiaron los subproyectos red, logica, control, bd a librerias 
+ 	      estaticas. (krawek@linuxmail.org)
+- 12/08/2004: Cuando la configuracion no existe, el servidor esta en capacidad
+	      de crearla. (krawek@linuxmail.org)
+- 10/01/2005: Se añadio la clase QPCApplication, en donde se pretende hacer un parsing de los argumentos pasados desde la linea de comandos. (krawek@linuxmail.org)
+		      
+Control:
+- Falta por completar.
+
+Logica:
+- Falta por completar.
+
+Red:
+- 12/08/2004: Se empezo a trabajar en el sistema de red, actualmente conecta y envia
+	      paquetes. (krawek@linuxmail.org)
+
+GUI:
+- 11/08/2004: Se hicieron algunos cambios pequeños a la interfaz del 
+                      cliente. (krawek@linuxmail.org)
+- 14/08/2004: Se creo GCLConfiguraEmpresa. (kuadrosxx@linuxmail.org)
+- 14/08/2004: Se le hicieron unos pequeños cambios en la estructuracion de
+	      GCLPrincipal. (kuadrosxx@linuxmail.org)
+- 26/08/2004: Se completo la lectura por XML de los usuarios habiatuales de la 
+	      aplicacion (krawek@linuxmail.org)
+- 26/01/2005: Se hizo la separacion entre la interfaz MDI y la interfaz basada en menus ( krawek@linuxmail.org )
+
+	MENUBASED:
+	MDIBASED:
+
+--------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------
+QPAdmin
+--------------------------------------------------------------------------------------------------------
+
+General
+- 15/01/2005: Se comenzo a impletar este programa (krawek@linuxmail.org)
+		      
+Control:
+- Falta por completar.
+
+Logica:
+- Falta por completar.
+
+Red:
+- Falta por completar.
+
+GUI:
+- 11/08/2004: Se añadio una interfaz MDI, para comenzar. ( krawek@linuxmail.org)
+--------------------------------------------------------------------------------------------------------

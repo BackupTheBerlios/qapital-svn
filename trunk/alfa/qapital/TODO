@@ -1,0 +1,149 @@
+TODO List
+
+Esta lista contiene las cosas que faltan por hacer, aun esta incompleta, pero se ira
+llenando miemtras se continua con la implementacion...
+
+-	: falta por implementar
++	: Esta implementado.
++/-	: Se empezo a implementar o no funciona bien.
+
+-----------------------------------------------------------------------------------------------------
+QApital																       
+-----------------------------------------------------------------------------------------------------
+
+General:
+- Completar el TODO list
+- Hacer un directorio de datos, para cargar imagenes, sonidos, etc. +
+- Hacer y cargar traducciones.
+- Crear y cargar archivos de configuracion. +
+- Hacer el sistema de instalacion!. +/-
+- Generar XML's de configuraciones y operaciones para enviarlos al servidor.
+- Hacer un lector de logs del sistema
+- Comprimir archivos de logs despues que exceden un tamaño determinado.
+- Incluir las fuentes de sqlite para tener un servidor de base de datos embebido.
+- Parsear argumentos pasados desde la linea de comandos.
+- Generar documentacion. +/-
+-----------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------
+SBXml
+-----------------------------------------------------------------------------------------------------
+- Completar los paquetes XML.
+-----------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------
+SBControl
+-----------------------------------------------------------------------------------------------------
+- Falta por completar.
+-----------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------
+SBLogica
+-----------------------------------------------------------------------------------------------------
+- Falta por implementar.
+-----------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------
+SBRed
+-----------------------------------------------------------------------------------------------------
+- Falta por completar.
+-----------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------
+SBGui
+-----------------------------------------------------------------------------------------------------
+- Implementar en la clase GUIPrimerDialogo, la opcion de captar idioma.
+- Implementar en la clase GUIPrimerDialogo, la opcion de mostrar los screenshots.
+-----------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------
+SBBd
+-----------------------------------------------------------------------------------------------------
+- Falta por implementar.
+-----------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------
+QPServer:
+-----------------------------------------------------------------------------------------------------
+
+Control:
+- Falta por completar.
+
+Logica:
+- Falta por completar.
+
+Red:
+- Terminar el servidor de transacciones.
+- Validacion de usuarios.
+- Cifrar conexiones con ssl.
+
+BD:
+- Falta
+-----------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------
+QPCliente
+-----------------------------------------------------------------------------------------------------
+
+Control:
+- Falta por completar.
+
+Logica:
+- Falta por completar.
+
+Red:
+- Terminar la comunicacion de los clientes/admin con el servidor de transacciones
+- Recibir paquetes XML e interpretarlos.
+
+GUI:
+- Terminar la interfaz del cliente.
+- Empezar la interfaz del administrador. +
+- Interfazes de formas. (documentos contables).
+- Limpiar el codigo.
+- Terminar de escribir los XML's. 
+- Leer y crear las tool bars a partir de un XML. +
+- Darle funcionabilidad a los botones del menu. +/-
+- Terminar el selector de usuarios HABITUALES. +/-
+- Leer usuarios HABITUALES desde un XML.
+- Hacer la autentificacion de usuarios.
+- Validar datos.
+- Leer que tipo de interfaz es elegida del archivo de configuracion.
+- Implementar un dialogo de configuracion, por ejemplo configurar el tipo de intefaz, etc...
+
+BD:
+- Falta
+-----------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------
+QPAdmin
+-----------------------------------------------------------------------------------------------------
+
+Control:
+- Falta por completar.
+
+Logica:
+- Falta por completar.
+
+Red:
+- Comunicacion de los admin con el servidor de transacciones
+- Recibir paquetes XML e interpretarlos.
+
+GUI:
+- Empezar la interfaz del administrador. +
+- Limpiar el codigo.
+- Terminar de escribir los XML's. 
+- Leer y crear las tool bars a partir de un XML. +
+- Validar datos.
+
+BD:
+- Falta
+-----------------------------------------------------------------------------------------------------

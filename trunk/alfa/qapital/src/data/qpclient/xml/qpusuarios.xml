@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<QPUSERS>
+	<user>
+		<login>usuario</login>
+		<face>../../../src/data/qpclient/gui/faces/face.png</face>
+	</user>
+	<user>
+		<login>krawek</login>
+		<face>../../../src/data/qpclient/gui/faces/default2.png</face>
+	</user>
+	<user>
+		<login>juli</login>
+		<face>../../../src/data/qpclient/gui/faces/Star3.png</face>
+	</user>
+	<user>
+		<login>angela</login>
+		<face>../../../src/data/qpclient/gui/faces/Smiley.png</face>
+	</user>
+	<user>
+		<login>llehinad</login>
+		<face>../../../src/data/qpclient/gui/faces/Teddybear.png</face>
+	</user>
+</QPUSERS>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<!--	Este archivo contiene  la definicion de los menus de Qapital.
+	<GMNS> La raiz
+		<Menu> Define un menu, con un id de menu, el numero de filas y de columnas
+			<Boton> Define un boton que contiene
+				<bid> id del boton
+				<texto> texto del boton
+				<funcion> contiene la funcion que desempeña el boton (vea FuncionesGuiMenus en la documentacion).
+	
+	Autor: David Cuadrado (krawek@linuxmail.org)
+	CetiSoft © 2004
+-->
+
+<GMNS>
+	<Menu mnid="0" filas="4" columnas="1" >
+  		<Boton>
+  			<bid>0</bid>
+  			<texto>Contabilidad</texto>
+			<funcion>QPLogica.Sistema</funcion>
+ 		</Boton>
+  		<Boton>
+  			<bid>1</bid>
+  			<texto>Configurar empresa</texto>
+			<funcion>QPLogica.Empresa.Configurar</funcion>
+ 		</Boton>
+  		<Boton>
+  			<bid>2</bid>
+  			<texto>Preferencias</texto>
+			<funcion>Qapital.Configurar</funcion>
+ 		</Boton>
+  		<Boton>
+  			<bid>3</bid>
+  			<texto>Ayuda</texto>
+			<funcion>Qapital.Ayuda</funcion>
+ 		</Boton>
+	</Menu>
+<!--	
+	No es posible tener mas de una etiqueta <Menu> por ahora...
+	<Menu mnid="1" filas="1" columnas="1" >
+  		<Boton>
+  			<bid>0</bid>
+  			<texto>Prueba 1</texto>
+			<icono>icono1.png</icono>
+			<funcion>NOFUNC</funcion>
+ 		</Boton>
+	</Menu>	
+	<Menu mnid="2" filas="1" columnas="1" >
+  		<Boton>
+  			<id>0</id>
+  			<texto>Prueba 2</texto>
+			<icono>icono2.png</icono>
+			<funcion>NOFUNC</funcion>
+ 		</Boton>
+	</Menu>
+-->
+</GMNS>
+

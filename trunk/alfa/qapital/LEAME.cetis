@@ -1,0 +1,43 @@
+LEAME.cetis
+---------------
+
+Escrito por krawek@linuxmail.org
+
+En el presente documento intentare dar una explicacion acerca de la estructura del proyecto.
+
+Estructura de directorios
+-----------------------------
+Siguiendo lo previsto por el estandar, la siguiente es la estructura de directorios del proyecto
+qapital.
+
+								              src
+							        -----------------------
+							       /                                 \
+						              /                                   \ 
+						   servidor                       cliente y admin	 
+					           /    |  \    \ 			    /      |       \
+						  /     |   \    red			   /       |        \
+						red	|   logica			gui   logica  red
+						  control				
+
+
+La documentacion completa se puede consultar en el documento sobre la guia de implementacion del estandar.
+
+adicional a esto tenemos un directorio llamado sbase donde alojaremos las siguientes librerias estaticas:
+
+sbbd/  
+sbcontrol/  
+sbgui/  
+sblogica/  
+sbred/  
+sbxml/
+
+por ahora,
+
+gui/
+logica/
+red/
+
+estan configurados como aplicaciones, pero tal vez se deban compilar como librerias.
+
+

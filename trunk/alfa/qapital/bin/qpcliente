@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ -e src/cliente/qpcliente/ ]
+then
+	cd src/cliente/qpcliente/
+	if [ -x qpcliente ]
+	then
+		./qpcliente
+	fi
+fi
+
