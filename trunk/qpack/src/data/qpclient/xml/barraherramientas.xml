@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<INFOBARRAS>
+	<barra>
+		<IDBarra> 0 </IDBarra>
+		<grupoBotones numbotones = "2">
+			<boton>
+				<id>0</id>
+				<texto>Primer boton</texto>
+				<icono>../SBPixmap/error.png</icono>
+				<funcion>cerrar</funcion> 
+			</boton>
+			<separador/>
+			<boton>
+				<id>1</id>
+				<texto></texto>
+				<icono>../SBPixmap/error.png</icono>
+				<funcion>atras</funcion>
+			</boton>
+		</grupoBotones>
+	</barra>
+</INFOBARRAS>

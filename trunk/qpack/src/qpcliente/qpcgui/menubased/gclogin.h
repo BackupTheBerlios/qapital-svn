@@ -32,7 +32,7 @@
 #define GCLOGIN_H
 
 /**
-	@TODO: hacer un selector de usuarios al estilo kdm con qiconview.
+ * @TODO: hacer un selector de usuarios al estilo kdm con qiconview.
 */
 
 #include <qgroupbox.h> 
@@ -46,39 +46,41 @@
 
 #include "gclselectuser.h"
 
-/**
-@author CetiSoft
-*/
-
-class GCLogin : public QGroupBox
+namespace qpcgui
 {
-	Q_OBJECT
-	private:
-		QLabel *gclLabelUsuario, *gclLabelPassword;
-		QLineEdit *gclCapturarUsuario, *gclCapturarPassword;
-		QPushButton *continuar, *salir;
-		QFrame *frameLogin;
-		GCLSelectUser *selector;
-		QString login, password;
-		
-	public:
-    		GCLogin(QWidget *parent = 0, const char *name = 0);
-    		~GCLogin();
-		void crearEntradas();
-		QString obtenerLogin();
-		QString obtenerPassword();
-		
-	public slots:
-		void gclContinuar();
-		void usuarioEscogido(QIconViewItem *);
-		
-	signals:
-		void gclFueClickeado();
+	/**
+	* @author CetiSoft
+	*/
 	
-	protected:
-		QGridLayout *gclLayout;
-		QGridLayout *gclFrameLayout;
-
-};
-
+	class GCLogin : public QGroupBox
+	{
+		Q_OBJECT
+		private:
+			QLabel *gclLabelUsuario, *gclLabelPassword;
+			QLineEdit *gclCapturarUsuario, *gclCapturarPassword;
+			QPushButton *continuar, *salir;
+			QFrame *frameLogin;
+			GCLSelectUser *selector;
+			QString login, password;
+			
+		public:
+			GCLogin(QWidget *parent = 0, const char *name = 0);
+			~GCLogin();
+			void crearEntradas();
+			QString obtenerLogin();
+			QString obtenerPassword();
+			
+		public slots:
+			void gclContinuar();
+			void usuarioEscogido(QIconViewItem *);
+			
+		signals:
+			void gclFueClickeado();
+		
+		protected:
+			QGridLayout *gclLayout;
+			QGridLayout *gclFrameLayout;
+	
+	};
+}
 #endif

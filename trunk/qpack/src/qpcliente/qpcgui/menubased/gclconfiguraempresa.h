@@ -38,24 +38,27 @@
 #include "guitelefonos.h"
 #include "guiemail.h"
 
-/**
-@author CetiSoft
-*/
 
-class GCLConfiguraEmpresa : public QVGroupBox
+namespace qpcgui
 {
-	Q_OBJECT
-	private:
-		GUIFormularioGeneral *configGeneral;
-		GUIEMail *configEMails;
-		GUITelefonos *configTelefonos;
-		GUIDirecciones *configDirecciones;
-		QTabWidget *contenedor;
-		
-	public:
-		GCLConfiguraEmpresa(QWidget *parent = 0, const char *name = 0);
-		~GCLConfiguraEmpresa();
-		void init();
-};
-
+	/**
+	@author CetiSoft
+	*/
+	
+	class GCLConfiguraEmpresa : public QVGroupBox
+	{
+		Q_OBJECT
+		private:
+			sbgui::GUIFormularioGeneral *configGeneral;
+			sbgui::GUIEMail *configEMails;
+			sbgui::GUITelefonos *configTelefonos;
+			sbgui::GUIDirecciones *configDirecciones;
+			QTabWidget *contenedor;
+			
+		public:
+			GCLConfiguraEmpresa(QWidget *parent = 0, const char *name = 0);
+			~GCLConfiguraEmpresa();
+			void init();
+	};
+}
 #endif

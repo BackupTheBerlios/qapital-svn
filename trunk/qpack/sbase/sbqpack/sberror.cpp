@@ -136,7 +136,7 @@ Esta funcion se encarga de devolver el mensaje de error
 */
 void SBError::agregarError( QString id , QString cosa )
 {
-     SBError::cacheErrores.insert( id , new QString( cosa ) );
+	SBError::cacheErrores.insert( id , new QString( cosa ) );
 }
 
 /**

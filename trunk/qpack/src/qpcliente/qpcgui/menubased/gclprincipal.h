@@ -49,51 +49,52 @@
 #include "gclogin.h"
 #include "gclconfiguraempresa.h"
 
-typedef QValueList<GUIMenus*> ListaDeMenus;
+typedef QValueList<sbgui::GUIMenus*> ListaDeMenus;
 
 /**
 @author cetiSoft
 */
-
-class GCLPrincipal : public QMainWindow
+namespace qpcgui
 {
-	Q_OBJECT
-
-	private:
-		const int NUMERO_DE_BOTONES;	
-		int idActual;			
-		GUIMenus *gcpEntrada;
-		GUIMenus *gcpSegundo;
-		ListaDeMenus menus;
-		QWidgetStack *gcpContenedor;
-		QVGroupBox *gcpFrame;
-		GUIBarraIconos *gcpBarraIconos;
-		GCLCrearCliente *gcpClientes;
-		GCLogin *ventanaLogin;
-		GUITitulo *gcpTitulo;
-		GUIHelp *ayuda;
-		GCLConfiguraEmpresa *configurarEmpresa;
-		ClnRed *conexion;
-		
-	public:
-		GCLPrincipal(ClnRed * cnx, QWidget *parent = 0, const char *name = 0);
-		~GCLPrincipal();
-		bool conectar();
-				
-	public slots:
-		void gcpCambiarWidget(uint );
-		void gcpCambiarWidget(GUIMenus *);
-		void gcpBotonClickeado(int );
-		void gcpContinuar();
-		void gcpAnadirWidget(QWidget *nuevo, int id);
-		void gcpEnviarAuth();
-				
-	protected:
-		//QGridLayout *gcpGridBase;
-		void init();
-		void crearMenus();
-		void crearBarras();
-		void crearFormas();
-};
-
+	class GCLPrincipal : public QMainWindow
+	{
+		Q_OBJECT
+	
+		private:
+			const int NUMERO_DE_BOTONES;	
+			int idActual;			
+			sbgui::GUIMenus *gcpEntrada;
+			sbgui::GUIMenus *gcpSegundo;
+			ListaDeMenus menus;
+			QWidgetStack *gcpContenedor;
+			QVGroupBox *gcpFrame;
+			sbgui::GUIBarraIconos *gcpBarraIconos;
+			GCLCrearCliente *gcpClientes;
+			GCLogin *ventanaLogin;
+			sbgui::GUITitulo *gcpTitulo;
+			sbgui::GUIHelp *ayuda;
+			GCLConfiguraEmpresa *configurarEmpresa;
+			qpcred::ClnRed *conexion;
+			
+		public:
+			GCLPrincipal(qpcred::ClnRed * cnx, QWidget *parent = 0, const char *name = 0);
+			~GCLPrincipal();
+			bool conectar();
+					
+		public slots:
+			void gcpCambiarWidget(uint );
+			void gcpCambiarWidget(sbgui::GUIMenus *);
+			void gcpBotonClickeado(int );
+			void gcpContinuar();
+			void gcpAnadirWidget(QWidget *nuevo, int id);
+			void gcpEnviarAuth();
+					
+		protected:
+			//QGridLayout *gcpGridBase;
+			void init();
+			void crearMenus();
+			void crearBarras();
+			void crearFormas();
+	};
+}
 #endif

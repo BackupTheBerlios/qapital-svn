@@ -7,6 +7,26 @@
  *             
 */
 
+/********************************************************************************
+ *   Copyright (C) 2004 by CetiSoft                                        	*
+ *   cetisoft@linuxmail.org                                                	*
+ *                                                                         	*
+ *   This program is free software; you can redistribute it and/or modify  	*
+ *   it under the terms of the GNU General Public License as published by  	*
+ *   the Free Software Foundation; either version 2 of the License, or     	*
+ *   (at your option) any later version.                                   	*
+ *                                                                         	*
+ *   This program is distributed in the hope that it will be useful,       	*
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        	*
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        	*
+ *   GNU General Public License for more details.                          	*
+ *                                                                         	*
+ *   You should have received a copy of the GNU General Public License     	*
+ *   along with this program; if not, write to the                         	*
+ *   Free Software Foundation, Inc.,                                       	*
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             	*
+ *******************************************************************************/
+ 
 /**
   @TODO : Generar un lector de logs, el cual identifique cuales son de X tipo , dependiendo de el nivel 
          con el cual fueron loggueados
@@ -73,10 +93,8 @@
 
 #include "sblogger.h"
 
-SBLogger::SBLogger(Q_UINT16 nivel, QString ruta) : QObject(),
-RUTA_LOGS(ruta),
-RUTA_DEFECTO_SERVIDOR  ( RUTA_LOGS+"QapitalServer.log"  ),
-RUTA_DEFECTO_CLIENTE   ( RUTA_LOGS+"QapitalCliente.log" ),
+SBLogger::SBLogger(int nivel, Entidades entidad, QString ruta) : QObject(),
+RUTA_LOG(ruta),
 FORMATEO_DEFECTO_HORA  ( "hh:mm:ss-AP" ),
 FORMATEO_DEFECTO_FECHA ( "dd:MMMM:yyyy"),
 nivel(nivel)
@@ -84,6 +102,7 @@ nivel(nivel)
 	//qDebug("[Construyendo SBLogger]");
 	iniciarLogger();
 	asignarNivel(nivel);
+	this->ponerEntidad(entidad);
 }
 
 /**
@@ -96,30 +115,19 @@ SBLogger::~SBLogger()
 
 void SBLogger::iniciarLogger()
 {
-	QDir logs(RUTA_LOGS);
+	QDir logs(RUTA_LOG);
 	if (! logs.exists())
 	{
-		if ( ! logs.mkdir( RUTA_LOGS ) )
+		if ( ! logs.mkdir( RUTA_LOG ) )
 		{
-			std::cerr << "Error creando directorio para logs. " << RUTA_LOGS << std::endl;
+			std::cerr << QObject::tr("Error creando directorio para logs ") << RUTA_LOG << std::endl;
 		}
 	}
 }
 
-void SBLogger::ponerEntidad(Q_UINT16 donde)
+void SBLogger::ponerEntidad(int donde)
 {
 	entidad = donde;
-}
-
-QString  SBLogger::rutaLogCliente() 
-{
-    return  RUTA_DEFECTO_CLIENTE;
-} 
-
-
-QString SBLogger:: rutaLogServidor() 
-{
-    return  RUTA_DEFECTO_SERVIDOR;
 }
 
 QString SBLogger:: fechaLog()
@@ -142,7 +150,7 @@ QString SBLogger:: horaLog()
 @param ponerNivel:  setea una prioridad predeterminada
 */
 
-void  SBLogger:: asignarPrioridad( Q_UINT16 ponerPrioridad )
+void  SBLogger:: asignarPrioridad( int ponerPrioridad )
 {
 	prioridad = ponerPrioridad;
 	switch( ponerPrioridad )
@@ -173,7 +181,7 @@ void  SBLogger:: asignarPrioridad( Q_UINT16 ponerPrioridad )
 @param ponerNivel:  setea un nivel predeterminado
 */
 
-void  SBLogger::asignarNivel( Q_UINT16 ponerNivel )
+void  SBLogger::asignarNivel( int ponerNivel )
 {
 	switch ( ponerNivel)
 	{
@@ -188,11 +196,11 @@ QString SBLogger::obtenerNivel()
    return NIVEL;
 }
 
-void SBLogger::salvarLog(Q_UINT16 prioridad, Q_UINT16 entidad, QString texto)
+void SBLogger::salvarLog(int prioridad, QString texto)
 {
 	iniciarLogger();
 	asignarPrioridad(prioridad);
-	ponerEntidad(entidad);
+// 	ponerEntidad(entidad);
 	
 	textoAloguear =  QString( PRIORIDAD+"::"+fechaLog()+"::"+horaLog()+"::"+texto );
 	switch ( nivel )
@@ -224,13 +232,8 @@ void SBLogger::salvarLog(Q_UINT16 prioridad, Q_UINT16 entidad, QString texto)
 void SBLogger::guardarEnArchivo()
 {
 	QFile *fc;
-		
-	if (entidad == 1)
-		fc = new QFile(RUTA_DEFECTO_SERVIDOR);
-     	else if (entidad == 0)
-		fc = new QFile(RUTA_DEFECTO_CLIENTE);
-	else
-		return;
+	
+	fc = new QFile(RUTA_LOG);
 	
 	if(fc->open( IO_WriteOnly | IO_Append ))
      	{

@@ -52,31 +52,32 @@
 
 #include "guimdimainwindow.h"
 
-
-/**
- * @short Esta es la ventana principal del MDI
- * @author CetiSoft
-*/
-class GCLMdiMainWindow : public GUIMdiMainWindow
+namespace qpcgui
 {
-	Q_OBJECT
-
-	private:
-		QWorkspace* ws;
-		QVBox *vbox;
-    		QPrinter *printer;
-    		QPopupMenu *ventanas;
-		
-	public:
-    		GCLMdiMainWindow();
-    		~GCLMdiMainWindow();
-		
-	public slots:
-		void aboutQt();
-		void about();
-		void ordenarVentanas();
-		void ventanaActivada(int id);
-		void slotPrincipal();
-};
-
+	/**
+	* @short Esta es la ventana principal del MDI
+	* @author CetiSoft
+	*/
+	class GCLMdiMainWindow : public sbgui::GUIMdiMainWindow
+	{
+		Q_OBJECT
+	
+		private:
+			QWorkspace* ws;
+			QVBox *vbox;
+			QPrinter *printer;
+			QPopupMenu *ventanas;
+			
+		public:
+			GCLMdiMainWindow();
+			~GCLMdiMainWindow();
+			
+		public slots:
+			void aboutQt();
+			void about();
+			void ordenarVentanas();
+			void ventanaActivada(int id);
+			void slotPrincipal();
+	};
+}
 #endif

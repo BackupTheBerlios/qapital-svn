@@ -50,7 +50,7 @@ sbgui::GUIBarraIconos::GUIBarraIconos( QMainWindow * padre , const char * nombre
 	setLabel("este es el label");
 }
 
- void sbgui::GUIBarraIconos::GUIBarraIconos( QMainWindow * padre , const char * nombre, QString archivoXml)
+sbgui::GUIBarraIconos::GUIBarraIconos( QMainWindow * padre , const char * nombre, QString archivoXml)
 {
 }
 
@@ -93,7 +93,7 @@ void sbgui::GUIBarraIconos::gbrPonerIcono(QString fileName, int id)
 }
 
 
-void GUIBarraIconos::gbrPonerTexto (QString texto, int id)
+void sbgui::GUIBarraIconos::gbrPonerTexto (QString texto, int id)
 {
 	if(id < 0 || id > gbrBotones)
 		std::cout << "guibarraiconocs.cpp: gbrPonerTexto(): el id no corresponde." << std::endl; // hay que lanzar una excepcion que la captura el logger
@@ -113,7 +113,7 @@ void GUIBarraIconos::gbrPonerTexto (QString texto, int id)
 }
 
 //gbrInsertar:
-void GUIBarraIconos::gbrFueClickeado(int id)
+void sbgui::GUIBarraIconos::gbrFueClickeado(int id)
 {
 	emit gbrClicked( id );
 }

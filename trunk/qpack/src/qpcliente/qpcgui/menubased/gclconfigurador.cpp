@@ -27,13 +27,13 @@
 
 #include "gclconfigurador.h"
 
-GCLConfigurador::GCLConfigurador(QWidget *parent, const char *name)
+qpcgui::GCLConfigurador::GCLConfigurador(QWidget *parent, const char *name)
  : QVGroupBox(parent, name)
 {
 }
 
 
-GCLConfigurador::~GCLConfigurador()
+qpcgui::GCLConfigurador::~GCLConfigurador()
 {
 }
 

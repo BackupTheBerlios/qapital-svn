@@ -27,7 +27,7 @@
 
 #include "gadpaneldeherramientas.h"
 
-GADPanelDeHerramientas::GADPanelDeHerramientas(QWidget *parent, const char *name) : QDockWindow(parent, name)
+qpagui::GADPanelDeHerramientas::GADPanelDeHerramientas(QWidget *parent, const char *name) : QDockWindow(parent, name)
 {
 	box = new QVBox(this);
 	setWidget(box);
@@ -48,11 +48,11 @@ GADPanelDeHerramientas::GADPanelDeHerramientas(QWidget *parent, const char *name
 }
 
 
-GADPanelDeHerramientas::~GADPanelDeHerramientas()
+qpagui::GADPanelDeHerramientas::~GADPanelDeHerramientas()
 {
 }
 
-void GADPanelDeHerramientas::addItem(QWidget *widget, const QString &texto)
+void qpagui::GADPanelDeHerramientas::addItem(QWidget *widget, const QString &texto)
 {
 	toolBox->addItem(widget, texto);
 }

@@ -26,7 +26,7 @@ Constructor
 @param host: Direreccion del servidor
 @param port: puerto del servidor.
 */
-ClnRed::ClnRed(const QString &host, Q_UINT16 port) : QSocket(), host(host), puerto(port), conectado(false)
+qpcred::ClnRed::ClnRed(const QString &host, int port) : QSocket(), host(host), puerto(port), conectado(false)
 {
 	qDebug("[Construyendo ClnRed]");
 }
@@ -34,12 +34,12 @@ ClnRed::ClnRed(const QString &host, Q_UINT16 port) : QSocket(), host(host), puer
 /**
 Destructor
 */
-ClnRed::~ClnRed()
+qpcred::ClnRed::~ClnRed()
 {
 	qDebug("[Destruyendo ClnRed]");
 }
 
-void ClnRed::conectar()
+void qpcred::ClnRed::conectar()
 {
 	QObject::connect( this, SIGNAL(connected()), SLOT(clnSocketConectado()) );
         QObject::connect( this, SIGNAL(connectionClosed()),  SLOT(clnConexionCerrada()) );
@@ -49,7 +49,7 @@ void ClnRed::conectar()
 	
 }
 
-bool ClnRed::estaConectado()
+bool qpcred::ClnRed::estaConectado()
 {
 	return conectado;
 }
@@ -58,7 +58,7 @@ bool ClnRed::estaConectado()
 /**
 Slot encargado de desconectarse
 */
-void ClnRed::clnBye()
+void qpcred::ClnRed::clnBye()
 {
 	QTextStream os(this);
 	// Enviar un paquete <CLOSE>...</CLOSE>
@@ -67,7 +67,7 @@ void ClnRed::clnBye()
 /**
 Este slot es llamado al cerrarse la conexion
 */
-void ClnRed::clnCerrarConexion()
+void qpcred::ClnRed::clnCerrarConexion()
 {
 	clnBye();
         this->close();
@@ -86,7 +86,7 @@ Slot que se encarga de enviar los datos al servidor.
 @param str: es la cadena enviada al servidor.
 @see clnEnviarAlServer(QPDocumentoXML doc)
 */
-void ClnRed::clnEnviarAlServer(QString str)
+void qpcred::ClnRed::clnEnviarAlServer(QString str)
 {
         QTextStream os(this);
 	os << str;
@@ -97,7 +97,7 @@ Slot sobrecargado encargada de enviar al servidor un documento XML
 @param doc: documento XML que sera enviado al servidor.
 @see clnEnviarAlServer(QString str)
 */
-void ClnRed::clnEnviarAlServer(QPDocumentoXML doc)
+void qpcred::ClnRed::clnEnviarAlServer(sbxml::QPDocumentoXML doc)
 {
 	clnEnviarAlServer(doc.toString() );
 }
@@ -105,7 +105,7 @@ void ClnRed::clnEnviarAlServer(QPDocumentoXML doc)
 /**
 slot que se activa cuando el servidor esta listo.
 */
-void ClnRed::clnEstaListo()
+void qpcred::ClnRed::clnEstaListo()
 {
         // read from the server
 	conectado = true;
@@ -118,30 +118,30 @@ void ClnRed::clnEstaListo()
 /**
 Este slot se conecta cuando el socket ha sido conectado.
 */
-void ClnRed::clnSocketConectado()
+void qpcred::ClnRed::clnSocketConectado()
 {
 	conectado = true;
 	std::cout << "Conectado!" << std::endl;
-	QPLOGGER.salvarLog(SBLogger::QP_INFO, SBLogger::CLIENTE, tr("Se logro conectar al servidor"));
+	QPLOGGER.salvarLog(SBLogger::QP_INFO, tr("Se logro conectar al servidor"));
 }
 
 /**
 Se activa cuando la conexion ha sido cerrada.
 */
-void ClnRed::clnConexionCerrada()
+void qpcred::ClnRed::clnConexionCerrada()
 {
 	std::cout << "Conexion cerrada" << std::endl;
-	QPLOGGER.salvarLog(SBLogger::QP_INFO, SBLogger::CLIENTE, tr("La conexion con el servidor fue cerrada.") );
+	QPLOGGER.salvarLog(SBLogger::QP_INFO, tr("La conexion con el servidor fue cerrada.") );
 	conectado = false;
 }
 
 /**
 Se activa cuando el socket ha sido cerrado
 */
-void ClnRed::clnSocketCerrado()
+void qpcred::ClnRed::clnSocketCerrado()
 {
 	std::cout << "Socket cerrado" << std::endl;
-	QPLOGGER.salvarLog(SBLogger::QP_INFO, SBLogger::CLIENTE, tr("La conexion con el servidor fue cerrada.") );
+	QPLOGGER.salvarLog(SBLogger::QP_INFO, tr("La conexion con el servidor fue cerrada.") );
 	conectado = false;
 }
 
@@ -149,10 +149,10 @@ void ClnRed::clnSocketCerrado()
 Se activa cuando ha ocurrido un error, el codigo de error sera reportado en e
 @param e: codigo de error
 */
-void ClnRed::clnSocketError( int e )
+void qpcred::ClnRed::clnSocketError( int e )
 {
         std::cout << "Ocurrio un error en la conexion. CodError: " << e << std::endl;
-	QPLOGGER.salvarLog(SBLogger::QP_ERROR, SBLogger::CLIENTE, tr("Ocurrio un error en la conexion con el servidor.") );
+	QPLOGGER.salvarLog(SBLogger::QP_ERROR, tr("Ocurrio un error en la conexion con el servidor.") );
 	conectado = false;
 }
 

@@ -38,34 +38,36 @@
 
 #include "guitabla.h"
 
-/**
-@author cetiSoft
-*/
-
-class GCLCrearCliente : public QGroupBox
+namespace qpcgui
 {
-	Q_OBJECT
-	private:
-		QComboBox *gccDepartamento, *gccCiudad, *gccTelefono;
-		QLabel *gccPNombre, *gccPIdent, *gccPTelefono, *gccPDireccion, *gccPCiudad, *gccPDepartamento;
-		QLineEdit *gccLNombre,*gccLIdent, /**gccLTelefono,*/ *gccLDireccion;
-		GUITabla *gccTabla;
-		QWidget *gccFormulario;
-		QPushButton *insertar;
-		QStringList listaDeDatos;
-		
-	public:
-		GCLCrearCliente(QWidget *padre = 0, const char *nombre = 0);
-		~GCLCrearCliente();
-		void gccCrearFormulario();
-		void gccCrearTabla();
-	protected:
-		QGridLayout *gccGridBase;
-		QGridLayout *gccGridFormulario;
-		
-	private slots:
-		void gccClikedInsertar();
-		void gccSelectDepartamento(int);
-};
-
+	/**
+	@author cetiSoft
+	*/
+	
+	class GCLCrearCliente : public QGroupBox
+	{
+		Q_OBJECT
+		private:
+			QComboBox *gccDepartamento, *gccCiudad, *gccTelefono;
+			QLabel *gccPNombre, *gccPIdent, *gccPTelefono, *gccPDireccion, *gccPCiudad, *gccPDepartamento;
+			QLineEdit *gccLNombre,*gccLIdent, /**gccLTelefono,*/ *gccLDireccion;
+			sbgui::GUITabla *gccTabla;
+			QWidget *gccFormulario;
+			QPushButton *insertar;
+			QStringList listaDeDatos;
+			
+		public:
+			GCLCrearCliente(QWidget *padre = 0, const char *nombre = 0);
+			~GCLCrearCliente();
+			void gccCrearFormulario();
+			void gccCrearTabla();
+		protected:
+			QGridLayout *gccGridBase;
+			QGridLayout *gccGridFormulario;
+			
+		private slots:
+			void gccClikedInsertar();
+			void gccSelectDepartamento(int);
+	};
+}
 #endif

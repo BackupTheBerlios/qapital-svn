@@ -28,13 +28,13 @@ Construye la ventana principal
 - Hacer dialogos de configuracion 
 
 */
-GCLMdiMainWindow::GCLMdiMainWindow() : GUIMdiMainWindow(), printer(0)
+qpcgui::GCLMdiMainWindow::GCLMdiMainWindow() : GUIMdiMainWindow(), printer(0)
 {
 	INIQPC;
 	QPopupMenu *file = new QPopupMenu( this );
 	menuBar()->insertItem( tr("&Archivo"), file );
 	setUsesBigPixmaps(false);
-	this->setIcon(QPixmap(GUIDATADIR+"/img/logo.png"));
+	this->setIcon(QPixmap(sbqpack::GUIDATADIR+"/img/logo.png"));
 
 	file->insertItem( tr("&Salir"), qApp, SLOT( closeAllWindows() ), CTRL+Key_Q );
 
@@ -67,7 +67,7 @@ GCLMdiMainWindow::GCLMdiMainWindow() : GUIMdiMainWindow(), printer(0)
 /**
  * Destructor
  */
-GCLMdiMainWindow::~GCLMdiMainWindow()
+qpcgui::GCLMdiMainWindow::~GCLMdiMainWindow()
 {
 	if ( printer )
 		delete printer;
@@ -77,7 +77,7 @@ GCLMdiMainWindow::~GCLMdiMainWindow()
 /**
  * Funcion que muestra una dialog con los creditos de las librerias Qt.
  */
-void GCLMdiMainWindow::aboutQt()
+void qpcgui::GCLMdiMainWindow::aboutQt()
 {
 	QMessageBox::aboutQt( this, tr("QApital: Aplicacion cliente") );
 }
@@ -85,7 +85,7 @@ void GCLMdiMainWindow::aboutQt()
 /**
 Funcion que muestra una dialogo con los creditos de la aplicacion.
  */
-void GCLMdiMainWindow::about()
+void qpcgui::GCLMdiMainWindow::about()
 {
 	QMessageBox::about( this, "QApital", tr("<h3><b>QPClient: Aplicacion cliente</b></h3><p>Este programa hace parte de QApital, esta aplicacion se conecta al servidor e interactua con él.</p>") );    
 }
@@ -93,7 +93,7 @@ void GCLMdiMainWindow::about()
 /**
 Ordena las ventans al interior del MDI.
  */
-void GCLMdiMainWindow::ordenarVentanas()
+void qpcgui::GCLMdiMainWindow::ordenarVentanas()
 {
 	ventanas->clear();
 	int cascada = ventanas->insertItem(tr("&Cascada"), ws, SLOT(cascade() ) );
@@ -118,7 +118,7 @@ void GCLMdiMainWindow::ordenarVentanas()
 /**
 Da focus a una ventana activada
  */
-void GCLMdiMainWindow::ventanaActivada( int id )
+void qpcgui::GCLMdiMainWindow::ventanaActivada( int id )
 {
 	QWidget* w = ws->windowList().at( id );
 	if ( w )
@@ -130,7 +130,7 @@ void GCLMdiMainWindow::ventanaActivada( int id )
  * Este es el slot principal, esta funcion hace parte del motor de la GUI y enlaza por el nombre dado en el archivo XML una accion determinada.
  * @b NOTA: Esta funcion hace parte del motor de creacion de GUI en base a XML.
  */
-void GCLMdiMainWindow::slotPrincipal()
+void qpcgui::GCLMdiMainWindow::slotPrincipal()
 {
 	// Aqui se agregan todas las acciones que se deseen
 	QString actionName = QObject::sender()->name();

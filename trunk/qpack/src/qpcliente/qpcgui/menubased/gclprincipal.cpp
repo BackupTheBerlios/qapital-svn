@@ -31,11 +31,11 @@
  * Constructor
 */
 
-GCLPrincipal::GCLPrincipal( ClnRed *cnx, QWidget *parent, const char *name) : QMainWindow(parent, name), NUMERO_DE_BOTONES(4), idActual(0), conexion(cnx)
+qpcgui::GCLPrincipal::GCLPrincipal( qpcred::ClnRed *cnx, QWidget *parent, const char *name) : QMainWindow(parent, name), NUMERO_DE_BOTONES(4), idActual(0), conexion(cnx)
 {
 	qDebug( "[Construyendo GCLPrincipal]" );
-	setCaption(APPNAME + " v" + VERSION );
-	setIcon(QPixmap(GUIDATADIR + QString("iconos/qplogo.png")) );
+	setCaption(sbqpcliente::APPNAME + " v" + sbqpcliente::VERSION );
+	setIcon(QPixmap(sbqpack::GUIDATADIR + QString("iconos/qplogo.png")) );
 	this->init();
 //	this->crearMenus();
 	this->crearBarras();
@@ -44,7 +44,7 @@ GCLPrincipal::GCLPrincipal( ClnRed *cnx, QWidget *parent, const char *name) : QM
 /**
 Destructor
 */
-GCLPrincipal::~GCLPrincipal()
+qpcgui::GCLPrincipal::~GCLPrincipal()
 {
 	qDebug( "[GCLPrincipal destruido]" );
 }
@@ -52,10 +52,10 @@ GCLPrincipal::~GCLPrincipal()
 /**
 Descripcion: Esta funcion sirve para inicializar la GUI de la ventana principal
 */
-void GCLPrincipal::init()
+void qpcgui::GCLPrincipal::init()
 {
 	gcpFrame = new QVGroupBox(this);
-	gcpTitulo = new GUITitulo(gcpFrame, "Titulo", GUIDATADIR + "iconos/qplogo1.png", VERSION);
+	gcpTitulo = new sbgui::GUITitulo(gcpFrame, "Titulo", sbqpack::GUIDATADIR + "iconos/qplogo1.png", sbqpcliente::VERSION);
 
 	ventanaLogin = new GCLogin(gcpFrame);
 	connect(ventanaLogin, SIGNAL(gclFueClickeado()), SLOT(gcpContinuar()) );
@@ -72,12 +72,12 @@ void GCLPrincipal::init()
 Esta funcion se encarga de crear los menus
 */
 
-void GCLPrincipal::crearMenus()
+void qpcgui::GCLPrincipal::crearMenus()
 {
-	QFile *archivoXML = new QFile(XMLCLIENTDATADIR + "guimenus.xml");
+	QFile *archivoXML = new QFile(sbqpcliente::XMLCLIENTDATADIR + "guimenus.xml");
 	QXmlInputSource *source = new QXmlInputSource( archivoXML );
 	QXmlSimpleReader reader;
-	GUILectorXml *handler = new GUILectorXml();
+	sbgui::GUILectorXml *handler = new sbgui::GUILectorXml();
 	reader.setContentHandler( handler );
 	
 	if ( ! reader.parse( source, true ) )
@@ -88,7 +88,7 @@ void GCLPrincipal::crearMenus()
 	std::cout << "Numero de menus: " << handler->obtenerNumeroDeMenus() << std::endl;
 	for (int i = 0; i < handler->obtenerNumeroDeMenus(); i++)
 	{
-		gcpEntrada = new GUIMenus(gcpFrame, "Menu/XML", handler, i);
+		gcpEntrada = new sbgui::GUIMenus(gcpFrame, "Menu/XML", handler, i);
 		gcpEntrada->resize( gcpEntrada->sizeHint() );
 		connect(gcpEntrada,SIGNAL(clicked(int)),this,SLOT(gcpBotonClickeado(int)) );
 		menus.append( gcpEntrada );
@@ -99,16 +99,16 @@ void GCLPrincipal::crearMenus()
 /**
 esta funcion se encarga de crear las barras de herramientas, en el momento esta incompleta, se leera de un archivo XML.
 */
-void GCLPrincipal::crearBarras()
+void qpcgui::GCLPrincipal::crearBarras()
 {
-	gcpBarraIconos = new GUIBarraIconos(this, "barra", NUMERO_DE_BOTONES);
+	gcpBarraIconos = new sbgui::GUIBarraIconos(this, "barra", NUMERO_DE_BOTONES);
 	gcpBarraIconos->setMovingEnabled(false);
 	gcpBarraIconos->setOffset ( 10 );
 	
-	gcpBarraIconos->gbrPonerIcono(GUIDATADIR + "iconos/back.png", 0);
-	gcpBarraIconos->gbrPonerIcono(GUIDATADIR + "iconos/next.png", 1);
-	gcpBarraIconos->gbrPonerIcono(GUIDATADIR + "iconos/frameprint.png", 2);
-	gcpBarraIconos->gbrPonerIcono(GUIDATADIR + "iconos/error.png", 3);
+	gcpBarraIconos->gbrPonerIcono(sbqpack::GUIDATADIR + "iconos/back.png", 0);
+	gcpBarraIconos->gbrPonerIcono(sbqpack::GUIDATADIR + "iconos/next.png", 1);
+	gcpBarraIconos->gbrPonerIcono(sbqpack::GUIDATADIR + "iconos/frameprint.png", 2);
+	gcpBarraIconos->gbrPonerIcono(sbqpack::GUIDATADIR + "iconos/error.png", 3);
 	
 	moveDockWindow(gcpBarraIconos,Qt::DockBottom);
 	
@@ -118,9 +118,9 @@ void GCLPrincipal::crearBarras()
 /**
 crea las formas de la interfaz.
 */
-void GCLPrincipal::crearFormas()
+void qpcgui::GCLPrincipal::crearFormas()
 {
-	ayuda = new GUIHelp(0);
+	ayuda = new sbgui::GUIHelp(0);
 	configurarEmpresa = new GCLConfiguraEmpresa(0);
 }
 
@@ -128,7 +128,7 @@ void GCLPrincipal::crearFormas()
 Muestra el widget especificado.
 @param id: identificador del widget.
 */
-void GCLPrincipal::gcpCambiarWidget(uint id)
+void qpcgui::GCLPrincipal::gcpCambiarWidget(uint id)
 {
 	if ( id < menus.count() )
 	{
@@ -141,7 +141,7 @@ void GCLPrincipal::gcpCambiarWidget(uint id)
 /**
 Funcion sobrecargada, cambia el widget especificado
 */
-void GCLPrincipal::gcpCambiarWidget(GUIMenus *menu)
+void qpcgui::GCLPrincipal::gcpCambiarWidget(sbgui::GUIMenus *menu)
 {
 	idActual = menu->gmnId();
 	gcpContenedor->raiseWidget( menu );
@@ -154,14 +154,14 @@ Aqui se hace la autentificacion del usuario. (falta).
 - Se debe completar la autentificacion, recibir el paquete ACP proveniente del ST.
 */
 
-void GCLPrincipal::gcpContinuar()
+void qpcgui::GCLPrincipal::gcpContinuar()
 {
 	// FALTA: "DBMidas" debe ser leido de ventanaLogin!!
 	this->conectar();
 	QTimer::singleShot(100, this, SLOT(gcpEnviarAuth()) );
 }
 
-bool GCLPrincipal::conectar()
+bool qpcgui::GCLPrincipal::conectar()
 {
 	if ( ! conexion )
 		return false;
@@ -172,9 +172,9 @@ bool GCLPrincipal::conectar()
 	return conexion->estaConectado();
 }
 	
-void GCLPrincipal::gcpEnviarAuth()
+void qpcgui::GCLPrincipal::gcpEnviarAuth()
 {
-	SbXmlCNX cnxXML("DBMidas", ventanaLogin->obtenerLogin(), ventanaLogin->obtenerPassword() );
+	sbxml::SbXmlCNX cnxXML("DBMidas", ventanaLogin->obtenerLogin(), ventanaLogin->obtenerPassword() );
 	
 	if ( conexion->estaConectado() )
 	{
@@ -190,7 +190,7 @@ void GCLPrincipal::gcpEnviarAuth()
 	}	
 }
 
-void GCLPrincipal::gcpAnadirWidget(QWidget *nuevo, int id)
+void qpcgui::GCLPrincipal::gcpAnadirWidget(QWidget *nuevo, int id)
 {
 	gcpContenedor->addWidget(nuevo, id);
 }
@@ -199,7 +199,7 @@ void GCLPrincipal::gcpAnadirWidget(QWidget *nuevo, int id)
 /*
 gcpBotonClickeado:
 */
-void GCLPrincipal::gcpBotonClickeado(int id)
+void qpcgui::GCLPrincipal::gcpBotonClickeado(int id)
 {
 	for (uint i = 0; i < menus.count(); i++)
 	{

@@ -25,13 +25,13 @@
 /**
 Construye la ventana principal
  */
-GADMainWindow::GADMainWindow() : GUIMdiMainWindow(), printer(0)
+qpagui::GADMainWindow::GADMainWindow() : GUIMdiMainWindow(), printer(0)
 {
 	INIQPC;
 	QPopupMenu *file = new QPopupMenu( this );
 	menuBar()->insertItem( tr("&Archivo"), file );
 	setUsesBigPixmaps(false);
-	this->setIcon(QPixmap(GUIDATADIR+"/img/logo.png"));
+	this->setIcon(QPixmap(sbqpack::GUIDATADIR+"/img/logo.png"));
 
 	file->insertItem( tr("&Salir"), qApp, SLOT( closeAllWindows() ), CTRL+Key_Q );
 
@@ -70,7 +70,7 @@ GADMainWindow::GADMainWindow() : GUIMdiMainWindow(), printer(0)
 /**
  * Destructor
  */
-GADMainWindow::~GADMainWindow()
+qpagui::GADMainWindow::~GADMainWindow()
 {
 	if ( printer )
 		delete printer;
@@ -80,7 +80,7 @@ GADMainWindow::~GADMainWindow()
 /**
  * Funcion que muestra una dialog con los creditos de las librerias Qt.
  */
-void GADMainWindow::aboutQt()
+void qpagui::GADMainWindow::aboutQt()
 {
 	QMessageBox::aboutQt( this, tr("QApital: Aplicacion administrativa") );
 }
@@ -88,7 +88,7 @@ void GADMainWindow::aboutQt()
 /**
 Funcion que muestra una dialogo con los creditos de la aplicacion.
  */
-void GADMainWindow::about()
+void qpagui::GADMainWindow::about()
 {
 	QMessageBox::about( this, "QApital", tr("<h3><b>QPAdmin: Aplicacion administrativa</b></h3><p>Este programa hace parte de QApital, esta aplicacion administra el servidor y el sistema en general.</p>"));    
 }
@@ -96,7 +96,7 @@ void GADMainWindow::about()
 /**
 Ordena las ventans al interior del MDI.
  */
-void GADMainWindow::ordenarVentanas()
+void qpagui::GADMainWindow::ordenarVentanas()
 {
 	ventanas->clear();
 	int cascada = ventanas->insertItem(tr("&Cascada"), ws, SLOT(cascade() ) );
@@ -121,7 +121,7 @@ void GADMainWindow::ordenarVentanas()
 /**
 Da focus a una ventana activada
  */
-void GADMainWindow::ventanaActivada( int id )
+void qpagui::GADMainWindow::ventanaActivada( int id )
 {
 	QWidget* w = ws->windowList().at( id );
 	if ( w )
@@ -133,7 +133,7 @@ void GADMainWindow::ventanaActivada( int id )
  * Este es el slot principal, esta funcion hace parte del motor de la GUI y enlaza por el nombre dado en el archivo XML una accion determinada.
  * @b NOTA: Esta funcion hace parte del motor de creacion de GUI en base a XML.
  */
-void GADMainWindow::slotPrincipal()
+void qpagui::GADMainWindow::slotPrincipal()
 {
 	// Aqui se agregan todas las acciones que se deseen
 	QString actionName = QObject::sender()->name();

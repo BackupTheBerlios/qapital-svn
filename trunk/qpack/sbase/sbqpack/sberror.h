@@ -17,14 +17,14 @@ class SBError
 {
 	private:
 		StringHash cacheErrores;
-		
+			
 	public :	
-	  	SBError();
+		SBError();
 		/*void logError( QString , Q_UINT16 , Q_UINT16, Q_UINT16 );*/
 		~SBError();
 		void agregarError( QString, QString );
 		QString  buscar( QString );
 		static QString obtenerError( QString );	
 };
-
+	
 #endif

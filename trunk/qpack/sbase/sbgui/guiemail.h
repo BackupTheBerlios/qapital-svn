@@ -48,9 +48,9 @@
 
 namespace sbgui
 {
-/**
-	@author CetiSoft
- */
+	/**
+	 * @author CetiSoft
+	*/
 
 	class GUIEMail : public GUIFormularios
 	{

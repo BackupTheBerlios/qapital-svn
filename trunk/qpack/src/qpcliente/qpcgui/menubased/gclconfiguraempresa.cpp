@@ -27,7 +27,7 @@
 
 #include "gclconfiguraempresa.h"
 
-GCLConfiguraEmpresa::GCLConfiguraEmpresa(QWidget *parent, const char *name) : QVGroupBox(parent, name)
+qpcgui::GCLConfiguraEmpresa::GCLConfiguraEmpresa(QWidget *parent, const char *name) : QVGroupBox(parent, name)
 {
 	qDebug("[Construyendo GCLConfiguraEmpresa]");
 	
@@ -38,17 +38,17 @@ GCLConfiguraEmpresa::GCLConfiguraEmpresa(QWidget *parent, const char *name) : QV
 }
 
 
-GCLConfiguraEmpresa::~GCLConfiguraEmpresa()
+qpcgui::GCLConfiguraEmpresa::~GCLConfiguraEmpresa()
 {
 	qDebug("[GCLConfiguraEmpresa destruido]");
 }
 
-void GCLConfiguraEmpresa::init()
+void qpcgui::GCLConfiguraEmpresa::init()
 {
-	configGeneral = new GUIFormularioGeneral(contenedor);	
-	configDirecciones = new GUIDirecciones(contenedor);
-	configTelefonos = new GUITelefonos(contenedor);
-	configEMails = new GUIEMail(contenedor);
+	configGeneral = new sbgui::GUIFormularioGeneral(contenedor);	
+	configDirecciones = new sbgui::GUIDirecciones(contenedor);
+	configTelefonos = new sbgui::GUITelefonos(contenedor);
+	configEMails = new sbgui::GUIEMail(contenedor);
 	
 	contenedor->insertTab(configGeneral , tr("General"));
 	contenedor->insertTab(configDirecciones , tr("Direcciones"));

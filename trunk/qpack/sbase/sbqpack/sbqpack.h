@@ -70,8 +70,9 @@ typedef QDict<QString> StringHash;
 namespace sbqpack
 {
 	// TODO: analizar la posiblidad de mover todos estos strings a macros, por cuestion de velocidad.
-	const QString APPNAME = "QPServer";
+	const QString APPNAME = "QPack";
 	const QString VERSION = "0.0.2a";
+	const QString QAPITAL_HOME = "";
 	
 	const QString HOME = QDir::homeDirPath();
 	const QString CONFIGRC = HOME + "/.qapital/";
@@ -84,14 +85,6 @@ namespace sbqpack
 	const QString GUIDATADIR = QPDATADIR + "/gui/";
 	const QString XMLDATADIR = QPDATADIR + "/xml";
 	
-	const QString XMLSERVERDATADIR = QPDATADIR + "/xml/";
-	
-	const QString GUICLIENTDATADIR = QPDATADIR + "/qpclient/gui/";
-	const QString XMLCLIENTDATADIR = QPDATADIR + "/qpclient/xml/";
-	
-	const QString GUIADMINDATADIR = QPDATADIR + "/qpadmin/gui/";
-	const QString XMLADMINDATADIR = QPDATADIR + "/qpadmin/xml/";
-	
 	const QString TRANSDATADIR = QPDATADIR + "/traducciones/";
 	const QString PATHLOG = CONFIGRC + "/logs/";
 	
@@ -99,83 +92,36 @@ namespace sbqpack
 	const QString EMAIL = "cetisoft@linuxmail.org";
 	
 	const QString TMPDIR = "/tmp/";
-	
-	// Objeto global logger.
-	static SBLogger QPLOGGER(SBLogger::VERBOSEFILE, PATHLOG);
 }
 
 namespace sbqpadmin
 {
-		// TODO: analizar la posiblidad de mover todos estos strings a macros, por cuestion de velocidad.
+	// TODO: analizar la posiblidad de mover todos estos strings a macros, por cuestion de velocidad.
 	const QString APPNAME = "QPAdmin";
 	const QString VERSION = "0.0.2a";
 	
-	const QString HOME = QDir::homeDirPath();
-	const QString CONFIGRC = HOME + "/.qapital/";
+	const QString GUIADMINDATADIR = sbqpack::QPDATADIR + "/qpadmin/gui/";
+	const QString XMLADMINDATADIR = sbqpack::QPDATADIR + "/qpadmin/xml/";
 	
-#ifdef INSTALLPATH
-	const QString QPDATADIR = INSTALLPATH;
-#else
-	const QString QPDATADIR = "../../data/"; // FIXME: hacerlo relatativo a la ruta de instalacion del programa!
-#endif	
-	const QString GUIDATADIR = QPDATADIR + "/gui/";
-	const QString XMLDATADIR = QPDATADIR + "/xml";
-	
-	const QString XMLSERVERDATADIR = QPDATADIR + "/xml/";
-	
-	const QString GUICLIENTDATADIR = QPDATADIR + "/qpclient/gui/";
-	const QString XMLCLIENTDATADIR = QPDATADIR + "/qpclient/xml/";
-	
-	const QString GUIADMINDATADIR = QPDATADIR + "/qpadmin/gui/";
-	const QString XMLADMINDATADIR = QPDATADIR + "/qpadmin/xml/";
-	
-	const QString TRANSDATADIR = QPDATADIR + "/traducciones/";
-	const QString PATHLOG = CONFIGRC + "/logs/";
-	
-	const QString AUTORES= "CetiSoft";
-	const QString EMAIL = "cetisoft@linuxmail.org";
-	
-	const QString TMPDIR = "/tmp/";
+	const QString CONFIGRC = sbqpack::CONFIGRC + "/QPAConfig.xml";
 	
 	// Objeto global logger.
-	static SBLogger QPLOGGER(SBLogger::VERBOSEFILE, PATHLOG);
+	static SBLogger QPLOGGER(SBLogger::VERBOSEFILE, SBLogger::ADMIN, sbqpack::PATHLOG+"QPAdmin.log");
 }
 
 namespace sbqpcliente
 {
-		// TODO: analizar la posiblidad de mover todos estos strings a macros, por cuestion de velocidad.
+	// TODO: analizar la posiblidad de mover todos estos strings a macros, por cuestion de velocidad.
 	const QString APPNAME = "QPCliente";
 	const QString VERSION = "0.0.2a";
 	
-	const QString HOME = QDir::homeDirPath();
-	const QString CONFIGRC = HOME + "/.qapital/";
+	const QString GUICLIENTDATADIR = sbqpack::QPDATADIR + "/qpclient/gui/";
+	const QString XMLCLIENTDATADIR = sbqpack::QPDATADIR + "/qpclient/xml/";
 	
-#ifdef INSTALLPATH
-	const QString QPDATADIR = INSTALLPATH;
-#else
-	const QString QPDATADIR = "../../data/"; // FIXME: hacerlo relatativo a la ruta de instalacion del programa!
-#endif	
-	const QString GUIDATADIR = QPDATADIR + "/gui/";
-	const QString XMLDATADIR = QPDATADIR + "/xml";
-	
-	const QString XMLSERVERDATADIR = QPDATADIR + "/xml/";
-	
-	const QString GUICLIENTDATADIR = QPDATADIR + "/qpclient/gui/";
-	const QString XMLCLIENTDATADIR = QPDATADIR + "/qpclient/xml/";
-	
-	const QString GUIADMINDATADIR = QPDATADIR + "/qpadmin/gui/";
-	const QString XMLADMINDATADIR = QPDATADIR + "/qpadmin/xml/";
-	
-	const QString TRANSDATADIR = QPDATADIR + "/traducciones/";
-	const QString PATHLOG = CONFIGRC + "/logs/";
-	
-	const QString AUTORES= "CetiSoft";
-	const QString EMAIL = "cetisoft@linuxmail.org";
-	
-	const QString TMPDIR = "/tmp/";
+	const QString CONFIGRC = sbqpack::CONFIGRC + "/QPCConfig.xml";
 	
 	// Objeto global logger.
-	static SBLogger QPLOGGER(SBLogger::VERBOSEFILE, PATHLOG);
+	static SBLogger QPLOGGER(SBLogger::VERBOSEFILE, SBLogger::CLIENTE, sbqpack::PATHLOG+"QPCliente.log");
 }
 
 #endif

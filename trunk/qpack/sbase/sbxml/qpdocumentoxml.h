@@ -34,7 +34,7 @@
 
 #include <qdom.h>
 #include <qstringlist.h>
-// #include "sbqapital.h"
+// #include "sbqpack.h"
 
 
 namespace sbxml

@@ -8,3 +8,4 @@ CONFIG += release \
 TEMPLATE = subdirs 
 SUBDIRS += sbase \
            src 
+

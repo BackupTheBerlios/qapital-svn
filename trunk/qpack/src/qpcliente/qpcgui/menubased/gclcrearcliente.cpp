@@ -26,7 +26,7 @@
 /*
 falta hacer que todos los datos del cliente se escriban en la gccTablaDatos
 */
-GCLCrearCliente::GCLCrearCliente(QWidget *padre, const char *nombre)
+qpcgui::GCLCrearCliente::GCLCrearCliente(QWidget *padre, const char *nombre)
  : QGroupBox(padre, nombre)
 {
 	gccGridBase = new QGridLayout(this,3,1);
@@ -37,11 +37,11 @@ GCLCrearCliente::GCLCrearCliente(QWidget *padre, const char *nombre)
 	connect(insertar, SIGNAL(clicked()), this, SLOT(gccClikedInsertar()));
 }
 
-GCLCrearCliente::~GCLCrearCliente()
+qpcgui::GCLCrearCliente::~GCLCrearCliente()
 {
 }
 
-void GCLCrearCliente::gccCrearFormulario()
+void qpcgui::GCLCrearCliente::gccCrearFormulario()
 {
 	gccFormulario = new QWidget(this, "formulario central");
 	gccGridFormulario = new QGridLayout(gccFormulario, 6,2, 10);
@@ -96,7 +96,7 @@ void GCLCrearCliente::gccCrearFormulario()
 	gccGridBase->addWidget(gccFormulario,1,1);
 }
 
-void GCLCrearCliente::gccCrearTabla()
+void qpcgui::GCLCrearCliente::gccCrearTabla()
 {
 //	gccTabla = new GUITabla(10, 6, this);
 // 	gccGridBase->addWidget(gccTabla,2,1);
@@ -110,7 +110,7 @@ void GCLCrearCliente::gccCrearTabla()
 }
 
 
-void GCLCrearCliente::gccSelectDepartamento(int index)
+void qpcgui::GCLCrearCliente::gccSelectDepartamento(int index)
 {
 	gccCiudad->setEnabled(true);
 	gccCiudad->clear();
@@ -130,7 +130,7 @@ void GCLCrearCliente::gccSelectDepartamento(int index)
 	}
 }
 
-void GCLCrearCliente::gccClikedInsertar()
+void qpcgui::GCLCrearCliente::gccClikedInsertar()
 {
 	//falta: validar datos
 	listaDeDatos.append(gccLNombre->text());

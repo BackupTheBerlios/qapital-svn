@@ -39,16 +39,15 @@
 #include <qpushbutton.h>
 #include <qfile.h>
 #include "guibotonicono.h"
-#include "qvaluelist.h"
+#include <qvaluelist.h>
 
-typedef QValueList<GUIBotonIcono*> ListaDeAcciones;
+typedef QValueList<sbgui::GUIBotonIcono*> ListaDeAcciones;
 
 namespace sbgui
 {
 	/**
-		@author CetiSoft
-	*/
-
+	 * @author CetiSoft
+	 */
 	class GUIBarraIconos : public QToolBar
 	{
 		Q_OBJECT

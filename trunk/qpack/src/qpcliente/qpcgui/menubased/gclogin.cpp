@@ -27,7 +27,7 @@
 
 #include "gclogin.h"
 
-GCLogin::GCLogin(QWidget *parent, const char *name) : QGroupBox (parent, name)
+qpcgui::GCLogin::GCLogin(QWidget *parent, const char *name) : QGroupBox (parent, name)
 {
 	frameLogin = new QFrame(this);
 	frameLogin->setFrameStyle(QFrame::Box | QFrame::Plain);
@@ -58,14 +58,14 @@ GCLogin::GCLogin(QWidget *parent, const char *name) : QGroupBox (parent, name)
 	gclLayout->addWidget(continuar, 2,1);
 }
 
-GCLogin::~GCLogin()
+qpcgui::GCLogin::~GCLogin()
 {
 }
 
 /**
 Esta funcion crea los widgets de entrada
 */
-void GCLogin::crearEntradas()
+void qpcgui::GCLogin::crearEntradas()
 {
 	gclCapturarUsuario = new QLineEdit(frameLogin);
 	gclCapturarUsuario->setMaxLength( 10 );
@@ -94,26 +94,26 @@ void GCLogin::crearEntradas()
 	gclFrameLayout->addWidget(gclCapturarPassword, 2, 1);
 }
 
-void GCLogin::gclContinuar()
+void qpcgui::GCLogin::gclContinuar()
 {	
 	login = gclCapturarUsuario->text();
 	password = gclCapturarPassword->text();
 	emit gclFueClickeado();
 }
 
-QString GCLogin::obtenerLogin()
+QString qpcgui::GCLogin::obtenerLogin()
 {
 	return login;
 }
 
-QString GCLogin::obtenerPassword()
+QString qpcgui::GCLogin::obtenerPassword()
 {
 	return password;
 }
 
 // Slot: usuarioEscogido
 // Descripcion: sirve para obtener el texto del usuario escogido.
-void GCLogin::usuarioEscogido(QIconViewItem *item)
+void qpcgui::GCLogin::usuarioEscogido(QIconViewItem *item)
 {
 	if (item)
 		gclCapturarUsuario->setText(item->text() );

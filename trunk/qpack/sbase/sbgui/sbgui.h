@@ -37,20 +37,21 @@
 #include "guititulo.h"
 #include "guihelp.h"
 
-/**
-@author cetiSoft
-*/
-
-class SBGui
+namespace sbgui
 {
-	private:
-		const int SBGTipo_ui;
-	public:
-		SBGui();
-		~SBGui();
-		enum TipoDeIntefaz { MenuBased, MDIBased };
-		const int sbgObtenerTipo();
-		void insertarPixmap(QString clave,  const QPixmap & pixmap);
-};
-
+	/**
+	@author cetiSoft
+	*/
+	class SBGui
+	{
+		private:
+			const int SBGTipo_ui;
+		public:
+			SBGui();
+			~SBGui();
+			enum TipoDeIntefaz { MenuBased, MDIBased };
+			const int sbgObtenerTipo();
+			void insertarPixmap(QString clave,  const QPixmap & pixmap);
+	};
+}
 #endif

@@ -65,4 +65,3 @@ namespace sbgui
 	};
 }
 #endif
- 

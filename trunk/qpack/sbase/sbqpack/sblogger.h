@@ -1,3 +1,33 @@
+/* Clase: SBLogger
+ * Autor: CetiSoft
+ * Version: 0.0.1
+ * Fecha de creacion: 12/08/2004
+ * Fecha de modificacion:
+ * Relacion con objetos:
+ * Descripcion: 
+ *	Loguea
+*/
+
+/********************************************************************************
+ *   Copyright (C) 2004 by CetiSoft                                        	*
+ *   cetisoft@linuxmail.org                                                	*
+ *                                                                         	*
+ *   This program is free software; you can redistribute it and/or modify  	*
+ *   it under the terms of the GNU General Public License as published by  	*
+ *   the Free Software Foundation; either version 2 of the License, or     	*
+ *   (at your option) any later version.                                   	*
+ *                                                                         	*
+ *   This program is distributed in the hope that it will be useful,       	*
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        	*
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        	*
+ *   GNU General Public License for more details.                          	*
+ *                                                                         	*
+ *   You should have received a copy of the GNU General Public License     	*
+ *   along with this program; if not, write to the                         	*
+ *   Free Software Foundation, Inc.,                                       	*
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             	*
+ *******************************************************************************/
+
 #ifndef SBLOGGER_H
 #define SBLOGGER_H
 
@@ -16,47 +46,44 @@
 
 class SBLogger : public QObject
 {        
-  	private:
+	private:
 		int entidad;
-		
+			
 		QString salvarFechaLog;
-	       	QString salvarHoraLog;
+		QString salvarHoraLog;
+			
+		QString RUTA_LOG;
 		
-		QString RUTA_LOGS;
- 		QString RUTA_DEFECTO_SERVIDOR; 
- 		QString RUTA_DEFECTO_CLIENTE; 
- 		QString FORMATEO_DEFECTO_HORA;
- 		QString FORMATEO_DEFECTO_FECHA;
+		QString FORMATEO_DEFECTO_HORA;
+		QString FORMATEO_DEFECTO_FECHA;
 		
 		QString textoAloguear;
-	       	QString UBICACION;
-	       	QString PRIORIDAD;
-	       	QString NIVEL;
-		Q_UINT16 nivel;
-		Q_UINT16 prioridad;
-					
+		QString UBICACION;
+		QString PRIORIDAD;
+		QString NIVEL;
+		int nivel;
+		int prioridad;
+						
 	public:
-		SBLogger(Q_UINT16 nivel, QString ruta);
-               ~SBLogger();
-	      
-	       	QString rutaLogServidor();
-	       	QString rutaLogCliente();   
-	       	QString fechaLog();
-	       	QString horaLog();
-	       	QString obtenerNivel();
-	       	
-		void salvarLog(Q_UINT16 nivel, Q_UINT16 entidad, QString texto);   
-		
 		enum Prioridad { QP_INFO = 0 , QP_WARNING,  QP_ERROR };
 		enum Nivel { LOGFILE = 0 , VERBOSEFILE, VERBOSE  };
 		enum Entidades { CLIENTE = 0 , ADMIN, SERVIDOR , NONE  };
-	
+		
+		SBLogger(int nivel, Entidades entidad, QString ruta = QString::null );
+		~SBLogger();
+		
+		QString fechaLog();
+		QString horaLog();
+		QString obtenerNivel();
+			
+		void salvarLog(int nivel, QString texto);
+		
 	protected:
-	       	void asignarPrioridad( Q_UINT16 );
-	       	void asignarNivel( Q_UINT16 );
-		void ponerEntidad(Q_UINT16 donde);
+		void asignarPrioridad( int );
+		void asignarNivel( int );
+		void ponerEntidad(int donde);
 		void guardarEnArchivo();
-	       	void mostrarEnPantalla(QString mensaje);
+		void mostrarEnPantalla(QString mensaje);
 		void iniciarLogger();
 };
 

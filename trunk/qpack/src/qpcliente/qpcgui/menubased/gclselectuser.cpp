@@ -29,7 +29,7 @@
 
 //using namespace qapital;
 
-GCLSelectUser::GCLSelectUser(QWidget *padre) : QIconView(padre)
+qpcgui::GCLSelectUser::GCLSelectUser(QWidget *padre) : QIconView(padre)
 {
 	qDebug("[construyendo GCLSelectUser]");
 	setItemsMovable ( false );
@@ -38,7 +38,7 @@ GCLSelectUser::GCLSelectUser(QWidget *padre) : QIconView(padre)
 }
 
 
-GCLSelectUser::~GCLSelectUser()
+qpcgui::GCLSelectUser::~GCLSelectUser()
 {
 	qDebug("[Destruyendo GCLSelectUser]");
 }
@@ -46,12 +46,12 @@ GCLSelectUser::~GCLSelectUser()
 /**
  * Sirve para leer los usuarios que se van a mostrar (falta leer desde un XML).
  */
-void GCLSelectUser::leerUsuarios()
+void qpcgui::GCLSelectUser::leerUsuarios()
 {
-	QFile *archivoXML = new QFile(XMLCLIENTDATADIR + "qpusuarios.xml"); // FIXME: Este archivo debe estar localizado en .qapital !
+	QFile *archivoXML = new QFile(sbqpcliente::XMLCLIENTDATADIR + "qpusuarios.xml"); // FIXME: Este archivo debe estar localizado en .qapital !
 	QXmlInputSource *source = new QXmlInputSource( archivoXML );
 	QXmlSimpleReader reader;
-	GUILectorXml *handler = new GUILectorXml();
+	sbgui::GUILectorXml *handler = new sbgui::GUILectorXml();
 	reader.setContentHandler( handler );
 	
 	if ( reader.parse( source, true ) )

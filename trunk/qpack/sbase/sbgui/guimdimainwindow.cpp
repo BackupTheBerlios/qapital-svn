@@ -27,8 +27,6 @@
 
 #include "guimdimainwindow.h"
 
-using namespace qapital;
-
 /**
  * Constructor por defecto
  */
@@ -99,7 +97,8 @@ void sbgui::GUIMdiMainWindow::crearGUI()
 				QAction *actTmp = new QAction(toolBarTmp, (*strlistTmp)[j]);
 				connect( actTmp, SIGNAL( activated() ) , this, SLOT( slotPrincipal() ) );
 				
-				QPixmap pm( GUIADMINDATADIR + (*strlistTmp)[j+1]);
+				// FIXME: colocar la ruta bien.
+				QPixmap pm( sbqpack::GUIDATADIR + (*strlistTmp)[j+1]);
 				if ( ! pm.isNull() )
 					actTmp->setIconSet( pm );
 				

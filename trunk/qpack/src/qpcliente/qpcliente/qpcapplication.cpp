@@ -31,7 +31,7 @@
 /**
 * Constructor
 */
-QPCApplication::QPCApplication(int argc, char *argv[]) : QApplication(argc, argv,true), qppath(sbqpcliente::CONFIGRC), configpath(qapital::CONFIGRC+QString("QPCConfig.xml"))
+QPCApplication::QPCApplication(int argc, char *argv[]) : QApplication(argc, argv,true), qppath(sbqpack::CONFIGRC), configpath(sbqpcliente::CONFIGRC)
 {
 	// TODO: Si no hay configuracion, cree la instancia de PrimerDialogo
 	verificarConfiguracion();
@@ -69,12 +69,12 @@ void QPCApplication::verificarConfiguracion()
 
 void QPCApplication::correrPrimerDialogo()
 {
-	GUIPrimerDialogo primerDialogo;
+	sbgui::GUIPrimerDialogo primerDialogo;
 	if ( primerDialogo.exec() != QDialog::Rejected )
 	{
 		std::cout << QObject::tr("Creando archivo por defecto...") << std::endl;
 		
-		QPDocumentoXML clientConfig = SbXmlConfig::crearConfigCliente(primerDialogo.obtenerHost(), primerDialogo.obtenerPuerto(), primerDialogo.interfazElegida() );
+		sbxml::QPDocumentoXML clientConfig = sbxml::SbXmlConfig::crearConfigCliente(primerDialogo.obtenerHost(), primerDialogo.obtenerPuerto(), primerDialogo.interfazElegida() );
 		QFile configFile(configpath);
 		if ( configFile.open( IO_WriteOnly ) )
 		{

@@ -27,8 +27,6 @@
 
 #include "guihelp.h"
 
-using namespace qapital;
-
 sbgui::GUIHelp::GUIHelp(QWidget *parent, const char *name)
  : QMainWindow(parent, name)
 {
@@ -43,9 +41,9 @@ sbgui::GUIHelp::GUIHelp(QWidget *parent, const char *name)
 
 	setCaption(tr("Ayuda de Qapital"));
 	barraDeHerramientas = new QToolBar(this);
-	QIconSet flechaAtras(QPixmap(GUIDATADIR + "iconos/1leftarrow.png"));
-	QIconSet flechaAdelante(QPixmap(GUIDATADIR + "iconos/1rightarrow.png"));
-	QIconSet iconoCasa(QPixmap(GUIDATADIR + "iconos/parlante.png"));
+	QIconSet flechaAtras(QPixmap( sbqpack::GUIDATADIR + "iconos/1leftarrow.png"));
+	QIconSet flechaAdelante(QPixmap(sbqpack::GUIDATADIR + "iconos/1rightarrow.png"));
+	QIconSet iconoCasa(QPixmap(sbqpack::GUIDATADIR + "iconos/parlante.png"));
 	
 	QAction *atras = new QAction( flechaAtras, tr("atras"), Qt::Key_A, barraDeHerramientas);
 	connect (atras, SIGNAL(activated() ),browser, SLOT(backward()));

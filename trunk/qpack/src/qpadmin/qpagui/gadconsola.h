@@ -27,23 +27,25 @@
 #include <qtabwidget.h>
 #include "sbqpack.h"
 
-/**
- * @short Esta clase es utilizada para colocar una consola de errores y logs, visible para el usuario
- * @author CetiSoft
-*/
-
-class GADConsola : public QDockWindow
+namespace qpagui
 {
-	Q_OBJECT
-	private:
-		QTabWidget *tab;
-		QVGroupBox *vbox;
-		QTextView *contenido;
-		
-	public:
-    		GADConsola(QWidget *parent = 0, const char *name = 0);
-		~GADConsola();
-		void addText(QString texto);
-};
-
+	/**
+	* @short Esta clase es utilizada para colocar una consola de errores y logs, visible para el usuario
+	* @author CetiSoft
+	*/
+	
+	class GADConsola : public QDockWindow
+	{
+		Q_OBJECT
+		private:
+			QTabWidget *tab;
+			QVGroupBox *vbox;
+			QTextView *contenido;
+			
+		public:
+			GADConsola(QWidget *parent = 0, const char *name = 0);
+			~GADConsola();
+			void addText(QString texto);
+	};
+}
 #endif

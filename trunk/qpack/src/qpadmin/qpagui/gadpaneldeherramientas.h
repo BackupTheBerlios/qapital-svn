@@ -40,19 +40,22 @@
 #include <qtabwidget.h>
 #include <qtextedit.h>
 
-/**
-@author CetiSoft
-*/
-class GADPanelDeHerramientas : public QDockWindow
-{
-	Q_OBJECT
-	private:
-		QVBox *box;
-		QToolBox *toolBox;
-	public:
-    		GADPanelDeHerramientas(QWidget *parent = 0, const char *name = 0);
-    		~GADPanelDeHerramientas();
-		void addItem(QWidget *, const QString &);
-};
 
+namespace qpagui
+{
+	/**
+	@author CetiSoft
+	*/
+	class GADPanelDeHerramientas : public QDockWindow
+	{
+		Q_OBJECT
+		private:
+			QVBox *box;
+			QToolBox *toolBox;
+		public:
+			GADPanelDeHerramientas(QWidget *parent = 0, const char *name = 0);
+			~GADPanelDeHerramientas();
+			void addItem(QWidget *, const QString &);
+	};
+}
 #endif

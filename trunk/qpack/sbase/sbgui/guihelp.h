@@ -41,7 +41,7 @@
 #include <qdir.h>
 #include <qaction.h>
 
-#include "sbqapital.h"
+#include "sbqpack.h"
 
 
 namespace sbgui

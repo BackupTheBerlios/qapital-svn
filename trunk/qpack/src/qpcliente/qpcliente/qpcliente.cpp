@@ -48,16 +48,16 @@ int main( int argc, char **argv )
 
 	QApplication::setStyle("plastik");
 	
-	sbqpcliente::QPLOGGER.salvarLog(SBLogger::QP_INFO, SBLogger::CLIENTE, QObject::tr("Iniciando QPCliente"));
+	sbqpcliente::QPLOGGER.salvarLog(SBLogger::QP_INFO, QObject::tr("Iniciando QPCliente"));
 	
-	QString splash = sbqpcliente::GUIDATADIR + QString("qapital-splash-2004-08-31.png");
+	QString splash = sbqpack::GUIDATADIR + QString("qapital-splash-2004-08-31.png");
 	
 	QPixmap pixmap( splash );
     	QSplashScreen *pantalla = new QSplashScreen( pixmap );
       	pantalla->show();
 	pantalla->message(QObject::tr("Iniciando aplicacion..."));
 
-	QFile configFile( sbqpcliente::CONFIGRC +  QString("QPCConfig.xml"));
+	QFile configFile( sbqpcliente::CONFIGRC);
 
 	QXmlInputSource sourceXML(configFile);
 	configFile.close();
@@ -71,7 +71,7 @@ int main( int argc, char **argv )
 		std::cout << QObject::tr("Error en la configuracion del cliente") << std::endl;
 	}		
 	
-	ClnRed cliente ( handler->obtenerQPSHost(), handler->obtenerQPSPuerto() );
+	qpcred::ClnRed cliente ( handler->obtenerQPSHost(), handler->obtenerQPSPuerto() );
 
 	pantalla->message(QObject::tr("creando interfaz..."));
 
@@ -80,22 +80,22 @@ int main( int argc, char **argv )
 
 	switch ( int opt = handler->obtenerTipoDeInterfaz() )
 	{
-		case SBGui::MenuBased:
+		case sbgui::SBGui::MenuBased:
 		{
 			std::cout << "Iniciando MenuBased" << std::endl;
-			qpCliente = new GCLPrincipal(&cliente);
+			qpCliente = new qpcgui::GCLPrincipal(&cliente);
 		}
 		break;
-		case SBGui::MDIBased:
+		case sbgui::SBGui::MDIBased:
 		{
 			std::cout << "Iniciando MDIBased" << std::endl;
-			qpCliente = new GCLMdiMainWindow();
+			qpCliente = new qpcgui::GCLMdiMainWindow();
 		}
 		break;
 		default:
 		{
 			std::cout << "Tipo de interfaz desconocido " << opt << std::endl;
-			qpCliente = new GCLMdiMainWindow();
+			qpCliente = new qpcgui::GCLMdiMainWindow();
 		}
 		break;
 	}

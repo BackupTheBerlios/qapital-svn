@@ -54,33 +54,34 @@
 #include "gadconsola.h"
 #include "gadpaneldeherramientas.h"
 
-
-/**
- * @short Esta es la ventana principal del MDI
- * @author CetiSoft
-*/
-class GADMainWindow : public GUIMdiMainWindow
+namespace qpagui
 {
-	Q_OBJECT
-
-	private:
-		QWorkspace* ws;
-		QVBox *vbox;
-    		QPrinter *printer;
-    		QPopupMenu *ventanas;
-		GADConsola *consola;
-		GADPanelDeHerramientas *herramientas;
-		
-	public:
-    		GADMainWindow();
-    		~GADMainWindow();
-		
-	public slots:
-		void aboutQt();
-		void about();
-		void ordenarVentanas();
-		void ventanaActivada(int id);
-		void slotPrincipal();
-};
-
+	/**
+	* @short Esta es la ventana principal del MDI
+	* @author CetiSoft
+	*/
+	class GADMainWindow : public sbgui::GUIMdiMainWindow
+	{
+		Q_OBJECT
+	
+		private:
+			QWorkspace* ws;
+			QVBox *vbox;
+			QPrinter *printer;
+			QPopupMenu *ventanas;
+			GADConsola *consola;
+			GADPanelDeHerramientas *herramientas;
+			
+		public:
+			GADMainWindow();
+			~GADMainWindow();
+			
+		public slots:
+			void aboutQt();
+			void about();
+			void ordenarVentanas();
+			void ventanaActivada(int id);
+			void slotPrincipal();
+	};
+}
 #endif

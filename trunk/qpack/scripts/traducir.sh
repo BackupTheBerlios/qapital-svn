@@ -1,7 +1,7 @@
 #!/bin/sh
 
 QPDIR=$(pwd)/../
-QPTS=qack_en.ts
+QPTS=qpack_en.ts
 
 cd $QPDIR/src/data/traducciones
 

@@ -49,10 +49,9 @@
 
 namespace sbgui
 {
-/**
-	@author CetiSoft
- */
-
+	/**
+	 * @author CetiSoft
+	 */
 	class GUIDirecciones : public GUIFormularios
 	{
 		Q_OBJECT

@@ -28,38 +28,40 @@
 
 using sbqpcliente::QPLOGGER;
 
-/**
-Esta clase es la encargada de conectarse al socket del servidor de transacciones.
-@author CetiSoft
-@todo heredar de QSocket!!
-*/
-class ClnRed : public QSocket
+namespace qpcred
 {
-
-	Q_OBJECT
+	/**
+	Esta clase es la encargada de conectarse al socket del servidor de transacciones.
+	@author CetiSoft
+	@todo heredar de QSocket!!
+	*/
+	class ClnRed : public QSocket
+	{
 	
-	private:
-		QString host;
-		int puerto;
-		bool conectado;
-
-	public:
-    		ClnRed(const QString &host, Q_UINT16 port);
-    		~ClnRed();
-		void conectar();
-		bool estaConectado();
+		Q_OBJECT
 		
+		private:
+			QString host;
+			int puerto;
+			bool conectado;
 	
-	public slots:
-		void clnCerrarConexion();
-    		void clnEnviarAlServer(QString);
-		void clnEnviarAlServer(QPDocumentoXML);
-    		void clnEstaListo();
-    		void clnSocketConectado();
-    		void clnConexionCerrada();
-    		void clnSocketCerrado();
-    		void clnSocketError( int e );
-		void clnBye();
-};
-
+		public:
+			ClnRed(const QString &host, int port);
+			~ClnRed();
+			void conectar();
+			bool estaConectado();
+			
+		
+		public slots:
+			void clnCerrarConexion();
+			void clnEnviarAlServer(QString);
+			void clnEnviarAlServer(sbxml::QPDocumentoXML);
+			void clnEstaListo();
+			void clnSocketConectado();
+			void clnConexionCerrada();
+			void clnSocketCerrado();
+			void clnSocketError( int e );
+			void clnBye();
+	};
+}
 #endif

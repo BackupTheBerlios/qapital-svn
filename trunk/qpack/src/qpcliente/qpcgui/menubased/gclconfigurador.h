@@ -33,17 +33,19 @@
 
 #include <qvgroupbox.h>
 
-/**
-Gui encargada de capturar los datos para la configuracion
-
-@author CetiSoft
-*/
-class GCLConfigurador : public QVGroupBox
+namespace qpcgui
 {
-	Q_OBJECT
-	public:
-    		GCLConfigurador(QWidget *parent = 0, const char *name = 0);
-		~GCLConfigurador();
-};
-
+	/**
+	Gui encargada de capturar los datos para la configuracion
+	
+	@author CetiSoft
+	*/
+	class GCLConfigurador : public QVGroupBox
+	{
+		Q_OBJECT
+		public:
+			GCLConfigurador(QWidget *parent = 0, const char *name = 0);
+			~GCLConfigurador();
+	};
+}
 #endif

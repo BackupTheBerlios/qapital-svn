@@ -33,7 +33,7 @@ int main( int argc, char **argv )
 {
 	QApplication a( argc, argv );
 
-	GADMainWindow mw;
+	qpagui::GADMainWindow mw;
 	
 	mw.ponerXML( sbqpadmin::XMLADMINDATADIR + "toolbar.xml" );
 	mw.crearGUI();

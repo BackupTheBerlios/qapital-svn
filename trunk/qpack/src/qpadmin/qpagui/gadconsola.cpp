@@ -25,7 +25,7 @@
 /**
 Este constructor es el encargado de crear una consola en la interfaz grafica del usuario
  */
-GADConsola::GADConsola(QWidget *parent, const char *name) : QDockWindow(QDockWindow::InDock,parent,name)
+qpagui::GADConsola::GADConsola(QWidget *parent, const char *name) : QDockWindow(QDockWindow::InDock,parent,name)
 {
 	INIQPC;
 	tab = new QTabWidget(this);
@@ -43,18 +43,18 @@ GADConsola::GADConsola(QWidget *parent, const char *name) : QDockWindow(QDockWin
 }
 
 /**
-Destructor de GADConsola
+ * Destructor de GADConsola
  */
-GADConsola::~GADConsola()
+qpagui::GADConsola::~GADConsola()
 {
 	FINQPC;
 }
 
 /**
-Funcion encargado de generar una serie de logs (info, warning o error) en la consola de la interfaz referentes a las diferentes situaciones que se presenten en el proceso.
-@param texto: Texto que se muestra en la consola referente a los logs.
+ * Funcion encargado de generar una serie de logs (info, warning o error) en la consola de la interfaz referentes a las diferentes situaciones que se presenten en el proceso.
+ * @param texto: Texto que se muestra en la consola referente a los logs.
  */
-void GADConsola::addText(QString texto)
+void qpagui::GADConsola::addText(QString texto)
 {
 	contenido->append(QString("-> ") + texto);
 }

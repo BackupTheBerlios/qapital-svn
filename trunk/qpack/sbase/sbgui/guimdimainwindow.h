@@ -36,7 +36,7 @@
 #include <qaction.h>
 
 #include "guimdixmlparser.h"
-#include "sbqapital.h"
+#include "sbqpack.h"
 
 
 namespace sbgui

@@ -36,22 +36,25 @@
 
 #include "sbgui.h"
 
-/**
-Esta clase sirve como interfaz para seleccionar usuarios HABITUALES graficamente al estilo kdm/gdm.
-@author CetiSoft
-@todo
--  Cargar la lista de archivos usuales desde un XML.
-*/
 
-class GCLSelectUser : public QIconView
+namespace qpcgui
 {
-	Q_OBJECT
-	public:
-    		GCLSelectUser(QWidget *padre = 0);
-		~GCLSelectUser();
+	/**
+	Esta clase sirve como interfaz para seleccionar usuarios HABITUALES graficamente al estilo kdm/gdm.
+	@author CetiSoft
+	@todo
+	-  Cargar la lista de archivos usuales desde un XML.
+	*/
 	
-	public slots:
-		void leerUsuarios();
-};
-
+	class GCLSelectUser : public QIconView
+	{
+		Q_OBJECT
+		public:
+			GCLSelectUser(QWidget *padre = 0);
+			~GCLSelectUser();
+		
+		public slots:
+			void leerUsuarios();
+	};
+}
 #endif

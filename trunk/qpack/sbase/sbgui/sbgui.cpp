@@ -26,16 +26,16 @@ en esta clase tengo que me ter todas las cosas del sistema base
 
 
 */
-SBGui::SBGui(): SBGTipo_ui(1) /// el SBGTipo si es 0 esterminal y si es 1 es Modo Grafico
+sbgui::SBGui::SBGui(): SBGTipo_ui(1) /// el SBGTipo si es 0 esterminal y si es 1 es Modo Grafico
 {
 }
 
 
-SBGui::~SBGui()
+sbgui::SBGui::~SBGui()
 {
 }
 
-const int SBGui::sbgObtenerTipo()
+const int sbgui::SBGui::sbgObtenerTipo()
 {
 	return  SBGTipo_ui;
 }
