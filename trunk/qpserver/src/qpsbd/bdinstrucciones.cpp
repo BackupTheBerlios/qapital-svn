@@ -187,13 +187,22 @@ QSqlQuery qpsbd::BDInstrucciones::exec(QString dbname, QString sqlkey)
  */
 QSqlQuery qpsbd::BDInstrucciones::exec(QString dbname, QString sqlkey, QStringList args)
 {
+	std::cout << "Ejecutando consulta " << sqlkey << std::endl;
 	QSqlDatabase *dbTmp = basesDeDatos.obtenerBD(dbname);
+	
+	if ( ! dbTmp )
+	{
+		QPERROR(QObject::tr("No existe la db: %1").arg(dbname));
+		return QSqlQuery();
+	}
+	
 	if (dbTmp->open())
 	{
 		QPLOGGER.salvarLog(SBLogger::QP_INFO, SBLogger::SERVIDOR, QObject::tr("Obteniendo permisos sobre instrucciones."));
 	}
 	QString sqlTmp = this->obtenerInstruccion(sqlkey, args);
 	QSqlQuery query = dbTmp->exec(sqlTmp);
+	std::cout << "Retornando consulta " << sqlkey << std::endl;
 	return query;
 }
 

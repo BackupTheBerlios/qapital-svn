@@ -155,6 +155,8 @@ int main(int argc, char **argv)
 					delete handler;
 					return -1;
 				}
+				else
+					QPINFO(QObject::tr("Instrucciones cargadas con exito"));
  			}
 			configFile.close();
 			

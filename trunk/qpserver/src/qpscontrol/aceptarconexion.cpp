@@ -25,8 +25,10 @@ namespace qpscontrol
 
 	AceptarConexion::AceptarConexion(qpsbd::BDInstrucciones *insSQL, QString empresa, QString login)
 	{
+		qDebug("[Construyendo AceptarConexion]");
 		if ( !insSQL)
 			std::cout << "No existen las instrucciones" << std::endl;
+		
 		QSqlQuery query = insSQL->exec(empresa, "SEL0005", QStringList() << login );
 		
 // 		if ( query.exec() )
@@ -34,8 +36,9 @@ namespace qpscontrol
 			while ( query.next() )
 			{
 				// TODO: Construir los QStringList aqui para crear el paquete SbXmlACP
-				std::cout << query.value(0).toString() << std::endl;
-				std::cout << query.value(1).toString() << std::endl;
+				std::cout << "Imprimiendo resultado de consulta" << std::endl;
+				//std::cout << query.value(0).toString() << std::endl;
+				//std::cout << query.value(1).toString() << std::endl;
 			}
 // 		}
 	}
