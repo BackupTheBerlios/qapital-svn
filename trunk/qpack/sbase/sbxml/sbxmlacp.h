@@ -36,7 +36,7 @@
 namespace sbxml
 {
 	/**
-	Esta clase representa el objeto CNX, el cual es un paquete XML que envia el ST a los clientes en tiempo de autentificacion.
+	Esta clase representa el objeto ACP, el cual es un paquete XML que envia el ST a los clientes en tiempo de autentificacion.
 	@author CetiSoft
 	 */
 	class SbXmlACP : public QPDocumentoXML

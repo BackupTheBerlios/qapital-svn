@@ -49,6 +49,7 @@
 namespace qpcgui
 {
 	/**
+	 * @TODO: Comtemplar la posibilidad de colocar esta clase en sbgui.
 	* @author CetiSoft
 	*/
 	
@@ -56,12 +57,12 @@ namespace qpcgui
 	{
 		Q_OBJECT
 		private:
-			QLabel *gclLabelUsuario, *gclLabelPassword;
-			QLineEdit *gclCapturarUsuario, *gclCapturarPassword;
+			QLabel *gclLabelEmpresa, *gclLabelUsuario, *gclLabelPassword;
+			QLineEdit *gclCapturarEmpresa, *gclCapturarUsuario, *gclCapturarPassword;
 			QPushButton *continuar, *salir;
 			QFrame *frameLogin;
 			GCLSelectUser *selector;
-			QString login, password;
+			QString empresa, login, password;
 			
 		public:
 			GCLogin(QWidget *parent = 0, const char *name = 0);
@@ -69,6 +70,7 @@ namespace qpcgui
 			void crearEntradas();
 			QString obtenerLogin();
 			QString obtenerPassword();
+			QString obtenerEmpresa();
 			
 		public slots:
 			void gclContinuar();

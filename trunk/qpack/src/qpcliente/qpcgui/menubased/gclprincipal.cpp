@@ -63,8 +63,8 @@ void qpcgui::GCLPrincipal::init()
 	setCentralWidget(gcpFrame);
 	gcpFrame->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Preferred, false);
 	statusBar();
-	if ( conexion )
-		conexion->conectar();
+// 	if ( conexion )
+// 		conexion->conectar();
 	show();
 }
 
@@ -156,8 +156,8 @@ Aqui se hace la autentificacion del usuario. (falta).
 
 void qpcgui::GCLPrincipal::gcpContinuar()
 {
-	// FALTA: "DBMidas" debe ser leido de ventanaLogin!!
-	this->conectar();
+	if ( ! conexion->estaConectado() )
+		conexion->conectar();
 	QTimer::singleShot(100, this, SLOT(gcpEnviarAuth()) );
 }
 
@@ -174,7 +174,7 @@ bool qpcgui::GCLPrincipal::conectar()
 	
 void qpcgui::GCLPrincipal::gcpEnviarAuth()
 {
-	sbxml::SbXmlCNX cnxXML("DBMidas", ventanaLogin->obtenerLogin(), ventanaLogin->obtenerPassword() );
+	sbxml::SbXmlCNX cnxXML(ventanaLogin->obtenerEmpresa(), ventanaLogin->obtenerLogin(), ventanaLogin->obtenerPassword() );
 	
 	if ( conexion->estaConectado() )
 	{

@@ -32,6 +32,9 @@
  
 #include <qstring.h>
 
+/* TODO: 
+- Eliminar sbxmlacp
+*/
 #include "sbqpack.h"
 #include "sbxmlinterprete.h"
 #include "sbxmlerror.h"

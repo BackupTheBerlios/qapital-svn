@@ -106,7 +106,7 @@ namespace sbqpadmin
 	const QString CONFIGRC = sbqpack::CONFIGRC + "/QPAConfig.xml";
 	
 	// Objeto global logger.
-	static SBLogger QPLOGGER(SBLogger::VERBOSEFILE, SBLogger::ADMIN, sbqpack::PATHLOG+"QPAdmin.log");
+	static SBLogger QPLOGGER(SBLogger::VERBOSEFILE, SBLogger::ADMIN, sbqpack::PATHLOG, "QPAdmin.log");
 }
 
 namespace sbqpcliente
@@ -121,7 +121,7 @@ namespace sbqpcliente
 	const QString CONFIGRC = sbqpack::CONFIGRC + "/QPCConfig.xml";
 	
 	// Objeto global logger.
-	static SBLogger QPLOGGER(SBLogger::VERBOSEFILE, SBLogger::CLIENTE, sbqpack::PATHLOG+"QPCliente.log");
+	static SBLogger QPLOGGER(SBLogger::VERBOSEFILE, SBLogger::CLIENTE, sbqpack::PATHLOG, "QPCliente.log");
 }
 
 #endif

@@ -33,12 +33,12 @@ qpcgui::GCLogin::GCLogin(QWidget *parent, const char *name) : QGroupBox (parent,
 	frameLogin->setFrameStyle(QFrame::Box | QFrame::Plain);
 	frameLogin->setLineWidth( 2 );
 	
-	gclFrameLayout =  new QGridLayout( frameLogin, 3, 3);
+	gclFrameLayout =  new QGridLayout( frameLogin, 4, 4);
 //	gclFrameLayout->setAlignment(Qt::AlignCenter);
 	gclFrameLayout->setRowSpacing(0, 10);
-	gclFrameLayout->setRowSpacing(3, 10);
+	gclFrameLayout->setRowSpacing(4, 10);
 	gclFrameLayout->setColSpacing(0, 20);
-	gclFrameLayout->setColSpacing(3, 20);
+	gclFrameLayout->setColSpacing(4, 20);
 
 	selector = new GCLSelectUser(this);
 	connect (selector, SIGNAL(clicked(QIconViewItem*)), SLOT(usuarioEscogido(QIconViewItem *)) ),
@@ -67,6 +67,11 @@ Esta funcion crea los widgets de entrada
 */
 void qpcgui::GCLogin::crearEntradas()
 {
+	gclCapturarEmpresa = new QLineEdit(frameLogin);
+	gclCapturarEmpresa->setMaxLength( 10 );
+	gclCapturarEmpresa->setMaximumWidth ( 80 );
+	gclCapturarEmpresa->setMinimumWidth( 60 ) ;
+	
 	gclCapturarUsuario = new QLineEdit(frameLogin);
 	gclCapturarUsuario->setMaxLength( 10 );
 	gclCapturarUsuario->setMaximumWidth ( 80 );
@@ -78,6 +83,9 @@ void qpcgui::GCLogin::crearEntradas()
 	gclCapturarPassword->setMaximumWidth(80) ;
 	gclCapturarPassword->setEchoMode(QLineEdit::Password);
 	
+	gclLabelEmpresa = new QLabel ( tr("Empresa: "), frameLogin);
+	gclLabelEmpresa->setBuddy( gclCapturarEmpresa );
+	
 	gclLabelUsuario = new QLabel( tr("Usuario: "), frameLogin);
 	gclLabelUsuario->setBuddy( gclCapturarUsuario );
 	
@@ -88,14 +96,17 @@ void qpcgui::GCLogin::crearEntradas()
 //	continuar->setMaximumWidth(80) ;
 	connect(continuar, SIGNAL(clicked() ), SLOT( gclContinuar() ) );
 	
-	gclFrameLayout->addWidget(gclLabelUsuario, 1, 0);
-	gclFrameLayout->addWidget(gclCapturarUsuario, 1 ,1);
-	gclFrameLayout->addWidget(gclLabelPassword, 2, 0);
-	gclFrameLayout->addWidget(gclCapturarPassword, 2, 1);
+	gclFrameLayout->addWidget(gclLabelEmpresa, 1, 0);
+	gclFrameLayout->addWidget(gclCapturarEmpresa, 1, 1);
+	gclFrameLayout->addWidget(gclLabelUsuario, 2, 0);
+	gclFrameLayout->addWidget(gclCapturarUsuario, 2 ,1);
+	gclFrameLayout->addWidget(gclLabelPassword, 3, 0);
+	gclFrameLayout->addWidget(gclCapturarPassword, 3, 1);
 }
 
 void qpcgui::GCLogin::gclContinuar()
-{	
+{
+	empresa = gclCapturarEmpresa->text();
 	login = gclCapturarUsuario->text();
 	password = gclCapturarPassword->text();
 	emit gclFueClickeado();
@@ -109,6 +120,11 @@ QString qpcgui::GCLogin::obtenerLogin()
 QString qpcgui::GCLogin::obtenerPassword()
 {
 	return password;
+}
+
+QString qpcgui::GCLogin::obtenerEmpresa()
+{
+	return empresa;
 }
 
 // Slot: usuarioEscogido

@@ -51,7 +51,8 @@ class SBLogger : public QObject
 			
 		QString salvarFechaLog;
 		QString salvarHoraLog;
-			
+
+		QString LOGSDIR;
 		QString RUTA_LOG;
 		
 		QString FORMATEO_DEFECTO_HORA;
@@ -69,7 +70,7 @@ class SBLogger : public QObject
 		enum Nivel { LOGFILE = 0 , VERBOSEFILE, VERBOSE  };
 		enum Entidades { CLIENTE = 0 , ADMIN, SERVIDOR , NONE  };
 		
-		SBLogger(int nivel, Entidades entidad, QString ruta = QString::null );
+		SBLogger(int nivel, Entidades entidad, QString ruta, QString archivo );
 		~SBLogger();
 		
 		QString fechaLog();

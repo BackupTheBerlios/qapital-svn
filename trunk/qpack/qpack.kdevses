@@ -1,22 +1,37 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="5" >
-  <Doc0 NumberOfViews="1" URL="file:/home/krawek/Proyectos/qpack/sbase/sbqpack/sblogger.h" >
-   <View0 line="71" Type="Source" />
+ <DocsAndViews NumberOfDocuments="10" >
+  <Doc0 NumberOfViews="1" URL="file:/home/krawek/Proyectos/qpack/sbase/sbxml/sbxmlcnx.h" >
+   <View0 line="32" Type="Source" />
   </Doc0>
-  <Doc1 NumberOfViews="1" URL="file:/home/krawek/Proyectos/qpack/sbase/sbqpack/sblogger.cpp" >
-   <View0 line="95" Type="Source" />
+  <Doc1 NumberOfViews="1" URL="file:/home/krawek/Proyectos/qpack/sbase/sbxml/sbxmlcnx.cpp" >
+   <View0 line="36" Type="Source" />
   </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:/home/krawek/Proyectos/qpack/sbase/sbqpack/sbqpack.h" >
-   <View0 line="108" Type="Source" />
+  <Doc2 NumberOfViews="1" URL="file:/home/krawek/Proyectos/qpack/src/qpcliente/qpcliente/qpcliente.cpp" >
+   <View0 line="85" Type="Source" />
   </Doc2>
-  <Doc3 NumberOfViews="1" URL="file:/home/krawek/Proyectos/qpack/src/qpcliente/qpcliente/qpcliente.cpp" >
-   <View0 line="50" Type="Source" />
+  <Doc3 NumberOfViews="1" URL="file:/home/krawek/Proyectos/qpack/src/qpcliente/qpcred/clnred.h" >
+   <View0 line="48" Type="Source" />
   </Doc3>
   <Doc4 NumberOfViews="1" URL="file:/home/krawek/Proyectos/qpack/src/qpcliente/qpcred/clnred.cpp" >
-   <View0 line="154" Type="Source" />
+   <View0 line="69" Type="Source" />
   </Doc4>
+  <Doc5 NumberOfViews="1" URL="file:/home/krawek/Proyectos/qpack/src/qpcliente/qpcgui/menubased/gclprincipal.h" >
+   <View0 line="72" Type="Source" />
+  </Doc5>
+  <Doc6 NumberOfViews="1" URL="file:/home/krawek/Proyectos/qpack/src/qpcliente/qpcgui/menubased/gclprincipal.cpp" >
+   <View0 line="178" Type="Source" />
+  </Doc6>
+  <Doc7 NumberOfViews="1" URL="file:/home/krawek/Proyectos/qpack/src/qpcliente/qpcgui/menubased/gclogin.h" >
+   <View0 line="51" Type="Source" />
+  </Doc7>
+  <Doc8 NumberOfViews="1" URL="file:/home/krawek/Proyectos/qpack/src/qpcliente/qpcgui/menubased/gclogin.cpp" >
+   <View0 line="91" Type="Source" />
+  </Doc8>
+  <Doc9 NumberOfViews="1" URL="file:/home/krawek/Proyectos/qpack/sbase/sbxml/sbxml.h" >
+   <View0 line="35" Type="Source" />
+  </Doc9>
  </DocsAndViews>
  <pluginList>
   <kdevbookmarks>

@@ -93,8 +93,9 @@
 
 #include "sblogger.h"
 
-SBLogger::SBLogger(int nivel, Entidades entidad, QString ruta) : QObject(),
-RUTA_LOG(ruta),
+SBLogger::SBLogger(int nivel, Entidades entidad, QString ruta, QString archivo) : QObject(),
+LOGSDIR(ruta),
+RUTA_LOG(ruta+QDir::separator()+archivo),
 FORMATEO_DEFECTO_HORA  ( "hh:mm:ss-AP" ),
 FORMATEO_DEFECTO_FECHA ( "dd:MMMM:yyyy"),
 nivel(nivel)
@@ -115,12 +116,12 @@ SBLogger::~SBLogger()
 
 void SBLogger::iniciarLogger()
 {
-	QDir logs(RUTA_LOG);
+	QDir logs(LOGSDIR);
 	if (! logs.exists())
 	{
-		if ( ! logs.mkdir( RUTA_LOG ) )
+		if ( ! logs.mkdir( LOGSDIR ) )
 		{
-			std::cerr << QObject::tr("Error creando directorio para logs ") << RUTA_LOG << std::endl;
+			std::cerr << QObject::tr("Error creando directorio para logs ") << LOGSDIR << std::endl;
 		}
 	}
 }
