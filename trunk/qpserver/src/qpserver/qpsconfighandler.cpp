@@ -45,7 +45,7 @@ QPSConfigHandler::~QPSConfigHandler()
 }
 
 /**
-Esta funcion lee los elementos de apertura: <apertura>
+Esta funcion lee los elementos de apertura: \<apertura\>
 */
 bool QPSConfigHandler::startElement( const QString& , const QString& , const QString& qname, const QXmlAttributes& atts)
 {
@@ -72,7 +72,7 @@ bool QPSConfigHandler::startElement( const QString& , const QString& , const QSt
 }
 
 /**
-Esta funcion lee los elementos de cierre: </cierre>
+Esta funcion lee los elementos de cierre: \</cierre\>
 */
 bool QPSConfigHandler::endElement(const QString& ns, const QString& localname, const QString& qname)
 {
@@ -86,7 +86,7 @@ bool QPSConfigHandler::endElement(const QString& ns, const QString& localname, c
 }
 
 /** 
-Esta funcion lee la seccion de texto: <tag>Esta Seccion</tag>
+Esta funcion lee la seccion de texto:  \<tag\>Esta Seccion\</tag\>
 */
 bool QPSConfigHandler::characters(const QString &ch)
 {

@@ -38,25 +38,28 @@
 using sbqpserver::QPLOGGER;
 using sbbd::SbBDConexion;
 
-/**
-Esta clase almacena las sentencias sql definidas en la base de datos de midas.
 
-@author CetiSoft
-*/
-class BDInstrucciones
+namespace qpsbd
 {
-	private:
-		StringHash cacheInstrucciones;
-		BoolHash permisos;
-		SbBDConexion basesDeDatos;
-	public:
-	    	BDInstrucciones();
-		~BDInstrucciones();
-		bool cargarInstrucciones( SbBDConexion conexiones, QStringList dbnames);
-		QString obtenerInstruccion(const QString &codigo, const QStringList &argumentos) const;
-		QString obtenerInstruccion(const QString &codigo) const;
-		QSqlQuery exec(QString dbname, QString sqlkey);
-		QSqlQuery exec(QString dbname, QString sqlkey, QStringList args);
-};
+	/**
+	Esta clase almacena las sentencias sql definidas en la base de datos de midas.
 
+	@author CetiSoft
+	 */
+	class BDInstrucciones
+	{
+		private:
+			StringHash cacheInstrucciones;
+			BoolHash permisos;
+			SbBDConexion basesDeDatos;
+		public:
+			BDInstrucciones();
+			~BDInstrucciones();
+			bool cargarInstrucciones( SbBDConexion conexiones, QStringList dbnames);
+			QString obtenerInstruccion(const QString &codigo, const QStringList &argumentos) const;
+			QString obtenerInstruccion(const QString &codigo) const;
+			QSqlQuery exec(QString dbname, QString sqlkey);
+			QSqlQuery exec(QString dbname, QString sqlkey, QStringList args);
+	};
+}
 #endif

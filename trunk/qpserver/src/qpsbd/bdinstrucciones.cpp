@@ -30,7 +30,7 @@
 /**
 Constructor
 */
-BDInstrucciones::BDInstrucciones()
+qpsbd::BDInstrucciones::BDInstrucciones()
 {
 	qDebug("[Construyendo BDInstrucciones]");
 }
@@ -38,7 +38,7 @@ BDInstrucciones::BDInstrucciones()
 /**
 Destructor
 */
-BDInstrucciones::~BDInstrucciones()
+qpsbd::BDInstrucciones::~BDInstrucciones()
 {
 	qDebug("[Destruyendo BDInstrucciones]");
 }
@@ -49,7 +49,7 @@ Esta funcion se encarga de hacer un cache de instrucciones midas
 @param dbnames: lista de los nombres de las bases de datos que van a ser afectadas en la operacion.
 */
 
-bool BDInstrucciones::cargarInstrucciones(SbBDConexion conexiones, QStringList dbnames)
+bool qpsbd::BDInstrucciones::cargarInstrucciones(SbBDConexion conexiones, QStringList dbnames)
 {
 	basesDeDatos = conexiones;
 	for (uint i = 0; i < dbnames.count(); i++)
@@ -100,7 +100,9 @@ bool BDInstrucciones::cargarInstrucciones(SbBDConexion conexiones, QStringList d
 			while ( query.next() )
 			{
 				QString strperms = "K-" + dbnames[i] + "-" + query.value(1).toString().stripWhiteSpace() +"-"+ query.value(0).toString().stripWhiteSpace();
+#ifdef DEBUG
 				std::cout << strperms << std::endl;
+#endif
 				permisos.insert(strperms, new bool(true) );
 			}
 //			std::cout << "[OK]\n";
@@ -118,11 +120,11 @@ bool BDInstrucciones::cargarInstrucciones(SbBDConexion conexiones, QStringList d
 }
 
 /**
-Esta funcion se encarga de devolver la instruccion perteneciente al Hash de instrucciones.
-@param codigo: Codigo de la instruccion requerida
-@see obtenerInstruccion(const QString &codigo, const QStringList &argumentos) const
+* Esta funcion se encarga de devolver la instruccion perteneciente al Hash de instrucciones.
+* @param codigo: Codigo de la instruccion requerida
+* @see obtenerInstruccion(const QString &codigo, const QStringList &argumentos) const
 */
-QString BDInstrucciones::obtenerInstruccion(const QString &codigo) const
+QString qpsbd::BDInstrucciones::obtenerInstruccion(const QString &codigo) const
 {
 	QString strTmp = (QString) *cacheInstrucciones.find(codigo);
 	
@@ -135,12 +137,12 @@ QString BDInstrucciones::obtenerInstruccion(const QString &codigo) const
 }
 
 /**
-Funcion sobrecargada, retorna la instruccion sql con los tokens modificados.
-@param codigo: codigo de la instruccion requerida.
-@param argumentos: argumentos a ser reemplazados por los tokens en la instruccion
-@see obtenerInstruccion(const QString &codigo) const
+* Funcion sobrecargada, retorna la instruccion sql con los tokens modificados.
+* @param codigo: codigo de la instruccion requerida.
+* @param argumentos: argumentos a ser reemplazados por los tokens en la instruccion
+* @see obtenerInstruccion(const QString &codigo) const
 */
-QString BDInstrucciones::obtenerInstruccion(const QString &codigo, const QStringList &argumentos) const
+QString qpsbd::BDInstrucciones::obtenerInstruccion(const QString &codigo, const QStringList &argumentos) const
 {
 	QString instruccionTmp = obtenerInstruccion(codigo);
 	uint tokens = instruccionTmp.contains('?');
@@ -160,24 +162,35 @@ QString BDInstrucciones::obtenerInstruccion(const QString &codigo, const QString
 	return instruccionTmp;
 }
 
-QSqlQuery BDInstrucciones::exec(QString dbname, QString sqlkey)
+/**
+* Esta funcion ejecuta una consulta en la base de datos
+* @param dbname: Nombre de la base de datos
+* @param sqlkey: Llave de la instruccion SQL
+ */
+QSqlQuery qpsbd::BDInstrucciones::exec(QString dbname, QString sqlkey)
 {
 	QSqlDatabase *dbTmp = basesDeDatos.obtenerBD(dbname);
 	if (dbTmp->open())
 	{
-		QPLOGGER.salvarLog(SBLogger::QP_INFO, SBLogger::SERVIDOR, QObject::tr("Obtuviendo permisos sobre instrucciones."));
+		QPLOGGER.salvarLog(SBLogger::QP_INFO, SBLogger::SERVIDOR, QObject::tr("Obteniendo permisos sobre instrucciones."));
 	}
 	QString sqlTmp = this->obtenerInstruccion(sqlkey);
 	QSqlQuery query = dbTmp->exec(sqlTmp);
 	return query;
 }
 
-QSqlQuery BDInstrucciones::exec(QString dbname, QString sqlkey, QStringList args)
+/**
+* Esta funcion ejecuta una instruccion en la base de datos, esta instruccion recibe una lista de argumentos para la consulta
+* @param dbname: nombre de la base de datos
+* @param sqlkey: Codigo de la instruccion
+* @param args: Lista de argumentos
+ */
+QSqlQuery qpsbd::BDInstrucciones::exec(QString dbname, QString sqlkey, QStringList args)
 {
 	QSqlDatabase *dbTmp = basesDeDatos.obtenerBD(dbname);
 	if (dbTmp->open())
 	{
-		QPLOGGER.salvarLog(SBLogger::QP_INFO, SBLogger::SERVIDOR, QObject::tr("Obtuviendo permisos sobre instrucciones."));
+		QPLOGGER.salvarLog(SBLogger::QP_INFO, SBLogger::SERVIDOR, QObject::tr("Obteniendo permisos sobre instrucciones."));
 	}
 	QString sqlTmp = this->obtenerInstruccion(sqlkey, args);
 	QSqlQuery query = dbTmp->exec(sqlTmp);

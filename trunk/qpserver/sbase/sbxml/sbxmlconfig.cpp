@@ -73,7 +73,7 @@ QPDocumentoXML sbxml::SbXmlConfig::crearConfigCliente(QString host, QString puer
 }
 
 /**
-crearConfigServer
+Crea la configuracion del cliente
 @param past: Puerto Programa Administrador - Servidor de Transacciones.
 @param pcst: Puerto Programa Cliente - Servidor de Transacciones.
 @param maxClients: Numero maximo de clientes.

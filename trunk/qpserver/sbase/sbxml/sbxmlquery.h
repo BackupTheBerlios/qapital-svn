@@ -34,13 +34,13 @@
 #include <qpdocumentoxml.h>
 #include <qstringlist.h>
 
-/**
-Este clase representa el paquete QUERY, el cual es enviado por el PC al ST para solicitar una consulta.
-@author CetiSoft
-*/
 
 namespace sbxml
 {
+	/**
+	 * Este clase representa el paquete QUERY, el cual es enviado por el PC al ST para solicitar una consulta.
+	 * @author CetiSoft
+	 */
 	class SbXmlQUERY : public QPDocumentoXML
 	{
 		public:

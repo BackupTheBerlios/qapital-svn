@@ -38,14 +38,12 @@
 #include <qstring.h>
 #include <qobject.h>
 
-
-/**
-Este modulo sirve para trabajar con archivos XML, permite leer y hacer XMLs de forma sencilla.
-@author CetiSoft
-*/
-
 namespace sbxml
 {
+	/**
+	Este modulo sirve para trabajar con archivos XML, permite leer y hacer XMLs de forma sencilla.
+	@author CetiSoft
+	 */
 	class SbXmlInterprete
 	{
 		private:

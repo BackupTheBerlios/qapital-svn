@@ -33,11 +33,12 @@
 
 #include <qpdocumentoxml.h>
 
-/**
-@author CetiSoft
-*/
 namespace sbxml
 {
+	/**
+	Esta clase representa una respuesta del servidor de transacciones.
+	@author CetiSoft
+	 */
 	class SbXmlANSWER : public QPDocumentoXML
 	{
 		public:

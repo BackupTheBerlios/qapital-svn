@@ -62,9 +62,9 @@ class QPSConfigHandler : public QXmlDefaultHandler
 		int pcst();
 		int maximoDeClientes();
 		int obtenerNumeroDeBDS();
-		QString nombreDB();
-		QString obtenerUsuario();
-		QString obtenerPassword();
+// 		QString nombreDB();
+// 		QString obtenerUsuario();
+// 		QString obtenerPassword();
 		ListaDeBD dbs();
 		QStringList nombresBDS();
 };

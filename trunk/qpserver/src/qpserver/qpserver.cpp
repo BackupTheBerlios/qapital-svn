@@ -148,7 +148,7 @@ int main(int argc, char **argv)
 
  			if ( cargarBD )
  			{
-				BDInstrucciones instrucciones;
+				qpsbd::BDInstrucciones instrucciones;
        				if ( ! instrucciones.cargarInstrucciones( handler->conexiones(), handler->nombresBDS() ) )
 				{
 					QPERROR(QObject::tr("Error cargando las instrucciones! "));

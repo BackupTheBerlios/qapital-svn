@@ -31,17 +31,17 @@
 #ifndef SBXMLCONFIG_H
 #define SBXMLCONFIG_H
 
-/**
-Esta clase sirve para generar las configuraciones del servidor, administrador o los clientes.
-
-@author CetiSoft
-*/
-
 #include "qpdocumentoxml.h"
 #include "sbqpserver.h"
 
 namespace sbxml
 {
+	/**
+	Esta clase sirve para generar las configuraciones del servidor, administrador o los clientes.
+
+	@author CetiSoft
+	 */
+	
 	class SbXmlConfig
 	{
 		public:

@@ -1,4 +1,4 @@
-/* Clase: 
+/* Clase: SbXmlQUERY
  * Autor: CetiSoft
  * Version: 0.0.1
  * Fecha de creacion: /08/2004
@@ -29,6 +29,11 @@
 
 using sbxml::QPDocumentoXML;
 
+/**
+ * Constructor
+ * @param sqlkey
+ * @param argumentos
+ */
 sbxml::SbXmlQUERY::SbXmlQUERY(QString sqlkey, QStringList argumentos) : QPDocumentoXML()
 {
 	QDomElement raiz = this->createElement( "QUERY" ); 
@@ -52,6 +57,12 @@ sbxml::SbXmlQUERY::SbXmlQUERY(QString sqlkey, QStringList argumentos) : QPDocume
 	raiz.appendChild(paramElement);
 }
 
+/**
+ * Constructor
+ * @param sqlkey
+ * @param password
+ * @param argumentos
+ */
 sbxml::SbXmlQUERY::SbXmlQUERY(QString sqlkey,QString password, QStringList argumentos)
 {
 	QDomElement raiz = this->createElement( "QUERY" ); 
@@ -80,6 +91,9 @@ sbxml::SbXmlQUERY::SbXmlQUERY(QString sqlkey,QString password, QStringList argum
 	raiz.appendChild(paramElement);	
 }
 
+/**
+ * Destructor
+ */
 sbxml::SbXmlQUERY::~SbXmlQUERY()
 {
 }

@@ -39,15 +39,6 @@
 #include <qobject.h>
 #include <qstring.h>
 
-/**
-TODO: Encripcion
-	 Modulo XML +
-	 Archivo de consultas XML -
-	 Interpretar y armar paquetes XML +-
-	 Generar cache -
-*/
-
-
 namespace sbred
 {
 	// Definiciones de constantes globales.
@@ -63,9 +54,14 @@ namespace sbred
 	const int MAXIMO_DE_CLIENTES = 10;
 	
 	/**
-	@author CetiSoft
+	 * Clase guia para la red
+	 * @author CetiSoft
+	 * TODO: Encripcion
+	 * 	Modulo XML +
+	 * 	Archivo de consultas XML -
+	 * 	Interpretar y armar paquetes XML +-
+	 * 	Generar cache -
 	*/
-	
 	class SBRed 
 	{	
 		public:

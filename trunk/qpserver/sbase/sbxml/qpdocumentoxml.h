@@ -36,13 +36,14 @@
 #include <qstringlist.h>
 // #include "sbqapital.h"
 
-/**
-Es la clase base para la construccion de paquetes XML Qapital
-@author CetiSoft
-*/
 
 namespace sbxml
 {
+	/**
+	Es la clase base para la construccion de paquetes XML Qapital
+	@author CetiSoft
+	 */
+	
 	class QPDocumentoXML : public QDomDocument
 	{
 		public:

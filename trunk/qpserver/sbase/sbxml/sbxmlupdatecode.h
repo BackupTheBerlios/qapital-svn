@@ -33,11 +33,11 @@
 
 #include <qpdocumentoxml.h>
 
-/**
-@author CetiSoft
-*/
 namespace sbxml
 {
+	/**
+	@author CetiSoft
+	 */
 	class SbXmlUPDATECODE : public QPDocumentoXML
 	{
 		public:

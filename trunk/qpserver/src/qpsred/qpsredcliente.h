@@ -40,19 +40,18 @@
 #include "srvxmlhandler.h"
 #include "sbxml.h"
 
-
-/**
-* Esta clase representa el servidor qapital
-* @author CetiSoft
-* @todo 
-* - Terminar la comunicacion de los clientes/admin con el servidor de transacciones
-* - Recibir paquetes XML e interpretarlos.
-*/
-
 namespace qpsred
 {
 	class QPSRedServer;
 	
+	/**
+	 * Esta clase representa el servidor qapital
+	 * @author CetiSoft
+	 * @todo 
+	 * - Terminar la comunicacion de los clientes/admin con el servidor de transacciones
+	 * - Recibir paquetes XML e interpretarlos.
+	 */
+
 	class QPSRedCliente : public QSocket
 	{
 		Q_OBJECT

@@ -35,13 +35,13 @@
 #include <qsqldatabase.h>
 #include <qsqlquery.h>
 
-/**
-Esta clase maneja la configuracion  y conexion de la base de datos.
-
-@author CetiSoft
-*/
 namespace sbbd
 {
+	/**
+	Esta clase maneja la configuracion  y conexion de la base de datos.
+
+	@author CetiSoft
+	 */
 	class SbBDConexion
 	{
 		private:

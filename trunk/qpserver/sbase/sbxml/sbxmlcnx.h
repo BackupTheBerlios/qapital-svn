@@ -33,12 +33,12 @@
 
 #include <qpdocumentoxml.h>
 
-/**
-Paquete <CNX> para peticion de conexiones.
-@author CetiSoft
-*/
 namespace sbxml
 {
+	/**
+	 * Paquete \<CNX\> para peticion de conexiones.
+	 * @author CetiSoft
+	 */
 	class SbXmlCNX : public QPDocumentoXML
 	{
 		public:

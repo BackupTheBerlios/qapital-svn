@@ -39,12 +39,12 @@
 #include <qstring.h>
 #include "qpdocumentoxml.h"
 
-/**
- * Esta clase representa el documento XML de error
- * @author CetiSoft
-*/
 namespace sbxml
 {
+	/**
+	 * Esta clase representa el documento XML de error
+	 * @author CetiSoft
+	 */
 	class SbXMLError : public QPDocumentoXML
 	{
 		private:
