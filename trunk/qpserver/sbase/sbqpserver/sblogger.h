@@ -13,7 +13,9 @@
 #define QPINFO(s) std::cout << "\033[1;32m * \033[0;0m" << s << std::endl;
 #define QPWARN(s) std::cout << "\033[1;33m" << " * " << "\033[0;0m" << s << std::endl;
 #define QPERROR(s) std::cout << "\033[1;31m" << " * " << "\033[0;0m" << s << std::endl;
-
+/**
+ * Esta clase es el encargado del logeo del sistema
+ */ 
 class SBLogger : public QObject
 {        
   	private:

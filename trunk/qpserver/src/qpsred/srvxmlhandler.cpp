@@ -28,22 +28,22 @@
 #include "srvxmlhandler.h"
 
 /**
-Constructor
-*/
+ * Constructor
+ */
 qpsred::SrvXmlHandler::SrvXmlHandler() : QXmlDefaultHandler(), qName(""), leer(false)
 {
 }
 
 /**
-Destructor
-*/
+ * Destructor
+ */
 qpsred::SrvXmlHandler::~SrvXmlHandler()
 {
 }
 
 /**
-Esta funcion lee los elementos de apertura: \<apertura\>
-*/
+ * Esta funcion lee los elementos de apertura: \<apertura\>
+ */
 bool qpsred::SrvXmlHandler::startElement(const QString& , const QString& , const QString& qname, const QXmlAttributes& )
 {
 	qName = qname;
@@ -82,8 +82,8 @@ bool qpsred::SrvXmlHandler::startElement(const QString& , const QString& , const
 }
 
 /**
-Esta funcion lee los elementos de cierre: \</cierre\>
-*/
+ * Esta funcion lee los elementos de cierre: \</cierre\>
+ */
 bool qpsred::SrvXmlHandler::endElement( const QString&, const QString& , const QString& )
 {
 	qName = "";
@@ -91,8 +91,8 @@ bool qpsred::SrvXmlHandler::endElement( const QString&, const QString& , const Q
 }
 
 /** 
-Esta funcion lee la seccion de texto: \<tag\>Esta Seccion \</tag\>
-*/
+ * Esta funcion lee la seccion de texto: \<tag\>Esta Seccion \</tag\>
+ */
 bool qpsred::SrvXmlHandler::characters ( const QString & ch )
 {
 	if ( raiz == "CNX" )

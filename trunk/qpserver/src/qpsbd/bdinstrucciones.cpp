@@ -28,26 +28,26 @@
 #include "bdinstrucciones.h"
 
 /**
-Constructor
-*/
+ * Constructor
+ */
 qpsbd::BDInstrucciones::BDInstrucciones()
 {
 	qDebug("[Construyendo BDInstrucciones]");
 }
 
 /**
-Destructor
-*/
+ * Destructor
+ */
 qpsbd::BDInstrucciones::~BDInstrucciones()
 {
 	qDebug("[Destruyendo BDInstrucciones]");
 }
 
 /**
-Esta funcion se encarga de hacer un cache de instrucciones midas
-@param conexiones: es la conexion con la base de datos.
-@param dbnames: lista de los nombres de las bases de datos que van a ser afectadas en la operacion.
-*/
+ * Esta funcion se encarga de hacer un cache de instrucciones midas
+ * @param conexiones: es la conexion con la base de datos.
+ * @param dbnames: lista de los nombres de las bases de datos que van a ser afectadas en la operacion.
+ */
 
 bool qpsbd::BDInstrucciones::cargarInstrucciones(SbBDConexion conexiones, QStringList dbnames)
 {
@@ -120,10 +120,10 @@ bool qpsbd::BDInstrucciones::cargarInstrucciones(SbBDConexion conexiones, QStrin
 }
 
 /**
-* Esta funcion se encarga de devolver la instruccion perteneciente al Hash de instrucciones.
-* @param codigo: Codigo de la instruccion requerida
-* @see obtenerInstruccion(const QString &codigo, const QStringList &argumentos) const
-*/
+ * Esta funcion se encarga de devolver la instruccion perteneciente al Hash de instrucciones.
+ * @param codigo: Codigo de la instruccion requerida
+ * @see obtenerInstruccion(const QString &codigo, const QStringList &argumentos) const
+ */
 QString qpsbd::BDInstrucciones::obtenerInstruccion(const QString &codigo) const
 {
 	QString strTmp = (QString) *cacheInstrucciones.find(codigo);
@@ -137,11 +137,11 @@ QString qpsbd::BDInstrucciones::obtenerInstruccion(const QString &codigo) const
 }
 
 /**
-* Funcion sobrecargada, retorna la instruccion sql con los tokens modificados.
-* @param codigo: codigo de la instruccion requerida.
-* @param argumentos: argumentos a ser reemplazados por los tokens en la instruccion
-* @see obtenerInstruccion(const QString &codigo) const
-*/
+ * Funcion sobrecargada, retorna la instruccion sql con los tokens modificados.
+ * @param codigo: codigo de la instruccion requerida.
+ * @param argumentos: argumentos a ser reemplazados por los tokens en la instruccion
+ * @see obtenerInstruccion(const QString &codigo) const
+ */
 QString qpsbd::BDInstrucciones::obtenerInstruccion(const QString &codigo, const QStringList &argumentos) const
 {
 	QString instruccionTmp = obtenerInstruccion(codigo);
@@ -163,9 +163,9 @@ QString qpsbd::BDInstrucciones::obtenerInstruccion(const QString &codigo, const 
 }
 
 /**
-* Esta funcion ejecuta una consulta en la base de datos
-* @param dbname: Nombre de la base de datos
-* @param sqlkey: Llave de la instruccion SQL
+ * Esta funcion ejecuta una consulta en la base de datos
+ * @param dbname: Nombre de la base de datos
+ * @param sqlkey: Llave de la instruccion SQL
  */
 QSqlQuery qpsbd::BDInstrucciones::exec(QString dbname, QString sqlkey)
 {
@@ -180,10 +180,10 @@ QSqlQuery qpsbd::BDInstrucciones::exec(QString dbname, QString sqlkey)
 }
 
 /**
-* Esta funcion ejecuta una instruccion en la base de datos, esta instruccion recibe una lista de argumentos para la consulta
-* @param dbname: nombre de la base de datos
-* @param sqlkey: Codigo de la instruccion
-* @param args: Lista de argumentos
+ * Esta funcion ejecuta una instruccion en la base de datos, esta instruccion recibe una lista de argumentos para la consulta
+ * @param dbname: nombre de la base de datos
+ * @param sqlkey: Codigo de la instruccion
+ * @param args: Lista de argumentos
  */
 QSqlQuery qpsbd::BDInstrucciones::exec(QString dbname, QString sqlkey, QStringList args)
 {

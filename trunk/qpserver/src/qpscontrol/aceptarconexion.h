@@ -29,8 +29,8 @@ namespace qpscontrol
 {
 	/**
 	 * Esta clase pretende constrir el paquete SbXmlACP, con las transacciones y drivers y enviarlo a los clientes.
-	@author CetiSoft
-	*/
+	 * @author CetiSoft
+	 */
 	class AceptarConexion
 	{
 		private:

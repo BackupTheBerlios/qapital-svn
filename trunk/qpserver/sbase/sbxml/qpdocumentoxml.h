@@ -40,8 +40,8 @@
 namespace sbxml
 {
 	/**
-	Es la clase base para la construccion de paquetes XML Qapital
-	@author CetiSoft
+	 * Es la clase base para la construccion de paquetes XML Qapital
+	 * @author CetiSoft
 	 */
 	
 	class QPDocumentoXML : public QDomDocument

@@ -38,9 +38,8 @@
 namespace sbbd
 {
 	/**
-	Esta clase maneja la configuracion  y conexion de la base de datos.
-
-	@author CetiSoft
+	 * Esta clase maneja la configuracion  y conexion de la base de datos.
+	 * @author CetiSoft
 	 */
 	class SbBDConexion
 	{

@@ -37,9 +37,9 @@
 namespace qpsred
 {
 	/**
-	Esta clase se encarga de analizar los paquetes XML que llegan al servidor.
-	@author CetiSoft
-	*/
+	 * Esta clase se encarga de analizar los paquetes XML que llegan al servidor.
+	 * @author CetiSoft
+	 */
 	class SrvXmlHandler : public QXmlDefaultHandler
 	{
 		private:

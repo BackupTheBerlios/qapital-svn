@@ -28,30 +28,30 @@
 #include "sbbdconexion.h"
 
 /**
-Constructor
-*/
+ * Constructor
+ */
 sbbd::SbBDConexion::SbBDConexion()
 {
 	qDebug("[Construyendo SbBDConexion]");
 }
 
 /**
-Destructor
-*/
+ * Destructor
+ */
 sbbd::SbBDConexion::~SbBDConexion()
 {
 	qDebug("[Destruyendo SbBDConexion]");
 }
 
 /**
-Esta funcion carga la base de datos
-@param bddriver: Driver SQL usado para la conexion.
-@param bdname: Mombre de la base de datos.
-@param bduser: Usuario de la base de datos
-@param bdpassword: Password del bduser
-@param bdhost: Servidor donde esta alojada la base de datos.
-@see cargarBD(const QString bduser, const QString bdpassword, const QString bdhost)
-*/
+ * Esta funcion carga la base de datos
+ * @param bddriver: Driver SQL usado para la conexion.
+ * @param bdname: Mombre de la base de datos.
+ * @param bduser: Usuario de la base de datos
+ * @param bdpassword: Password del bduser
+ * @param bdhost: Servidor donde esta alojada la base de datos.
+ * @see cargarBD(const QString bduser, const QString bdpassword, const QString bdhost)
+ */
 void sbbd::SbBDConexion::cargarBD(const QString bddriver, const QString bdname, const QString bduser, const QString bdpassword, const QString bdhost)
 {
 	std::cout << "Cargando DB: " << bdname << " en " << bdhost << std::endl;
@@ -68,21 +68,21 @@ void sbbd::SbBDConexion::cargarBD(const QString bddriver, const QString bdname, 
 }
 
 /**
-Esta funcion retorna la conexion configurada pero no abierta, con la base de datos
-@param key: es el codigo (nombre de la base de datos) que identifica la base de datos.
-*/
+ * Esta funcion retorna la conexion configurada pero no abierta, con la base de datos
+ * @param key: es el codigo (nombre de la base de datos) que identifica la base de datos.
+ */
 QSqlDatabase *sbbd::SbBDConexion::obtenerBD(const QString &key ) const
 {
 	return QSqlDatabase::database(key, false);
 }
 
 /**
-Esta funcion sobrecargada carga la base de datos
-@param bduser: Usuario de la base de datos
-@param bdpassword: Password del bduser
-@param bdhost: Servidor donde esta alojada la base de datos.
-@see cargarBD(const QString bddriver, const QString bdname, const QString bduser, const QString bdpassword, const QString bdhost)
-*/
+ * Esta funcion sobrecargada carga la base de datos
+ * @param bduser: Usuario de la base de datos
+ * @param bdpassword: Password del bduser
+ * @param bdhost: Servidor donde esta alojada la base de datos.
+ * @see cargarBD(const QString bddriver, const QString bdname, const QString bduser, const QString bdpassword, const QString bdhost)
+ */
 void sbbd::SbBDConexion::cargarBD(const QString bduser, const QString bdpassword, const QString bdhost)
 {
 	std::cout << "Cargando DB: " << bdname << " en " << bdhost << std::endl;
@@ -96,16 +96,16 @@ void sbbd::SbBDConexion::cargarBD(const QString bduser, const QString bdpassword
 }
 
 /**
-Funcion encargada de abrir la conexion (obsoleta)
-*/
+ * Funcion encargada de abrir la conexion (obsoleta)
+ */
 bool sbbd::SbBDConexion::abrirConexion()
 {
 	return cnx->open();
 }
 
 /**
-Funcion encargada de realizar una consulta (obsoleta)
-*/
+ * Funcion encargada de realizar una consulta (obsoleta)
+ */
 QSqlQuery sbbd::SbBDConexion::consultar(const QString &consulta) const
 {
 	QSqlQuery queryTmp = cnx->exec(consulta);
@@ -115,8 +115,8 @@ QSqlQuery sbbd::SbBDConexion::consultar(const QString &consulta) const
 }
 
 /**
-Esta funcion retorna el nombre de la base de datos.
-*/
+ * Esta funcion retorna el nombre de la base de datos.
+ */
 QString sbbd::SbBDConexion::nombreBD() const
 {
 	return bdname;

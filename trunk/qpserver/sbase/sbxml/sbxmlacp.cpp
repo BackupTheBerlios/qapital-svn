@@ -28,11 +28,16 @@
 #include "sbxmlacp.h"
 
 using sbxml::QPDocumentoXML;
-
+/**
+ * Contructor
+ */ 
 sbxml::SbXmlACP::SbXmlACP()
 {
 }
 
+/**
+ * Contructor
+ */
 sbxml::SbXmlACP::SbXmlACP(QStringList drivers, QStringList sqls) : QPDocumentoXML()
 {
 	QDomElement raiz = this->createElement( "ACP" );
@@ -65,6 +70,9 @@ sbxml::SbXmlACP::SbXmlACP(QStringList drivers, QStringList sqls) : QPDocumentoXM
 	
 }
 
+/**
+ * Destructor
+ */ 
 
 sbxml::SbXmlACP::~SbXmlACP()
 {

@@ -42,9 +42,8 @@ using sbbd::SbBDConexion;
 namespace qpsbd
 {
 	/**
-	Esta clase almacena las sentencias sql definidas en la base de datos de midas.
-
-	@author CetiSoft
+	 * Esta clase almacena las sentencias sql definidas en la base de datos de midas.
+	 * @author CetiSoft
 	 */
 	class BDInstrucciones
 	{

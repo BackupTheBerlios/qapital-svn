@@ -13,6 +13,9 @@
 
 typedef QDict<QString> StringHash;
 
+/**
+ * Esta clase Provee un cache de errores
+ */ 
 class SBError
 {
 	private:

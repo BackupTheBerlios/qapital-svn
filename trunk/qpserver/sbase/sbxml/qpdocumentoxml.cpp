@@ -27,9 +27,9 @@
 
 #include "qpdocumentoxml.h"
 
-/**
-Constructor
-*/
+/** 
+ * Constructor
+ */
 sbxml::QPDocumentoXML::QPDocumentoXML() : QDomDocument()
 {
 	QDomProcessingInstruction cabecera = this->createProcessingInstruction("xml","version=\"1.0\" encoding=\"UTF-8\"");
@@ -37,8 +37,8 @@ sbxml::QPDocumentoXML::QPDocumentoXML() : QDomDocument()
 }
 
 /**
-Destructor
-*/
+ * Destructor
+ */
 sbxml::QPDocumentoXML::~QPDocumentoXML()
 {
 }

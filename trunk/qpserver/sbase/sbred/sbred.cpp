@@ -27,10 +27,16 @@
  
  #include "sbred.h"
 
+ /**
+  * Constructor
+  */ 
 sbred::SBRed::SBRed()
 {
 }
 
+/**
+ * Destructor
+ */ 
 sbred::SBRed::~SBRed()
 {
 }

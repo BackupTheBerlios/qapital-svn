@@ -28,11 +28,11 @@
 #include "qpsredserver.h"
 
 /** 
-* Constructor
-* @param puerto: Puerto del servidor 
-* @param conexiones: Numero de conexiones que admite el servidor.
-* @param padre: Padre del objeto.
-*/
+ * Constructor
+ * @param puerto: Puerto del servidor 
+ * @param conexiones: Numero de conexiones que admite el servidor.
+ * @param padre: Padre del objeto.
+ */
 qpsred::QPSRedServer::QPSRedServer(int puerto, int conexiones, qpsbd::BDInstrucciones *instrucciones, QObject* padre) : QServerSocket(puerto, conexiones, padre), instrucciones(instrucciones)
 {
 	qDebug("[Construyendo QPSRedServer]");
@@ -50,17 +50,17 @@ qpsred::QPSRedServer::QPSRedServer(int puerto, int conexiones, qpsbd::BDInstrucc
 }
 
 /**
-Destructor
-*/
+ * Destructor
+ */
 qpsred::QPSRedServer::~QPSRedServer()
 {
 	qDebug("[Destruyendo QPSRedServer]");
 }
 
 /**
-Envia el texto a cada uno de los clientes de la lista.
-@param str: Texto a enviar.
-*/
+ * Envia el texto a cada uno de los clientes de la lista.
+ * @param str: Texto a enviar.
+ */
 void qpsred::QPSRedServer::enviarATodos(QString str)
 {
 	qDebug(tr("Enviando a todos: %1").arg(str) );
@@ -73,10 +73,10 @@ void qpsred::QPSRedServer::enviarATodos(QString str)
 }
 
 /**
-* Este slot se conecta cuando ocurre una conexion nueva.
-* @param socket: decriptor del socket.
-* @todo terminar el soporte para blacklists, escribiendo un archivo y leyendo de él, en el momento se volveran a recibir conexiones pasado un tiempo...
-*/
+ * Este slot se conecta cuando ocurre una conexion nueva.
+ * @param socket: decriptor del socket.
+ * @todo terminar el soporte para blacklists, escribiendo un  archivo y leyendo de él, en el momento se volveran a recibir conexiones pasado un tiempo...
+ */
 void qpsred::QPSRedServer::newConnection(int socket)
 {
 	QPSRedCliente *s = new QPSRedCliente( socket, this, "Cliente" );
@@ -108,9 +108,9 @@ void qpsred::QPSRedServer::newConnection(int socket)
 }
 
 /**
-* Esta funcion se encarga de remover el cliente c de la lista de clientes
-* @param c: cliente a ser removido
-*/
+ * Esta funcion se encarga de remover el cliente c de la lista de clientes
+ * @param c: cliente a ser removido
+ */
 void qpsred::QPSRedServer::quitarCliente(QPSRedCliente *c)
 {
 	rdsClientes.remove(c);
@@ -118,9 +118,9 @@ void qpsred::QPSRedServer::quitarCliente(QPSRedCliente *c)
 }
 
 /**
-* Esta funcion reporta el fallo provocado por un usuario al enviar un paquete invalido.
-* @param ip: IP que intenta la conexion.
-*/
+ * Esta funcion reporta el fallo provocado por un usuario al enviar un paquete invalido.
+ * @param ip: IP que intenta la conexion.
+ */
 void qpsred::QPSRedServer::fallo(QString ip)
 {
 	if (conexionesFallidas.find(ip) == 0 )
@@ -133,8 +133,8 @@ void qpsred::QPSRedServer::fallo(QString ip)
 }
 
 /**
-* Esta funcion remueve todos los bans, que estan activos en el momento.
-*/
+ * Esta funcion remueve todos los bans, que estan activos en el momento.
+ */
 void qpsred::QPSRedServer::removerBans()
 {
 	std::cout << tr("Removiendo todos los bans") << std::endl;

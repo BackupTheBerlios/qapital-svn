@@ -102,7 +102,7 @@
       <envvars/>
     </run>
     <general>
-      <activedir>src/qpserver</activedir>
+      <activedir>sbase/sbxml</activedir>
     </general>
     <make>
       <abortonerror>false</abortonerror>
@@ -124,9 +124,7 @@
     </useglobaltypes>
   </kdevfilecreate>
   <kdevcppsupport>
-    <references>
-      <pcs>Qt</pcs>
-    </references>
+    <references/>
     <codecompletion>
       <includeGlobalFunctions>true</includeGlobalFunctions>
       <includeTypes>true</includeTypes>

@@ -32,11 +32,11 @@
 #include "aceptarconexion.h"
 
 /**
-* Constructor
-* @param sock: socket asociado.
-* @param padre: El servidor padre.
-* @param nombre: El nombre del objecto.
-*/
+ * Constructor
+ * @param sock: socket asociado.
+ * @param padre: El servidor padre.
+ * @param nombre: El nombre del objecto.
+ */
 qpsred::QPSRedCliente::QPSRedCliente(int sock, QPSRedServer *padre, const char *nombre)
  : QSocket(0, nombre), server(padre)
 {
@@ -53,18 +53,18 @@ qpsred::QPSRedCliente::QPSRedCliente(int sock, QPSRedServer *padre, const char *
 }
 
 /**
-* Destructor
-*/
+ * Destructor
+ */
 qpsred::QPSRedCliente::~QPSRedCliente()
 {
 	qDebug("[Destruyendo QPSRedCliente]");	
 }
 
 /**
-* Esta funcion se encarga de enviar una cadena al cliente.
-* @param str cadena de texto enviada al cliente.
-* @see redClienteEnviar(QDomDocument doc)
-*/
+ * Esta funcion se encarga de enviar una cadena al cliente.
+ * @param str cadena de texto enviada al cliente.
+ * @see redClienteEnviar(QDomDocument doc)
+ */
 void qpsred::QPSRedCliente::enviarTexto(QString str)
 {
 	QTextStream ts(this);
@@ -73,10 +73,10 @@ void qpsred::QPSRedCliente::enviarTexto(QString str)
 }
 
 /**
-* Esta funcion se encarga de enviar un documento XML al cliente.
-* @param doc Documento XML.
-* @see redClienteEnviar(QString str)
-*/
+ * Esta funcion se encarga de enviar un documento XML al cliente.
+ * @param doc Documento XML.
+ * @see redClienteEnviar(QString str)
+ */
 void qpsred::QPSRedCliente::enviarXml(QDomDocument doc)
 {
 	QString str = doc.toString();
@@ -84,8 +84,8 @@ void qpsred::QPSRedCliente::enviarXml(QDomDocument doc)
 }
 
 /**
-* Esta funcion es la encargada de leer del canal e interpretar la cadena leida.
-*/
+ * Esta funcion es la encargada de leer del canal e interpretar la cadena leida.
+ */
 void qpsred::QPSRedCliente::leer()
 {
 	// flujo de texto asociado al canal
@@ -140,8 +140,8 @@ void qpsred::QPSRedCliente::leer()
 }
 
 /**
-* Esta funcion cierra la conexion
-*/
+ * Esta funcion cierra la conexion
+ */
 void qpsred::QPSRedCliente::cerrarConexion()
 {
         this->close();
@@ -156,8 +156,8 @@ void qpsred::QPSRedCliente::cerrarConexion()
 }
 
 /**
-* Este slot es activado cuando se ha cerrado la conexion.
-*/
+ * Este slot es activado cuando se ha cerrado la conexion.
+ */
 void qpsred::QPSRedCliente::conexionCerrada()
 {
 	QPLOGGER.salvarLog(SBLogger::QP_INFO, SBLogger::SERVIDOR, tr("Conexion cerrada por el cliente %1").arg(ipCliente));

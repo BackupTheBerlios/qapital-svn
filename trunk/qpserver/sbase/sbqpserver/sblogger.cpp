@@ -8,14 +8,9 @@
 */
 
 /**
-  @TODO : Generar un lector de logs, el cual identifique cuales son de X tipo , dependiendo de el nivel 
-         con el cual fueron loggueados
-	 
-	 - Genear un fichero de log backup , el cual despues de xx, numero de dias o ( X Kb ) genere un .tar.gz u
-	   otro 
-	   archivo comprimido el cual se ira almacenando en /var/log/qapital/backup-[ano]-[mes]-[dia].tar.gz
-	   para asi aligerar la gestion de lecto-escritura sobre los ficheros.
-*/
+ * @TODO : Generar un lector de logs, el cual identifique cuales son de X tipo , dependiendo de el nivel con el cual fueron loggueados
+ * - Genear un fichero de log backup , el cual despues de xx, numero de dias o ( X Kb ) genere un .tar.gz u otro archivo  comprimido el cual se ira almacenando en /var/log/qapital/backup-[ano]-[mes]-[dia].tar.gz para asi aligerar la gestion de lecto-escritura sobre los ficheros.
+ */
 
 /********************************************************************************
  *   Copyright (C) 2004 by CetiSoft                                             *
@@ -38,38 +33,36 @@
  *******************************************************************************/
 
 /**
-@author CetiSoft
-*/
+ * @author CetiSoft
+ */
 
 
 /**
-    este metodo es opcional, se puede hacer manualmente o ejecutando el script de instalacion , 
-    pero este puede ser usado a la hora de generar un instalador para la apliacion 
-    asi que hay queda opcional 
-*/
+ * este metodo es opcional, se puede hacer manualmente o ejecutando el script de instalacion , pero este puede ser usado a la hora de generar un instalador para la apliacion asi que hay queda opcional 
+ */
 
 /**
- Prioridades del Sistema de loggs:
-   
-  PRIORIDAD   /   Identificador / Descripcion 
-    0              QP_INFO          mensajes de informacion 
-    1              QP_WARNING       mensajes de advertencia pueden poner en peligro la aplicacion o la seguridad
-    2              QP_ERROR         mensajes de error, graves o errores que se pueden solucinar facilmente
-*/
+ * Prioridades del Sistema de loggs:
+ *  
+ * PRIORIDAD   /   Identificador / Descripcion 
+ *   0              QP_INFO          mensajes de informacion 
+ *   1              QP_WARNING       mensajes de advertencia pueden poner en peligro la aplicacion o la seguridad
+ *   2              QP_ERROR         mensajes de error, graves o errores que se pueden solucinar facilmente
+ */
 
 /**
- Niveles de loggeo:
-   
-  NIVEL   /   Identificador / Descripcion 
-    
-   0          LOGFILE        Solo Logguea en archivo plano 
-   1 	      VERBOSEFILE    Genera salida en pantalla y logguea en archivo
-   2          VERBOSE        Solo genera salida en pantalla.
-*/
+ * Niveles de loggeo:
+ *  
+ * NIVEL   /   Identificador / Descripcion 
+ *   
+ *  0          LOGFILE        Solo Logguea en archivo plano 
+ *  1 	      VERBOSEFILE    Genera salida en pantalla y logguea en archivo
+ *  2          VERBOSE        Solo genera salida en pantalla.
+ */
 
 /** 
- Metodo constructor 
-*/
+ * Metodo constructor 
+ */
 
 #include "sblogger.h"
 
@@ -87,13 +80,16 @@ nivel(nivel)
 }
 
 /**
-  Destructor 
-*/
+ * Destructor 
+ */
 SBLogger::~SBLogger()
 {
    	//qDebug("[Destruyendo logger]");
 }
 
+/**
+ * Esta funcion inicia el logger, y crea los directorios necesarios para su funcionamiento
+ */
 void SBLogger::iniciarLogger()
 {
 	QDir logs(RUTA_LOGS);
@@ -106,22 +102,33 @@ void SBLogger::iniciarLogger()
 	}
 }
 
+/**
+ * Esta funcion especifica la entidad que va a proveer el log.
+ */
 void SBLogger::ponerEntidad(Q_UINT16 donde)
 {
 	entidad = donde;
 }
 
+/**
+ * retorna las rutas de los clientes
+ */
 QString  SBLogger::rutaLogCliente() 
 {
     return  RUTA_DEFECTO_CLIENTE;
 } 
 
-
+/**
+ * retorna las rutas del servidor
+ */ 
 QString SBLogger:: rutaLogServidor() 
 {
     return  RUTA_DEFECTO_SERVIDOR;
 }
 
+/**
+ * Da la fecha del log
+ */ 
 QString SBLogger:: fechaLog()
 {
     QDate fechaTmp = QDate::currentDate();
@@ -129,7 +136,9 @@ QString SBLogger:: fechaLog()
     return salvarFechaLog;
 }
 
-
+/**
+ * Da la hora del logueo
+ */
 QString SBLogger:: horaLog()
 {
      QDateTime horaTmp = QDateTime::currentDateTime();
@@ -139,8 +148,8 @@ QString SBLogger:: horaLog()
 
 
 /**
-@param ponerNivel:  setea una prioridad predeterminada
-*/
+ * @param ponerNivel:  setea una prioridad predeterminada
+ */
 
 void  SBLogger:: asignarPrioridad( Q_UINT16 ponerPrioridad )
 {
@@ -170,8 +179,8 @@ void  SBLogger:: asignarPrioridad( Q_UINT16 ponerPrioridad )
 }
 
 /**
-@param ponerNivel:  setea un nivel predeterminado
-*/
+ * @param ponerNivel:  setea un nivel predeterminado
+ */
 
 void  SBLogger::asignarNivel( Q_UINT16 ponerNivel )
 {
@@ -183,11 +192,17 @@ void  SBLogger::asignarNivel( Q_UINT16 ponerNivel )
 	}
 }
 
+/**
+ * Obtiene el nivel
+ */ 
 QString SBLogger::obtenerNivel()
 {
    return NIVEL;
 }
 
+/**
+ * Guarda un log con sus atributos
+ */ 
 void SBLogger::salvarLog(Q_UINT16 prioridad, Q_UINT16 entidad, QString texto)
 {
 	iniciarLogger();
@@ -221,6 +236,9 @@ void SBLogger::salvarLog(Q_UINT16 prioridad, Q_UINT16 entidad, QString texto)
 	}	
 }
 
+/**
+ * Guarda en un archivo
+ */ 
 void SBLogger::guardarEnArchivo()
 {
 	QFile *fc;
@@ -241,6 +259,9 @@ void SBLogger::guardarEnArchivo()
 	}		
 }
 
+/**
+ * Muestra en pantalla un mensaje (qstring)
+ */ 
 void SBLogger::mostrarEnPantalla(QString mensaje)
 {
 	switch(prioridad)

@@ -30,45 +30,45 @@
 
 
 /**
-Constructor
-Esta funcion se encarga de construir el objeto 
-@param busca: indicar el codigo del error que deseemos mostrar
-@param prioridadE: indicar la prioridad del error
-@param nivelE : indicar el nivel del error
-@param logE:  indicar a donde va el mensaje
-*/
+ * Constructor
+ * Esta funcion se encarga de construir el objeto 
+ * @param busca: indicar el codigo del error que deseemos mostrar
+ * @param prioridadE: indicar la prioridad del error
+ * @param nivelE : indicar el nivel del error
+ * @param logE:  indicar a donde va el mensaje
+ */
 /**
-  @param prioridadE: indicar la prioridad del error
-   
-  PRIORIDAD   /   Identificador / Descripcion 
-    0              QP_INFO          mensajes de informacion 
-    1              QP_WARNING       mensajes de advertencia pueden poner en peligro la aplicacion o la seguridad
-    2              QP_ERROR         mensajes de error, graves o errores que se pueden solucinar facilmente
-*/
+ * @param prioridadE: indicar la prioridad del error
+ * 
+ * PRIORIDAD   /   Identificador / Descripcion 
+ *  0              QP_INFO          mensajes de informacion 
+ *  1              QP_WARNING       mensajes de advertencia pueden poner en peligro la aplicacion o la seguridad
+ *  2              QP_ERROR         mensajes de error, graves o errores que se pueden solucinar facilmente
+ */
 
 /**
- @param nivelE : indicar el nivel del error
-   
-  NIVEL   /   Identificador / Descripcion 
-    
-   0          LOGFILE        Solo Logguea en archivo plano 
-   1 	      VERBOSEFILE    Genera salida en pantalla y logguea en archivo 
-   2          VERBOSE        Solo genera salida en pantalla.
-*/
+ * @param nivelE : indicar el nivel del error
+ *  
+ * NIVEL   /   Identificador / Descripcion 
+ *   
+ *  0          LOGFILE        Solo Logguea en archivo plano 
+ *  1 	      VERBOSEFILE    Genera salida en pantalla y logguea en archivo 
+ *  2          VERBOSE        Solo genera salida en pantalla.
+ */
 
 /**
- @param logE:  indicar a donde va el mensaje
-   
-  LOGE   /   Identificador / Descripcion 
-    
-   0          CLIENTE       Loguea en el lado del cliente
-   1 	      SERVIDOR      Loguea en el lado del servidor
-   2          NONE          No loguea en ninguna parte
-*/
+ * @param logE:  indicar a donde va el mensaje
+ *  
+ * LOGE   /   Identificador / Descripcion 
+ *   
+ *  0          CLIENTE       Loguea en el lado del cliente
+ *  1 	      SERVIDOR      Loguea en el lado del servidor
+ *  2          NONE          No loguea en ninguna parte
+ */
 
 /**
-  TODO :  a medida que qapital se desarrolle, agregra nuevos elementos, con sus respectivas traducciones.
-*/
+ * TODO :  a medida que qapital se desarrolle, agregra nuevos elementos, con sus respectivas traducciones.
+ */
 
 SBError::SBError()
 {
@@ -123,27 +123,27 @@ SBError::SBError()
 }*/
 
 /**
-Destructor
-*/
+ * Destructor
+ */
 SBError::~SBError()
 {
 }
 
 /**
-Esta funcion se encarga de devolver el mensaje de error
-@param id: Codigo de error
-@param cosa: Mensaje de error
-*/
+ * Esta funcion se encarga de devolver el mensaje de error
+ * @param id: Codigo de error
+ * @param cosa: Mensaje de error
+ */
 void SBError::agregarError( QString id , QString cosa )
 {
      SBError::cacheErrores.insert( id , new QString( cosa ) );
 }
 
 /**
-Esta funcion se encarga de devolver el mensaje de error
-@param codigo: Codigo de error
-@see agregarError(QString id , QString cosa)
-*/
+ * Esta funcion se encarga de devolver el mensaje de error
+ * @param codigo: Codigo de error
+ * @see agregarError(QString id , QString cosa)
+ */
 QString SBError::obtenerError( QString codigo )//&codigo )
 {     
   	SBError busq;
@@ -151,6 +151,9 @@ QString SBError::obtenerError( QString codigo )//&codigo )
 	return QObject::tr( strTmp );
 }
 
+/**
+ * esta clase sera eliminada
+ */ 
 QString SBError::buscar( QString buscaCd )
 {
    return ( ( QString )*cacheErrores.find( buscaCd  ) );

@@ -28,8 +28,8 @@
 #include "qpsconfighandler.h"
 
 /**
-Constructor
-*/
+ * Constructor 
+ */
 QPSConfigHandler::QPSConfigHandler() : QXmlDefaultHandler(), numeroDeBDS(0), leer(false)
 {
 	qDebug("[Construyendo QPSConfigHandler]");
@@ -37,16 +37,16 @@ QPSConfigHandler::QPSConfigHandler() : QXmlDefaultHandler(), numeroDeBDS(0), lee
 }
 
 /**
-Destructor
-*/
+ * Destructor
+ */
 QPSConfigHandler::~QPSConfigHandler()
 {
 	qDebug("[Destruyendo QPSConfigHandler]");
 }
 
 /**
-Esta funcion lee los elementos de apertura: \<apertura\>
-*/
+ * Esta funcion lee los elementos de apertura: \<apertura\>
+ */
 bool QPSConfigHandler::startElement( const QString& , const QString& , const QString& qname, const QXmlAttributes& atts)
 {
 	qName = qname;
@@ -72,8 +72,8 @@ bool QPSConfigHandler::startElement( const QString& , const QString& , const QSt
 }
 
 /**
-Esta funcion lee los elementos de cierre: \</cierre\>
-*/
+ * Esta funcion lee los elementos de cierre: \</cierre\>
+ */
 bool QPSConfigHandler::endElement(const QString& ns, const QString& localname, const QString& qname)
 {
 	if (qname == "QPBD" )
@@ -86,8 +86,8 @@ bool QPSConfigHandler::endElement(const QString& ns, const QString& localname, c
 }
 
 /** 
-Esta funcion lee la seccion de texto:  \<tag\>Esta Seccion\</tag\>
-*/
+ * Esta funcion lee la seccion de texto:  \<tag\>Esta Seccion\</tag\>
+ */
 bool QPSConfigHandler::characters(const QString &ch)
 {
 	bool conversion;
@@ -119,32 +119,32 @@ bool QPSConfigHandler::characters(const QString &ch)
 }
 
 /**
-retorna el puerto usado entre el administrador y el servidor de transacciones.
-*/
+ * retorna el puerto usado entre el administrador y el servidor de transacciones.
+ */
 int QPSConfigHandler::past()
 {
 	return puertoAST;
 }
 
 /**
-retorna el puerto usado entre el cliente y el servidor de transacciones.
-*/
+ * retorna el puerto usado entre el cliente y el servidor de transacciones.
+ */
 int QPSConfigHandler::pcst()
 {
 	return puertoCST;
 }
 
 /**
-retorna el numero maximo de clientes que recibira el servidor.
-*/
+ * retorna el numero maximo de clientes que recibira el servidor.
+ */
 int QPSConfigHandler::maximoDeClientes()
 {
 	return maxClients;
 }
 
 /**
-retorna el numero de bases de datos configuradas.
-*/
+ * retorna el numero de bases de datos configuradas.
+ */
 int QPSConfigHandler::obtenerNumeroDeBDS()
 {
 	return numeroDeBDS;
@@ -168,24 +168,24 @@ QString QPSConfigHandler::obtenerPassword()
 */
 
 /**
-Retorna la lista de bases de datos configuradas.
-*/
+ * Retorna la lista de bases de datos configuradas.
+ */
 ListaDeBD QPSConfigHandler::dbs()
 {
 	return basesDeDatos;
 }
 
 /**
-Retorna la lista de los nombres de las bases de datos configuradas.
-*/
+ * Retorna la lista de los nombres de las bases de datos configuradas.
+ */
 QStringList QPSConfigHandler::nombresBDS()
 {
 	return listaNombresBDS;
 }
 
 /**
-Retorna la conexion con la base de datos.
-*/
+ * Retorna la conexion con la base de datos.
+ */
 sbbd::SbBDConexion QPSConfigHandler::conexiones()
 {
 	return *cnx;

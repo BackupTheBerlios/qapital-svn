@@ -22,7 +22,12 @@
 
 namespace qpscontrol 
 {
-
+	/**
+	 * Constructor
+	 * @param insSQL: Pool de conexiones
+	 * @param empresa: Base nde datos relacionada
+	 * @param login: Usuario que desea conectar.
+	 */
 	AceptarConexion::AceptarConexion(qpsbd::BDInstrucciones *insSQL, QString empresa, QString login)
 	{
 		qDebug("[Construyendo AceptarConexion]");
@@ -43,11 +48,16 @@ namespace qpscontrol
 // 		}
 	}
 	
-	
+	/**
+	 * Destructor
+	 */
 	AceptarConexion::~AceptarConexion()
 	{
 	}
 	
+	/**
+	 * Obtiene el paquete XML que acepta la conexion
+	 */
 	sbxml::SbXmlACP *AceptarConexion::obtenerPaquete()
 	{
 		return paquete;

@@ -39,8 +39,8 @@
 #include "sblogger.h"
 
 /**
-@author CetiSoft
-*/
+ * @author CetiSoft
+ */
 
 #ifdef DEBUG
 	#ifndef INIQPC
