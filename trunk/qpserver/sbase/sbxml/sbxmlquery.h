@@ -38,13 +38,16 @@
 Este clase representa el paquete QUERY, el cual es enviado por el PC al ST para solicitar una consulta.
 @author CetiSoft
 */
-class SbXmlQUERY : public QPDocumentoXML
+
+namespace sbxml
 {
-	public:
-    		SbXmlQUERY(QString sqlkey, QStringList argumentos);
-		SbXmlQUERY(QString sqlkey, QString password, QStringList argumentos);
-		~SbXmlQUERY();
-
-};
-
+	class SbXmlQUERY : public QPDocumentoXML
+	{
+		public:
+			SbXmlQUERY(QString sqlkey, QStringList argumentos);
+			SbXmlQUERY(QString sqlkey, QString password, QStringList argumentos);
+			~SbXmlQUERY();
+	
+	};
+}
 #endif

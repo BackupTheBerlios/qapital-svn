@@ -36,12 +36,15 @@
 /**
 @author CetiSoft
 */
-class SbXmlSUCCESS : public QPDocumentoXML
+
+namespace sbxml
 {
-	public:
-    		SbXmlSUCCESS(QString message);
-		~SbXmlSUCCESS();
-
-};
-
+	class SbXmlSUCCESS : public QPDocumentoXML
+	{
+		public:
+			SbXmlSUCCESS(QString message);
+			~SbXmlSUCCESS();
+	
+	};
+}
 #endif

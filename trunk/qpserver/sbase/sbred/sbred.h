@@ -47,32 +47,35 @@ TODO: Encripcion
 	 Generar cache -
 */
 
-// Definiciones de constantes globales.
 
-// Puerto por defecto entre Programa Administrador (PA) y Servidor de Transacciones (ST).
-const int redPuertoPAST = 1178;
-
-// Puerto por defecto entre Programa Cliente (PC)  y Servidor de Transacciones (ST).
-const int redPuertoPCST = 9117;
-
-// Numero Maximo de clientes
-
-const int MAXIMO_DE_CLIENTES = 10;
-
-/**
-@author CetiSoft
-*/
-
-class SBRed 
-{	
-	public:
-		SBRed();
-		~SBRed();
-		QString redIPCliente;
-		QString redIPServidor;
-		QString redCodigo;
-		QString redUltimoCodigo;
-		
-};
-
+namespace sbred
+{
+	// Definiciones de constantes globales.
+	
+	// Puerto por defecto entre Programa Administrador (PA) y Servidor de Transacciones (ST).
+	const int redPuertoPAST = 1178;
+	
+	// Puerto por defecto entre Programa Cliente (PC)  y Servidor de Transacciones (ST).
+	const int redPuertoPCST = 9117;
+	
+	// Numero Maximo de clientes
+	
+	const int MAXIMO_DE_CLIENTES = 10;
+	
+	/**
+	@author CetiSoft
+	*/
+	
+	class SBRed 
+	{	
+		public:
+			SBRed();
+			~SBRed();
+			QString redIPCliente;
+			QString redIPServidor;
+			QString redCodigo;
+			QString redUltimoCodigo;
+			
+	};
+}
 #endif

@@ -30,7 +30,7 @@
 /**
 Constructor
 */
-SbBDConexion::SbBDConexion()
+sbbd::SbBDConexion::SbBDConexion()
 {
 	qDebug("[Construyendo SbBDConexion]");
 }
@@ -38,7 +38,7 @@ SbBDConexion::SbBDConexion()
 /**
 Destructor
 */
-SbBDConexion::~SbBDConexion()
+sbbd::SbBDConexion::~SbBDConexion()
 {
 	qDebug("[Destruyendo SbBDConexion]");
 }
@@ -52,7 +52,7 @@ Esta funcion carga la base de datos
 @param bdhost: Servidor donde esta alojada la base de datos.
 @see cargarBD(const QString bduser, const QString bdpassword, const QString bdhost)
 */
-void SbBDConexion::cargarBD(const QString bddriver, const QString bdname, const QString bduser, const QString bdpassword, const QString bdhost)
+void sbbd::SbBDConexion::cargarBD(const QString bddriver, const QString bdname, const QString bduser, const QString bdpassword, const QString bdhost)
 {
 	std::cout << "Cargando DB: " << bdname << " en " << bdhost << std::endl;
 	this->bdname = bdname;
@@ -71,7 +71,7 @@ void SbBDConexion::cargarBD(const QString bddriver, const QString bdname, const 
 Esta funcion retorna la conexion configurada pero no abierta, con la base de datos
 @param key: es el codigo (nombre de la base de datos) que identifica la base de datos.
 */
-QSqlDatabase *SbBDConexion::obtenerBD(const QString &key ) const
+QSqlDatabase *sbbd::SbBDConexion::obtenerBD(const QString &key ) const
 {
 	return QSqlDatabase::database(key, false);
 }
@@ -83,7 +83,7 @@ Esta funcion sobrecargada carga la base de datos
 @param bdhost: Servidor donde esta alojada la base de datos.
 @see cargarBD(const QString bddriver, const QString bdname, const QString bduser, const QString bdpassword, const QString bdhost)
 */
-void SbBDConexion::cargarBD(const QString bduser, const QString bdpassword, const QString bdhost)
+void sbbd::SbBDConexion::cargarBD(const QString bduser, const QString bdpassword, const QString bdhost)
 {
 	std::cout << "Cargando DB: " << bdname << " en " << bdhost << std::endl;
 	this->bdhost = bdhost;
@@ -98,7 +98,7 @@ void SbBDConexion::cargarBD(const QString bduser, const QString bdpassword, cons
 /**
 Funcion encargada de abrir la conexion (obsoleta)
 */
-bool SbBDConexion::abrirConexion()
+bool sbbd::SbBDConexion::abrirConexion()
 {
 	return cnx->open();
 }
@@ -106,7 +106,7 @@ bool SbBDConexion::abrirConexion()
 /**
 Funcion encargada de realizar una consulta (obsoleta)
 */
-QSqlQuery SbBDConexion::consultar(const QString &consulta) const
+QSqlQuery sbbd::SbBDConexion::consultar(const QString &consulta) const
 {
 	QSqlQuery queryTmp = cnx->exec(consulta);
 	if ( ! queryTmp.isValid() )
@@ -117,7 +117,7 @@ QSqlQuery SbBDConexion::consultar(const QString &consulta) const
 /**
 Esta funcion retorna el nombre de la base de datos.
 */
-QString SbBDConexion::nombreBD() const
+QString sbbd::SbBDConexion::nombreBD() const
 {
 	return bdname;
 }

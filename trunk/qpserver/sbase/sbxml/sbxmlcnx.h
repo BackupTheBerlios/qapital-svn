@@ -37,12 +37,14 @@
 Paquete <CNX> para peticion de conexiones.
 @author CetiSoft
 */
-class SbXmlCNX : public QPDocumentoXML
+namespace sbxml
 {
-	public:
-    		SbXmlCNX(QString db, QString qpsusuario, QString qpspassword);
-    		~SbXmlCNX();
-
-};
-
+	class SbXmlCNX : public QPDocumentoXML
+	{
+		public:
+			SbXmlCNX(QString db, QString qpsusuario, QString qpspassword);
+			~SbXmlCNX();
+	
+	};
+}
 #endif

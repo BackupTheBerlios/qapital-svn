@@ -40,28 +40,31 @@ Esta clase maneja la configuracion  y conexion de la base de datos.
 
 @author CetiSoft
 */
-class SbBDConexion
+namespace sbbd
 {
-	private:
-		QSqlDatabase *cnx;
-		QString bdname, bduser, bdpasswd, bdhost;
-
-	public:
-		SbBDConexion(/*QString bddriver, QString name*/);
-		~SbBDConexion();
-		void cargarBD(const QString bddriver, const QString bdname, const QString bduser, const QString bdpassword, const QString bdhost );
-		void cargarBD(const QString bduser, const QString bdpassword, const QString bdhost);
-		QSqlDatabase *obtenerBD(const QString &key) const;
-		bool abrirConexion();
-		QSqlQuery consultar(const QString  &consulta = QString::null ) const;
-		QString nombreBD () const;
-		QString nombreUsuario () const;
-		QString passwd () const;
-		QString host () const;
-		void setDatabaseName ( const QString & name );
-		void setUserName ( const QString & name );
-		void setPassword ( const QString & password );
-		void setHostName ( const QString & host );
-};
+	class SbBDConexion
+	{
+		private:
+			QSqlDatabase *cnx;
+			QString bdname, bduser, bdpasswd, bdhost;
+	
+		public:
+			SbBDConexion(/*QString bddriver, QString name*/);
+			~SbBDConexion();
+			void cargarBD(const QString bddriver, const QString bdname, const QString bduser, const QString bdpassword, const QString bdhost );
+			void cargarBD(const QString bduser, const QString bdpassword, const QString bdhost);
+			QSqlDatabase *obtenerBD(const QString &key) const;
+			bool abrirConexion();
+			QSqlQuery consultar(const QString  &consulta = QString::null ) const;
+			QString nombreBD () const;
+			QString nombreUsuario () const;
+			QString passwd () const;
+			QString host () const;
+			void setDatabaseName ( const QString & name );
+			void setUserName ( const QString & name );
+			void setPassword ( const QString & password );
+			void setHostName ( const QString & host );
+	};
+}
 
 #endif

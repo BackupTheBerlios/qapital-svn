@@ -38,11 +38,13 @@ Esta clase representa el objeto CNX, el cual es un paquete XML que envia el ST a
 @author CetiSoft
 */
 
-class SbXmlACP : public QPDocumentoXML
+namespace sbxml
 {
-	public:
-    		SbXmlACP(QStringList, QStringList);
-		~SbXmlACP();
-};
-
+	class SbXmlACP : public QPDocumentoXML
+	{
+		public:
+			SbXmlACP(QStringList, QStringList);
+			~SbXmlACP();
+	};
+}
 #endif

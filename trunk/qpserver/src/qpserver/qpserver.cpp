@@ -28,7 +28,7 @@
  *******************************************************************************/
 
 #include "sbred.h"
-#include "redserver.h"
+#include "qpsredserver.h"
 #include "qpsconfighandler.h"
 #include <qxml.h>
 #include <qfile.h>
@@ -112,7 +112,7 @@ int main(int argc, char **argv)
 				configServerArgs.insert("usuario", new QString("adminsis"));
 				configServerArgs.insert("password", new QString("pass"));
 				
-				QPDocumentoXML serverConfig = SbXmlConfig::crearConfigServer(configServerArgs);
+				sbxml::QPDocumentoXML serverConfig = sbxml::SbXmlConfig::crearConfigServer(configServerArgs);
 				
 				QFile configFile(configpath);
 				if ( configFile.open( IO_WriteOnly ) )
@@ -162,8 +162,8 @@ int main(int argc, char **argv)
 			signal (SIGTERM, terminar);
 			signal( SIGSEGV, terminar);
 
-			RedServer servidorPAST( handler->past(), handler->maximoDeClientes(), qApp);
-			RedServer servidorPCST( handler->pcst(), handler->maximoDeClientes(), qApp);
+			qpsred::QPSRedServer servidorPAST( handler->past(), handler->maximoDeClientes(), qApp);
+			qpsred::QPSRedServer servidorPCST( handler->pcst(), handler->maximoDeClientes(), qApp);
 
 			QObject::connect (&app, SIGNAL( lastWindowClosed ()), qApp, SLOT(quit()));			
 			return app.exec();

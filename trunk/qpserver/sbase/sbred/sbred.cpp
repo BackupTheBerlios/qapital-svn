@@ -27,11 +27,11 @@
  
  #include "sbred.h"
 
-SBRed::SBRed()
+sbred::SBRed::SBRed()
 {
 }
 
-SBRed::~SBRed()
+sbred::SBRed::~SBRed()
 {
 }
 

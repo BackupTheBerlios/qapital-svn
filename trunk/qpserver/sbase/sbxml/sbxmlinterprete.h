@@ -44,26 +44,27 @@ Este modulo sirve para trabajar con archivos XML, permite leer y hacer XMLs de f
 @author CetiSoft
 */
 
-
-class SbXmlInterprete
+namespace sbxml
 {
-	private:
-		QDomDocument xmlDocumento;
-		QString *errorMsg;
-		QString xmlTagRaiz;
-		int *lineaError;
-		
-		QDomElement xmlElemento;
-	public:
-		SbXmlInterprete(QString);
-		SbXmlInterprete(QIODevice *);
-
-		virtual ~SbXmlInterprete();
-		
-		void ponerDocumento(QString);
-		virtual QString xmlObtenerTexto(QString tag);
-		QString xmlRaiz();
-		
-};
-
+	class SbXmlInterprete
+	{
+		private:
+			QDomDocument xmlDocumento;
+			QString *errorMsg;
+			QString xmlTagRaiz;
+			int *lineaError;
+			
+			QDomElement xmlElemento;
+		public:
+			SbXmlInterprete(QString);
+			SbXmlInterprete(QIODevice *);
+	
+			virtual ~SbXmlInterprete();
+			
+			void ponerDocumento(QString);
+			virtual QString xmlObtenerTexto(QString tag);
+			QString xmlRaiz();
+			
+	};
+}
 #endif

@@ -40,11 +40,14 @@
 Es la clase base para la construccion de paquetes XML Qapital
 @author CetiSoft
 */
-class QPDocumentoXML : public QDomDocument
-{
-	public:
-    		QPDocumentoXML();
-		~QPDocumentoXML();
-};
 
+namespace sbxml
+{
+	class QPDocumentoXML : public QDomDocument
+	{
+		public:
+			QPDocumentoXML();
+			~QPDocumentoXML();
+	};
+}
 #endif

@@ -36,12 +36,14 @@
 /**
 @author CetiSoft
 */
-class SbXmlMESSAGE : public QPDocumentoXML
+namespace sbxml
 {
-	public:
-    		SbXmlMESSAGE(QString message);
-		~SbXmlMESSAGE();
-
-};
-
+	class SbXmlMESSAGE : public QPDocumentoXML
+	{
+		public:
+			SbXmlMESSAGE(QString message);
+			~SbXmlMESSAGE();
+	
+	};
+}
 #endif

@@ -1,9 +1,9 @@
 /* Clase: QPSRedServer
- * Autor: CetiSoft
- * Version: 0.0.1
+ * Autor: David Cuadrado
+ * Version: 0.0.2
  * Fecha de creacion: 19/06/2004
- * Fecha de modificacion:
- * Relacion con objetos: 
+ * Fecha de modificacion: 23/02/2005
+ * Relacion con objetos:  
  * Descripcion: 
  *	Esta clase es el servidor, controla el envio y la recepcion de datos.
 */
@@ -55,8 +55,8 @@ namespace qpsred
 	typedef QValueList<QPSRedCliente*> Clientes;
 	
 	/**
-	Esta clase representa el servidor QApital
-	@author CetiSoft
+	* Esta clase representa el servidor QApital
+	* @author CetiSoft
 	*/
 	class QPSRedServer : public QServerSocket
 	{

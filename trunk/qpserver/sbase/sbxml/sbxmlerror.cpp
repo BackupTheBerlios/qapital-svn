@@ -27,12 +27,14 @@
 
 #include "sbxmlerror.h"
 
+using sbxml::QPDocumentoXML;
+
 /**
 Constructor
 @param codigoDeError: Codigo de error enviado al nodo.
 @param mensajeDeError: Mensaje asociado al codigo de error.
 */
-SbXMLError::SbXMLError(QString codigoDeError, QString mensajeDeError) : QPDocumentoXML(), codigoDeError(codigoDeError), mensajeDeError(mensajeDeError)
+sbxml::SbXMLError::SbXMLError(QString codigoDeError, QString mensajeDeError) : QPDocumentoXML(), codigoDeError(codigoDeError), mensajeDeError(mensajeDeError)
 {	
 	QDomElement raiz = this->createElement( "ERROR" );
 	this->appendChild( raiz );
@@ -51,14 +53,14 @@ SbXMLError::SbXMLError(QString codigoDeError, QString mensajeDeError) : QPDocume
 /**
 Destructor
 */
-SbXMLError::~SbXMLError()
+sbxml::SbXMLError::~SbXMLError()
 {
 }
 
 /**
 Retorna el codigo de error
 */
-QString SbXMLError::errorCode()
+QString sbxml::SbXMLError::errorCode()
 {
 	return codigoDeError;
 }
@@ -66,7 +68,7 @@ QString SbXMLError::errorCode()
 /**
 Retorna el mensaje de error
 */
-QString SbXMLError::errorMsg()
+QString sbxml::SbXMLError::errorMsg()
 {
 	return mensajeDeError;
 }

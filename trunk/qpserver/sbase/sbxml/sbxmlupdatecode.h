@@ -36,12 +36,14 @@
 /**
 @author CetiSoft
 */
-class SbXmlUPDATECODE : public QPDocumentoXML
+namespace sbxml
 {
-	public:
-    		SbXmlUPDATECODE(QString driver, QString valor);
-    		~SbXmlUPDATECODE();
-
-};
-
+	class SbXmlUPDATECODE : public QPDocumentoXML
+	{
+		public:
+			SbXmlUPDATECODE(QString driver, QString valor);
+			~SbXmlUPDATECODE();
+	
+	};
+}
 #endif

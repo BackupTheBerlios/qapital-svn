@@ -27,7 +27,9 @@
 
 #include "sbxmlquery.h"
 
-SbXmlQUERY::SbXmlQUERY(QString sqlkey, QStringList argumentos) : QPDocumentoXML()
+using sbxml::QPDocumentoXML;
+
+sbxml::SbXmlQUERY::SbXmlQUERY(QString sqlkey, QStringList argumentos) : QPDocumentoXML()
 {
 	QDomElement raiz = this->createElement( "QUERY" ); 
 	this->appendChild( raiz );
@@ -50,7 +52,7 @@ SbXmlQUERY::SbXmlQUERY(QString sqlkey, QStringList argumentos) : QPDocumentoXML(
 	raiz.appendChild(paramElement);
 }
 
-SbXmlQUERY::SbXmlQUERY(QString sqlkey,QString password, QStringList argumentos)
+sbxml::SbXmlQUERY::SbXmlQUERY(QString sqlkey,QString password, QStringList argumentos)
 {
 	QDomElement raiz = this->createElement( "QUERY" ); 
 	this->appendChild( raiz );
@@ -78,7 +80,7 @@ SbXmlQUERY::SbXmlQUERY(QString sqlkey,QString password, QStringList argumentos)
 	raiz.appendChild(paramElement);	
 }
 
-SbXmlQUERY::~SbXmlQUERY()
+sbxml::SbXmlQUERY::~SbXmlQUERY()
 {
 }
 

@@ -27,7 +27,9 @@
 
 #include "sbxmlacp.h"
 
-SbXmlACP::SbXmlACP(QStringList drivers, QStringList sqls) : QPDocumentoXML()
+using sbxml::QPDocumentoXML;
+
+sbxml::SbXmlACP::SbXmlACP(QStringList drivers, QStringList sqls) : QPDocumentoXML()
 {
 	QDomElement raiz = this->createElement( "ACP" );
 	this->appendChild( raiz );
@@ -60,7 +62,7 @@ SbXmlACP::SbXmlACP(QStringList drivers, QStringList sqls) : QPDocumentoXML()
 }
 
 
-SbXmlACP::~SbXmlACP()
+sbxml::SbXmlACP::~SbXmlACP()
 {
 }
 

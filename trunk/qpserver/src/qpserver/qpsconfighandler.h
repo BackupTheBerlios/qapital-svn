@@ -49,7 +49,7 @@ class QPSConfigHandler : public QXmlDefaultHandler
 		bool leer;
 		ListaDeBD basesDeDatos;
 		QStringList listaNombresBDS;
-		SbBDConexion *cnx;
+		sbbd::SbBDConexion *cnx;
 		
 	public:
     		QPSConfigHandler();
@@ -57,7 +57,7 @@ class QPSConfigHandler : public QXmlDefaultHandler
 		bool startElement(const QString& , const QString& , const QString& qname, const QXmlAttributes& atts);
 		bool endElement( const QString& ns, const QString& localname, const QString& qname);
 		bool characters ( const QString & ch );
-		SbBDConexion conexiones();
+		sbbd::SbBDConexion conexiones();
 		int past();
 		int pcst();
 		int maximoDeClientes();

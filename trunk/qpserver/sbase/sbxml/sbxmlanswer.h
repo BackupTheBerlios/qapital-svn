@@ -36,12 +36,14 @@
 /**
 @author CetiSoft
 */
-class SbXmlANSWER : public QPDocumentoXML
+namespace sbxml
 {
-	public:
-    		SbXmlANSWER(QStringList header, QStringList data);
-		~SbXmlANSWER();
-
-};
-
+	class SbXmlANSWER : public QPDocumentoXML
+	{
+		public:
+			SbXmlANSWER(QStringList header, QStringList data);
+			~SbXmlANSWER();
+	
+	};
+}
 #endif

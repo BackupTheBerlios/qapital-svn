@@ -40,16 +40,18 @@ Esta clase sirve para generar las configuraciones del servidor, administrador o 
 #include "qpdocumentoxml.h"
 #include "sbqpserver.h"
 
-class SbXmlConfig
+namespace sbxml
 {
-	public:
-    		SbXmlConfig();
-		~SbXmlConfig();
-		static QPDocumentoXML crearConfigCliente(QString host, QString puerto, int tipoDeInterfaz);
-		//static QPDocumentoXML crearConfigServer(QString past, QString pcst, QString maxClients, QString bdNombre, QString bdDriver, QString bdHost, QString bdPuerto, QString usuario, QString password);
-		static QPDocumentoXML crearConfigServer(StringHash argumentos);
-		static QPDocumentoXML crearConfigAdmin ();
-
-};
-
+	class SbXmlConfig
+	{
+		public:
+			SbXmlConfig();
+			~SbXmlConfig();
+			static QPDocumentoXML crearConfigCliente(QString host, QString puerto, int tipoDeInterfaz);
+			//static QPDocumentoXML crearConfigServer(QString past, QString pcst, QString maxClients, QString bdNombre, QString bdDriver, QString bdHost, QString bdPuerto, QString usuario, QString password);
+			static QPDocumentoXML crearConfigServer(StringHash argumentos);
+			static QPDocumentoXML crearConfigAdmin ();
+	
+	};
+}
 #endif

@@ -27,7 +27,9 @@
 
 #include "sbxmlsuccess.h"
 
-SbXmlSUCCESS::SbXmlSUCCESS(QString message) : QPDocumentoXML()
+using sbxml::QPDocumentoXML;
+
+sbxml::SbXmlSUCCESS::SbXmlSUCCESS(QString message) : QPDocumentoXML()
 {
 	QDomElement raiz = this->createElement( "ERROR" );
 	this->appendChild( raiz );
@@ -39,7 +41,7 @@ SbXmlSUCCESS::SbXmlSUCCESS(QString message) : QPDocumentoXML()
 }
 
 
-SbXmlSUCCESS::~SbXmlSUCCESS()
+sbxml::SbXmlSUCCESS::~SbXmlSUCCESS()
 {
 }
 

@@ -1,8 +1,8 @@
 /* Clase: QPSRedCliente
- * Autor: CetiSoft
- * Version: 0.0.1
+ * Autor: David Cuadrado
+ * Version: 0.0.2
  * Fecha de creacion: 19/06/2004
- * Fecha de modificacion:
+ * Fecha de modificacion: 23/02/2005
 */
 
 /********************************************************************************
@@ -32,10 +32,10 @@
 
 
 /**
-Constructor
-@param sock: socket asociado.
-@param padre: El servidor padre.
-@param nombre: El nombre del objecto.
+* Constructor
+* @param sock: socket asociado.
+* @param padre: El servidor padre.
+* @param nombre: El nombre del objecto.
 */
 qpsred::QPSRedCliente::QPSRedCliente(int sock, QPSRedServer *padre, const char *nombre)
  : QSocket(0, nombre), server(padre)
@@ -53,7 +53,7 @@ qpsred::QPSRedCliente::QPSRedCliente(int sock, QPSRedServer *padre, const char *
 }
 
 /**
-Destructor
+* Destructor
 */
 qpsred::QPSRedCliente::~QPSRedCliente()
 {
@@ -84,7 +84,7 @@ void qpsred::QPSRedCliente::enviarXml(QDomDocument doc)
 }
 
 /**
-Esta funcion es la encargada de leer del canal e interpretar la cadena leida.
+* Esta funcion es la encargada de leer del canal e interpretar la cadena leida.
 */
 void qpsred::QPSRedCliente::leer()
 {
@@ -114,7 +114,7 @@ void qpsred::QPSRedCliente::leer()
 		if ( ! reader.parse( sourceXML ) )
 		{
 			// Hubo un error, enviar <ERROR>...</ERROR>
-			SbXMLError paqueteDeError("0", tr("Formato de paquete invalido"));
+			sbxml::SbXMLError paqueteDeError("0", tr("Formato de paquete invalido"));
 			enviarXml(paqueteDeError);
 			server->fallo(ipCliente);
 			cerrarConexion();
@@ -123,6 +123,9 @@ void qpsred::QPSRedCliente::leer()
 	}
 }
 
+/**
+* Esta funcion cierra la conexion
+*/
 void qpsred::QPSRedCliente::cerrarConexion()
 {
         this->close();
@@ -136,10 +139,12 @@ void qpsred::QPSRedCliente::cerrarConexion()
 	}
 }
 
+/**
+* Este slot es activado cuando se ha cerrado la conexion.
+*/
 void qpsred::QPSRedCliente::conexionCerrada()
 {
 	QPLOGGER.salvarLog(SBLogger::QP_INFO, SBLogger::SERVIDOR, tr("Conexion cerrada por el cliente %1").arg(ipCliente));
 	server->quitarCliente(this);
 }
-
 

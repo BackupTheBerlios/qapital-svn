@@ -27,12 +27,14 @@
 
 #include "sbxmlcnx.h"
 
+using sbxml::QPDocumentoXML;
+
 /**
 Constructor
 @param qpusuario: Usuario del ST
 @param qpspassword: Password de qpusuario
 */
-SbXmlCNX::SbXmlCNX(QString db, QString qpsusuario, QString qpspassword) : QPDocumentoXML()
+sbxml::SbXmlCNX::SbXmlCNX(QString db, QString qpsusuario, QString qpspassword) : QPDocumentoXML()
 {
 	QDomElement raiz = this->createElement( "CNX" ); // Se crea la raiz
 	this->appendChild( raiz ); // se añade la raíz al árbol
@@ -56,7 +58,7 @@ SbXmlCNX::SbXmlCNX(QString db, QString qpsusuario, QString qpspassword) : QPDocu
 /**
 Destructor
 */
-SbXmlCNX::~SbXmlCNX()
+sbxml::SbXmlCNX::~SbXmlCNX()
 {
 }
 

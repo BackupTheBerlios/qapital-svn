@@ -27,7 +27,9 @@
 
 #include "sbxmlmessage.h"
 
-SbXmlMESSAGE::SbXmlMESSAGE(QString message) : QPDocumentoXML()
+using sbxml::QPDocumentoXML;
+
+sbxml::SbXmlMESSAGE::SbXmlMESSAGE(QString message) : QPDocumentoXML()
 {
 	QDomElement raiz = this->createElement( "MESSAGE" );
 	this->appendChild( raiz );
@@ -39,7 +41,7 @@ SbXmlMESSAGE::SbXmlMESSAGE(QString message) : QPDocumentoXML()
 }
 
 
-SbXmlMESSAGE::~SbXmlMESSAGE()
+sbxml::SbXmlMESSAGE::~SbXmlMESSAGE()
 {
 }
 

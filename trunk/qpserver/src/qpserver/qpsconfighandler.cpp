@@ -33,7 +33,7 @@ Constructor
 QPSConfigHandler::QPSConfigHandler() : QXmlDefaultHandler(), numeroDeBDS(0), leer(false)
 {
 	qDebug("[Construyendo QPSConfigHandler]");
-	cnx = new SbBDConexion();
+	cnx = new sbbd::SbBDConexion();
 }
 
 /**
@@ -186,7 +186,7 @@ QStringList QPSConfigHandler::nombresBDS()
 /**
 Retorna la conexion con la base de datos.
 */
-SbBDConexion QPSConfigHandler::conexiones()
+sbbd::SbBDConexion QPSConfigHandler::conexiones()
 {
 	return *cnx;
 }

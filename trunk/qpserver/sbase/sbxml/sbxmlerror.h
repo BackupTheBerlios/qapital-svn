@@ -43,18 +43,20 @@
  * Esta clase representa el documento XML de error
  * @author CetiSoft
 */
-class SbXMLError : public QPDocumentoXML
+namespace sbxml
 {
-	private:
-		QString codigoDeError;
-		QString mensajeDeError;
-
-	public:
-    		SbXMLError(QString codigoDeError, QString mensajeDeError);
-		~SbXMLError();
-		QString errorCode();
-		QString errorMsg();
-
-};
-
+	class SbXMLError : public QPDocumentoXML
+	{
+		private:
+			QString codigoDeError;
+			QString mensajeDeError;
+	
+		public:
+			SbXMLError(QString codigoDeError, QString mensajeDeError);
+			~SbXMLError();
+			QString errorCode();
+			QString errorMsg();
+	
+	};
+}
 #endif

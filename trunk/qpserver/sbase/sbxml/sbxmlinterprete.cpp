@@ -32,7 +32,7 @@ Constructor
 @param strDoc: String que representa un documento XML.
 @see SbXmlInterprete(QIODevice *dispositivo)
 */
-SbXmlInterprete::SbXmlInterprete(QString strDoc )
+sbxml::SbXmlInterprete::SbXmlInterprete(QString strDoc )
 {
 	errorMsg = new QString;
 	lineaError = new int;
@@ -49,7 +49,7 @@ Constructor sobrecargado, su funcion es construir el objecto a partir de un disp
 @param dispositivo: Dispositivo de entrada/salida de donde se quiere leer el XML.
 @see SbXmlInterprete(QString strDoc )
 */ 
-SbXmlInterprete::SbXmlInterprete(QIODevice *dispositivo)
+sbxml::SbXmlInterprete::SbXmlInterprete(QIODevice *dispositivo)
 {
 	if( !xmlDocumento.setContent(dispositivo, errorMsg, lineaError) )
 	{
@@ -61,7 +61,7 @@ SbXmlInterprete::SbXmlInterprete(QIODevice *dispositivo)
 /**
 Destructor
 */
-SbXmlInterprete::~SbXmlInterprete()
+sbxml::SbXmlInterprete::~SbXmlInterprete()
 {
 	delete errorMsg;
 	delete lineaError;
@@ -71,7 +71,7 @@ SbXmlInterprete::~SbXmlInterprete()
 Esta funcion pone strDoc en xmlDocumento
 @param strDoc: documento que se quiere meter en xmlDocumento.
 */
-void SbXmlInterprete::ponerDocumento(QString strDoc)
+void sbxml::SbXmlInterprete::ponerDocumento(QString strDoc)
 {
 	if( !xmlDocumento.setContent(strDoc, errorMsg, lineaError) )
 	{
@@ -83,7 +83,7 @@ void SbXmlInterprete::ponerDocumento(QString strDoc)
 /** 
 Esta funcion se encarga de retornar el nombre de la raiz
 */
-QString SbXmlInterprete::xmlRaiz()
+QString sbxml::SbXmlInterprete::xmlRaiz()
 {
 	if (xmlDocumento.isDocument())
 	{
@@ -103,7 +103,7 @@ QString SbXmlInterprete::xmlRaiz()
 Esta funcion busca en el xmlDocumento hasta que encuentra el tag y retorna el valor del string contenido por el
 @param tag: Es la etiqueta que contiene el texto buscado.
 */
-QString SbXmlInterprete::xmlObtenerTexto(QString tag)
+QString sbxml::SbXmlInterprete::xmlObtenerTexto(QString tag)
 {
  	xmlElemento = xmlDocumento.documentElement(); // retorna la raiz del documento
 	QDomNode nodo = xmlElemento.firstChild(); // se obtiene el primer Hijo

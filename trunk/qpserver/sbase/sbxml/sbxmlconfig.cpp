@@ -27,17 +27,19 @@
 
 #include "sbxmlconfig.h"
 
+using sbxml::QPDocumentoXML;
+
 /**
 Constructor
 */
-SbXmlConfig::SbXmlConfig()
+sbxml::SbXmlConfig::SbXmlConfig()
 {
 }
 
 /**
 Destructor
 */
-SbXmlConfig::~SbXmlConfig()
+sbxml::SbXmlConfig::~SbXmlConfig()
 {
 }
 
@@ -46,7 +48,7 @@ Funcion encargada de construir el archivo de configuracion del cliente.
 @param host: Host del servidor de transacciones.
 @param puerto: Puerto del servidor de transacciones.
 */
-QPDocumentoXML SbXmlConfig::crearConfigCliente(QString host, QString puerto, int tipoDeInterfaz)
+QPDocumentoXML sbxml::SbXmlConfig::crearConfigCliente(QString host, QString puerto, int tipoDeInterfaz)
 {
 	QPDocumentoXML conf;
 	QDomElement raiz = conf.createElement( "QPCConfig" );
@@ -82,7 +84,7 @@ crearConfigServer
 @param usuario: Nombre de usuario.
 @param password: Password de usuario.
 */
-QPDocumentoXML SbXmlConfig::crearConfigServer(StringHash argumentos)
+QPDocumentoXML sbxml::SbXmlConfig::crearConfigServer(StringHash argumentos)
 {
 	QPDocumentoXML conf;
 	QDomElement raiz = conf.createElement( "QPSConfig" );

@@ -36,6 +36,7 @@
 #include <qapplication.h>
 
 using sbqpserver::QPLOGGER;
+using sbbd::SbBDConexion;
 
 /**
 Esta clase almacena las sentencias sql definidas en la base de datos de midas.

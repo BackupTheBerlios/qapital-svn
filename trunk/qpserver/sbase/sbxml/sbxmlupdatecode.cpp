@@ -27,7 +27,9 @@
 
 #include "sbxmlupdatecode.h"
 
-SbXmlUPDATECODE::SbXmlUPDATECODE(QString driver, QString valor) : QPDocumentoXML()
+using sbxml::QPDocumentoXML;
+
+sbxml::SbXmlUPDATECODE::SbXmlUPDATECODE(QString driver, QString valor) : QPDocumentoXML()
 {
 	QDomElement raiz = this->createElement( "ERROR" );
 	this->appendChild( raiz );
@@ -44,7 +46,7 @@ SbXmlUPDATECODE::SbXmlUPDATECODE(QString driver, QString valor) : QPDocumentoXML
 }
 
 
-SbXmlUPDATECODE::~SbXmlUPDATECODE()
+sbxml::SbXmlUPDATECODE::~SbXmlUPDATECODE()
 {
 }
 

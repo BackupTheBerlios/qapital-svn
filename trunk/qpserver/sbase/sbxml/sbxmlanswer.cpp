@@ -27,7 +27,9 @@
 
 #include "sbxmlanswer.h"
 
-SbXmlANSWER::SbXmlANSWER(QStringList header, QStringList data)
+using sbxml::QPDocumentoXML;
+
+sbxml::SbXmlANSWER::SbXmlANSWER(QStringList header, QStringList data)
  : QPDocumentoXML()
 {
 	QDomElement raiz = this->createElement( "ERROR" );
@@ -63,7 +65,7 @@ SbXmlANSWER::SbXmlANSWER(QStringList header, QStringList data)
 }
 
 
-SbXmlANSWER::~SbXmlANSWER()
+sbxml::SbXmlANSWER::~SbXmlANSWER()
 {
 }
 

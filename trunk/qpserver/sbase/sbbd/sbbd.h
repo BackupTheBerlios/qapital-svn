@@ -37,9 +37,9 @@
 #include <qvaluelist.h>
 #include <qsqlcursor.h>
 
-typedef QDict<SbBDConexion> BDHash;
+typedef QDict<sbbd::SbBDConexion> BDHash;
 typedef QDict<QString> StringHash; // QVariant?
-typedef QValueList<SbBDConexion*> ListaDeBD;
+typedef QValueList<sbbd::SbBDConexion*> ListaDeBD;
 typedef QDict<bool> BoolHash;
 
 #endif

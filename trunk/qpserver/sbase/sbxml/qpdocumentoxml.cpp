@@ -30,7 +30,7 @@
 /**
 Constructor
 */
-QPDocumentoXML::QPDocumentoXML() : QDomDocument()
+sbxml::QPDocumentoXML::QPDocumentoXML() : QDomDocument()
 {
 	QDomProcessingInstruction cabecera = this->createProcessingInstruction("xml","version=\"1.0\" encoding=\"UTF-8\"");
 	this->appendChild(cabecera);
@@ -39,7 +39,7 @@ QPDocumentoXML::QPDocumentoXML() : QDomDocument()
 /**
 Destructor
 */
-QPDocumentoXML::~QPDocumentoXML()
+sbxml::QPDocumentoXML::~QPDocumentoXML()
 {
 }
 

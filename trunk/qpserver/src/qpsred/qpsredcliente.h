@@ -1,8 +1,8 @@
 /* Clase: RedServer
- * Autor: CetiSoft
- * Version: 0.0.1
+ * Autor: David Cuadrado
+ * Version: 0.0.2
  * Fecha de creacion: 19/06/2004
- * Fecha de modificacion:
+ * Fecha de modificacion: 23/02/2005
  * Relacion con objetos:
  * Descripcion: Clase que se encarga de mantener los clientes, esta clase esta intimamente relacionada con el servidor.
  *
@@ -42,11 +42,11 @@
 
 
 /**
-Esta clase representa el servidor qapital
-@author CetiSoft
-@todo 
-- Terminar la comunicacion de los clientes/admin con el servidor de transacciones
-- Recibir paquetes XML e interpretarlos.
+* Esta clase representa el servidor qapital
+* @author CetiSoft
+* @todo 
+* - Terminar la comunicacion de los clientes/admin con el servidor de transacciones
+* - Recibir paquetes XML e interpretarlos.
 */
 
 namespace qpsred
