@@ -3,9 +3,10 @@
 # Subdir relative project main directory: ./src/qpscontrol
 # Target is a library:  
 
-TEMPLATE = lib 
+TEMPLATE = lib
 CONFIG += release \
-          warn_on \
-          staticlib 
-OBJECTS_DIR = .obj 
-MOC_DIR = .moc 
+warn_on \
+staticlib
+OBJECTS_DIR = .obj
+MOC_DIR = .moc
+HEADERS += qpscontrol.h 

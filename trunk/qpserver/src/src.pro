@@ -3,11 +3,11 @@
 # Subdir relative project main directory: ./src
 # Target is a subdirs project 
 
-SUBDIRS += qpserver \
-           qpslogica \
-           qpsred \
+SUBDIRS += qpsred \
            qpsbd \
-           qpscontrol 
+           qpslogica \
+           qpscontrol \
+           qpserver 
 TEMPLATE = subdirs 
 CONFIG += release \
           warn_on 

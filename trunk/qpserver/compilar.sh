@@ -35,7 +35,7 @@ function qpelec ()
 # elaf
 PSQL=psql
 
-DIRS=`find src -type d`
+DIRS=`find . -type d`
 DIRS="$DIRS"
 
 qpinfo "Actualizando directorios"

@@ -11,29 +11,25 @@ CONFIG += release \
           warn_on 
 OBJECTS_DIR = .obj 
 MOC_DIR = .moc 
-INCLUDEPATH = ../../sbase/sbqpserver \
+INCLUDEPATH = ../../src/qpscontrol \
+              ../../src/qpsbd \
+              ../../src/qpsred \
+              ../../src/qpslogica \
+              ../../sbase/sbqpserver \
               ../../sbase/sbred \
               ../../sbase/sbxml \
               ../../sbase/sblogica \
               ../../sbase/sbcontrol \
-              ../../sbase/sbbd \
-              ../../src/qpslogica \
-              ../../src/qpscontrol \
-              ../../src/qpsbd \
-              ../../src/qpsred 
-LIBS += ../../src/qpslogica/libqpslogica.a \
-        ../../src/qpscontrol/libqpscontrol.a \
+              ../../sbase/sbbd 
+LIBS += ../../src/qpsred/libqpsred.a \
         ../../src/qpsbd/libqpsbd.a \
-        ../../src/qpsred/libqpsred.a \
         ../../sbase/sbqpserver/libsbqpserver.a \
         ../../sbase/sbred/libsbred.a \
         ../../sbase/sbxml/libsbxml.a \
         ../../sbase/sblogica/libsblogica.a \
         ../../sbase/sbcontrol/libsbcontrol.a \
         ../../sbase/sbbd/libsbbd.a 
-TARGETDEPS += ../../src/qpslogica/libqpslogica.a \
-              ../../src/qpscontrol/libqpscontrol.a \
-              ../../src/qpsbd/libqpsbd.a \
+TARGETDEPS += ../../src/qpsbd/libqpsbd.a \
               ../../src/qpsred/libqpsred.a \
               ../../sbase/sbqpserver/libsbqpserver.a \
               ../../sbase/sbred/libsbred.a \
