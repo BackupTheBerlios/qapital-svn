@@ -42,6 +42,7 @@ namespace sbxml
 	class SbXmlACP : public QPDocumentoXML
 	{
 		public:
+			SbXmlACP();
 			SbXmlACP(QStringList, QStringList);
 			~SbXmlACP();
 	};

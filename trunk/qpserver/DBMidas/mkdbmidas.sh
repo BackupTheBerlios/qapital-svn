@@ -5,7 +5,7 @@
 # 	Este script sirve para crear la base de datos
 
 LOGINADMIN=dcuadra
-DBNAME=dcuadra
+DBNAME=DBMidas2
 DBDUMP=DBMidas.dump
 PSQL=psql
 

@@ -34,22 +34,27 @@
 #include <qxml.h>
 #include <iostream>
 
-/**
-Esta clase se encarga de analizar los paquetes XML que llegan al servidor.
-@author CetiSoft
-*/
-class SrvXmlHandler : public QXmlDefaultHandler
+namespace qpsred
 {
-	private:
-		QString qName, raiz;
-		bool leer;
-		
-	public:
-    		SrvXmlHandler();
-		~SrvXmlHandler();
-		bool startElement(const QString& , const QString& , const QString& , const QXmlAttributes& );
-		bool endElement( const QString& , const QString& , const QString& );
-		bool characters ( const QString & ch );
-};
-
+	/**
+	Esta clase se encarga de analizar los paquetes XML que llegan al servidor.
+	@author CetiSoft
+	*/
+	class SrvXmlHandler : public QXmlDefaultHandler
+	{
+		private:
+			QString qName, raiz;
+			bool leer;
+			QStringList datos;
+			
+		public:
+			SrvXmlHandler();
+			~SrvXmlHandler();
+			bool startElement(const QString& , const QString& , const QString& , const QXmlAttributes& );
+			bool endElement( const QString& , const QString& , const QString& );
+			bool characters ( const QString & ch );
+			QStringList obtenerDatos();
+			QString obtenerRaiz();
+	};
+}
 #endif

@@ -3,23 +3,39 @@
 # Subdir relative project main directory: ./src/qpsred
 # Target is a library:  
 
-TEMPLATE = lib
+TARGETDEPS += ../../sbase/sbred/libsbred.a \
+              ../../src/qpsbd/libqpsbd.a \
+              ../../sbase/sbqpserver/libsbqpserver.a \
+              ../../sbase/sbxml/libsbxml.a \
+              ../../sbase/sblogica/libsblogica.a \
+              ../../sbase/sbcontrol/libsbcontrol.a \
+              ../../sbase/sbbd/libsbbd.a \
+              ../../src/qpscontrol/libqpscontrol.a 
+LIBS += ../../sbase/sbred/libsbred.a \
+        ../../src/qpsbd/libqpsbd.a \
+        ../../sbase/sbqpserver/libsbqpserver.a \
+        ../../sbase/sbxml/libsbxml.a \
+        ../../sbase/sblogica/libsblogica.a \
+        ../../sbase/sbcontrol/libsbcontrol.a \
+        ../../sbase/sbbd/libsbbd.a \
+        ../../src/qpscontrol/libqpscontrol.a 
+INCLUDEPATH = ../../src/qpscontrol \
+              ../../src/qpsbd \
+              ../../sbase/sbqpserver \
+              ../../sbase/sbred \
+              ../../sbase/sbxml \
+              ../../sbase/sblogica \
+              ../../sbase/sbcontrol \
+              ../../sbase/sbbd 
+MOC_DIR = .moc 
+OBJECTS_DIR = .obj 
 CONFIG += release \
-warn_on \
-staticlib
-OBJECTS_DIR = .obj
-MOC_DIR = .moc
-INCLUDEPATH = ../../sbase/sbqpserver \
-../../sbase/sbred \
-../../sbase/sbxml \
-../../sbase/sblogica \
-../../sbase/sbcontrol \
-../../sbase/sbbd
-LIBS += ../../sbase/sbred/libsbred.a
-TARGETDEPS += ../../sbase/sbred/libsbred.a
-SOURCES += srvxmlhandler.cpp \
-           qpsredcliente.cpp \
-           qpsredserver.cpp 
+          warn_on \
+          staticlib 
+TEMPLATE = lib 
 HEADERS += srvxmlhandler.h \
            qpsredcliente.h \
            qpsredserver.h 
+SOURCES += srvxmlhandler.cpp \
+           qpsredcliente.cpp \
+           qpsredserver.cpp 

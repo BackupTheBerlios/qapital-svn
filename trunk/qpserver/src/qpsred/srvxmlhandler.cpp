@@ -30,21 +30,21 @@
 /**
 Constructor
 */
-SrvXmlHandler::SrvXmlHandler() : QXmlDefaultHandler(), qName(""), leer(false)
+qpsred::SrvXmlHandler::SrvXmlHandler() : QXmlDefaultHandler(), qName(""), leer(false)
 {
 }
 
 /**
 Destructor
 */
-SrvXmlHandler::~SrvXmlHandler()
+qpsred::SrvXmlHandler::~SrvXmlHandler()
 {
 }
 
 /**
 Esta funcion lee los elementos de apertura: \<apertura\>
 */
-bool SrvXmlHandler::startElement(const QString& , const QString& , const QString& qname, const QXmlAttributes& atts)
+bool qpsred::SrvXmlHandler::startElement(const QString& , const QString& , const QString& qname, const QXmlAttributes& )
 {
 	qName = qname;
 	
@@ -84,7 +84,7 @@ bool SrvXmlHandler::startElement(const QString& , const QString& , const QString
 /**
 Esta funcion lee los elementos de cierre: \</cierre\>
 */
-bool SrvXmlHandler::endElement( const QString& ns, const QString& localname, const QString& qname)
+bool qpsred::SrvXmlHandler::endElement( const QString&, const QString& , const QString& )
 {
 	qName = "";
 	return true;
@@ -93,14 +93,33 @@ bool SrvXmlHandler::endElement( const QString& ns, const QString& localname, con
 /** 
 Esta funcion lee la seccion de texto: \<tag\>Esta Seccion \</tag\>
 */
-bool SrvXmlHandler::characters ( const QString & ch )
+bool qpsred::SrvXmlHandler::characters ( const QString & ch )
 {
 	if ( raiz == "CNX" )
 	{
+		if ( qName == "db" )
+			datos << ch;
 		if (qName == "login")
-			std::cout << "Usuario: " << ch << std::endl;
+			datos << ch;
 		else if (qName == "password")
-			std::cout << "Password: " << ch << std::endl;
+			datos << ch;
 	}
 	return true;
-} 
+}
+
+/**
+ * Esta funcion retorna los datos leidos del paquete XML
+ */
+QStringList qpsred::SrvXmlHandler::obtenerDatos()
+{
+	std::cout << "Tamaño de datos: " << datos.count() << std::endl;
+	return datos;
+}
+
+/**
+ * Esta funcion retorna la raiz del documento
+ */
+QString qpsred::SrvXmlHandler::obtenerRaiz()
+{
+	return raiz;
+}

@@ -145,11 +145,11 @@ int main(int argc, char **argv)
 					
 //			BDConexiones conexiones( handler->obtenerNumeroDeBDS() );
 //			conexiones.insertar( handler->nombresBDS(), handler->dbs() );
-
+			
+			qpsbd::BDInstrucciones *instrucciones = new qpsbd::BDInstrucciones;
  			if ( cargarBD )
  			{
-				qpsbd::BDInstrucciones instrucciones;
-       				if ( ! instrucciones.cargarInstrucciones( handler->conexiones(), handler->nombresBDS() ) )
+       				if ( ! instrucciones->cargarInstrucciones( handler->conexiones(), handler->nombresBDS() ) )
 				{
 					QPERROR(QObject::tr("Error cargando las instrucciones! "));
 					delete handler;
@@ -162,8 +162,8 @@ int main(int argc, char **argv)
 			signal (SIGTERM, terminar);
 			signal( SIGSEGV, terminar);
 
-			qpsred::QPSRedServer servidorPAST( handler->past(), handler->maximoDeClientes(), qApp);
-			qpsred::QPSRedServer servidorPCST( handler->pcst(), handler->maximoDeClientes(), qApp);
+			qpsred::QPSRedServer servidorPAST( handler->past(), handler->maximoDeClientes(), instrucciones );
+			qpsred::QPSRedServer servidorPCST( handler->pcst(), handler->maximoDeClientes(), instrucciones );
 
 			QObject::connect (&app, SIGNAL( lastWindowClosed ()), qApp, SLOT(quit()));			
 			return app.exec();

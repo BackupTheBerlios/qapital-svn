@@ -29,6 +29,10 @@
 
 using sbxml::QPDocumentoXML;
 
+sbxml::SbXmlACP::SbXmlACP()
+{
+}
+
 sbxml::SbXmlACP::SbXmlACP(QStringList drivers, QStringList sqls) : QPDocumentoXML()
 {
 	QDomElement raiz = this->createElement( "ACP" );

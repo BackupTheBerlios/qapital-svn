@@ -33,7 +33,7 @@
 * @param conexiones: Numero de conexiones que admite el servidor.
 * @param padre: Padre del objeto.
 */
-qpsred::QPSRedServer::QPSRedServer(int puerto, int conexiones, QObject* padre) : QServerSocket(puerto, conexiones, padre)
+qpsred::QPSRedServer::QPSRedServer(int puerto, int conexiones, qpsbd::BDInstrucciones *instrucciones, QObject* padre) : QServerSocket(puerto, conexiones, padre), instrucciones(instrucciones)
 {
 	qDebug("[Construyendo QPSRedServer]");
 	conexionesFallidas.setAutoDelete(true);
@@ -139,4 +139,12 @@ void qpsred::QPSRedServer::removerBans()
 {
 	std::cout << tr("Removiendo todos los bans") << std::endl;
 	conexionesFallidas.clear();
+}
+
+/**
+ * Esta funcion retorna las instrucciones sql
+ */
+qpsbd::BDInstrucciones * qpsred::QPSRedServer::obtenerInstrucciones()
+{
+	return instrucciones;
 }

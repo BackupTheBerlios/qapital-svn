@@ -29,7 +29,7 @@
 #include <qdatastream.h>
 #include <qstringlist.h>
 
-
+#include "aceptarconexion.h"
 
 /**
 * Constructor
@@ -119,6 +119,22 @@ void qpsred::QPSRedCliente::leer()
 			server->fallo(ipCliente);
 			cerrarConexion();
 		}
+		
+		QStringList datos = xmlHandler->obtenerDatos();
+		
+		if ( xmlHandler->obtenerRaiz() == "CNX" )
+		{
+			if ( datos.count() == 3 )
+			{
+				qpscontrol::AceptarConexion acpcnx( server->obtenerInstrucciones(), datos[0], datos[1]);
+			}
+			else
+			{
+				std::cerr << "Paquete invalido" << std::endl;
+				// TODO: Enviar ErrorXML y cerrar conexion.
+			}
+		}
+		
 		sourceXML.reset();
 	}
 }

@@ -3,10 +3,28 @@
 # Subdir relative project main directory: ./src/qpslogica
 # Target is a library:  
 
-TEMPLATE = lib
-CONFIG += release \
-warn_on \
-staticlib
-OBJECTS_DIR = .obj
-MOC_DIR = .moc
 HEADERS += qpslogica.h 
+TARGETDEPS += ../../sbase/sbqpserver/libsbqpserver.a \
+              ../../sbase/sbred/libsbred.a \
+              ../../sbase/sbxml/libsbxml.a \
+              ../../sbase/sblogica/libsblogica.a \
+              ../../sbase/sbcontrol/libsbcontrol.a \
+              ../../sbase/sbbd/libsbbd.a 
+LIBS += ../../sbase/sbqpserver/libsbqpserver.a \
+        ../../sbase/sbred/libsbred.a \
+        ../../sbase/sbxml/libsbxml.a \
+        ../../sbase/sblogica/libsblogica.a \
+        ../../sbase/sbcontrol/libsbcontrol.a \
+        ../../sbase/sbbd/libsbbd.a 
+INCLUDEPATH = ../../sbase/sbqpserver \
+              ../../sbase/sbred \
+              ../../sbase/sbxml \
+              ../../sbase/sblogica \
+              ../../sbase/sbcontrol \
+              ../../sbase/sbbd 
+MOC_DIR = .moc 
+OBJECTS_DIR = .obj 
+CONFIG += release \
+          warn_on \
+          staticlib 
+TEMPLATE = lib 

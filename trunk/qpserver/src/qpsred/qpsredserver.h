@@ -43,6 +43,7 @@
 #include "sbred.h"
 #include "qpsredcliente.h"
 #include "sbqpserver.h"
+#include "bdinstrucciones.h"
 
 using sbqpserver::QPLOGGER;
 	
@@ -65,14 +66,16 @@ namespace qpsred
 		private:
 			Clientes rdsClientes; // Lista que contiene todos los clientes...
 			HashInt conexionesFallidas;
+			qpsbd::BDInstrucciones *instrucciones;
 		
 		public:
-			QPSRedServer(int puerto, int conexiones = 1, QObject* padre = 0);
+			QPSRedServer(int puerto, int conexiones, qpsbd::BDInstrucciones *instrucciones, QObject* padre = 0);
 			~QPSRedServer();
 	
 			void newConnection(int );
 			void enviarATodos(QString );
 			void fallo(QString ip);
+			qpsbd::BDInstrucciones *obtenerInstrucciones();
 		public slots:
 			void removerBans();
 			void quitarCliente(QPSRedCliente *);
