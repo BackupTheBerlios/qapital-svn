@@ -23,6 +23,7 @@ General:
 - Incluir las fuentes de sqlite para tener un servidor de base de datos embebido.
 - Parsear argumentos pasados desde la linea de comandos.
 - Generar documentacion. +/-
+- Estandarizar el TODO y el Changelog
 -----------------------------------------------------------------------------------------------------
 
 

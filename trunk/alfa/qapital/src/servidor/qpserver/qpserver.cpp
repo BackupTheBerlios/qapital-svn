@@ -61,6 +61,17 @@ int main(int argc, char **argv)
 // 			}
 			
 			QApplication app( argc, argv, false);
+			
+			// TODO: añadir QPSAplicacion, y parsear argumentos
+			bool cargarBD = true;
+			std::cout << argc << std::endl;
+			if ( argc > 1 )
+			{
+				if ( QString(argv[1]).contains("--nobd", true) )
+				{
+					cargarBD = false;
+				}
+			}
         
 			QTranslator traductorGeneral( 0 );
 			traductorGeneral.load( QString( "qt_" ) + QTextCodec::locale(),  qapital::TRANSDATADIR);
@@ -135,8 +146,7 @@ int main(int argc, char **argv)
 //			BDConexiones conexiones( handler->obtenerNumeroDeBDS() );
 //			conexiones.insertar( handler->nombresBDS(), handler->dbs() );
 
-
- 			if ( argc > 1 && argv[1] == "--nobd" )
+ 			if ( cargarBD )
  			{
 				BDInstrucciones instrucciones;
        				if ( ! instrucciones.cargarInstrucciones( handler->conexiones(), handler->nombresBDS() ) )
