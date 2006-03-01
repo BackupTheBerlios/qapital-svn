@@ -7,9 +7,9 @@ QT += network gui xml
 INSTALLS += target 
 target.path = /bin/ 
 KDEV_QTVER = 4 
-LIBS +=  \
-         \
-        ../../../src/client/dlslib/libdlslib.a 
+LIBS += ../../../src/client/dlslib/libdlslib.a \
+        -ldgui \
+	-ldcore
 INCLUDEPATH += ../../../src/client/dlslib \
                ../../../src/dartlib/dcore \
                ../../../src/dartlib/dgui 
@@ -20,6 +20,11 @@ TARGET = ../../../bin/domsclient.bin
 CONFIG += release \
           warn_on 
 TEMPLATE = app 
-HEADERS += cmainwindow.h 
+HEADERS += cmainwindow.h \
+	   cconnectdialog.h
 SOURCES += client_main.cpp \
+	   cconnectdialog.cpp \
            cmainwindow.cpp 
+
+QMAKE_LIBDIR = ../../dartlib/dcore \
+	 	../../dartlib/dgui

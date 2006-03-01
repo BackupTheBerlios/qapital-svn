@@ -24,7 +24,7 @@
 #include "close.xpm"
 #endif
 
-#include "dtabwidget.h"
+#include "dlstabwidget.h"
 
 #include <QToolButton>
 #include <QTabBar>
@@ -35,7 +35,7 @@
 
 #include "comdefs.h"
 
-DTabWidget::DTabWidget(QWidget *parent)
+DLSTabWidget::DLSTabWidget(QWidget *parent)
 	: KTWCLASS(parent), m_closeButton(0)
 {
 	setFocusPolicy(Qt::NoFocus);
@@ -65,7 +65,7 @@ DTabWidget::DTabWidget(QWidget *parent)
 	connect(this, SIGNAL(currentChanged(QWidget*)), this, SLOT(setFocus(QWidget*)));
 }
 
-void DTabWidget::loadSettings()
+void DLSTabWidget::loadSettings()
 {
 	QSettings config;
 	config.beginGroup("DLSLib");
@@ -76,16 +76,16 @@ void DTabWidget::loadSettings()
 
 }
 
-void DTabWidget::saveSettings()
+void DLSTabWidget::saveSettings()
 {
 }
 
-QToolButton *DTabWidget::closeButton() const
+QToolButton *DLSTabWidget::closeButton() const
 {
 	return m_closeButton;
 }
 
-void DTabWidget::setFocus(QWidget *w)
+void DLSTabWidget::setFocus(QWidget *w)
 {
 	if (w)
 	{
@@ -93,7 +93,7 @@ void DTabWidget::setFocus(QWidget *w)
 	}
 }
 
-void DTabWidget::insertTab(QWidget *child, const QString &label, int index)
+void DLSTabWidget::insertTab(QWidget *child, const QString &label, int index)
 {
 	child->setParent(0);
 	if (m_closeButton && m_closeButtonShown)
@@ -104,7 +104,7 @@ void DTabWidget::insertTab(QWidget *child, const QString &label, int index)
 	if (index != -1) tabBar()->repaint();
 }
 
-void DTabWidget::insertTab(QWidget *child, const QIcon &iconset, 
+void DLSTabWidget::insertTab(QWidget *child, const QIcon &iconset, 
 			   const QString &label, int index)
 {
 	if (m_closeButton && m_closeButtonShown)

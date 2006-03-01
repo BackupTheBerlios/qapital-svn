@@ -36,7 +36,7 @@ static const char* const icon_xpm[]={
 #include <QToolButton>
 #include <QDebug>
 
-#include "dtabwidget.h"
+#include "dlstabwidget.h"
 #include "docksplitter.h"
 #include "comdefs.h"
 
@@ -130,7 +130,7 @@ void DMainWindow::addWidget(QWidget *widget, const QString &title, bool persista
     addWidget(m_pActiveTabWidget, widget, title, persistant);
 }
 
-void DMainWindow::addWidget(DTabWidget *tab, QWidget *widget, const QString &title, bool persistant)
+void DMainWindow::addWidget(DLSTabWidget *tab, QWidget *widget, const QString &title, bool persistant)
 {
     int idx = -1;
     if (m_pOpenTabAfterCurrent && (tab->count() > 0))
@@ -168,7 +168,7 @@ void DMainWindow::removeWidget(QWidget *widget)
     
     if (m_pWidgetTabs.contains(widget))
     {
-        DTabWidget *tab = m_pWidgetTabs[widget];
+        DLSTabWidget *tab = m_pWidgetTabs[widget];
 	if (tab->indexOf(widget) >= 0 && m_pActiveTabWidget->count() > 1)
         {
 		tab->removeTab(tab->indexOf(widget));
@@ -209,14 +209,14 @@ void DMainWindow::removeWidget(QWidget *widget)
     m_pWidgetTabs.remove(widget);
 }
 
-DTabWidget *DMainWindow::splitHorizontal() 
+DLSTabWidget *DMainWindow::splitHorizontal() 
 {
     m_pActiveTabWidget = createTab();
     m_pCentral->addDock(m_pCentral->numRows(), 0, m_pActiveTabWidget);
     return m_pActiveTabWidget;
 }
 
-DTabWidget *DMainWindow::splitVertical() 
+DLSTabWidget *DMainWindow::splitVertical() 
 {
 //     invalidateActiveTabWidget();
     int row = m_pCentral->indexOf(m_pActiveTabWidget).first;
@@ -239,16 +239,16 @@ void DMainWindow::invalidateActiveTabWidget()
     if (m_pWidgetTabs.contains(focused))
     {
         kdDebug() << "    focused is in m_pWidgets and m_pWidgetTabs" << endl;
-        DTabWidget *tab = m_pWidgetTabs[focused];
+        DLSTabWidget *tab = m_pWidgetTabs[focused];
         if (tab->indexOf(focused) >= 0)
             m_pActiveTabWidget = tab;
         kdDebug() << "    tab: " << tab << endl;
     }*/
 }
 
-DTabWidget *DMainWindow::createTab()
+DLSTabWidget *DMainWindow::createTab()
 {
-    DTabWidget *tab = new DTabWidget(m_pCentral);
+    DLSTabWidget *tab = new DLSTabWidget(m_pCentral);
     m_pTabs.append(tab);
     if (tab->closeButton())
     {
@@ -275,7 +275,7 @@ bool DMainWindow::eventFilter(QObject *obj, QEvent *ev)
 //     {
 //         if (m_pWidgetTabs.contains(w))
 //         {
-//             DTabWidget *tab = m_pWidgetTabs[w];
+//             DLSTabWidget *tab = m_pWidgetTabs[w];
 //             tab->setTabIconSet(w, w->icon() ? (*(w->icon())) : QPixmap());
 //         }
 //     }

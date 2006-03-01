@@ -21,18 +21,30 @@
 #include "cmainwindow.h"
 
 #include "dtabwidget.h"
-
 #include <QLabel>
+#include <QTimer>
+
+#include "cconnectdialog.h"
 
 CMainWindow::CMainWindow() : DMainWindow()
 {
 	setWindowTitle(tr("The client"));
 	
+	QTimer::singleShot(1000, this, SLOT(showConnectDialog()));
 }
 
 
 CMainWindow::~CMainWindow()
 {
+}
+
+void CMainWindow::showConnectDialog()
+{
+	CConnectDialog connectionDialog;
+	if ( connectionDialog.exec() != QDialog::Rejected )
+	{
+		
+	}
 }
 
 

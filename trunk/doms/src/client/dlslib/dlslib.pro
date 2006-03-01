@@ -18,10 +18,10 @@ HEADERS += buttonbar.h \
            ddockwindow.h \
            dmainwindow.h \
            docksplitter.h \
-           dtabwidget.h 
+           dlstabwidget.h 
 SOURCES += buttonbar.cpp \
            button.cpp \
            ddockwindow.cpp \
            docksplitter.cpp \
-           dtabwidget.cpp \
+           dlstabwidget.cpp \
            dmainwindow.cpp 

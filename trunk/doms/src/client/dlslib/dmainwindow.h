@@ -30,7 +30,7 @@
 #include <QList>
 #include <QEvent>
 
-class DTabWidget;
+class DLSTabWidget;
 namespace Ideal {
 	class DockSplitter;
 }
@@ -49,15 +49,15 @@ class DMainWindow: public MWCLASS
 		/**Adds a tabbed widget into the active (focused) tab widget. 
 		If @p widget is null then only tab is created.*/
 		virtual void addWidget(QWidget *widget, const QString &title, bool persistant = false);
-		virtual void addWidget(DTabWidget *tab, QWidget *widget, const QString &title, bool persistant);
+		virtual void addWidget(DLSTabWidget *tab, QWidget *widget, const QString &title, bool persistant);
 		/**Removes widget. Does not delete it.*/
 		virtual void removeWidget(QWidget *widget);
 		QWidget *findCorrectSeparator();
 		void addDockWidget(Qt::DockWidgetArea area, DDockWindow * dockwidget );
     
 	public slots:
-		DTabWidget *splitHorizontal();
-		DTabWidget *splitVertical();
+		DLSTabWidget *splitHorizontal();
+		DLSTabWidget *splitVertical();
     
 	protected slots:
 		/**This does nothing. Reimplement in subclass to close the tab 
@@ -77,7 +77,7 @@ class DMainWindow: public MWCLASS
 		virtual void loadSettings();
         
 		virtual void createToolWindows();
-		virtual DTabWidget *createTab();
+		virtual DLSTabWidget *createTab();
     
 	protected:
 		DDockWindow *m_pLeftDock;
@@ -85,16 +85,16 @@ class DMainWindow: public MWCLASS
 		DDockWindow *m_pBottomDock;
 
 		Ideal::DockSplitter *m_pCentral;
-		DTabWidget *m_pActiveTabWidget;
+		DLSTabWidget *m_pActiveTabWidget;
     
-		QList<DTabWidget*> m_pTabs;
+		QList<DLSTabWidget*> m_pTabs;
     
 		bool m_pOpenTabAfterCurrent;
 		bool m_pShowIconsOnTabs;
 		bool m_pFirstRemoved;
     
 		QList<QWidget*> m_pWidgets;
-		QMap<QWidget*, DTabWidget*> m_pWidgetTabs;
+		QMap<QWidget*, DLSTabWidget*> m_pWidgetTabs;
 		QWidget *m_pCurrentWidget;
 		QList<QWidget *> m_separators;
 

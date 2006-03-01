@@ -20,8 +20,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef DTABWIDGET_H
-#define DTABWIDGET_H
+#ifndef DLSTABWIDGET_H
+#define DLSTABWIDGET_H
 
 
 #include <QTabWidget>
@@ -30,10 +30,10 @@
 
 class QToolButton;
 
-class DTabWidget: public KTWCLASS {
+class DLSTabWidget: public KTWCLASS {
     Q_OBJECT
 public:
-    DTabWidget(QWidget *parent=0);
+    DLSTabWidget(QWidget *parent=0);
     
     /**@return The close button at the top right corner. 
     May be 0 if the configuration do not allow close buttons or the tabbar.*/

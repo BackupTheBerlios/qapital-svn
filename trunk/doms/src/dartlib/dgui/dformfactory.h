@@ -21,8 +21,10 @@
 #define DFORMFACTORY_H
 
 #include <QWidget>
+#include <QStringList>
 
 class QBoxLayout;
+class QGridLayout;
 
 /**
  * @author David Cuadrado <krawek@toonka.com>
@@ -35,6 +37,7 @@ class DFormFactory
 		
 	public:
 		static QBoxLayout *makeLine(const QString &text, QWidget *widget,  Qt::Orientation = Qt::Vertical);
+		static QGridLayout *makeGrid(const QStringList &texts, const QWidgetList &widgets);
 
 };
 

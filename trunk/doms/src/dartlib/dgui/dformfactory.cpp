@@ -21,6 +21,8 @@
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QGridLayout>
+
 #include <QLabel>
 
 DFormFactory::DFormFactory()
@@ -51,6 +53,21 @@ QBoxLayout *DFormFactory::makeLine(const QString &text, QWidget *widget,  Qt::Or
 	if ( o == Qt::Vertical )
 	{
 		layout->addStretch(3);
+	}
+	
+	return layout;
+}
+
+QGridLayout *DFormFactory::makeGrid(const QStringList &texts, const QWidgetList &widgets)
+{
+	Q_ASSERT(texts.count() != widgets.count());
+	
+	QGridLayout *layout = new QGridLayout;
+	
+	for(int i = 0; i < widgets.count(); i++ )
+	{
+		layout->addWidget(new QLabel(texts[i]), i, 0);
+		layout->addWidget(widgets[i], i, 1);
 	}
 	
 	return layout;

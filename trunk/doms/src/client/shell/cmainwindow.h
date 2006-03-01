@@ -29,10 +29,13 @@
 */
 class CMainWindow : public DMainWindow
 {
+	Q_OBJECT;
 	public:
 		CMainWindow();
 		~CMainWindow();
-
+		
+	private slots:
+		void showConnectDialog();
 };
 
 #endif
