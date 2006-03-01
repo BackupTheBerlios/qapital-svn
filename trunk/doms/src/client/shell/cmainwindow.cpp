@@ -26,6 +26,8 @@
 
 #include "cconnectdialog.h"
 
+#include <ddebug.h>
+
 CMainWindow::CMainWindow() : DMainWindow()
 {
 	setWindowTitle(tr("The client"));
@@ -43,7 +45,7 @@ void CMainWindow::showConnectDialog()
 	CConnectDialog connectionDialog;
 	if ( connectionDialog.exec() != QDialog::Rejected )
 	{
-		
+		dDebug() << connectionDialog.user() << " " << connectionDialog.password();
 	}
 }
 
