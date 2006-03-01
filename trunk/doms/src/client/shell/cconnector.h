@@ -18,22 +18,40 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef DOMSERVERCLIENT_H
-#define DOMSERVERCLIENT_H
+#ifndef CCONNECTOR_H
+#define CCONNECTOR_H
 
-#include <QTcpSocket>
-#include <QDomDocument>
+#include <qtcpsocket.h>
 #include <QStringList>
+#include <QXmlSimpleReader>
+
+class CPackageParser;
 
 /**
+ * Maneja las conexiones al servidor, asi mismo tambien maneja los errores de conexion
  * @author David Cuadrado <krawek@gmail.com>
 */
-class DomServerClient : public QTcpSocket
+class CConnector : public QTcpSocket
 {
 	Q_OBJECT;
 	public:
-		DomServerClient(QObject *parent = 0);
-		~DomServerClient();
+		CConnector(QObject * parent = 0);
+		~CConnector();
+		
+		void login(const QString &user, const QString &passwd);
+		
+	private slots:
+		void sendToServer(const QString &text);
+		void readFromServer();
+		void handleError(QAbstractSocket::SocketError error);
+		
+		void flushQueue();
+		
+	private:
+		QStringList m_queue;
+		
+		QXmlSimpleReader m_reader;
+		CPackageParser *m_parser;
 
 };
 

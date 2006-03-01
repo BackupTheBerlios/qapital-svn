@@ -20,6 +20,10 @@
 
 #include "domserverclient.h"
 
+#include <QDataStream>
+
+#include <ddebug.h>
+
 DomServerClient::DomServerClient(QObject *parent) : QTcpSocket(parent)
 {
 }

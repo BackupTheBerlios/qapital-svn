@@ -23,8 +23,10 @@
 
 #include <dmainwindow.h>
 
+#include "cconnector.h"
 
 /**
+ * Ventana principal de la aplicacion cliente
  * @author David Cuadrado <krawek@gmail.com>
 */
 class CMainWindow : public DMainWindow
@@ -34,8 +36,14 @@ class CMainWindow : public DMainWindow
 		CMainWindow();
 		~CMainWindow();
 		
+	private:
+		void setupMenu();
+		
 	private slots:
 		void showConnectDialog();
+		
+	private:
+		CConnector *m_connector;
 };
 
 #endif

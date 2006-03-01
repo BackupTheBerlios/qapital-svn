@@ -88,5 +88,5 @@ void DomServer::authenticate(DomServerConnection *cnx, const QString &login, con
 	
 	cnx->sendToClient( SSuccessPackage("weeeeeeee"));
 	
-	cnx->close(); 
+// 	cnx->close(); 
 }

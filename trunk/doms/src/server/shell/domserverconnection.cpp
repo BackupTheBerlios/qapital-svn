@@ -47,14 +47,18 @@ void DomServerConnection::run()
 {
 	while(m_client->state() != QAbstractSocket::UnconnectedState)
 	{
-		while(m_client->canReadLine ())
+		QString readed;
+		while(m_client->canReadLine())
 		{
-			QString readed = m_client->readAll();
-			
+			readed += m_client->readLine();
+		}
+		
+		if ( !readed.isEmpty() )
+		{
 			QXmlInputSource xmlsource;
 			xmlsource.setData(readed);
 			
-// 			m_parser->reset();
+			dDebug() << "READED: " << readed;
 			
 			if ( m_reader.parse(&xmlsource) )
 			{
@@ -63,7 +67,6 @@ void DomServerConnection::run()
 				
 				if ( root == "Connection")
 				{
-					qDebug("emitting");
 					emit requestAuth(this, values["Login"], values["Password"] );
 				}
 				else if ( root == "Chat" )
@@ -74,7 +77,10 @@ void DomServerConnection::run()
 			else
 			{
 				sendToClient( SErrorPackage(0, tr("Bad package")) );
-				close();
+				if ( !readed.isEmpty() )
+				{
+					close();
+				}
 			}
 		}
 	}
@@ -85,42 +91,16 @@ void DomServerConnection::run()
 
 void DomServerConnection::sendToClient(const QString &msg)
 {
-	QByteArray block;
-	QDataStream out(&block, QIODevice::WriteOnly);
-			
-	writeString( &out, msg );
-			
-	m_client->write(block);
+	dDebug() << "SENDING: " << msg;
+	QTextStream out(m_client);
+	
+	out << msg << endl;
 	m_client->flush();
 }
 
 void DomServerConnection::sendToClient(const QDomDocument &doc)
 {
-	QByteArray block;
-	QDataStream out(&block, QIODevice::WriteOnly);
-			
-	writePackage( &out, doc );
-			
-	m_client->write(block);
-	m_client->flush();
-}
-
-void DomServerConnection::writeString(QDataStream *stream, const QString &string)
-{
-	QStringList subStringList = string.split('\n');
-	
-	foreach(QString subString, subStringList)
-	{
-		if ( !subString.isEmpty() )
-		{
-			(*stream) << subString << '\n';
-		}
-	}
-}
-
-void DomServerConnection::writePackage(QDataStream *stream,const QDomDocument &doc)
-{
-	writeString(stream,doc.toString(0).remove('\n'));
+	sendToClient( doc.toString());
 }
 
 void DomServerConnection::close()

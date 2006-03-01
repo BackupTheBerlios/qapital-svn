@@ -22,9 +22,12 @@
 
 #include "cmainwindow.h"
 
+#include <dconfig.h>
+
 int main(int argc, char **argv)
 {
 	QApplication app(argc, argv);
+	app.setApplicationName("domsclient");
 	
 	CMainWindow mainWindow;
 	

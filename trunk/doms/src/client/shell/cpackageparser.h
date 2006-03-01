@@ -18,23 +18,34 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef DOMSERVERCLIENT_H
-#define DOMSERVERCLIENT_H
+#ifndef CPACKAGEPARSER_H
+#define CPACKAGEPARSER_H
 
-#include <QTcpSocket>
-#include <QDomDocument>
-#include <QStringList>
+#include <qxml.h>
 
 /**
  * @author David Cuadrado <krawek@gmail.com>
 */
-class DomServerClient : public QTcpSocket
+class CPackageParser : public QXmlDefaultHandler
 {
-	Q_OBJECT;
 	public:
-		DomServerClient(QObject *parent = 0);
-		~DomServerClient();
-
+		CPackageParser();
+		~CPackageParser();
+		
+		bool startElement(const QString& , const QString& , const QString& qname, const QXmlAttributes& atts);
+		
+		bool endElement( const QString& ns, const QString& localname, const QString& qname);
+		
+		bool error ( const QXmlParseException & exception );
+		bool fatalError ( const QXmlParseException & exception );
+		
+	private:
+		void reset();
+		
+	private:
+		QString m_root, m_qname;
+		
+		bool m_isParsing;
 };
 
 #endif

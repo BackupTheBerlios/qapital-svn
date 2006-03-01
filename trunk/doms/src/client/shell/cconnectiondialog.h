@@ -18,22 +18,39 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef DOMSERVERCLIENT_H
-#define DOMSERVERCLIENT_H
+#ifndef CCONNECTIONDIALOG_H
+#define CCONNECTIONDIALOG_H
 
-#include <QTcpSocket>
-#include <QDomDocument>
-#include <QStringList>
+#include <dtabdialog.h>
+
+class QLineEdit;
 
 /**
+ * Dialogo de conexion
  * @author David Cuadrado <krawek@gmail.com>
 */
-class DomServerClient : public QTcpSocket
+class CConnectionDialog : public DTabDialog
 {
-	Q_OBJECT;
 	public:
-		DomServerClient(QObject *parent = 0);
-		~DomServerClient();
+		CConnectionDialog(QWidget *parent = 0);
+		~CConnectionDialog();
+		
+		QString user() const;
+		QString password() const;
+		QString database() const;
+		QString server() const;
+		int port() const;
+		
+	private slots:
+		void ok();
+		
+	private:
+		void setupUserPage();
+		void setupDBPage();
+		void loadSettings();
+		
+	private:
+		QLineEdit *m_user, *m_password, *m_database, *m_server, *m_port;
 
 };
 

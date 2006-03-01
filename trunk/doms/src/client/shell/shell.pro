@@ -3,28 +3,36 @@
 # Subdir relative project main directory: ./src/client/shell
 # Target is an application:  ../../../bin/domsclient.bin
 
-QT += network gui xml 
 INSTALLS += target 
 target.path = /bin/ 
+HEADERS += cmainwindow.h \
+           cconnectiondialog.h \
+           cconnector.h \
+           cpackageparser.h 
+SOURCES += client_main.cpp \
+           cmainwindow.cpp \
+           cconnectiondialog.cpp \
+           cconnector.cpp \
+           cpackageparser.cpp 
+QT += network xml gui 
 KDEV_QTVER = 4 
+TARGETDEPS += ../../../src/client/packages/libpackages.a 
 LIBS += ../../../src/client/dlslib/libdlslib.a \
         -ldgui \
-	-ldcore
-INCLUDEPATH += ../../../src/client/dlslib \
+        -ldcore \
+        ../../../src/client/packages/libpackages.a 
+INCLUDEPATH += ../../../src/client/packages \
+               ../../../src/client/dlslib \
                ../../../src/dartlib/dcore \
                ../../../src/dartlib/dgui 
 MOC_DIR = .moc 
 UI_DIR = .ui 
 OBJECTS_DIR = .obj 
+QMAKE_LIBDIR = ../../../src/dartlib/dgui \
+               ../../../src/dartlib/dcore \
+               ../../dartlib/dcore \
+               ../../dartlib/dgui 
 TARGET = ../../../bin/domsclient.bin 
 CONFIG += release \
           warn_on 
 TEMPLATE = app 
-HEADERS += cmainwindow.h \
-	   cconnectdialog.h
-SOURCES += client_main.cpp \
-	   cconnectdialog.cpp \
-           cmainwindow.cpp 
-
-QMAKE_LIBDIR = ../../dartlib/dcore \
-	 	../../dartlib/dgui

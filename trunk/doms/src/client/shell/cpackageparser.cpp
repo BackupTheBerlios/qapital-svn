@@ -18,23 +18,69 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef DOMSERVERCLIENT_H
-#define DOMSERVERCLIENT_H
+#include "cpackageparser.h"
 
-#include <QTcpSocket>
-#include <QDomDocument>
-#include <QStringList>
+#include <ddebug.h>
 
-/**
- * @author David Cuadrado <krawek@gmail.com>
-*/
-class DomServerClient : public QTcpSocket
+CPackageParser::CPackageParser() : QXmlDefaultHandler()
 {
-	Q_OBJECT;
-	public:
-		DomServerClient(QObject *parent = 0);
-		~DomServerClient();
+}
 
-};
 
-#endif
+CPackageParser::~CPackageParser()
+{
+}
+
+void CPackageParser::reset()
+{
+	m_root = QString();
+	m_qname = QString();
+}
+
+
+bool CPackageParser::startElement( const QString& , const QString& , const QString& qname, const QXmlAttributes& atts)
+{
+	dDebug() << qname;
+	if (!m_isParsing)
+	{
+		reset();
+		m_root = qname;
+		
+		m_isParsing = true;
+	}
+	else if ( m_root == "Success" )
+	{
+	}
+	
+	m_qname = qname;
+	return true;
+}
+
+bool CPackageParser::endElement(const QString&, const QString& , const QString& qname)
+{
+	if ( m_root == "Success" )
+	{
+	}
+	
+	if ( qname == m_root )
+	{
+		m_isParsing = false;
+	}
+	
+	return true;
+}
+
+bool CPackageParser::error ( const QXmlParseException & exception )
+{
+	dError() << exception.lineNumber() << "x" << exception.columnNumber() << ": " << exception.message();
+	
+	return true;
+}
+
+
+bool CPackageParser::fatalError ( const QXmlParseException & exception )
+{
+	dFatal() << exception.lineNumber() << "x" << exception.columnNumber() << ": " << exception.message();
+	
+	return true;
+}

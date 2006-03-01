@@ -23,18 +23,34 @@
 #include "dtabwidget.h"
 #include <QLabel>
 #include <QTimer>
+#include <QMenuBar>
+#include <QStatusBar>
+#include <QMenu>
+#include <QApplication>
 
-#include "cconnectdialog.h"
+#include "cconnectiondialog.h"
 
 #include <ddebug.h>
 
 CMainWindow::CMainWindow() : DMainWindow()
 {
-	setWindowTitle(tr("The client"));
+	setWindowTitle(tr("Client"));
 	
-	QTimer::singleShot(1000, this, SLOT(showConnectDialog()));
+	setupMenu();
+	
+	m_connector = new CConnector;
+	
+	QTimer::singleShot(800, this, SLOT(showConnectDialog()));
 }
 
+void CMainWindow::setupMenu()
+{
+	QMenu *file = menuBar()->addMenu(tr("File"));
+	file->addAction(tr("Quit"), this, SLOT(close()));
+	 
+	QMenu *help = menuBar()->addMenu(tr("Help"));
+	help->addAction(tr("About Qt..."), qApp, SLOT(aboutQt()));
+}
 
 CMainWindow::~CMainWindow()
 {
@@ -42,10 +58,12 @@ CMainWindow::~CMainWindow()
 
 void CMainWindow::showConnectDialog()
 {
-	CConnectDialog connectionDialog;
+	CConnectionDialog connectionDialog;
 	if ( connectionDialog.exec() != QDialog::Rejected )
 	{
-		dDebug() << connectionDialog.user() << " " << connectionDialog.password();
+		m_connector->connectToHost(connectionDialog.server(), connectionDialog.port());
+		
+		m_connector->login(connectionDialog.user(), connectionDialog.password());
 	}
 }
 

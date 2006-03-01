@@ -40,8 +40,6 @@ class DomServerConnection : public QThread
 		void close();
 		
 	private:
-		void writeString(QDataStream *stream, const QString &string);
-		void writePackage(QDataStream *stream,const QDomDocument &doc);
 		
 	public slots:
 		void sendToClient(const QString &msg);

@@ -18,23 +18,26 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef DOMSERVERCLIENT_H
-#define DOMSERVERCLIENT_H
+#include "cconnectpackage.h"
 
-#include <QTcpSocket>
-#include <QDomDocument>
-#include <QStringList>
-
-/**
- * @author David Cuadrado <krawek@gmail.com>
-*/
-class DomServerClient : public QTcpSocket
+CConnectPackage::CConnectPackage(const QString &login, const QString &passwd) : QDomDocument()
 {
-	Q_OBJECT;
-	public:
-		DomServerClient(QObject *parent = 0);
-		~DomServerClient();
+	QDomElement root = createElement("Connection");
+	
+	QDomElement elogin = createElement("Login");
+	elogin.setAttribute( "value", login);
+	root.appendChild(elogin);
+	
+	QDomElement epasswd = createElement("Password");
+	epasswd.setAttribute( "value", passwd);
+	root.appendChild(epasswd);
+	
+	appendChild(root);
+}
 
-};
 
-#endif
+CConnectPackage::~CConnectPackage()
+{
+}
+
+
