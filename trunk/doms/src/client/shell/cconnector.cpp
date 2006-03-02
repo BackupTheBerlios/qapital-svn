@@ -27,12 +27,18 @@
 #include "cconnectpackage.h"
 #include "cpackageparser.h"
 
+#include "global.h"
+
 CConnector::CConnector(QObject * parent) : QTcpSocket(parent)
 {
 	connect(this, SIGNAL(readyRead()), this, SLOT(readFromServer()));
 	connect(this, SIGNAL(error ( QAbstractSocket::SocketError)), this, SLOT(handleError(QAbstractSocket::SocketError)));
 	
 	connect(this, SIGNAL(connected()), this, SLOT(flushQueue()));
+	
+	m_parser = new CPackageParser;
+	m_reader.setContentHandler(m_parser);
+	m_reader.setErrorHandler(m_parser);
 }
 
 
@@ -55,9 +61,17 @@ void CConnector::readFromServer()
 			
 	if ( m_reader.parse(&xmlsource) )
 	{
+		QString root = m_parser->root();
+		
+		if( root == "Success")
+		{
+			emit readedForms( m_parser->forms() );
+		}
+	}
+	else
+	{
 		
 	}
-	
 }
 
 void CConnector::sendToServer(const QString &text)

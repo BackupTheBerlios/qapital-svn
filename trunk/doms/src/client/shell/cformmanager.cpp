@@ -17,22 +17,70 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef SSUCCESSPACKAGE_H
-#define SSUCCESSPACKAGE_H
 
-#include <QDomDocument>
+#include "cformmanager.h"
 
-/**
- * @author David Cuadrado <krawek@gmail.com>
-*/
-class SSuccessPackage : public QDomDocument
+#include <QFile>
+#include <QTextStream>
+#include <QDir>
+
+#include <dapplicationproperties.h>
+#include <ddebug.h>
+
+CFormManager::CFormManager(QObject *parent) : QObject(parent)
 {
-	public:
-		SSuccessPackage(const QString& msg);
-		~SSuccessPackage();
-		
-	private:
-		void addForm(int id, const QString &formPath);
-};
+	m_builder = new CFormBuilder;
+	
+	m_formsPath = dAppProp->configDir()+"/cache/forms";
+	
+	QDir dir(m_formsPath);
+	if ( !dir.exists() )
+	{
+		dir.mkpath(m_formsPath);
+	}
+}
 
-#endif
+CFormManager::~CFormManager()
+{
+	delete m_builder;
+}
+
+void CFormManager::setForms(const QList<FormData> &forms)
+{
+	D_FUNCINFO;
+	foreach(FormData data, forms)
+	{
+		QFile file(m_formsPath+"/"+QString::number(data.id));
+		
+		if ( file.open(QIODevice::WriteOnly | QIODevice::Text))
+		{
+			QTextStream out(&file);
+			
+			out << data.document;
+			file.close();
+		}
+	}
+}
+
+
+void CFormManager::loadForm(int id)
+{
+	QFile file(m_formsPath+"/"+QString::number(id));
+	
+	if ( file.exists() )
+	{
+		if ( file.open(QIODevice::ReadOnly | QIODevice::Text))
+		{
+			QString document = file.readAll();
+			
+			emit formLoaded(m_builder->form( document ), tr("TITLE"));
+		}
+	}
+	else
+	{
+		dError() << "Form with id = " << id << " doesn't exists";
+	}
+}
+
+
+

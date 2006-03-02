@@ -25,6 +25,8 @@
 #include <QStringList>
 #include <QXmlSimpleReader>
 
+#include "global.h"
+
 class CPackageParser;
 
 /**
@@ -46,6 +48,9 @@ class CConnector : public QTcpSocket
 		void handleError(QAbstractSocket::SocketError error);
 		
 		void flushQueue();
+		
+	signals:
+		void readedForms(const QList<FormData> &forms);
 		
 	private:
 		QStringList m_queue;

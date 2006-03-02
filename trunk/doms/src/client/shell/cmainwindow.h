@@ -24,6 +24,9 @@
 #include <dmainwindow.h>
 
 #include "cconnector.h"
+#include "cformmanager.h"
+
+#include "global.h"
 
 /**
  * Ventana principal de la aplicacion cliente
@@ -36,14 +39,19 @@ class CMainWindow : public DMainWindow
 		CMainWindow();
 		~CMainWindow();
 		
+		QSize sizeHint() const { return QSize(600,600); };
+		
 	private:
 		void setupMenu();
 		
 	private slots:
 		void showConnectDialog();
+		void loadTestForm();
+		void addForm(QWidget *form, const QString &title);
 		
 	private:
 		CConnector *m_connector;
+		CFormManager *m_formManager;
 };
 
 #endif

@@ -8,31 +8,40 @@ target.path = /bin/
 HEADERS += cmainwindow.h \
            cconnectiondialog.h \
            cconnector.h \
-           cpackageparser.h 
+           cpackageparser.h \
+           cformmanager.h \
+           capplication.h \
+           cformbuilder.h 
 SOURCES += client_main.cpp \
            cmainwindow.cpp \
            cconnectiondialog.cpp \
            cconnector.cpp \
-           cpackageparser.cpp 
-QT += network xml gui 
-KDEV_QTVER = 4 
-TARGETDEPS += ../../../src/client/packages/libpackages.a 
+           cpackageparser.cpp \
+           cformmanager.cpp \
+           capplication.cpp \
+           cformbuilder.cpp 
+QT += xml network gui
+KDEV_QTVER = 4
+TARGETDEPS += ../../../src/client/packages/libpackages.a \
+../../../src/client/lib/liblib.a
 LIBS += ../../../src/client/dlslib/libdlslib.a \
-        -ldgui \
-        -ldcore \
-        ../../../src/client/packages/libpackages.a 
-INCLUDEPATH += ../../../src/client/packages \
-               ../../../src/client/dlslib \
-               ../../../src/dartlib/dcore \
-               ../../../src/dartlib/dgui 
-MOC_DIR = .moc 
-UI_DIR = .ui 
-OBJECTS_DIR = .obj 
+-ldgui \
+-ldcore \
+../../../src/client/packages/libpackages.a \
+../../../src/client/lib/liblib.a
+INCLUDEPATH += ../../../src/client/lib \
+../../../src/client/packages \
+../../../src/client/dlslib \
+../../../src/dartlib/dcore \
+../../../src/dartlib/dgui
+MOC_DIR = .moc
+UI_DIR = .ui
+OBJECTS_DIR = .obj
 QMAKE_LIBDIR = ../../../src/dartlib/dgui \
-               ../../../src/dartlib/dcore \
-               ../../dartlib/dcore \
-               ../../dartlib/dgui 
-TARGET = ../../../bin/domsclient.bin 
+../../../src/dartlib/dcore \
+../../dartlib/dcore \
+../../dartlib/dgui
+TARGET = ../../../bin/domsclient.bin
 CONFIG += release \
-          warn_on 
-TEMPLATE = app 
+warn_on
+TEMPLATE = app

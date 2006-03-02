@@ -21,13 +21,18 @@
 #include <QApplication>
 
 #include "cmainwindow.h"
+#include "capplication.h"
 
 #include <dconfig.h>
+#include <dapplicationproperties.h> // dAppProp
 
 int main(int argc, char **argv)
 {
-	QApplication app(argc, argv);
+	CApplication app(argc, argv);
 	app.setApplicationName("domsclient");
+	
+	DCONFIG->beginGroup("General");
+	dAppProp->setHomeDir( DCONFIG->value("Home", 0).toString() );
 	
 	CMainWindow mainWindow;
 	

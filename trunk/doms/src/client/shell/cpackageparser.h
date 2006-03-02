@@ -22,6 +22,10 @@
 #define CPACKAGEPARSER_H
 
 #include <qxml.h>
+#include <QList>
+#include <QPair>
+
+#include "global.h"
 
 /**
  * @author David Cuadrado <krawek@gmail.com>
@@ -36,8 +40,15 @@ class CPackageParser : public QXmlDefaultHandler
 		
 		bool endElement( const QString& ns, const QString& localname, const QString& qname);
 		
+		bool characters ( const QString & ch );
+		
 		bool error ( const QXmlParseException & exception );
 		bool fatalError ( const QXmlParseException & exception );
+		
+		QString root() const;
+		
+		
+		QList<FormData > forms() const;
 		
 	private:
 		void reset();
@@ -46,6 +57,10 @@ class CPackageParser : public QXmlDefaultHandler
 		QString m_root, m_qname;
 		
 		bool m_isParsing;
+		
+		bool m_readChar;
+		
+		QList<FormData > m_forms;
 };
 
 #endif

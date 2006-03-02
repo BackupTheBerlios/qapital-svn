@@ -22,7 +22,7 @@
 
 #include <ddebug.h>
 
-CPackageParser::CPackageParser() : QXmlDefaultHandler()
+CPackageParser::CPackageParser() : QXmlDefaultHandler(), m_isParsing(false), m_readChar(false)
 {
 }
 
@@ -35,12 +35,13 @@ void CPackageParser::reset()
 {
 	m_root = QString();
 	m_qname = QString();
+	
+	m_forms.clear();
 }
 
 
 bool CPackageParser::startElement( const QString& , const QString& , const QString& qname, const QXmlAttributes& atts)
 {
-	dDebug() << qname;
 	if (!m_isParsing)
 	{
 		reset();
@@ -48,8 +49,29 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 		
 		m_isParsing = true;
 	}
+	else if ( m_root == "Error" )
+	{
+		if ( qname == "Id" )
+		{
+		}
+		else if ( qname == "Message" )
+		{
+		}
+	}
 	else if ( m_root == "Success" )
 	{
+		if ( qname == "Message" )
+		{
+		}
+		else if ( qname == "FormDef" )
+		{
+			m_readChar = true;
+			
+			FormData formData;
+			formData.id = atts.value("id").toInt();
+			
+			m_forms << formData;
+		}
 	}
 	
 	m_qname = qname;
@@ -58,13 +80,35 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 
 bool CPackageParser::endElement(const QString&, const QString& , const QString& qname)
 {
-	if ( m_root == "Success" )
+	if ( m_root == "Error" )
+	{
+	}
+	else if ( m_root == "Success" )
 	{
 	}
 	
 	if ( qname == m_root )
 	{
 		m_isParsing = false;
+	}
+	
+	return true;
+}
+
+bool CPackageParser::characters ( const QString & ch )
+{
+	if (m_readChar )
+	{
+		if ( m_root == "Success" )
+		{
+			if ( m_qname == "FormDef" )
+			{
+				// ch contiene el formulario
+				m_forms.last().document = ch;
+			}
+		}
+		
+		m_readChar = false;
 	}
 	
 	return true;
@@ -84,3 +128,15 @@ bool CPackageParser::fatalError ( const QXmlParseException & exception )
 	
 	return true;
 }
+
+QList<FormData > CPackageParser::forms() const
+{
+	return m_forms;
+}
+
+
+QString CPackageParser::root() const
+{
+	return m_root;
+}
+

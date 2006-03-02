@@ -17,22 +17,21 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef SSUCCESSPACKAGE_H
-#define SSUCCESSPACKAGE_H
 
-#include <QDomDocument>
+#ifndef CAPPLICATION_H
+#define CAPPLICATION_H
+
+#include <dapplication.h>
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+	@author David Cuadrado <krawek@gmail.com>
 */
-class SSuccessPackage : public QDomDocument
+class CApplication : public DApplication
 {
 	public:
-		SSuccessPackage(const QString& msg);
-		~SSuccessPackage();
-		
-	private:
-		void addForm(int id, const QString &formPath);
+		CApplication(int & argc, char ** argv);
+		~CApplication();
+
 };
 
 #endif

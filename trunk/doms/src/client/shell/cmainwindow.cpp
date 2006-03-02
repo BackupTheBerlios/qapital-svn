@@ -20,7 +20,7 @@
 
 #include "cmainwindow.h"
 
-#include "dtabwidget.h"
+
 #include <QLabel>
 #include <QTimer>
 #include <QMenuBar>
@@ -30,7 +30,10 @@
 
 #include "cconnectiondialog.h"
 
+#include <dtabwidget.h> // dartlib
 #include <ddebug.h>
+#include <dconfig.h>
+
 
 CMainWindow::CMainWindow() : DMainWindow()
 {
@@ -40,12 +43,20 @@ CMainWindow::CMainWindow() : DMainWindow()
 	
 	m_connector = new CConnector;
 	
+	m_formManager = new CFormManager(this);
+	
+	connect(m_formManager, SIGNAL(formLoaded(QWidget *, const QString &)), this, SLOT(addForm(QWidget *, const QString &)));
+	
+	connect(m_connector, SIGNAL(readedForms( const QList< FormData >& )), m_formManager, SLOT(setForms(const QList<FormData > &)));
+	
 	QTimer::singleShot(800, this, SLOT(showConnectDialog()));
 }
 
 void CMainWindow::setupMenu()
 {
 	QMenu *file = menuBar()->addMenu(tr("File"));
+	
+	file->addAction(tr("Load test form"), this, SLOT(loadTestForm()));
 	file->addAction(tr("Quit"), this, SLOT(close()));
 	 
 	QMenu *help = menuBar()->addMenu(tr("Help"));
@@ -67,4 +78,13 @@ void CMainWindow::showConnectDialog()
 	}
 }
 
+void CMainWindow::addForm(QWidget *form, const QString &title)
+{
+	D_FUNCINFO;
+	addWidget( form, title, false);
+}
 
+void CMainWindow::loadTestForm()
+{
+	m_formManager->loadForm( 0 );
+}

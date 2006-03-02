@@ -4,8 +4,10 @@
 # Target is a subdirs project 
 
 SUBDIRS += dlslib \
-           shell \
-           packages 
+           lib \
+           packages \
+           modules \
+           shell 
 KDEV_QTVER = 4
 CONFIG += release \
 warn_on

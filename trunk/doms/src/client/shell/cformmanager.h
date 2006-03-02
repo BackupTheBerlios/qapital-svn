@@ -17,22 +17,37 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef SSUCCESSPACKAGE_H
-#define SSUCCESSPACKAGE_H
 
-#include <QDomDocument>
+#ifndef CFORMMANAGER_H
+#define CFORMMANAGER_H
+
+#include <QObject>
+
+#include "cformbuilder.h"
+#include "global.h"
 
 /**
  * @author David Cuadrado <krawek@gmail.com>
 */
-class SSuccessPackage : public QDomDocument
+class CFormManager : public QObject
 {
+	Q_OBJECT;
 	public:
-		SSuccessPackage(const QString& msg);
-		~SSuccessPackage();
+		CFormManager(QObject *parent = 0);
+		~CFormManager();
+		
+		void loadForm(int id);
+		
+	public slots:
+		void setForms(const QList<FormData> &forms);
+		
+	signals:
+		void formLoaded(QWidget *widget, const QString &title);
 		
 	private:
-		void addForm(int id, const QString &formPath);
+		CFormBuilder *m_builder;
+		QString m_formsPath;
+
 };
 
 #endif

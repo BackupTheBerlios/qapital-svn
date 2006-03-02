@@ -29,30 +29,47 @@
 SSuccessPackage::SSuccessPackage(const QString& msg): QDomDocument()
 {
 	QDomElement root = createElement("Success");
+	appendChild(root);
+	
 	QDomElement smsg = createElement("Message");
 	smsg.setAttribute( "value", msg);
 	
 	root.appendChild(smsg);
 	
-	QDir forms(DATADIR+"/forms");
-		
-	foreach(QString filestr, forms.entryList( QStringList() << "*.dfm" ) )
-	{
-		QFile ffile(forms.path()+"/"+filestr);
-		
-		if ( ffile.open(QIODevice::ReadOnly | QIODevice::Text))
-		{
-			QDomElement formDef = createElement("FormDef");
-			
-			QDomCDATASection cdata = createCDATASection( QString::fromLocal8Bit(ffile.readAll()));
-			
-			formDef.appendChild(cdata);
-			
-			root.appendChild(formDef);
-		}
-	}
+	// Leemos los formularios desde un archivo de indices
+	QFile formsIndex(DATADIR+"/forms/index.drc");
 	
-	appendChild(root);
+	if( formsIndex.open( QIODevice::ReadOnly | QIODevice::Text))
+	{
+		QDomDocument doc;
+		if ( doc.setContent( &formsIndex ) )
+		{
+			QDomElement docElem = doc.documentElement();
+			
+			QDomNode n = docElem.firstChild();
+			while(!n.isNull()) 
+			{
+				QDomElement e = n.toElement();
+				if(!e.isNull()) 
+				{
+					if ( e.tagName() == "FormFile" )
+					{
+						dDebug() << e.attribute("id");
+						
+						addForm( e.attribute( "id").toInt(), DATADIR+"/forms/"+e.attribute( "path") );
+					}
+				}
+				n = n.nextSibling();
+			}
+
+		}
+		else
+		{
+			dError() << "Invalid resource index file: " << formsIndex.fileName();
+		}
+		
+		formsIndex.close();
+	}
 }
 
 
@@ -60,4 +77,19 @@ SSuccessPackage::~SSuccessPackage()
 {
 }
 
-
+void SSuccessPackage::addForm(int id, const QString &formPath)
+{
+	QFile ffile(formPath);
+	
+	if ( ffile.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+		QDomElement formDef = createElement("FormDef");
+		formDef.setAttribute( "id", id);
+		
+		QDomCDATASection cdata = createCDATASection( QString::fromLocal8Bit(ffile.readAll()));
+		
+		formDef.appendChild(cdata);
+		
+		documentElement().appendChild(formDef);
+	}
+}
