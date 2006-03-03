@@ -111,6 +111,24 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 				m_widgets.last()->layout()->addWidget(table);
 			}
 		}
+		else if ( qname == "Button" )
+		{
+			QPushButton *button = new QPushButton(atts.value("label"));
+			
+			if ( m_widgets.last()->layout() )
+			{
+				m_widgets.last()->layout()->addWidget(button);
+			}
+		}
+		else if ( qname == "CheckBox" )
+		{
+			QCheckBox *checkbox = new QCheckBox(atts.value("label"));
+			
+			if ( m_widgets.last()->layout() )
+			{
+				m_widgets.last()->layout()->addWidget(checkbox);
+			}
+		}
 	}
 	
 	m_qname = qname;
