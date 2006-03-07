@@ -18,43 +18,47 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#ifndef DDATETABLE_H
+#define DDATETABLE_H
 
-#ifndef CFORMBUILDER_H
-#define CFORMBUILDER_H
-
-#include <QXmlDefaultHandler>
-
-#include <QWidget>
+#include <QTableWidget>
+#include <QDate>
 
 /**
  * @author David Cuadrado <krawek@gmail.com>
 */
-class CFormBuilder : public QXmlDefaultHandler
+class DDateTable : public QTableWidget
 {
+	Q_OBJECT;
 	public:
-		CFormBuilder();
-		~CFormBuilder();
+		DDateTable(QWidget *parent = 0);
+		~DDateTable();
 		
-		bool startElement(const QString& , const QString& , const QString& qname, const QXmlAttributes& atts);
+		void setDate(const QDate &date);
 		
-		bool endElement( const QString& ns, const QString& localname, const QString& qname);
+		void setMonth(int month);
 		
-		bool characters ( const QString & ch );
+		int cellWidth() const;
+		int cellHeight() const;
 		
-		bool error ( const QXmlParseException & exception );
-		bool fatalError ( const QXmlParseException & exception );
+		QDate date() const;
 		
-		QWidget *form(const QString &document);
-		QString formTitle() const;
+	protected:
+		void paintEvent(QPaintEvent *e);
 		
 	private:
-		QString m_root, m_qname;
+		void setCellSize(int width, int height);
+		QDate dateFromPosition(int position);
 		
-		bool m_readChar;
+	private slots:
+		QDate dateFromItem(QTableWidgetItem *item);
 		
-		QWidgetList m_widgets;
+	signals:
+		void dateChanged(const QDate &date);
 		
-		QWidget *m_form;
+	private:
+		int m_cellWidth, m_cellHeight;
+		QDate m_date;
 };
 
 #endif

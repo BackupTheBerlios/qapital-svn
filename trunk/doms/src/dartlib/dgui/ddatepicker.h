@@ -18,43 +18,78 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#ifndef DDATEPICKER_H
+#define DDATEPICKER_H
 
-#ifndef CFORMBUILDER_H
-#define CFORMBUILDER_H
+#include <QFrame>
+#include <QToolButton>
 
-#include <QXmlDefaultHandler>
+#include "ddatetable.h"
 
-#include <QWidget>
+class QComboBox;
+class QLabel;
 
 /**
  * @author David Cuadrado <krawek@gmail.com>
 */
-class CFormBuilder : public QXmlDefaultHandler
+
+class DDatePicker : public QFrame
 {
+	Q_OBJECT;
 	public:
-		CFormBuilder();
-		~CFormBuilder();
-		
-		bool startElement(const QString& , const QString& , const QString& qname, const QXmlAttributes& atts);
-		
-		bool endElement( const QString& ns, const QString& localname, const QString& qname);
-		
-		bool characters ( const QString & ch );
-		
-		bool error ( const QXmlParseException & exception );
-		bool fatalError ( const QXmlParseException & exception );
-		
-		QWidget *form(const QString &document);
-		QString formTitle() const;
+		DDatePicker(QWidget *parent = 0);
+		~DDatePicker();
+		void setDate(const QDate &date);
 		
 	private:
-		QString m_root, m_qname;
+		void fillWeeks(const QDate &date);
 		
-		bool m_readChar;
+	public slots:
+		void setWeek(int week);
+		void setYear(int year);
 		
-		QWidgetList m_widgets;
+	protected slots:
+		void previousYear();
+		void nextYear();
 		
-		QWidget *m_form;
+		void previousMounth();
+		void nextMounth();
+		
+	private slots:
+		void mounthFromAction(QAction *act);
+		
+	signals:
+		void dateChanged(const QDate &date);
+		
+	private:
+		QComboBox *m_week;
+		DDateTable *m_dateTable;
+		
+		class EditableButton;
+		
+		 QToolButton *m_mounth;
+		 EditableButton *m_year;
 };
+
+class DDatePicker::EditableButton : public QToolButton
+{
+	Q_OBJECT
+	public:
+		EditableButton();
+		~EditableButton();
+		
+	public slots:
+		void edit();
+		
+	private slots:
+		void emitYearSelected();
+		
+	signals:
+		void yearSelected(int year);
+		
+	private:
+		QLineEdit *m_editor;
+};
+
 
 #endif

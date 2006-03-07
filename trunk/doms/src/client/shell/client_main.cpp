@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 	
 	CMainWindow mainWindow;
 	
-	mainWindow.show();
+	mainWindow.showMaximized();
 	
 	return app.exec();
 }

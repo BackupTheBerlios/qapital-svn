@@ -21,6 +21,7 @@
 #include "cformbuilder.h"
 
 #include <ddebug.h>
+#include <ddatepicker.h>
 
 #include <QtGui>
 
@@ -41,14 +42,14 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 	
 	if ( m_root == "Form" )
 	{
-		if ( qname == "HBox" )
+		if ( qname == "Form" )
 		{
-			QWidget *hbox = new QWidget(m_widgets.last());
-			
-			if( m_widgets.last()->layout() )
-			{
-				m_widgets.last()->layout()->addWidget(hbox);
-			}
+			m_form->setWindowTitle(atts.value("title"));
+		}
+		else if ( qname == "HBox" )
+		{
+			QWidget *hbox = new QWidget;
+			m_widgets.last()->layout()->addWidget(hbox);
 			
 			QHBoxLayout *layout = new QHBoxLayout(hbox);
 			
@@ -56,32 +57,54 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 		}
 		else if ( qname == "VBox" )
 		{
-			QWidget *vbox = new QWidget(m_widgets.last());
-			
-			if( m_widgets.last()->layout() )
-			{
-				m_widgets.last()->layout()->addWidget(vbox);
-			}
-			
+			QWidget *vbox = new QWidget;
+
+			m_widgets.last()->layout()->addWidget(vbox);
+						
 			QVBoxLayout *layout = new QVBoxLayout(vbox);
 			
 			m_widgets << vbox;
 		}
+		else if ( qname == "VGroupBox" )
+		{
+			QGroupBox *group = new QGroupBox(atts.value("title"));
+			QVBoxLayout *layout = new QVBoxLayout(group);
+			
+			m_widgets.last()->layout()->addWidget(group);
+			
+			m_widgets << group;
+			
+		}
+		else if ( qname == "HGroupBox" )
+		{
+			QGroupBox *group = new QGroupBox(atts.value("title"));
+			QHBoxLayout *layout = new QHBoxLayout(group);
+			
+			m_widgets.last()->layout()->addWidget(group);
+			
+			m_widgets << group;
+		}
 		else if ( qname == "Label" )
 		{
 			QLabel *label = new QLabel( atts.value("text") ,m_widgets.last());
-			
-			if ( m_widgets.last()->layout() )
-			{
-				m_widgets.last()->layout()->addWidget(label);
-			}
+
+			m_widgets.last()->layout()->addWidget(label);
 		}
 		else if ( qname == "Input" )
 		{
 			QHBoxLayout *ly = new QHBoxLayout(m_widgets.last());
 			
-			ly->addWidget(new QLabel(atts.value("label")));
-			ly->addWidget(new QLineEdit);
+			QString type = atts.value("type");
+			
+			if( type.isEmpty() )
+			{
+				ly->addWidget(new QLabel(atts.value("label")));
+				ly->addWidget(new QLineEdit);
+			}
+			else if (type == "date" )
+			{
+				ly->addWidget( new DDatePicker );
+			}
 			
 			QBoxLayout *boxLayout = qobject_cast<QBoxLayout *>(m_widgets.last()->layout());
 			if ( boxLayout )
@@ -106,28 +129,54 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 				table->setHorizontalHeaderLabels (headers);
 			}
 			
-			if ( m_widgets.last()->layout() )
-			{
-				m_widgets.last()->layout()->addWidget(table);
-			}
+			m_widgets.last()->layout()->addWidget(table);
 		}
 		else if ( qname == "Button" )
 		{
 			QPushButton *button = new QPushButton(atts.value("label"));
-			
-			if ( m_widgets.last()->layout() )
-			{
-				m_widgets.last()->layout()->addWidget(button);
-			}
+
+			m_widgets.last()->layout()->addWidget(button);
 		}
 		else if ( qname == "CheckBox" )
 		{
 			QCheckBox *checkbox = new QCheckBox(atts.value("label"));
+
+			m_widgets.last()->layout()->addWidget(checkbox);
+
+		}
+		else if ( qname == "RadioButton" )
+		{
+			QRadioButton *button = new QRadioButton(atts.value("label"));
+			m_widgets.last()->layout()->addWidget(button);
+		}
+		else if ( qname == "Image" )
+		{
+			int w = atts.value("width" ).toInt();
+			int h = atts.value("height" ).toInt();
 			
-			if ( m_widgets.last()->layout() )
-			{
-				m_widgets.last()->layout()->addWidget(checkbox);
-			}
+			QLabel *toDraw = new QLabel;
+			toDraw->setMinimumSize( w, h);
+			toDraw->setMaximumSize( w, h);
+			
+// 			toDraw->setIconSize ( QSize(w, h));
+			
+			// TEST: Dibujo cualquier cosa
+			
+			QPixmap icon(100,100);
+			icon.fill(Qt::transparent);
+			
+			QPainter painter(&icon);
+			
+			QRadialGradient gradient(50, 50, 50, 30, 30);
+			gradient.setColorAt(0.2, Qt::white);
+			gradient.setColorAt(0.8, Qt::green);
+			gradient.setColorAt(1, Qt::black);
+			painter.setBrush(gradient);
+			painter.drawEllipse(0, 0, 100, 100);
+			
+			toDraw->setPixmap(icon);
+			
+			m_widgets.last()->layout()->addWidget(toDraw);
 		}
 	}
 	
@@ -137,7 +186,7 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 
 bool CFormBuilder::endElement(const QString&, const QString& , const QString& qname)
 {
-	if ( qname == "HBox" || qname == "VBox" )
+	if ( qname == "HBox" || qname == "VBox" || qname == "VGroupBox" || qname == "HGroupBox" )
 	{
 		m_widgets.takeLast();
 	}
@@ -179,6 +228,8 @@ bool CFormBuilder::fatalError ( const QXmlParseException & exception )
 
 QWidget *CFormBuilder::form(const QString &document)
 {
+	QScrollArea *scroll = new QScrollArea;
+	
 	m_form = new QWidget;
 	QVBoxLayout *layout = new QVBoxLayout(m_form);
 	
@@ -196,7 +247,17 @@ QWidget *CFormBuilder::form(const QString &document)
 		dError() << "Error while try to parse form document";
 	}
 	
-	return m_form;
+	scroll->setWidget(m_form);
+	
+	return scroll;
 }
 
-
+QString CFormBuilder::formTitle() const
+{
+	if ( m_form )
+	{
+		return m_form->windowTitle();
+	}
+	
+	return QObject::tr("Form");
+}

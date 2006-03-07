@@ -3,18 +3,9 @@
 # Subdir relative project main directory: ./src/dartlib/dgui
 # Target is a library:  
 
-QT += network xml gui 
+RESOURCES += images.qrc
 INSTALLS += target 
 target.path = /lib/ 
-KDEV_QTVER = 4 
-INCLUDEPATH += ../../../src/dartlib/dcore 
-MOC_DIR = .moc 
-UI_DIR = .ui 
-OBJECTS_DIR = .obj 
-CONFIG += release \
-          warn_on \
-          dll 
-TEMPLATE = lib 
 HEADERS += agraphic.h \
            ccbar.h \
            ccbutton.h \
@@ -50,7 +41,9 @@ HEADERS += agraphic.h \
            kseparator.h \
            dglobal.h \
            daction.h \
-           dactionmanager.h 
+           dactionmanager.h \
+           ddatepicker.h \
+           ddatetable.h 
 SOURCES += agraphic.cpp \
            ccbar.cpp \
            ccbutton.cpp \
@@ -85,4 +78,16 @@ SOURCES += agraphic.cpp \
            dxyspinbox.cpp \
            kseparator.cpp \
            daction.cpp \
-           dactionmanager.cpp 
+           dactionmanager.cpp \
+           ddatepicker.cpp \
+           ddatetable.cpp 
+QT += network xml gui
+KDEV_QTVER = 4
+INCLUDEPATH += ../../../src/dartlib/dcore
+MOC_DIR = .moc
+UI_DIR = .ui
+OBJECTS_DIR = .obj
+CONFIG += release \
+warn_on \
+dll
+TEMPLATE = lib

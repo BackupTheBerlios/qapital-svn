@@ -7,7 +7,11 @@
 	<VBox>
 		<Table rows="20" columns="5" hheaders="FECHA;No. DE RECIBO;CONCEPTO;VALOR;OBSERVACIONES" />
 		<Label text="Label de prueba" />
+		<Button label="A button" />
 	</VBox>
+	<HBox>
+		<CheckBox label="A check box" />
+	</HBox>
 </Form>
 
 

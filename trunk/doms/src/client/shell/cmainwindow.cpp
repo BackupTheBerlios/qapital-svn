@@ -86,5 +86,5 @@ void CMainWindow::addForm(QWidget *form, const QString &title)
 
 void CMainWindow::loadTestForm()
 {
-	m_formManager->loadForm( 0 );
+	m_formManager->loadForm( 1 );
 }

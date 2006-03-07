@@ -73,7 +73,8 @@ void CFormManager::loadForm(int id)
 		{
 			QString document = file.readAll();
 			
-			emit formLoaded(m_builder->form( document ), tr("TITLE"));
+			QWidget *form = m_builder->form( document );
+			emit formLoaded( form, m_builder->formTitle());
 		}
 	}
 	else

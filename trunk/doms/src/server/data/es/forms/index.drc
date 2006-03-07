@@ -1,3 +1,4 @@
 <Forms>
 	<FormFile path="register.dfm" id="0" />
+	<FormFile path="history.dfm" id="1" />
 </Forms>
