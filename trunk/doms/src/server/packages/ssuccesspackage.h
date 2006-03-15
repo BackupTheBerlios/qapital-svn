@@ -32,7 +32,9 @@ class SSuccessPackage : public QDomDocument
 		~SSuccessPackage();
 		
 	private:
-		void addForm(int id, const QString &formPath);
+		void addForm(QDomElement &module, int id, const QString &formPath);
+		
+		void parseModule(QDomElement &element, QDomElement &module);
 };
 
 #endif

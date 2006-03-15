@@ -45,27 +45,33 @@ CFormManager::~CFormManager()
 	delete m_builder;
 }
 
-void CFormManager::setForms(const QList<FormData> &forms)
+void CFormManager::setForms(const ModuleForms &moduleForms)
 {
 	D_FUNCINFO;
-	foreach(FormData data, forms)
+	
+	foreach(QString moduleName, moduleForms.keys() )
 	{
-		QFile file(m_formsPath+"/"+QString::number(data.id));
+		FormDataList forms = moduleForms[moduleName];
 		
-		if ( file.open(QIODevice::WriteOnly | QIODevice::Text))
+		foreach(FormData data, forms)
 		{
-			QTextStream out(&file);
+			QFile file(m_formsPath+"/"+moduleName+"-"+QString::number(data.id));
 			
-			out << data.document;
-			file.close();
+			if ( file.open(QIODevice::WriteOnly | QIODevice::Text))
+			{
+				QTextStream out(&file);
+				
+				out << data.document;
+				file.close();
+			}
 		}
 	}
 }
 
 
-void CFormManager::loadForm(int id)
+void CFormManager::loadForm(const QString &module, int id)
 {
-	QFile file(m_formsPath+"/"+QString::number(id));
+	QFile file(m_formsPath+"/"+module+"-"+QString::number(id));
 	
 	if ( file.exists() )
 	{

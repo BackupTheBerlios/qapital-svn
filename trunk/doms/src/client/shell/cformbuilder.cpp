@@ -22,6 +22,7 @@
 
 #include <ddebug.h>
 #include <ddatepicker.h>
+#include <cmath>
 
 #include <QtGui>
 
@@ -173,6 +174,16 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 			gradient.setColorAt(1, Qt::black);
 			painter.setBrush(gradient);
 			painter.drawEllipse(0, 0, 100, 100);
+			
+			QPainterPath starPath;
+			starPath.moveTo(90, 50);
+			for (int i = 1; i < 5; ++i) {
+				starPath.lineTo(50 + 40 * cos(0.8 * i * 3.141516),
+						50 + 40 * sin(0.8 * i * 3.141516));
+			}
+			starPath.closeSubpath();
+			
+			painter.drawPath(starPath);
 			
 			toDraw->setPixmap(icon);
 			

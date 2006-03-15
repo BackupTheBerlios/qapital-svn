@@ -36,7 +36,7 @@ void CPackageParser::reset()
 	m_root = QString();
 	m_qname = QString();
 	
-	m_forms.clear();
+	m_currentForms.clear();
 }
 
 
@@ -60,17 +60,21 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 	}
 	else if ( m_root == "Success" )
 	{
-		if ( qname == "Message" )
-		{
-		}
-		else if ( qname == "FormDef" )
+		if ( qname == "FormDef" )
 		{
 			m_readChar = true;
 			
 			FormData formData;
 			formData.id = atts.value("id").toInt();
 			
-			m_forms << formData;
+			m_currentForms << formData;
+		}
+		else if ( qname == "Module" )
+		{
+			m_currentModuleName = atts.value("name");
+		}
+		else if ( qname == "Message" )
+		{
 		}
 	}
 	
@@ -85,6 +89,10 @@ bool CPackageParser::endElement(const QString&, const QString& , const QString& 
 	}
 	else if ( m_root == "Success" )
 	{
+		if ( qname == "Module" )
+		{
+			m_moduleForms.insert(m_currentModuleName, m_currentForms);
+		}
 	}
 	
 	if ( qname == m_root )
@@ -104,7 +112,7 @@ bool CPackageParser::characters ( const QString & ch )
 			if ( m_qname == "FormDef" )
 			{
 				// ch contiene el formulario
-				m_forms.last().document = ch;
+				m_currentForms.last().document = ch;
 			}
 		}
 		
@@ -129,9 +137,9 @@ bool CPackageParser::fatalError ( const QXmlParseException & exception )
 	return true;
 }
 
-QList<FormData > CPackageParser::forms() const
+ModuleForms CPackageParser::moduleForms() const
 {
-	return m_forms;
+	return m_moduleForms;
 }
 
 

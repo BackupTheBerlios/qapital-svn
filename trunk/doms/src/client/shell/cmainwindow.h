@@ -25,6 +25,7 @@
 
 #include "cconnector.h"
 #include "cformmanager.h"
+#include "cmodulewidget.h"
 
 #include "global.h"
 
@@ -47,6 +48,7 @@ class CMainWindow : public DMainWindow
 	private slots:
 		void showConnectDialog();
 		void loadTestForm();
+		void buildModules(const ModuleForms &modules);
 		void addForm(QWidget *form, const QString &title);
 		
 	private:

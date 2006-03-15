@@ -47,7 +47,7 @@ CMainWindow::CMainWindow() : DMainWindow()
 	
 	connect(m_formManager, SIGNAL(formLoaded(QWidget *, const QString &)), this, SLOT(addForm(QWidget *, const QString &)));
 	
-	connect(m_connector, SIGNAL(readedForms( const QList< FormData >& )), m_formManager, SLOT(setForms(const QList<FormData > &)));
+	connect(m_connector, SIGNAL(readedModuleForms( const ModuleForms& )), this, SLOT(buildModules(const ModuleForms &)));
 	
 	QTimer::singleShot(800, this, SLOT(showConnectDialog()));
 }
@@ -86,5 +86,20 @@ void CMainWindow::addForm(QWidget *form, const QString &title)
 
 void CMainWindow::loadTestForm()
 {
-	m_formManager->loadForm( 1 );
+	m_formManager->loadForm( "General", 1 );
 }
+
+void CMainWindow::buildModules(const ModuleForms &modules)
+{
+	m_formManager->setForms(modules);
+	
+	foreach(QString moduleName, modules.keys())
+	{
+		CModuleWidget *module = new CModuleWidget(moduleName);
+		
+		toolWindow( DDockWindow::Left)->addWidget( moduleName, module);
+	}
+}
+
+
+

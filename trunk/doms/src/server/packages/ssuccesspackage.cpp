@@ -47,16 +47,24 @@ SSuccessPackage::SSuccessPackage(const QString& msg): QDomDocument()
 			QDomElement docElem = doc.documentElement();
 			
 			QDomNode n = docElem.firstChild();
+			
+			QDomElement module;
+			
 			while(!n.isNull()) 
 			{
 				QDomElement e = n.toElement();
 				if(!e.isNull()) 
 				{
-					if ( e.tagName() == "FormFile" )
+					dDebug() << e.tagName();
+					if ( e.tagName() == "Module" )
 					{
-						dDebug() << e.attribute("id");
+						QString name = e.attribute("name");
+						module = createElement("Module");
+						module.setAttribute("name", name);
 						
-						addForm( e.attribute( "id").toInt(), DATADIR+"/forms/"+e.attribute( "path") );
+						parseModule( e, module );
+						
+						documentElement().appendChild(module);
 					}
 				}
 				n = n.nextSibling();
@@ -72,13 +80,31 @@ SSuccessPackage::SSuccessPackage(const QString& msg): QDomDocument()
 	}
 }
 
+void SSuccessPackage::parseModule(QDomElement &element, QDomElement &module)
+{
+	QDomNode n = element.firstChild();
+	
+	while(!n.isNull()) 
+	{
+		QDomElement e = n.toElement();
+		
+		if ( e.tagName() == "FormFile" )
+		{
+			addForm( module, e.attribute( "id").toInt(), DATADIR+"/forms/"+e.attribute( "path") );
+		}
+		
+		n = n.nextSibling();
+	}
+}
+
 
 SSuccessPackage::~SSuccessPackage()
 {
 }
 
-void SSuccessPackage::addForm(int id, const QString &formPath)
+void SSuccessPackage::addForm(QDomElement &module, int id, const QString &formPath)
 {
+	dDebug() << "Adding form from: " << formPath;
 	QFile ffile(formPath);
 	
 	if ( ffile.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -90,6 +116,6 @@ void SSuccessPackage::addForm(int id, const QString &formPath)
 		
 		formDef.appendChild(cdata);
 		
-		documentElement().appendChild(formDef);
+		module.appendChild(formDef);
 	}
 }

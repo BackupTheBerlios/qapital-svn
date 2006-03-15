@@ -3,9 +3,11 @@
 # Subdir relative project main directory: ./src/client/lib
 # Target is a library:  
 
-HEADERS += global.h 
-KDEV_QTVER = 4 
+HEADERS += global.h \
+           cmodulewidget.h 
+SOURCES += cmodulewidget.cpp 
+KDEV_QTVER = 4
 CONFIG += release \
-          warn_on \
-          staticlib 
-TEMPLATE = lib 
+warn_on \
+staticlib
+TEMPLATE = lib

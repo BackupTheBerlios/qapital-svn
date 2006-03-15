@@ -21,11 +21,18 @@
 #ifndef _GLOBAL_H
 #define _GLOBAL_H
 
+#include <QString>
+#include <QHash>
+#include <QList>
+
 struct FormData
 {
 	int id;
 	QString document;
 };
+
+typedef QList<FormData> FormDataList;
+typedef QHash<QString, FormDataList> ModuleForms;
 
 #endif
 

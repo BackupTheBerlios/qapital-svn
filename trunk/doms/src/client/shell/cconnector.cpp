@@ -65,7 +65,7 @@ void CConnector::readFromServer()
 		
 		if( root == "Success")
 		{
-			emit readedForms( m_parser->forms() );
+			emit readedModuleForms( m_parser->moduleForms() );
 		}
 	}
 	else

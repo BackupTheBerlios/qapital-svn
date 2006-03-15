@@ -48,7 +48,7 @@ class CPackageParser : public QXmlDefaultHandler
 		QString root() const;
 		
 		
-		QList<FormData > forms() const;
+		ModuleForms moduleForms() const;
 		
 	private:
 		void reset();
@@ -60,7 +60,10 @@ class CPackageParser : public QXmlDefaultHandler
 		
 		bool m_readChar;
 		
-		QList<FormData > m_forms;
+		QList<FormData > m_currentForms;
+		QString m_currentModuleName;
+		
+		ModuleForms m_moduleForms;
 };
 
 #endif

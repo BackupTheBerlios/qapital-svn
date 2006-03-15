@@ -50,7 +50,7 @@ class CConnector : public QTcpSocket
 		void flushQueue();
 		
 	signals:
-		void readedForms(const QList<FormData> &forms);
+		void readedModuleForms(const ModuleForms &);
 		
 	private:
 		QStringList m_queue;

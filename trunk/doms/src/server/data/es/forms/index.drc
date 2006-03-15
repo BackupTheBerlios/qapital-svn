@@ -1,4 +1,13 @@
-<Forms>
-	<FormFile path="register.dfm" id="0" />
-	<FormFile path="history.dfm" id="1" />
-</Forms>
+<Index>
+	<Module name="General" >
+		<FormFile path="register.dfm" id="0" />
+		<FormFile path="history.dfm" id="1" />
+	</Module>
+	<Module name="Un modulo" >
+	</Module>
+	<Module name="Otro modulo" >
+	</Module>
+	<Module name="Prueba" >
+	</Module>
+</Index>
+
