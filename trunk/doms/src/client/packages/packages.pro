@@ -3,15 +3,18 @@
 # Subdir relative project main directory: ./src/client/packages
 # Target is a library:  
 
-QT += xml -gui 
-KDEV_QTVER = 4 
-INCLUDEPATH += ../../../src/dartlib/dcore 
-MOC_DIR = .moc 
-UI_DIR = .ui 
-OBJECTS_DIR = .obj 
+HEADERS += cconnectpackage.h \
+           cchatpackage.h 
+SOURCES += cconnectpackage.cpp \
+           cchatpackage.cpp 
+QT += xml
+KDEV_QTVER = 4
+INCLUDEPATH += ../../../src/dlib/dgui \
+../../../src/dlib/dcore
+MOC_DIR = .moc
+UI_DIR = .ui
+OBJECTS_DIR = .obj
 CONFIG += release \
-          warn_on \
-          staticlib 
-TEMPLATE = lib 
-HEADERS += cconnectpackage.h 
-SOURCES += cconnectpackage.cpp 
+warn_on \
+staticlib
+TEMPLATE = lib

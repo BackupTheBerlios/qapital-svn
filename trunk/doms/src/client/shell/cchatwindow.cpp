@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2005 by David Cuadrado                                  *
- *   krawek@toonka.com                                                     *
+ *   Copyright (C) 2006 by David Cuadrado                                  *
+ *   krawek@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,38 +18,59 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef DTREELISTWIDGET_H
-#define DTREELISTWIDGET_H
+#include "cchatwindow.h"
 
-#include <QTreeWidget>
+#include <QLineEdit>
+#include <QTextBrowser>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QPushButton>
 
-/**
- * @author David Cuadrado <krawek@toonka.com>
-*/
-class DTreeListWidget : public QTreeWidget
+#include "cchatpackage.h"
+
+CChatWindow::CChatWindow(QWidget *parent) : QDialog(parent)
 {
-	Q_OBJECT
-	public:
-		DTreeListWidget(QWidget *parent = 0);
-		~DTreeListWidget();
-		void addItems(const QStringList &items);
-		QList<QTreeWidgetItem *> topLevelItems();
-		void setEditable(bool e);
-		
-	public slots:
-		void removeAll();
-		
-	private slots:
-		void editDoubleClickedItem(QTreeWidgetItem *item, int col);
-		
-	protected slots:
-		virtual void closeEditor ( QWidget * editor, QAbstractItemDelegate::EndEditHint hint );
-		
-	signals:
-		void itemRenamed(QTreeWidgetItem *item);
-		
-	private:
-		bool m_editable;
-};
+	setModal(false);
+	QVBoxLayout *layout = new QVBoxLayout(this);
+	
+	setWindowTitle(tr("Chat ;)"));
+	
+	m_messageArea = new QTextBrowser;
+	layout->addWidget(m_messageArea);
+	
+	QHBoxLayout *lineLayout = new QHBoxLayout;
+	m_prompt = new QLineEdit;
+	lineLayout->addWidget(m_prompt);
+	
+	QPushButton *send = new QPushButton(tr("Send"));
+	
+	connect(send, SIGNAL(clicked()), this, SLOT(emitMessage()));
+	lineLayout->addWidget(send);
+	
+	layout->addLayout(lineLayout);
+	
+	setWindowFlags(Qt::WindowStaysOnTopHint);
+}
 
-#endif
+
+CChatWindow::~CChatWindow()
+{
+}
+
+
+void CChatWindow::emitMessage()
+{
+	QString text = m_prompt->text();
+	
+	if ( text.isEmpty() ) return;
+	
+	emit textToSend( CChatPackage(text).toString() );
+	
+	m_prompt->clear();
+}
+
+void CChatWindow::setChatMessage(const QString &login, const QString &msg)
+{
+	m_messageArea->append( "<"+login+"> "+msg);
+}
+

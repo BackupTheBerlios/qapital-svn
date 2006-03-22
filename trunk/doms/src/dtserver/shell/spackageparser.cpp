@@ -57,6 +57,7 @@ bool SPackageParser::startElement( const QString& , const QString& , const QStri
 		else if ( qname == "Password")
 		{
 			m_values[qname] = atts.value("value");
+			// TODO: parse encode
 		}
 	}
 	else if ( m_root == "Chat" )

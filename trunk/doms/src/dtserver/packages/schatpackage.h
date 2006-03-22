@@ -30,7 +30,7 @@ class SChatPackage : public QDomDocument
 {
 	
 	public:
-		SChatPackage(const QString &msg);
+		SChatPackage(const QString &login, const QString &msg);
 		~SChatPackage();
 
 };

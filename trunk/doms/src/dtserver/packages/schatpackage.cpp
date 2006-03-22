@@ -19,11 +19,12 @@
  ***************************************************************************/
 #include "schatpackage.h"
 
-SChatPackage::SChatPackage(const QString &msg) : QDomDocument()
+SChatPackage::SChatPackage(const QString &login,const QString &msg) : QDomDocument()
 {
 	QDomElement root = createElement("Chat");
 	QDomElement emsg = createElement("Message");
 	emsg.setAttribute( "value", msg);
+	emsg.setAttribute( "login", login);
 	
 	root.appendChild(emsg);
 	appendChild(root);

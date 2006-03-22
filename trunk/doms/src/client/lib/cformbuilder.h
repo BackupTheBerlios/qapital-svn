@@ -27,6 +27,7 @@
 #include <QWidget>
 
 /**
+ * Esta clase se encarga de analizar el lenguaje de formularios, se podria entender esta clase como un compilador o interprete.
  * @author David Cuadrado <krawek@gmail.com>
 */
 class CFormBuilder : public QXmlDefaultHandler

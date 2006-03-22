@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2005 by David Cuadrado                                  *
- *   krawek@toonka.com                                                     *
+ *   Copyright (C) 2006 by David Cuadrado                                  *
+ *   krawek@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,38 +18,22 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef DTREELISTWIDGET_H
-#define DTREELISTWIDGET_H
+#ifndef CCLIENTMODULEWIDGET_H
+#define CCLIENTMODULEWIDGET_H
 
-#include <QTreeWidget>
+#include <cmodulewidget.h>
 
 /**
- * @author David Cuadrado <krawek@toonka.com>
+ * Este modulo sirve como interfaz para gestionar clientes o pacientes
+ * @author David Cuadrado <krawek@gmail.com>
 */
-class DTreeListWidget : public QTreeWidget
+class CClientModuleWidget : public CModuleWidget
 {
-	Q_OBJECT
+	Q_OBJECT;
 	public:
-		DTreeListWidget(QWidget *parent = 0);
-		~DTreeListWidget();
-		void addItems(const QStringList &items);
-		QList<QTreeWidgetItem *> topLevelItems();
-		void setEditable(bool e);
-		
-	public slots:
-		void removeAll();
-		
-	private slots:
-		void editDoubleClickedItem(QTreeWidgetItem *item, int col);
-		
-	protected slots:
-		virtual void closeEditor ( QWidget * editor, QAbstractItemDelegate::EndEditHint hint );
-		
-	signals:
-		void itemRenamed(QTreeWidgetItem *item);
-		
-	private:
-		bool m_editable;
+		CClientModuleWidget(const QString &title, QWidget *parent = 0);
+		~CClientModuleWidget();
+
 };
 
 #endif

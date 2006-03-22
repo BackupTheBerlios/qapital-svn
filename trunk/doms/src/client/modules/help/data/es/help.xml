@@ -1,0 +1,10 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<DHelpSystem>
+	<Section title="Introduction">
+		<SubSection title="About DOMS..." file="about.html" />
+	</Section>
+	<Section title="Pacients manage">
+		<SubSection title="How to a history?" file="add_history.html" />
+	</Section>
+</DHelpSystem>
+

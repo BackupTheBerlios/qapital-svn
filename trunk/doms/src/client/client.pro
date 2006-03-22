@@ -3,8 +3,7 @@
 # Subdir relative project main directory: ./src/client
 # Target is a subdirs project 
 
-SUBDIRS += dlslib \
-           lib \
+SUBDIRS += lib \
            packages \
            modules \
            shell 

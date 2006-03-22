@@ -20,6 +20,8 @@
 
 #include "capplication.h"
 
+#include "cfirstrundialog.h"
+
 #include <dconfig.h>
 
 CApplication::CApplication(int & argc, char ** argv) : DApplication(argc, argv)
@@ -33,4 +35,19 @@ CApplication::~CApplication()
 	DCONFIG->sync();
 }
 
-
+bool CApplication::firstRun()
+{
+	CFirstRunDialog configurator;
+	
+	if ( configurator.exec() != QDialog::Rejected )
+	{
+		DCONFIG->setValue("Home", configurator.home());
+		DCONFIG->setValue("Repository", configurator.repository());
+		
+		DCONFIG->sync();
+		
+		return true;
+	}
+	
+	return false;
+}

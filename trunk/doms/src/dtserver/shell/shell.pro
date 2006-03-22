@@ -7,16 +7,16 @@ QT += network xml
 INSTALLS += target 
 target.path = /bin/ 
 KDEV_QTVER = 4 
-TARGETDEPS += ../../../src/dartlib/dcore/libdcore.so \
-              ../../../src/dtserver/packages/libpackages.a 
+TARGETDEPS += ../../../src/dtserver/packages/libpackages.a 
 LIBS += -ldcore \
         ../../../src/dtserver/packages/libpackages.a 
 INCLUDEPATH += ../../../src/dtserver/packages \
-               ../../../src/dartlib/dcore 
+               ../../../src/dlib/dgui \
+               ../../../src/dlib/dcore 
 MOC_DIR = .moc 
 UI_DIR = .ui 
 OBJECTS_DIR = .obj 
-QMAKE_LIBDIR = ../../../src/dartlib/dcore 
+QMAKE_LIBDIR = ../../../src/dlib/dcore 
 TARGET = ../../../bin/domserver.bin 
 CONFIG += release \
           warn_on 

@@ -38,6 +38,7 @@ class DomServerConnection : public QThread
 		void run();
 		
 		void close();
+		void setLogin(const QString &login);
 		
 	private:
 		
@@ -58,6 +59,7 @@ class DomServerConnection : public QThread
 		
 		QXmlSimpleReader m_reader;
 		SPackageParser *m_parser;
+		QString m_login;
 };
 
 #endif

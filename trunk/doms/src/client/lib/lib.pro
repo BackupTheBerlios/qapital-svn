@@ -5,8 +5,8 @@
 
 QT += xml 
 KDEV_QTVER = 4 
-INCLUDEPATH += ../../../src/dartlib/dcore \
-               ../../../src/dartlib/dgui 
+INCLUDEPATH += ../../../src/dlib/dgui \
+               ../../../src/dlib/dcore 
 CONFIG += release \
           warn_on \
           staticlib 

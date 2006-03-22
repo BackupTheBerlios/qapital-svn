@@ -3,10 +3,11 @@
 # Subdir relative project main directory: ./src
 # Target is a subdirs project 
 
-SUBDIRS += dartlib \
+SUBDIRS += dlib \
 	   dtserver \
            client
-KDEV_QTVER = 3 
+KDEV_QTVER = 4
 CONFIG += release \
-          warn_on 
-TEMPLATE = subdirs 
+warn_on
+TEMPLATE = subdirs
+

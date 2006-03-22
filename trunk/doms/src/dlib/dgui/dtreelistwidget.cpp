@@ -53,7 +53,7 @@ DTreeListWidgetDelegate::~DTreeListWidgetDelegate()
 
 //////////////////
 
-DTreeListWidget::DTreeListWidget(QWidget *parent) : QTreeWidget(parent)
+DTreeListWidget::DTreeListWidget(QWidget *parent) : QTreeWidget(parent), m_editable(true)
 {
 	setEditTriggers(QAbstractItemView::EditKeyPressed | QAbstractItemView::DoubleClicked);
 // 	setAcceptDrops(true);
@@ -80,7 +80,7 @@ DTreeListWidget::~DTreeListWidget()
 
 void DTreeListWidget::editDoubleClickedItem(QTreeWidgetItem *item, int col)
 {
-	if ( item )
+	if ( item && m_editable )
 	{
 		item->setFlags( item->flags() | Qt::ItemIsEditable );
 		editItem(item, col);
@@ -131,4 +131,7 @@ void DTreeListWidget::removeAll()
 	clear();
 }
 
-
+void DTreeListWidget::setEditable(bool e)
+{
+	m_editable = e;
+}

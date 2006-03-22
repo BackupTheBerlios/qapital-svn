@@ -67,6 +67,11 @@ void CConnector::readFromServer()
 		{
 			emit readedModuleForms( m_parser->moduleForms() );
 		}
+		else if(root == "Chat" )
+		{
+			XMLResults results = m_parser->results();
+			emit chatMessage(results["login"], results["message"]);
+		}
 	}
 	else
 	{

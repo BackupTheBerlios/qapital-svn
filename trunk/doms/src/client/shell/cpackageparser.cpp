@@ -37,6 +37,7 @@ void CPackageParser::reset()
 	m_qname = QString();
 	
 	m_currentForms.clear();
+	m_values.clear();
 }
 
 
@@ -48,6 +49,17 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 		m_root = qname;
 		
 		m_isParsing = true;
+	}
+	else if( m_root == "Chat" )
+	{
+		if ( qname == "Message" )
+		{
+			QString login = atts.value("login");
+			QString msg = atts.value("value");
+			
+			m_values.insert("login", login);
+			m_values.insert("message", msg);
+		}
 	}
 	else if ( m_root == "Error" )
 	{
@@ -71,7 +83,7 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 		}
 		else if ( qname == "Module" )
 		{
-			m_currentModuleName = atts.value("name");
+			m_currentModuleKey = atts.value("key");
 		}
 		else if ( qname == "Message" )
 		{
@@ -91,7 +103,7 @@ bool CPackageParser::endElement(const QString&, const QString& , const QString& 
 	{
 		if ( qname == "Module" )
 		{
-			m_moduleForms.insert(m_currentModuleName, m_currentForms);
+			m_moduleForms.insert(m_currentModuleKey, m_currentForms);
 		}
 	}
 	
@@ -146,5 +158,10 @@ ModuleForms CPackageParser::moduleForms() const
 QString CPackageParser::root() const
 {
 	return m_root;
+}
+
+XMLResults CPackageParser::results() const
+{
+	return m_values;
 }
 

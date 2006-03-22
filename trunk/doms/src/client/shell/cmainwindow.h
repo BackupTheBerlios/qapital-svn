@@ -29,6 +29,13 @@
 
 #include "global.h"
 
+// Tools
+#include "cchatwindow.h"
+
+// Modules
+#include "cclientmodulewidget.h"
+#include "chelpwidget.h"
+
 /**
  * Ventana principal de la aplicacion cliente
  * @author David Cuadrado <krawek@gmail.com>
@@ -51,9 +58,19 @@ class CMainWindow : public DMainWindow
 		void buildModules(const ModuleForms &modules);
 		void addForm(QWidget *form, const QString &title);
 		
+		void showChat();
+		
+	protected:
+		void closeEvent(QCloseEvent *);
+		
 	private:
 		CConnector *m_connector;
+		
+		CChatWindow *m_chat;
+		
 		CFormManager *m_formManager;
+		
+		CHelpWidget *m_helper;
 };
 
 #endif

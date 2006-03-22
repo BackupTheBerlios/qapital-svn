@@ -18,38 +18,44 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef DTREELISTWIDGET_H
-#define DTREELISTWIDGET_H
+#include "chelpbrowser.h"
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
-#include <QTreeWidget>
+// CHelpBrowser
 
-/**
- * @author David Cuadrado <krawek@toonka.com>
-*/
-class DTreeListWidget : public QTreeWidget
+CHelpBrowser::CHelpBrowser( QWidget *parent)
+	: QWidget(parent)
 {
-	Q_OBJECT
-	public:
-		DTreeListWidget(QWidget *parent = 0);
-		~DTreeListWidget();
-		void addItems(const QStringList &items);
-		QList<QTreeWidgetItem *> topLevelItems();
-		void setEditable(bool e);
-		
-	public slots:
-		void removeAll();
-		
-	private slots:
-		void editDoubleClickedItem(QTreeWidgetItem *item, int col);
-		
-	protected slots:
-		virtual void closeEditor ( QWidget * editor, QAbstractItemDelegate::EndEditHint hint );
-		
-	signals:
-		void itemRenamed(QTreeWidgetItem *item);
-		
-	private:
-		bool m_editable;
-};
+	QHBoxLayout *layout = new QHBoxLayout(this);
+	layout->setMargin(15);
+	m_separator = new QSplitter(this);
+	layout->addWidget(m_separator);
 
-#endif
+	m_pageArea = new QTextBrowser(m_separator);
+	
+	m_document = new QTextDocument(m_pageArea);
+	
+	m_pageArea->setDocument(m_document);
+}
+
+
+CHelpBrowser::~CHelpBrowser()
+{
+}
+
+void CHelpBrowser::setDocument(const QString &doc)
+{
+	m_document->setHtml(doc);
+}
+
+void CHelpBrowser::setSource( const QString &filePath)
+{
+	m_pageArea->setSource(filePath);
+}
+
+void CHelpBrowser::setDataDirs(const QStringList &dirs)
+{
+	m_pageArea->setSearchPaths (dirs);
+}
+

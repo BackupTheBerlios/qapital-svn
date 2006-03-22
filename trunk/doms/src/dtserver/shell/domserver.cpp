@@ -81,10 +81,14 @@ void DomServer::removeConnection(DomServerConnection *cnx)
 
 void DomServer::authenticate(DomServerConnection *cnx, const QString &login, const QString &password)
 {
+	// TODO: HACER VALIDACION!
 	dDebug() << "Request auth!";
 	dDebug() << "Login: " << login << " Password: " << password;
 	
 // 	cnx->sendToClient( SErrorPackage(1, "Bad password or login") );
+	
+	// Cuando se verique como correcto
+	cnx->setLogin(login);
 	
 	cnx->sendToClient( SSuccessPackage("weeeeeeee"));
 	

@@ -1,13 +1,10 @@
 <Index>
-	<Module name="General" >
+	<Module key="general" >
 		<FormFile path="register.dfm" id="0" />
 		<FormFile path="history.dfm" id="1" />
 	</Module>
-	<Module name="Un modulo" >
-	</Module>
-	<Module name="Otro modulo" >
-	</Module>
-	<Module name="Prueba" >
+	<Module key="clients" >
+		<FormFile path="add_client.dfm" id="0" />
 	</Module>
 </Index>
 

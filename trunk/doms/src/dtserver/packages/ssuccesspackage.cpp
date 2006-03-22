@@ -37,7 +37,7 @@ SSuccessPackage::SSuccessPackage(const QString& msg): QDomDocument()
 	root.appendChild(smsg);
 	
 	// Leemos los formularios desde un archivo de indices
-	QFile formsIndex(DATADIR+"/forms/index.drc");
+	QFile formsIndex(DATA_DIR+"/forms/index.drc");
 	
 	if( formsIndex.open( QIODevice::ReadOnly | QIODevice::Text))
 	{
@@ -58,9 +58,9 @@ SSuccessPackage::SSuccessPackage(const QString& msg): QDomDocument()
 					dDebug() << e.tagName();
 					if ( e.tagName() == "Module" )
 					{
-						QString name = e.attribute("name");
+						QString name = e.attribute("key");
 						module = createElement("Module");
-						module.setAttribute("name", name);
+						module.setAttribute("key", name);
 						
 						parseModule( e, module );
 						
@@ -90,7 +90,7 @@ void SSuccessPackage::parseModule(QDomElement &element, QDomElement &module)
 		
 		if ( e.tagName() == "FormFile" )
 		{
-			addForm( module, e.attribute( "id").toInt(), DATADIR+"/forms/"+e.attribute( "path") );
+			addForm( module, e.attribute( "id").toInt(), DATA_DIR+"/forms/"+e.attribute( "path") );
 		}
 		
 		n = n.nextSibling();

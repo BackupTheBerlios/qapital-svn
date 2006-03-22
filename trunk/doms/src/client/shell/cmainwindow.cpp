@@ -49,7 +49,17 @@ CMainWindow::CMainWindow() : DMainWindow()
 	
 	connect(m_connector, SIGNAL(readedModuleForms( const ModuleForms& )), this, SLOT(buildModules(const ModuleForms &)));
 	
+	
+	
 	QTimer::singleShot(800, this, SLOT(showConnectDialog()));
+	
+	m_helper = new CHelpWidget;
+	toolWindow(DDockWindow::Right)->addWidget( tr("Help"), m_helper);
+	
+	m_chat = new CChatWindow;
+	connect(m_chat, SIGNAL(textToSend( const QString& )), m_connector, SLOT(sendToServer( const QString& )));
+	
+	connect(m_connector, SIGNAL(chatMessage( const QString&, const QString& )), m_chat, SLOT(setChatMessage( const QString&, const QString&)));
 }
 
 void CMainWindow::setupMenu()
@@ -58,6 +68,10 @@ void CMainWindow::setupMenu()
 	
 	file->addAction(tr("Load test form"), this, SLOT(loadTestForm()));
 	file->addAction(tr("Quit"), this, SLOT(close()));
+	
+	
+	QMenu *tools = menuBar()->addMenu(tr("Tools"));
+	tools->addAction(tr("Chat"), this, SLOT(showChat()));
 	 
 	QMenu *help = menuBar()->addMenu(tr("Help"));
 	help->addAction(tr("About Qt..."), qApp, SLOT(aboutQt()));
@@ -65,6 +79,11 @@ void CMainWindow::setupMenu()
 
 CMainWindow::~CMainWindow()
 {
+}
+
+void CMainWindow::closeEvent(QCloseEvent *)
+{
+	delete m_chat;
 }
 
 void CMainWindow::showConnectDialog()
@@ -95,11 +114,25 @@ void CMainWindow::buildModules(const ModuleForms &modules)
 	
 	foreach(QString moduleName, modules.keys())
 	{
-		CModuleWidget *module = new CModuleWidget(moduleName);
+		CModuleWidget *module = 0;
+		DDockWindow::Position pos = DDockWindow::Left;
 		
-		toolWindow( DDockWindow::Left)->addWidget( moduleName, module);
+		if ( moduleName.toLower() == tr("clients") )
+		{
+			module = new CClientModuleWidget(tr("Clients") );
+			
+		}
+		else
+		{
+			module = new CModuleWidget(moduleName);
+		}
+		
+		toolWindow(pos)->addWidget( moduleName, module);
 	}
 }
 
-
+void CMainWindow::showChat()
+{
+	m_chat->show();
+}
 

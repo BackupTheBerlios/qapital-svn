@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include <QApplication>
+#include <QMessageBox>
 
 #include "cmainwindow.h"
 #include "capplication.h"
@@ -32,7 +33,24 @@ int main(int argc, char **argv)
 	app.setApplicationName("domsclient");
 	
 	DCONFIG->beginGroup("General");
-	dAppProp->setHomeDir( DCONFIG->value("Home", 0).toString() );
+	
+	dAppProp->setHomeDir( DCONFIG->value("Home", "/").toString() );
+	
+	QString home = dAppProp->homeDir();
+	if ( home == "/" || home.isEmpty() )
+	{
+		if (! app.firstRun() )
+		{
+			QMessageBox::critical(0, app.applicationName(), QObject::tr("Please configure the application first!"));
+			
+			return 0;
+		}
+		else
+		{
+			dAppProp->setHomeDir( DCONFIG->value("Home", "/").toString() );
+			dAppProp->setCacheDir( DCONFIG->value("Repository", "/").toString() );
+		}
+	}
 	
 	CMainWindow mainWindow;
 	

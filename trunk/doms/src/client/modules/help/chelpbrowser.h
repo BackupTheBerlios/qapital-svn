@@ -17,39 +17,33 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#ifndef KTHELPBROWSER_H
+#define KTHELPBROWSER_H
 
-#ifndef DTREELISTWIDGET_H
-#define DTREELISTWIDGET_H
-
-#include <QTreeWidget>
+#include <QWidget>
+#include <QSplitter>
+#include <QTextBrowser>
+#include <QTextDocument>
 
 /**
  * @author David Cuadrado <krawek@toonka.com>
 */
-class DTreeListWidget : public QTreeWidget
+class CHelpBrowser : public QWidget
 {
 	Q_OBJECT
 	public:
-		DTreeListWidget(QWidget *parent = 0);
-		~DTreeListWidget();
-		void addItems(const QStringList &items);
-		QList<QTreeWidgetItem *> topLevelItems();
-		void setEditable(bool e);
+		CHelpBrowser(QWidget *parent);
+		~CHelpBrowser();
 		
 	public slots:
-		void removeAll();
-		
-	private slots:
-		void editDoubleClickedItem(QTreeWidgetItem *item, int col);
-		
-	protected slots:
-		virtual void closeEditor ( QWidget * editor, QAbstractItemDelegate::EndEditHint hint );
-		
-	signals:
-		void itemRenamed(QTreeWidgetItem *item);
+		void setDocument(const QString &doc);
+		void setSource( const QString &filePath);
+		void setDataDirs(const QStringList &dirs);
 		
 	private:
-		bool m_editable;
+		QSplitter *m_separator;
+		QTextBrowser *m_pageArea;
+		QTextDocument *m_document;
 };
 
 #endif

@@ -33,6 +33,7 @@ struct FormData
 
 typedef QList<FormData> FormDataList;
 typedef QHash<QString, FormDataList> ModuleForms;
+typedef QHash<QString, QString> XMLResults;
 
 #endif
 

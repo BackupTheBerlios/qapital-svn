@@ -51,6 +51,7 @@ class CConnector : public QTcpSocket
 		
 	signals:
 		void readedModuleForms(const ModuleForms &);
+		void chatMessage(const QString &login, const QString &msg);
 		
 	private:
 		QStringList m_queue;

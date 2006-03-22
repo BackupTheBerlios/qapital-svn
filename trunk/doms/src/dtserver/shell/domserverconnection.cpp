@@ -71,7 +71,7 @@ void DomServerConnection::run()
 				}
 				else if ( root == "Chat" )
 				{
-					emit requestSendToAll( SChatPackage(values["Message"]).toString().remove('\n') );
+					emit requestSendToAll(  SChatPackage(m_login,values["Message"]).toString().remove('\n') );
 				}
 			}
 			else
@@ -109,5 +109,10 @@ void DomServerConnection::close()
 // 	m_client->waitForDisconnected();
 	m_client->disconnectFromHost();
 	m_client->close();
+}
+
+void DomServerConnection::setLogin(const QString &login)
+{
+	m_login = login;
 }
 

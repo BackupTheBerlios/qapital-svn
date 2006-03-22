@@ -31,6 +31,8 @@ class CApplication : public DApplication
 	public:
 		CApplication(int & argc, char ** argv);
 		~CApplication();
+		
+		virtual bool firstRun();
 
 };
 

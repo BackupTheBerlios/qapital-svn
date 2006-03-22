@@ -3,7 +3,9 @@
 # Subdir relative project main directory: ./src/client/modules
 # Target is a subdirs project 
 
-KDEV_QTVER = 4 
+SUBDIRS += clients \
+           help 
+KDEV_QTVER = 4
 CONFIG += release \
-          warn_on 
-TEMPLATE = subdirs 
+warn_on
+TEMPLATE = subdirs
