@@ -10,16 +10,14 @@ HEADERS += cmainwindow.h \
            cconnector.h \
            cpackageparser.h \
            cformmanager.h \
-           capplication.h \
-           cformbuilder.h 
+           capplication.h 
 SOURCES += client_main.cpp \
            cmainwindow.cpp \
            cconnectiondialog.cpp \
            cconnector.cpp \
            cpackageparser.cpp \
            cformmanager.cpp \
-           capplication.cpp \
-           cformbuilder.cpp 
+           capplication.cpp 
 QT += xml network gui
 KDEV_QTVER = 4
 TARGETDEPS += ../../../src/client/packages/libpackages.a \

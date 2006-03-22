@@ -3,11 +3,16 @@
 # Subdir relative project main directory: ./src/client/lib
 # Target is a library:  
 
-HEADERS += global.h \
-           cmodulewidget.h 
-SOURCES += cmodulewidget.cpp 
-KDEV_QTVER = 4
+QT += xml 
+KDEV_QTVER = 4 
+INCLUDEPATH += ../../../src/dartlib/dcore \
+               ../../../src/dartlib/dgui 
 CONFIG += release \
-warn_on \
-staticlib
-TEMPLATE = lib
+          warn_on \
+          staticlib 
+TEMPLATE = lib 
+HEADERS += global.h \
+           cmodulewidget.h \
+           cformbuilder.h 
+SOURCES += cmodulewidget.cpp \
+           cformbuilder.cpp 
