@@ -26,20 +26,39 @@
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QMenu>
-#include <QApplication>
+#include <QToolBar>
 
 #include "cconnectiondialog.h"
 
-#include <dtabwidget.h> // dartlib
+#include <dtabwidget.h> // dlib
 #include <ddebug.h>
 #include <dconfig.h>
 
+#include <dglobal.h>
 
-CMainWindow::CMainWindow() : DMainWindow()
+CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0)
 {
 	setWindowTitle(tr("Client"));
 	
-	setupMenu();
+#ifdef Q_WS_X11
+	static const uint SIZE = 40960; //40 KiB
+        static char stdout[ SIZE ];
+	
+	FILE *process = ::popen( "fortune", "r" );
+	stdout[ std::fread( (void*)stdout, sizeof(char), SIZE-1, process ) ] = '\0';
+	
+	::pclose( process );
+	
+	QString title = QString::fromLocal8Bit(stdout);
+	
+	if ( !title.isEmpty() )
+	{
+		setWindowTitle( title );
+	}
+	
+#endif
+	
+	m_actionManager = new DActionManager(this);
 	
 	m_connector = new CConnector;
 	
@@ -49,17 +68,31 @@ CMainWindow::CMainWindow() : DMainWindow()
 	
 	connect(m_connector, SIGNAL(readedModuleForms( const ModuleForms& )), this, SLOT(buildModules(const ModuleForms &)));
 	
-	
-	
 	QTimer::singleShot(800, this, SLOT(showConnectDialog()));
 	
 	m_helper = new CHelpWidget;
+	connect(m_helper, SIGNAL(pageLoaded( const QString&, const QString& )), this, SLOT(showHelp(const QString &, const QString &)));
 	toolWindow(DDockWindow::Right)->addWidget( tr("Help"), m_helper);
 	
 	m_chat = new CChatWindow;
 	connect(m_chat, SIGNAL(textToSend( const QString& )), m_connector, SLOT(sendToServer( const QString& )));
 	
 	connect(m_connector, SIGNAL(chatMessage( const QString&, const QString& )), m_chat, SLOT(setChatMessage( const QString&, const QString&)));
+	
+	
+	setupActions();
+	setupToolbar();
+	setupMenu();
+	
+	statusBar()->show();
+	
+	toolWindow( DDockWindow::Bottom )->hide();
+}
+
+void CMainWindow::setupActions()
+{
+	DAction *network = new DAction( QIcon(THEME_DIR+"/icons/connect.png"), tr("Connect"), QKeySequence(), this, SLOT(showConnectDialog()), m_actionManager, "connect"); 
+	network->setStatusTip(tr("Connect to server..."));
 }
 
 void CMainWindow::setupMenu()
@@ -67,14 +100,34 @@ void CMainWindow::setupMenu()
 	QMenu *file = menuBar()->addMenu(tr("File"));
 	
 	file->addAction(tr("Load test form"), this, SLOT(loadTestForm()));
+	
+	file->addSeparator();
 	file->addAction(tr("Quit"), this, SLOT(close()));
 	
 	
 	QMenu *tools = menuBar()->addMenu(tr("Tools"));
-	tools->addAction(tr("Chat"), this, SLOT(showChat()));
-	 
+	tools->addAction(QIcon(THEME_DIR+"/icons/chat.png"),tr("Chat"), this, SLOT(showChat()));
+	tools->addSeparator();
+	
+	tools->addAction(QIcon(THEME_DIR+"/icons/wizard.png"), tr("First run dialog..."), dApp, SLOT(firstRun()));
+	
+	
 	QMenu *help = menuBar()->addMenu(tr("Help"));
+	
+// 	help->addAction(tr("Help..."), m_helper, SLOT(show()));
+	
 	help->addAction(tr("About Qt..."), qApp, SLOT(aboutQt()));
+	
+}
+
+void CMainWindow::setupToolbar()
+{
+	QToolBar *toolBar = new QToolBar(this);
+	
+	toolBar->addAction(m_actionManager->find("connect"));
+	
+	
+	addToolBar( Qt::TopToolBarArea, toolBar );
 }
 
 CMainWindow::~CMainWindow()
@@ -128,11 +181,29 @@ void CMainWindow::buildModules(const ModuleForms &modules)
 		}
 		
 		toolWindow(pos)->addWidget( moduleName, module);
+		
+		connect(module, SIGNAL(requestForm(const QString &, int)), m_formManager, SLOT(loadForm(const QString &, int)));
 	}
 }
 
 void CMainWindow::showChat()
 {
 	m_chat->show();
+}
+
+void CMainWindow::showHelp(const QString &title, const QString &page)
+{
+	if(!m_helpBrowser)
+	{
+		m_helpBrowser = new CHelpBrowser;
+	}
+	
+	if ( !m_helpBrowser->isVisible() )
+	{
+		addWidget( m_helpBrowser, tr("Help"));
+	}
+	
+	m_helpBrowser->setSource( page );
+	
 }
 

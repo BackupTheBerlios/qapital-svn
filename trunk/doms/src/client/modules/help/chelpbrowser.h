@@ -32,7 +32,7 @@ class CHelpBrowser : public QWidget
 {
 	Q_OBJECT
 	public:
-		CHelpBrowser(QWidget *parent);
+		CHelpBrowser(QWidget *parent = 0);
 		~CHelpBrowser();
 		
 	public slots:

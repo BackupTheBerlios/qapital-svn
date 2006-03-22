@@ -36,10 +36,9 @@ class CFormManager : public QObject
 		CFormManager(QObject *parent = 0);
 		~CFormManager();
 		
-		void loadForm(const QString &module, int id);
-		
 	public slots:
 		void setForms(const ModuleForms &forms);
+		void loadForm(const QString &module, int id);
 		
 	signals:
 		void formLoaded(QWidget *widget, const QString &title);

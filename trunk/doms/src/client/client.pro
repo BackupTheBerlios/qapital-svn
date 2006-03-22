@@ -4,6 +4,7 @@
 # Target is a subdirs project 
 
 SUBDIRS += lib \
+           themes \ 
            packages \
            modules \
            shell 

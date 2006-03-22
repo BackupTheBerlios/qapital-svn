@@ -20,17 +20,39 @@
 
 
 #include "cmodulewidget.h"
+
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QLabel>
+#include <QToolButton>
+
+#include <dclicklineedit.h>
+
+#include "global.h"
 
 CModuleWidget::CModuleWidget(const QString &moduleMame, QWidget *parent) : QWidget(parent)
 {
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	
+	QHBoxLayout *search = new QHBoxLayout;
+	
+	QToolButton *button = new QToolButton;
+	button->setIcon( QIcon(THEME_DIR+"/icons/clear_right.png"));
+	
+	
+	search->addWidget(button);
+	
+	m_pSearch = new DClickLineEdit(tr("Search here")+"...");
+	search->addWidget( m_pSearch );
+	
+	layout->addLayout(search);
 	
 	m_pTree = new DTreeListWidget;
 	
 	layout->addWidget(m_pTree);
+	
+	
+	connect(button, SIGNAL(clicked()), m_pSearch, SLOT(clear()));
 }
 
 
@@ -38,4 +60,8 @@ CModuleWidget::~CModuleWidget()
 {
 }
 
+QBoxLayout *CModuleWidget::boxLayout()
+{
+	return qobject_cast<QVBoxLayout *>(layout());
+}
 

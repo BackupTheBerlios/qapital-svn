@@ -18,52 +18,42 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include <QApplication>
-#include <QMessageBox>
+#ifndef CMODULEBUTTONBAR_H
+#define CMODULEBUTTONBAR_H
 
-#include "cmainwindow.h"
-#include "capplication.h"
+#include <qframe.h>
 
-#include <dconfig.h>
-#include <dapplicationproperties.h> // dAppProp
 
-int main(int argc, char **argv)
+#include <QButtonGroup>
+
+/**
+ * @author David Cuadrado <krawek@gmail.com>
+*/
+class CModuleButtonBar : public QFrame
 {
-	CApplication app(argc, argv);
-	
-	app.setStyle("plastique");
-	
-	app.setPalette(app.style()->standardPalette());
-	app.setApplicationName("domsclient");
-	
-	DCONFIG->beginGroup("General");
-	
-	dAppProp->setHomeDir( DCONFIG->value("Home", "/").toString() );
-	
-	QString home = dAppProp->homeDir();
-	if ( home == "/" || home.isEmpty() )
-	{
-		if (! app.firstRun() )
+	Q_OBJECT;
+	public:
+		enum Button
 		{
-			QMessageBox::critical(0, app.applicationName(), QObject::tr("Please configure the application first!"));
-			
-			return 0;
-		}
-		else
-		{
-			dAppProp->setHomeDir( DCONFIG->value("Home", "/").toString() );
-			dAppProp->setCacheDir( DCONFIG->value("Repository", "/").toString() );
-		}
-	}
-	
-	dAppProp->setThemeDir(dAppProp->homeDir()+"/data/themes/default");
-	
-	CMainWindow mainWindow;
-	
-	mainWindow.showMaximized();
-	
-	return app.exec();
-}
+			Add = 1<<0,
+			Del = 1<<1,
+			Query = 1 << 2,
+			Modify = 1 << 3
+		};
+		
+		CModuleButtonBar(int buttons, QWidget *parent = 0);
+		~CModuleButtonBar();
+		
+	signals:
+		void buttonClicked ( QAbstractButton *button);
+		void buttonClicked(int id);
+		
+	private:
+		void setupButtons(int buttons);
+		
+	private:
+		QButtonGroup m_buttons;
 
+};
 
-
+#endif

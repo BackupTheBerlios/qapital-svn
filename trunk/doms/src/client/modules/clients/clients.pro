@@ -3,13 +3,14 @@
 # Subdir relative project main directory: ./src/client/modules/clients
 # Target is a library:  
 
-KDEV_QTVER = 4 
-INCLUDEPATH += ../../../../src/client/lib \
-               ../../../../src/dlib/dgui \
-               ../../../../src/dlib/dcore 
-CONFIG += release \
-          warn_on \
-          staticlib 
-TEMPLATE = lib 
 HEADERS += cclientmodulewidget.h 
 SOURCES += cclientmodulewidget.cpp 
+QT += xml
+KDEV_QTVER = 4
+INCLUDEPATH += ../../../../src/client/lib \
+../../../../src/dlib/dgui \
+../../../../src/dlib/dcore
+CONFIG += release \
+warn_on \
+staticlib
+TEMPLATE = lib

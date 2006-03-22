@@ -26,6 +26,9 @@
 #include <QTreeWidget>
 #include <dtreelistwidget.h>
 
+class DClickLineEdit;
+class QBoxLayout;
+
 /**
  * Clase base para la interfaz de todos los modulos
  * @author David Cuadrado <krawek@gmail.com>
@@ -37,8 +40,14 @@ class CModuleWidget : public QWidget
 		CModuleWidget(const QString &moduleMame, QWidget *parent = 0);
 		~CModuleWidget();
 		
+		QBoxLayout *boxLayout();
+		
+	signals:
+		void requestForm(const QString &module, int formId);
+		
 	protected:
 		DTreeListWidget *m_pTree;
+		DClickLineEdit *m_pSearch;
 };
 
 #endif

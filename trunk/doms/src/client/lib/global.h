@@ -25,6 +25,8 @@
 #include <QHash>
 #include <QList>
 
+#include <dglobal.h>
+
 struct FormData
 {
 	int id;

@@ -33,6 +33,9 @@ class CClientModuleWidget : public CModuleWidget
 	public:
 		CClientModuleWidget(const QString &title, QWidget *parent = 0);
 		~CClientModuleWidget();
+		
+	public slots:
+		void doAction(int buttonId);
 
 };
 

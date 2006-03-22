@@ -20,14 +20,56 @@
 
 #include "cclientmodulewidget.h"
 
+#include "global.h"
+
+#include "cmodulebuttonbar.h"
+
 CClientModuleWidget::CClientModuleWidget(const QString &title, QWidget *parent) : CModuleWidget(title, parent)
 {
+	setWindowIcon(QIcon(THEME_DIR+"/icons/users.png"));
 	
+	
+	CModuleButtonBar *buttonBar = new CModuleButtonBar( CModuleButtonBar::Add | CModuleButtonBar::Del );
+	
+	connect(buttonBar, SIGNAL(buttonClicked( int )), this, SLOT(doAction(int)));
+	
+	boxLayout()->addWidget( buttonBar );
+	
+	buttonBar->show();
 }
 
 
 CClientModuleWidget::~CClientModuleWidget()
 {
 }
+
+void CClientModuleWidget::doAction(int buttonId)
+{
+	switch(buttonId)
+	{
+		case CModuleButtonBar::Add:
+		{
+			emit requestForm( "General", 0);
+		}
+		break;
+		case CModuleButtonBar::Del:
+		{
+			emit requestForm( "General", 1);
+		}
+		break;
+		case CModuleButtonBar::Query:
+		{
+			
+		}
+		break;
+		case CModuleButtonBar::Modify:
+		{
+			
+		}
+		break;
+	}
+}
+
+
 
 

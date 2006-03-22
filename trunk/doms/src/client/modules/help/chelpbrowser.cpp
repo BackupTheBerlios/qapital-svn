@@ -37,6 +37,7 @@ CHelpBrowser::CHelpBrowser( QWidget *parent)
 	m_document = new QTextDocument(m_pageArea);
 	
 	m_pageArea->setDocument(m_document);
+	
 }
 
 

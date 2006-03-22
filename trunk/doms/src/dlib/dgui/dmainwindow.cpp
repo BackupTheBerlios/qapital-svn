@@ -123,13 +123,13 @@ void DMainWindow::addDockWidget(Qt::DockWidgetArea area, DDockWindow * dockwidge
 
 void DMainWindow::addWidget(QWidget *widget, const QString &title, bool persistant)
 {
-    if (m_pFirstRemoved && m_pActiveTabWidget == m_pTabs.first())
-    {
-        m_pCentral->addDock(0, 0, m_pActiveTabWidget);
-        m_pFirstRemoved = false;
-    }
+	if (m_pFirstRemoved && m_pActiveTabWidget == m_pTabs.first())
+	{
+		m_pCentral->addDock(0, 0, m_pActiveTabWidget);
+		m_pFirstRemoved = false;
+	}
 
-    addWidget(m_pActiveTabWidget, widget, title, persistant);
+	addWidget(m_pActiveTabWidget, widget, title, persistant);
 }
 
 void DMainWindow::addWidget(DLSTabWidget *tab, QWidget *widget, const QString &title, bool persistant)
@@ -139,7 +139,9 @@ void DMainWindow::addWidget(DLSTabWidget *tab, QWidget *widget, const QString &t
     {
         idx = tab->currentIndex() + 1;
     }
-
+    
+    m_pShowIconsOnTabs = !widget->windowIcon().isNull();
+    
     if (m_pShowIconsOnTabs)
     {
 	    QPixmap pixmap = widget->windowIcon().pixmap(16,16);
@@ -150,6 +152,7 @@ void DMainWindow::addWidget(DLSTabWidget *tab, QWidget *widget, const QString &t
     {
         tab->insertTab(widget, title, idx);
     }
+    
     m_pWidgets.append(widget);
     m_pWidgetTabs[widget] = tab;
     widget->installEventFilter(this);
@@ -160,57 +163,62 @@ void DMainWindow::addWidget(DLSTabWidget *tab, QWidget *widget, const QString &t
 	    m_persistantWidgets << widget;
     }
     
+    m_pCurrentWidget = widget;
+    
+    widget->show();
     widget->setFocus();
 }
 
 void DMainWindow::removeWidget(QWidget *widget)
 {
 	if (!m_pWidgets.contains(widget))
-    {
-        return; //not a widget in main window
-    }
+	{
+		return; //not a widget in main window
+	}
     
-    if (m_pWidgetTabs.contains(widget))
-    {
-        DLSTabWidget *tab = m_pWidgetTabs[widget];
-	if (tab->indexOf(widget) >= 0 && m_pActiveTabWidget->count() > 1)
-        {
-		tab->removeTab(tab->indexOf(widget));
-            widget->setParent(0);
-            if (tab->count() == 0)
-            {
-                if (tab->closeButton())
-                {
-                    tab->closeButton()->hide();
-                }
+	if (m_pWidgetTabs.contains(widget))
+	{
+		DLSTabWidget *tab = m_pWidgetTabs[widget];
+		if (tab->indexOf(widget) >= 0 && m_pActiveTabWidget->count() > 0)
+		{
+			tab->removeTab(tab->indexOf(widget));
+			widget->setParent(0);
+			widget->close();
+			if (tab->count() == 0)
+			{
+				if (tab->closeButton())
+				{
+					tab->closeButton()->hide();
+				}
                 //remove and delete tabwidget if it is not the first one
-                if (tab != m_pTabs.first())
-                {
-                    QPair<int, int> idx = m_pCentral->indexOf(tab);
-                    m_pTabs.removeAll(tab);
-                    m_pActiveTabWidget = m_pTabs.first();
-                    m_pCentral->removeDock(idx.first, idx.second, true);
-                }
-                //only temporarily remove the first tabwidget
-                else
-                {
-                    m_pCentral->removeDock(0, 0, false);
-                    m_pFirstRemoved = true;
-                }
-                //focus smth in m_pActiveTabWidget
-                if (m_pActiveTabWidget)
-                {
-                    if (m_pActiveTabWidget->currentWidget())
-                    {
-			    m_pActiveTabWidget->currentWidget()->setFocus();
-                    }
-                }
-            }
-        }
-    }
+				if (tab != m_pTabs.first())
+				{
+					QPair<int, int> idx = m_pCentral->indexOf(tab);
+					m_pTabs.removeAll(tab);
+					m_pActiveTabWidget = m_pTabs.first();
+					m_pCentral->removeDock(idx.first, idx.second, true);
+				}
+// 				else
+// 				{
+// 					m_pCentral->removeDock(0, 0, false);
+// 					m_pFirstRemoved = true;
+// 				}
+				
+				
+				//focus smth in m_pActiveTabWidget
+				if (m_pActiveTabWidget)
+				{
+					if (m_pActiveTabWidget->currentWidget())
+					{
+						m_pActiveTabWidget->currentWidget()->setFocus();
+					}
+				}
+			}
+		}
+	}
     
-    m_pWidgets.removeAll(widget);
-    m_pWidgetTabs.remove(widget);
+	m_pWidgets.removeAll(widget);
+	m_pWidgetTabs.remove(widget);
 }
 
 DLSTabWidget *DMainWindow::splitHorizontal() 
@@ -264,7 +272,7 @@ DLSTabWidget *DMainWindow::createTab()
 
 bool DMainWindow::eventFilter(QObject *obj, QEvent *ev)
 {
-    QWidget *w = (QWidget*)obj;
+	QWidget *w = qobject_cast<QWidget*>(obj);
     if (!m_pWidgets.contains(w))
     {
         return MWCLASS::eventFilter(obj, ev);
@@ -275,6 +283,7 @@ bool DMainWindow::eventFilter(QObject *obj, QEvent *ev)
         m_pCurrentWidget = w;
         emit widgetChanged(w);
     }
+    
 //     else if (ev->type() == QEvent::IconChange)
 //     {
 //         if (m_pWidgetTabs.contains(w))

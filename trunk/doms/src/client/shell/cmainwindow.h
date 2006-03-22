@@ -29,8 +29,11 @@
 
 #include "global.h"
 
+#include <dactionmanager.h>
+
 // Tools
 #include "cchatwindow.h"
+#include "chelpbrowser.h"
 
 // Modules
 #include "cclientmodulewidget.h"
@@ -50,7 +53,9 @@ class CMainWindow : public DMainWindow
 		QSize sizeHint() const { return QSize(600,600); };
 		
 	private:
+		void setupActions();
 		void setupMenu();
+		void setupToolbar();
 		
 	private slots:
 		void showConnectDialog();
@@ -59,6 +64,7 @@ class CMainWindow : public DMainWindow
 		void addForm(QWidget *form, const QString &title);
 		
 		void showChat();
+		void showHelp(const QString &title, const QString &page);
 		
 	protected:
 		void closeEvent(QCloseEvent *);
@@ -71,6 +77,10 @@ class CMainWindow : public DMainWindow
 		CFormManager *m_formManager;
 		
 		CHelpWidget *m_helper;
+		CHelpBrowser *m_helpBrowser;
+		
+	private:
+		DActionManager *m_actionManager;
 };
 
 #endif

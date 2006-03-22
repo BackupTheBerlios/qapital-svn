@@ -3,8 +3,35 @@
 # Subdir relative project main directory: ./src/client/shell
 # Target is an application:  ../../../bin/domsclient.bin
 
+QT += xml network 
 INSTALLS += target 
 target.path = /bin/ 
+KDEV_QTVER = 4 
+TARGETDEPS += ../../../src/client/packages/libpackages.a \
+              ../../../src/client/modules/clients/libclients.a \
+              ../../../src/client/modules/help/libhelp.a \
+              ../../../src/client/lib/libdclient.a 
+LIBS += -ldgui \
+        -ldcore \
+        ../../../src/client/packages/libpackages.a \
+        ../../../src/client/modules/clients/libclients.a \
+        ../../../src/client/modules/help/libhelp.a \
+        ../../../src/client/lib/libdclient.a 
+INCLUDEPATH += ../../../src/client/modules/help \
+               ../../../src/client/modules/clients \
+               ../../../src/client/packages \
+               ../../../src/client/lib \
+               ../../../src/dlib/dgui \
+               ../../../src/dlib/dcore 
+MOC_DIR = .moc 
+UI_DIR = .ui 
+OBJECTS_DIR = .obj 
+QMAKE_LIBDIR = ../../../src/dlib/dgui \
+               ../../../src/dlib/dcore 
+TARGET = ../../../bin/domsclient.bin 
+CONFIG += release \
+          warn_on 
+TEMPLATE = app 
 HEADERS += cmainwindow.h \
            cconnectiondialog.h \
            cconnector.h \
@@ -22,30 +49,3 @@ SOURCES += client_main.cpp \
            capplication.cpp \
            cfirstrundialog.cpp \
            cchatwindow.cpp 
-QT += xml network 
-KDEV_QTVER = 4 
-TARGETDEPS += ../../../src/client/packages/libpackages.a \
-              ../../../src/client/lib/liblib.a \
-              ../../../src/client/modules/clients/libclients.a \
-              ../../../src/client/modules/help/libhelp.a 
-LIBS += -ldgui \
-        -ldcore \
-        ../../../src/client/packages/libpackages.a \
-        ../../../src/client/lib/liblib.a \
-        ../../../src/client/modules/clients/libclients.a \
-        ../../../src/client/modules/help/libhelp.a 
-INCLUDEPATH += ../../../src/client/modules/help \
-               ../../../src/client/modules/clients \
-               ../../../src/client/packages \
-               ../../../src/client/lib \
-               ../../../src/dlib/dgui \
-               ../../../src/dlib/dcore 
-MOC_DIR = .moc 
-UI_DIR = .ui 
-OBJECTS_DIR = .obj 
-QMAKE_LIBDIR = ../../../src/dlib/dgui \
-               ../../../src/dlib/dcore 
-TARGET = ../../../bin/domsclient.bin 
-CONFIG += release \
-          warn_on 
-TEMPLATE = app 
