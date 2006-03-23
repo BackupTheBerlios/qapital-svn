@@ -59,12 +59,12 @@ class CMainWindow : public DMainWindow
 		
 	private slots:
 		void showConnectDialog();
-		void loadTestForm();
 		void buildModules(const ModuleForms &modules);
 		void addForm(QWidget *form, const QString &title);
 		
 		void showChat();
 		void showHelp(const QString &title, const QString &page);
+		void showTipDialog();
 		
 	protected:
 		void closeEvent(QCloseEvent *);
@@ -81,6 +81,7 @@ class CMainWindow : public DMainWindow
 		
 	private:
 		DActionManager *m_actionManager;
+		
 };
 
 #endif

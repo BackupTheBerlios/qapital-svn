@@ -123,6 +123,8 @@ DTipDialog::DTipDialog(const QString &file, QWidget *parent) : QDialog(parent)
 {
 	m_database = new DTipDatabase(file);
 	setupGUI();
+	
+	setAttribute(Qt::WA_DeleteOnClose);
 }
 
 DTipDialog::DTipDialog(DTipDatabase *database, QWidget *parent) : QDialog(parent), m_database(database)

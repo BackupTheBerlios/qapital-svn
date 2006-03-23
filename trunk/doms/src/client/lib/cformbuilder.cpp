@@ -256,6 +256,7 @@ QWidget *CFormBuilder::form(const QString &document)
 	if ( !m_reader.parse(&xmlsource) )
 	{
 		dError() << "Error while try to parse form document";
+		return 0;
 	}
 	
 	scroll->setWidget(m_form);

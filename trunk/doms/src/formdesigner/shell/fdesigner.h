@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2005 by David Cuadrado                                  *
- *   krawek@toonka.com                                                     *
+ *   Copyright (C) 2006 by David Cuadrado                                  *
+ *   krawek@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,33 +18,50 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef KTHELPBROWSER_H
-#define KTHELPBROWSER_H
+#ifndef FDESIGNER_H
+#define FDESIGNER_H
 
-#include <QWidget>
-#include <QSplitter>
-#include <QTextBrowser>
-#include <QTextDocument>
+#include <qmainwindow.h>
+
+
+#include <cformbuilder.h>
+
+#include <QXmlSimpleReader>
+
+#include <QScrollArea>
+
+class QTextEdit;
+class QWorkspace;
+class QBoxLayout;
 
 /**
- * @author David Cuadrado <krawek@toonka.com>
+ * @author David Cuadrado <krawek@gmail.com>
 */
-class CHelpBrowser : public QWidget
+class FDesigner : public QMainWindow
 {
 	Q_OBJECT
 	public:
-		CHelpBrowser(QWidget *parent = 0);
-		~CHelpBrowser();
-		
-	public slots:
-		void setDocument(const QString &doc);
-		void setSource( const QString &filePath);
-		void setDataDirs(const QStringList &dirs);
+		FDesigner();
+		~FDesigner();
 		
 	private:
-		QSplitter *m_separator;
-		QTextBrowser *m_pageArea;
-		QTextDocument *m_document;
+		void setupMenu();
+		
+	private slots:
+		void analize();
+		void openFile(const QString &file);
+		void openFile();
+		
+	private:
+		QTextEdit *m_editor;
+		QWorkspace *m_workspace;
+		
+		QXmlSimpleReader m_reader;
+		CFormBuilder *m_builder;
+		
+		QBoxLayout *m_mainLayout;
+		
+		QMainWindow *m_currentForm;
 };
 
 #endif

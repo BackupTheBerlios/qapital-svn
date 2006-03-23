@@ -106,12 +106,9 @@ void CConnector::login(const QString &user, const QString &passwd)
 void CConnector::flushQueue()
 {
 	D_FUNCINFO;
-	if ( m_queue.count() > 0 )
+	while ( m_queue.count() > 0 )
 	{
-		foreach(QString toSend, m_queue)
-		{
-			sendToServer( toSend );
-		}
+		sendToServer( m_queue.takeFirst());
 	}
 }
 

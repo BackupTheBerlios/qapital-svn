@@ -35,6 +35,7 @@
 #include <dconfig.h>
 
 #include <dglobal.h>
+#include <dtip.h>
 
 CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0)
 {
@@ -68,8 +69,6 @@ CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0)
 	
 	connect(m_connector, SIGNAL(readedModuleForms( const ModuleForms& )), this, SLOT(buildModules(const ModuleForms &)));
 	
-	QTimer::singleShot(800, this, SLOT(showConnectDialog()));
-	
 	m_helper = new CHelpWidget;
 	connect(m_helper, SIGNAL(pageLoaded( const QString&, const QString& )), this, SLOT(showHelp(const QString &, const QString &)));
 	toolWindow(DDockWindow::Right)->addWidget( tr("Help"), m_helper);
@@ -87,19 +86,32 @@ CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0)
 	statusBar()->show();
 	
 	toolWindow( DDockWindow::Bottom )->hide();
+	
+	DCONFIG->beginGroup("TipOfDay");
+	bool showTips = qvariant_cast<bool>(DCONFIG->value("ShowOnStart", true ));
+
+
+	if ( showTips )
+	{
+		QTimer::singleShot(0, this, SLOT(showTipDialog()));
+	}
+	
+// 	QTimer::singleShot(800, this, SLOT(showConnectDialog()));
 }
 
 void CMainWindow::setupActions()
 {
 	DAction *network = new DAction( QIcon(THEME_DIR+"/icons/connect.png"), tr("Connect"), QKeySequence(), this, SLOT(showConnectDialog()), m_actionManager, "connect"); 
 	network->setStatusTip(tr("Connect to server..."));
+	
+	new DAction(QIcon(THEME_DIR+"/icons/tip.png"), tr("Tip of day"), QKeySequence(), this, SLOT(showTipDialog()), m_actionManager, "tipofday");
 }
 
 void CMainWindow::setupMenu()
 {
 	QMenu *file = menuBar()->addMenu(tr("File"));
 	
-	file->addAction(tr("Load test form"), this, SLOT(loadTestForm()));
+	QMenu *newMenu = file->addMenu(tr("New"));
 	
 	file->addSeparator();
 	file->addAction(tr("Quit"), this, SLOT(close()));
@@ -116,6 +128,7 @@ void CMainWindow::setupMenu()
 	
 // 	help->addAction(tr("Help..."), m_helper, SLOT(show()));
 	
+	help->addAction(m_actionManager->find("tipofday"));
 	help->addAction(tr("About Qt..."), qApp, SLOT(aboutQt()));
 	
 }
@@ -154,11 +167,6 @@ void CMainWindow::addForm(QWidget *form, const QString &title)
 {
 	D_FUNCINFO;
 	addWidget( form, title, false);
-}
-
-void CMainWindow::loadTestForm()
-{
-	m_formManager->loadForm( "General", 1 );
 }
 
 void CMainWindow::buildModules(const ModuleForms &modules)
@@ -206,4 +214,11 @@ void CMainWindow::showHelp(const QString &title, const QString &page)
 	m_helpBrowser->setSource( page );
 	
 }
+
+void CMainWindow::showTipDialog()
+{
+	DTipDialog *m_tipDialog = new DTipDialog(DATA_DIR+"/tips", this);
+	m_tipDialog->show();
+}
+
 
