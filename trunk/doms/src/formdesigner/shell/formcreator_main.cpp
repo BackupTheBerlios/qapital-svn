@@ -27,7 +27,7 @@ int main(int argc, char **argv)
 	QApplication app(argc, argv);
 	
 	FDesigner mainWindow;
-	mainWindow.show();
+	mainWindow.showMaximized();
 	
 	return app.exec();
 }

@@ -18,61 +18,36 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef FDESIGNER_H
-#define FDESIGNER_H
+#ifndef FTOOLMANAGER_H
+#define FTOOLMANAGER_H
 
-#include <qmainwindow.h>
+#include <QToolBar>
 
-
-#include <cformbuilder.h>
-
-#include <QXmlSimpleReader>
-
-#include <QScrollArea>
-#include <QHash>
-
-#include "ftoolmanager.h"
-
-class QTextEdit;
-class QWorkspace;
-class QBoxLayout;
+#include <QMainWindow>
 
 /**
  * @author David Cuadrado <krawek@gmail.com>
 */
-class FDesigner : public QMainWindow
+class FToolManager : public QToolBar
 {
 	Q_OBJECT
 	public:
-		FDesigner();
-		~FDesigner();
-		
-	private:
-		void setupMenu();
+		FToolManager(QMainWindow *window);
+		~FToolManager();
 		
 	private slots:
-		void activeForm(QWidget *form);
-		void updateEditor();
-		void analize();
+		void addLabel();
+		void addButton();
+		void addCheckBox();
+		void addVBox();
+		void addHBox();
+		void addVBoxGroup();
+		void addHBoxGroup();
 		
-	private slots:
-		void newForm();
-		void openFile(const QString &file);
-		void openFile();
-		void save();
 		
-	private:
-		QTextEdit *m_editor;
-		QWorkspace *m_workspace;
-		
-		QXmlSimpleReader m_reader;
-		CFormBuilder *m_builder;
-		
-		QBoxLayout *m_mainLayout;
-		
-		QMainWindow *m_currentForm;
-		
-		QHash<QWidget *, QString> m_formCode;
+	signals:
+		void appendObject(const QString &obj);
+
 };
 
 #endif

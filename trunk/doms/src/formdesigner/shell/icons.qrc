@@ -1,0 +1,11 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/res">
+   <file>icons/add_button.png</file>
+   <file>icons/add_hbox.png</file>
+   <file>icons/add_label.png</file>
+   <file>icons/add_vgroupbox.png</file>
+   <file>icons/add_checkbox.png</file>
+   <file>icons/add_vbox.png</file>
+   <file>icons/add_hgroupbox.png</file>
+</qresource>
+</RCC>

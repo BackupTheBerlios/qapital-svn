@@ -29,21 +29,23 @@
 #include <QFileDialog>
 #include <QDomDocument>
 #include <QMenuBar>
+#include <QTimer>
 
 #include <ddebug.h>
 
 FDesigner::FDesigner() : QMainWindow()
 {
 	QFrame *containter = new QFrame;
-	m_mainLayout = new QVBoxLayout(containter);
+	m_mainLayout = new QHBoxLayout(containter);
 	
+	m_editor = new QTextEdit;
+	m_editor->setFocusPolicy( Qt::WheelFocus );
+	m_mainLayout->addWidget(m_editor);
 	
 	m_workspace = new QWorkspace;
 	m_workspace->setScrollBarsEnabled ( true );
 	m_mainLayout->addWidget(m_workspace);
-	
-	m_editor = new QTextEdit;
-	m_mainLayout->addWidget(m_editor);
+	connect(m_workspace, SIGNAL(windowActivated ( QWidget *)), this, SLOT(activeForm(QWidget *)));
 	
 	connect(m_editor, SIGNAL(textChanged()), this, SLOT(analize()));
 	
@@ -54,7 +56,13 @@ FDesigner::FDesigner() : QMainWindow()
 	m_currentForm = new QMainWindow;
 	m_workspace->addWindow(m_currentForm);
 	
+	m_formCode.insert(m_currentForm, "");
+	
 	setupMenu();
+	
+	FToolManager *toolManager = new FToolManager(this);
+	
+	connect(toolManager, SIGNAL(appendObject( const QString& )), m_editor, SLOT(insertPlainText(const QString &)));
 }
 
 
@@ -66,26 +74,49 @@ void FDesigner::setupMenu()
 {
 	QMenu *menu = menuBar()->addMenu(tr("File"));
 	
+	menu->addAction(tr("New form..."), this, SLOT(newForm()));
 	menu->addAction(tr("Open file..."), this, SLOT(openFile()));
+	menu->addAction(tr("Save..."), this, SLOT(save()));
 	menu->addAction(tr("Quit"), this, SLOT(close()));
+}
+
+void FDesigner::newForm()
+{
+	QMainWindow *newForm = new QMainWindow;
+	
+	m_formCode.insert(newForm, "");
+	
+	m_workspace->addWindow(newForm);
+	
+	newForm->show();
+	
+	m_currentForm = newForm;
+	
+	m_editor->clear();
 }
 
 void FDesigner::analize()
 {
+// 	D_FUNCINFO;
 	QString text = m_editor->toPlainText();
 	
 	QWidget *w = m_builder->form( text );
 	
-	if( w )
+	if( w && m_currentForm )
 	{
 		QWidget *central = m_currentForm->centralWidget();
 		
-		if( central ) delete central;
+		if( central )
+		{
+			delete central;
+		}
 		
 		m_currentForm->setCentralWidget( w );
 		m_currentForm->setWindowTitle( m_builder->formTitle() );
 		m_currentForm->adjustSize();
+		m_formCode[m_currentForm] = text;
 		
+		m_editor->setFocus();
 	}
 }
 
@@ -113,8 +144,43 @@ void FDesigner::openFile(const QString &file)
 	}
 }
 
+void FDesigner::save()
+{
+	QString fileName = QFileDialog::getSaveFileName (this,tr("Save..."), QString(),"Forms (*.dfm)" );
+	
+	if ( !fileName.endsWith(".dfm" ) )
+	{
+		fileName += ".dfm";
+	}
+	
+	QFile file(fileName);
+	
+	if ( file.open( QIODevice::WriteOnly | QIODevice::Text))
+	{
+		QTextStream out(&file);
+		out << m_editor->toPlainText() << endl;
+		file.close();
+	}
+}
 
 
+void FDesigner::activeForm(QWidget *window)
+{
+	QMainWindow *form = qobject_cast<QMainWindow*>(window);
+	
+	if ( form )
+	{
+		m_currentForm = form;
+		m_currentForm->setFocus();
+		
+		QTimer::singleShot( 0, this, SLOT(updateEditor()));
+	}
+	
+}
 
 
+void FDesigner::updateEditor()
+{
+	m_editor->setPlainText( m_formCode[m_currentForm] );
+}
 

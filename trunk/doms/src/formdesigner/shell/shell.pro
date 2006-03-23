@@ -3,6 +3,7 @@
 # Subdir relative project main directory: ./src/formdesigner/shell
 # Target is an application:  ../../../bin/dformcreator.bin
 
+RESOURCES += icons.qrc 
 QT += xml 
 INSTALLS += target 
 target.path = /bin/ 
@@ -22,6 +23,8 @@ TARGET = ../../../bin/dformcreator.bin
 CONFIG += release \
           warn_on 
 TEMPLATE = app 
-HEADERS += fdesigner.h 
+HEADERS += fdesigner.h \
+           ftoolmanager.h 
 SOURCES += formcreator_main.cpp \
-           fdesigner.cpp 
+           fdesigner.cpp \
+           ftoolmanager.cpp 
