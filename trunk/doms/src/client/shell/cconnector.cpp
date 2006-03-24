@@ -48,17 +48,16 @@ CConnector::~CConnector()
 
 void CConnector::readFromServer()
 {
-	QString readed;
-	
 	while(canReadLine())
 	{
-		readed += readLine();
+		m_readed += readLine();
 	}
+	
 	QXmlInputSource xmlsource;
-	xmlsource.setData(readed);
+	xmlsource.setData(m_readed);
 			
-	dDebug() << "READED: " << readed;
-			
+	dDebug() << "READED: " << m_readed;
+	
 	if ( m_reader.parse(&xmlsource) )
 	{
 		QString root = m_parser->root();
@@ -72,6 +71,8 @@ void CConnector::readFromServer()
 			XMLResults results = m_parser->results();
 			emit chatMessage(results["login"], results["message"]);
 		}
+		
+		m_readed = "";
 	}
 	else
 	{

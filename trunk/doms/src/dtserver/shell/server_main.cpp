@@ -22,7 +22,7 @@
 #include <QCoreApplication>
 #include <QHostInfo>
 
-#include "domserver.h"
+#include "dtserver.h"
 
 #include <dconfig.h>
 #include <ddebug.h>
@@ -35,7 +35,7 @@ void write_test_config();
 int main(int argc, char **argv)
 {
 	QCoreApplication app(argc, argv);
-	app.setApplicationName("domserver");
+	app.setApplicationName("dtserver");
 
 	// Uncomment if you want initial config
 	//write_test_config();
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 	
 	DApplicationProperties::instance()->setHomeDir( DCONFIG->value("Home", 0).toString() );
 	
-	DomServer server;
+	DTServer server;
 	
 	DCONFIG->beginGroup("Connection");
 	QString host = DCONFIG->value("Host", "localhost").toString();

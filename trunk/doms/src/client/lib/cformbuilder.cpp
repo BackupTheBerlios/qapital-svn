@@ -25,6 +25,9 @@
 #include <cmath>
 
 #include <QtGui>
+#include <QtSvg>
+
+#include <dglobal.h>
 
 CFormBuilder::CFormBuilder() : QXmlDefaultHandler(), m_readChar(false), m_form(0)
 {
@@ -152,42 +155,19 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 		}
 		else if ( qname == "Image" )
 		{
-			int w = atts.value("width" ).toInt();
-			int h = atts.value("height" ).toInt();
+			int w = atts.value("width", "100" ).toInt();
+			int h = atts.value("height", "100" ).toInt();
 			
-			QLabel *toDraw = new QLabel;
-			toDraw->setMinimumSize( w, h);
-			toDraw->setMaximumSize( w, h);
+			QString fileName = atts.value("filename");
 			
-// 			toDraw->setIconSize ( QSize(w, h));
-			
-			// TEST: Dibujo cualquier cosa
-			
-			QPixmap icon(100,100);
-			icon.fill(Qt::transparent);
-			
-			QPainter painter(&icon);
-			
-			QRadialGradient gradient(50, 50, 50, 30, 30);
-			gradient.setColorAt(0.2, Qt::white);
-			gradient.setColorAt(0.8, Qt::green);
-			gradient.setColorAt(1, Qt::black);
-			painter.setBrush(gradient);
-			painter.drawEllipse(0, 0, 100, 100);
-			
-			QPainterPath starPath;
-			starPath.moveTo(90, 50);
-			for (int i = 1; i < 5; ++i) {
-				starPath.lineTo(50 + 40 * cos(0.8 * i * 3.141516),
-						50 + 40 * sin(0.8 * i * 3.141516));
+			if ( fileName.endsWith(".svg") )
+			{
+				QSvgWidget *svg = new QSvgWidget;
+				
+				svg->load(REPOSITORY+"/"+fileName);
+				
+				m_widgets.last()->layout()->addWidget(svg);
 			}
-			starPath.closeSubpath();
-			
-			painter.drawPath(starPath);
-			
-			toDraw->setPixmap(icon);
-			
-			m_widgets.last()->layout()->addWidget(toDraw);
 		}
 	}
 	
@@ -201,9 +181,6 @@ bool CFormBuilder::endElement(const QString&, const QString& , const QString& qn
 	{
 		m_widgets.takeLast();
 	}
-	else if ( qname == "" )
-	{
-	}
 	
 	return true;
 }
@@ -212,8 +189,12 @@ bool CFormBuilder::characters ( const QString & ch )
 {
 	if (m_readChar )
 	{
-		if ( m_root == "" )
+		if ( m_root == "Form" )
 		{
+			if ( m_qname == "" )
+			{
+				m_charData = ch;
+			}
 		}
 		
 		m_readChar = false;

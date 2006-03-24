@@ -68,6 +68,8 @@ class CPackageParser : public QXmlDefaultHandler
 		ModuleForms m_moduleForms;
 		
 		XMLResults m_values;
+		
+		QList<QPair<QString, QString> > m_resources;
 };
 
 #endif

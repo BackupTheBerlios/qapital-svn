@@ -58,6 +58,8 @@ class CConnector : public QTcpSocket
 		
 		QXmlSimpleReader m_reader;
 		CPackageParser *m_parser;
+		
+		QString m_readed;
 
 };
 

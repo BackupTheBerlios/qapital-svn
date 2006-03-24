@@ -17,24 +17,22 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#ifndef SRESOURCEPACKAGE_H
+#define SRESOURCEPACKAGE_H
 
-#ifndef DOMSERVERCLIENT_H
-#define DOMSERVERCLIENT_H
-
-#include <QTcpSocket>
 #include <QDomDocument>
-#include <QStringList>
 
 /**
  * @author David Cuadrado <krawek@gmail.com>
 */
-class DomServerClient : public QTcpSocket
+class SResourcePackage : public QDomDocument
 {
-	Q_OBJECT;
 	public:
-		DomServerClient(QObject *parent = 0);
-		~DomServerClient();
-
+		SResourcePackage();
+		~SResourcePackage();
+		
+	private:
+		void addResource(QDomElement &element, const QString &path);
 };
 
 #endif

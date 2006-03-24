@@ -166,7 +166,10 @@ void CMainWindow::showConnectDialog()
 void CMainWindow::addForm(QWidget *form, const QString &title)
 {
 	D_FUNCINFO;
-	addWidget( form, title, false);
+	if ( form )
+	{
+		addWidget( form, title, false);
+	}
 }
 
 void CMainWindow::buildModules(const ModuleForms &modules)

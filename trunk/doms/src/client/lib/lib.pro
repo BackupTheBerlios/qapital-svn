@@ -3,11 +3,20 @@
 # Subdir relative project main directory: ./src/client/lib
 # Target is a library:  dclient
 
+QT += xml svg 
 INSTALLS += include \
             target 
 target.path = /lib/ 
 include.files += *.h 
 include.path = /include/client/ 
+KDEV_QTVER = 4 
+INCLUDEPATH += ../../../src/dlib/dgui \
+               ../../../src/dlib/dcore 
+TARGET = dclient 
+CONFIG += release \
+          warn_on \
+          staticlib 
+TEMPLATE = lib 
 HEADERS += global.h \
            cmodulewidget.h \
            cformbuilder.h \
@@ -15,12 +24,3 @@ HEADERS += global.h \
 SOURCES += cmodulewidget.cpp \
            cformbuilder.cpp \
            cmodulebuttonbar.cpp 
-QT += xml
-KDEV_QTVER = 4
-INCLUDEPATH += ../../../src/dlib/dgui \
-../../../src/dlib/dcore
-TARGET = dclient
-CONFIG += release \
-warn_on \
-staticlib
-TEMPLATE = lib

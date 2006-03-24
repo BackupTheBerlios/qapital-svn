@@ -23,7 +23,6 @@
 #include <QDir>
 
 #include "dglobal.h"
-
 #include "ddebug.h"
 
 SSuccessPackage::SSuccessPackage(const QString& msg): QDomDocument()
@@ -55,7 +54,6 @@ SSuccessPackage::SSuccessPackage(const QString& msg): QDomDocument()
 				QDomElement e = n.toElement();
 				if(!e.isNull()) 
 				{
-					dDebug() << e.tagName();
 					if ( e.tagName() == "Module" )
 					{
 						QString name = e.attribute("key");
@@ -117,5 +115,7 @@ void SSuccessPackage::addForm(QDomElement &module, int id, const QString &formPa
 		formDef.appendChild(cdata);
 		
 		module.appendChild(formDef);
+		
+		ffile.close();
 	}
 }

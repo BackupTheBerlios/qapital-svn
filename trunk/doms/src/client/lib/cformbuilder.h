@@ -56,6 +56,8 @@ class CFormBuilder : public QXmlDefaultHandler
 		QWidgetList m_widgets;
 		
 		QWidget *m_form;
+		
+		QString m_charData;
 };
 
 #endif

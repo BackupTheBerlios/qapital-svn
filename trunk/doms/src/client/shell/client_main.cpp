@@ -39,6 +39,7 @@ int main(int argc, char **argv)
 	DCONFIG->beginGroup("General");
 	
 	dAppProp->setHomeDir( DCONFIG->value("Home", "/").toString() );
+	dAppProp->setCacheDir( DCONFIG->value("Repository", "/").toString() );
 	
 	QString home = dAppProp->homeDir();
 	if ( home == "/" || home.isEmpty() )

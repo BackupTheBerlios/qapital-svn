@@ -18,23 +18,24 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "domserver.h"
-#include "domserverconnection.h"
+#include "dtserver.h"
+#include "dtserverconnection.h"
 
 #include <ddebug.h>
 
 #include "serrorpackage.h"
 #include "ssuccesspackage.h"
+#include "sresourcepackage.h"
 
-DomServer::DomServer(QObject *parent) : QTcpServer(parent)
+DTServer::DTServer(QObject *parent) : QTcpServer(parent)
 {
 }
 
-void DomServer::incomingConnection(int socketDescriptor)
+void DTServer::incomingConnection(int socketDescriptor)
 {
 	SHOW_VAR(m_connections.count());
 	
-	DomServerConnection *newConnection = new DomServerConnection(socketDescriptor,this);
+	DTServerConnection *newConnection = new DTServerConnection(socketDescriptor,this);
 	
 	handle(newConnection);
 	
@@ -43,45 +44,46 @@ void DomServer::incomingConnection(int socketDescriptor)
 	newConnection->start();
 }
 
-void DomServer::handle(const DomServerConnection *cnx)
+void DTServer::handle(const DTServerConnection *cnx)
 {
 	connect(cnx, SIGNAL(finished()), cnx, SLOT(deleteLater()));
 	
 	connect(cnx, SIGNAL(requestSendToAll( const QString& )), this, SLOT(sendToAll( const QString& )));
 	connect(cnx, SIGNAL(requestSendToAll( const QDomDocument& )), this, SLOT(sendToAll( const QDomDocument& )));
 	
-	connect(cnx, SIGNAL(requestRemoveConnection(DomServerConnection *)), this, SLOT(removeConnection(DomServerConnection *)));
+	connect(cnx, SIGNAL(requestRemoveConnection(DTServerConnection *)), this, SLOT(removeConnection(DTServerConnection *)));
 	
-	connect(cnx, SIGNAL(requestAuth(DomServerConnection *, const QString &, const QString &)), this, SLOT(authenticate(DomServerConnection *,const QString &, const QString &)));
+	connect(cnx, SIGNAL(requestAuth(DTServerConnection *, const QString &, const QString &)), this, SLOT(authenticate(DTServerConnection *,const QString &, const QString &)));
 }
 
 
-void DomServer::sendToAll(const QString &msg)
+void DTServer::sendToAll(const QString &msg)
 {
-	foreach(DomServerConnection *connection, m_connections)
+	foreach(DTServerConnection *connection, m_connections)
 	{
 		connection->sendToClient(msg);
 	}
 }
 
-void DomServer::sendToAll(const QDomDocument &pkg)
+void DTServer::sendToAll(const QDomDocument &pkg)
 {
 	D_FUNCINFO;
-	foreach(DomServerConnection *connection, m_connections)
+	foreach(DTServerConnection *connection, m_connections)
 	{
 		connection->sendToClient(pkg);
 	}
 }
 
-void DomServer::removeConnection(DomServerConnection *cnx)
+void DTServer::removeConnection(DTServerConnection *cnx)
 {
 	D_FUNCINFO;
 	m_connections.removeAll(cnx);
 }
 
-void DomServer::authenticate(DomServerConnection *cnx, const QString &login, const QString &password)
+void DTServer::authenticate(DTServerConnection *cnx, const QString &login, const QString &password)
 {
 	// TODO: HACER VALIDACION!
+	// TODO: Hacer una blacklist!
 	dDebug() << "Request auth!";
 	dDebug() << "Login: " << login << " Password: " << password;
 	
@@ -91,6 +93,7 @@ void DomServer::authenticate(DomServerConnection *cnx, const QString &login, con
 	cnx->setLogin(login);
 	
 	cnx->sendToClient( SSuccessPackage("weeeeeeee"));
+	cnx->sendToClient( SResourcePackage() );
 	
 // 	cnx->close(); 
 }

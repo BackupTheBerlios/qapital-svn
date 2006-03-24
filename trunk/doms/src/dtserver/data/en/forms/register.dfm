@@ -1,4 +1,5 @@
 <Form>
+	<Image filename="logo.svg" />
 	<Label text="&lt;center&gt;&lt;h1&gt;Estado de cuenta odontoespecialistas&lt;/h1&gt;&lt;/center&gt;" />
 	<HBox>
 		<Input label="NOMBRE DEL PACIENTE" />

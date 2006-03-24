@@ -18,17 +18,17 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "domserverclient.h"
+#include "dtserverclient.h"
 
 #include <QDataStream>
 
 #include <ddebug.h>
 
-DomServerClient::DomServerClient(QObject *parent) : QTcpSocket(parent)
+DTServerClient::DTServerClient(QObject *parent) : QTcpSocket(parent)
 {
 }
 
-DomServerClient::~DomServerClient()
+DTServerClient::~DTServerClient()
 {
 }
 

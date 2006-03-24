@@ -18,48 +18,37 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef DOMSERVERCONNECTION_H
-#define DOMSERVERCONNECTION_H
+#ifndef FORTUNESERVER_H
+#define FORTUNESERVER_H
 
-#include <QThread>
-#include <QTcpSocket>
-#include <QDomDocument>
+#include <QStringList>
+#include <QTcpServer>
 
-#include "domserverclient.h"
-#include "spackageparser.h"
+#include "dtserverconnection.h"
 
-class DomServerConnection : public QThread
+class DTServer : public QTcpServer
 {
-	Q_OBJECT;
+	Q_OBJECT
 
 	public:
-		DomServerConnection(int socketDescriptor, QObject *parent);
-		~DomServerConnection();
-		void run();
-		
-		void close();
-		void setLogin(const QString &login);
-		
-	private:
+		DTServer(QObject *parent = 0);
+		void sendToAll(const QDomDocument &pkg);
 		
 	public slots:
-		void sendToClient(const QString &msg);
-		void sendToClient(const QDomDocument &doc);
-
-	signals:
-		void error(QTcpSocket::SocketError socketError);
-		void requestSendToAll(const QString &msg);
-// 		void requestSendToAll(const QDomDocument &pkg);
-		void requestRemoveConnection(DomServerConnection *self);
+		void sendToAll(const QString &msg);
+		void removeConnection(DTServerConnection *cnx);
+		void authenticate(DTServerConnection *cnx,const QString &login, const QString &password);
 		
-		void requestAuth(DomServerConnection *cnx, const QString &, const QString &);
-
+		
 	private:
-		DomServerClient *m_client;
+		void handle(const DTServerConnection *cnx);
 		
-		QXmlSimpleReader m_reader;
-		SPackageParser *m_parser;
-		QString m_login;
+		
+	protected:
+		void incomingConnection(int socketDescriptor);
+		
+	private:
+		QList<DTServerConnection *> m_connections;
 };
 
 #endif

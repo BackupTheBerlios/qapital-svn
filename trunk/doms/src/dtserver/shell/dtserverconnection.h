@@ -18,78 +18,48 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "cformmanager.h"
+#ifndef DOMSERVERCONNECTION_H
+#define DOMSERVERCONNECTION_H
 
-#include <QFile>
-#include <QTextStream>
-#include <QDir>
+#include <QThread>
+#include <QTcpSocket>
+#include <QDomDocument>
 
-#include <dapplicationproperties.h>
-#include <ddebug.h>
+#include "dtserverclient.h"
+#include "spackageparser.h"
 
-CFormManager::CFormManager(QObject *parent) : QObject(parent)
+class DTServerConnection : public QThread
 {
-	m_builder = new CFormBuilder;
-	
-	m_formsPath = dAppProp->cacheDir()+"/forms";
-	
-	QDir dir(m_formsPath);
-	if ( !dir.exists() )
-	{
-		dir.mkpath(m_formsPath);
-	}
-}
+	Q_OBJECT;
 
-CFormManager::~CFormManager()
-{
-	delete m_builder;
-}
-
-void CFormManager::setForms(const ModuleForms &moduleForms)
-{
-	D_FUNCINFO;
-	
-	foreach(QString moduleName, moduleForms.keys() )
-	{
-		FormDataList forms = moduleForms[moduleName];
+	public:
+		DTServerConnection(int socketDescriptor, QObject *parent);
+		~DTServerConnection();
+		void run();
 		
-		foreach(FormData data, forms)
-		{
-			QFile file(m_formsPath+"/"+moduleName+"-"+QString::number(data.id));
-			
-			if ( file.open(QIODevice::WriteOnly | QIODevice::Text))
-			{
-				QTextStream out(&file);
-				
-				out << data.document;
-				file.close();
-			}
-		}
-	}
-}
+		void close();
+		void setLogin(const QString &login);
+		
+	private:
+		
+	public slots:
+		void sendToClient(const QString &msg);
+		void sendToClient(const QDomDocument &doc);
 
+	signals:
+		void error(QTcpSocket::SocketError socketError);
+		void requestSendToAll(const QString &msg);
+// 		void requestSendToAll(const QDomDocument &pkg);
+		void requestRemoveConnection(DTServerConnection *self);
+		
+		void requestAuth(DTServerConnection *cnx, const QString &, const QString &);
 
-void CFormManager::loadForm(const QString &module, int id)
-{
-	dDebug() << "Loading form from " << module << " with id: " << id;
-	QString moduleKey = module.toLower();
-	QFile file(m_formsPath+"/"+moduleKey+"-"+QString::number(id));
-	
-	if ( file.exists() )
-	{
-		if ( file.open(QIODevice::ReadOnly | QIODevice::Text))
-		{
-			QString document = file.readAll();
-			
-			QWidget *form = m_builder->form( document );
-			emit formLoaded( form, m_builder->formTitle());
-		}
-	}
-	else
-	{
-		dError() << "Form from module " << moduleKey << " with id = " << id << " doesn't exists";
-	}
-}
+	private:
+		DTServerClient *m_client;
+		
+		QXmlSimpleReader m_reader;
+		SPackageParser *m_parser;
+		QString m_login;
+};
 
-
-
+#endif

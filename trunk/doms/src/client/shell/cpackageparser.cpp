@@ -37,6 +37,7 @@ void CPackageParser::reset()
 	m_qname = QString();
 	
 	m_currentForms.clear();
+	m_resources.clear();
 	m_values.clear();
 }
 
@@ -89,6 +90,23 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 		{
 		}
 	}
+	else if ( m_root == "Resources" )
+	{
+		if ( qname == "Svg" )
+		{
+			QString fileName = atts.value("filename");
+			
+			m_resources.append(qMakePair(fileName, QString("")));
+			
+			m_readChar = true;
+		}
+		else if ( qname == "Image" )
+		{
+		}
+		else if (qname == "Sound" )
+		{
+		}
+	}
 	
 	m_qname = qname;
 	return true;
@@ -104,6 +122,20 @@ bool CPackageParser::endElement(const QString&, const QString& , const QString& 
 		if ( qname == "Module" )
 		{
 			m_moduleForms.insert(m_currentModuleKey, m_currentForms);
+		}
+	}
+	else if ( m_root == "Resources" )
+	{
+		if ( !m_resources.isEmpty() )
+		{
+			QFile rsc(REPOSITORY+"/"+m_resources.last().first );
+			
+			if( rsc.open( QIODevice::WriteOnly ) ) // FIXME: Images and sound must be binary
+			{
+				QTextStream out(&rsc);
+				out << m_resources.last().second << endl;
+				rsc.close();
+			}
 		}
 	}
 	
@@ -125,6 +157,15 @@ bool CPackageParser::characters ( const QString & ch )
 			{
 				// ch contiene el formulario
 				m_currentForms.last().document = ch;
+			}
+		}
+		else if ( m_root == "Resources" )
+		{
+			if ( m_qname == "Svg" )
+			{
+				m_resources.last().second = ch;
+				
+				m_readChar = true;
 			}
 		}
 		

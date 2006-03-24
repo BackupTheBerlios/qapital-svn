@@ -18,7 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "domserverconnection.h"
+#include "dtserverconnection.h"
 
 #include <QtNetwork>
 
@@ -27,9 +27,9 @@
 #include "serrorpackage.h"
 #include "schatpackage.h"
 
-DomServerConnection::DomServerConnection(int socketDescriptor, QObject *parent) : QThread(parent)
+DTServerConnection::DTServerConnection(int socketDescriptor, QObject *parent) : QThread(parent)
 {
-	m_client = new DomServerClient(this);
+	m_client = new DTServerClient(this);
 	m_client->setSocketDescriptor(socketDescriptor);
 	
 	m_parser = new SPackageParser;
@@ -38,12 +38,12 @@ DomServerConnection::DomServerConnection(int socketDescriptor, QObject *parent) 
 	m_reader.setErrorHandler(m_parser);
 }
 
-DomServerConnection::~DomServerConnection()
+DTServerConnection::~DTServerConnection()
 {
 	delete m_client;
 }
 
-void DomServerConnection::run()
+void DTServerConnection::run()
 {
 	while(m_client->state() != QAbstractSocket::UnconnectedState)
 	{
@@ -89,7 +89,7 @@ void DomServerConnection::run()
 	emit requestRemoveConnection( this );
 }
 
-void DomServerConnection::sendToClient(const QString &msg)
+void DTServerConnection::sendToClient(const QString &msg)
 {
 	dDebug() << "SENDING: " << msg;
 	QTextStream out(m_client);
@@ -98,12 +98,12 @@ void DomServerConnection::sendToClient(const QString &msg)
 	m_client->flush();
 }
 
-void DomServerConnection::sendToClient(const QDomDocument &doc)
+void DTServerConnection::sendToClient(const QDomDocument &doc)
 {
 	sendToClient( doc.toString());
 }
 
-void DomServerConnection::close()
+void DTServerConnection::close()
 {
 	D_FUNCINFO;
 // 	m_client->waitForDisconnected();
@@ -111,7 +111,7 @@ void DomServerConnection::close()
 	m_client->close();
 }
 
-void DomServerConnection::setLogin(const QString &login)
+void DTServerConnection::setLogin(const QString &login)
 {
 	m_login = login;
 }

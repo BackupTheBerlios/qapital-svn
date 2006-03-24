@@ -18,37 +18,23 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef FORTUNESERVER_H
-#define FORTUNESERVER_H
+#ifndef DOMSERVERCLIENT_H
+#define DOMSERVERCLIENT_H
 
+#include <QTcpSocket>
+#include <QDomDocument>
 #include <QStringList>
-#include <QTcpServer>
 
-#include "domserverconnection.h"
-
-class DomServer : public QTcpServer
+/**
+ * @author David Cuadrado <krawek@gmail.com>
+*/
+class DTServerClient : public QTcpSocket
 {
-	Q_OBJECT
-
+	Q_OBJECT;
 	public:
-		DomServer(QObject *parent = 0);
-		void sendToAll(const QDomDocument &pkg);
-		
-	public slots:
-		void sendToAll(const QString &msg);
-		void removeConnection(DomServerConnection *cnx);
-		void authenticate(DomServerConnection *cnx,const QString &login, const QString &password);
-		
-		
-	private:
-		void handle(const DomServerConnection *cnx);
-		
-		
-	protected:
-		void incomingConnection(int socketDescriptor);
-		
-	private:
-		QList<DomServerConnection *> m_connections;
+		DTServerClient(QObject *parent = 0);
+		~DTServerClient();
+
 };
 
 #endif

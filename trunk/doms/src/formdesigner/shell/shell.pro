@@ -4,7 +4,7 @@
 # Target is an application:  ../../../bin/dformcreator.bin
 
 RESOURCES += icons.qrc 
-QT += xml 
+QT += xml svg 
 INSTALLS += target 
 target.path = /bin/ 
 KDEV_QTVER = 4 
