@@ -26,7 +26,7 @@
 #include <QLabel>
 #include <QToolButton>
 
-#include <dclicklineedit.h>
+#include <dtreewidgetsearchline.h>
 
 #include "global.h"
 
@@ -42,12 +42,14 @@ CModuleWidget::CModuleWidget(const QString &moduleMame, QWidget *parent) : QWidg
 	
 	search->addWidget(button);
 	
-	m_pSearch = new DClickLineEdit(tr("Search here")+"...");
+	m_pTree = new DTreeListWidget;
+	
+	m_pSearch = new DTreeWidgetSearchLine(tr("Search here")+"...", this, m_pTree);
 	search->addWidget( m_pSearch );
 	
-	layout->addLayout(search);
+	m_pSearch->setSearchColumns(QList<int>() << 0 );
 	
-	m_pTree = new DTreeListWidget;
+	layout->addLayout(search);
 	
 	layout->addWidget(m_pTree);
 	

@@ -1,6 +1,6 @@
 <Form title="Historia Clinica" >
 	<HBox>
-		<Image width="100" height="100" />
+		<Image filename="logo.svg" />
 		<VBox>
 			<Label text="Historia clinica" />
 			<Input label="No." />

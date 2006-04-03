@@ -26,7 +26,7 @@
 #include <QTreeWidget>
 #include <dtreelistwidget.h>
 
-class DClickLineEdit;
+class DTreeWidgetSearchLine;
 class QBoxLayout;
 
 /**
@@ -47,7 +47,7 @@ class CModuleWidget : public QWidget
 		
 	protected:
 		DTreeListWidget *m_pTree;
-		DClickLineEdit *m_pSearch;
+		DTreeWidgetSearchLine *m_pSearch;
 };
 
 #endif
