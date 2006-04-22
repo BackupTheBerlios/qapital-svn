@@ -4,10 +4,11 @@
 # Target is a subdirs project 
 
 SUBDIRS += lib \
-           themes \ 
+           themes \
            packages \
            modules \
-           shell 
+           shell \
+           admin 
 KDEV_QTVER = 4
 CONFIG += release \
 warn_on

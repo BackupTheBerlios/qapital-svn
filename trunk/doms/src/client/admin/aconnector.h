@@ -18,44 +18,37 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef CCONNECTOR_H
-#define CCONNECTOR_H
+#ifndef ACONNECTOR_H
+#define ACONNECTOR_H
 
-#include "cconnectorbase.h"
+#include <cconnectorbase.h>
 
-#include <QStringList>
 #include <QXmlSimpleReader>
 
-#include "global.h"
-
-class CPackageParser;
+#include "apackageparser.h"
 
 /**
- * Maneja las conexiones al servidor, asi mismo tambien maneja los errores de conexion
  * @author David Cuadrado <krawek@gmail.com>
 */
-class CConnector : public CConnectorBase
+class AConnector : public CConnectorBase
 {
 	Q_OBJECT;
 	public:
-		CConnector(QObject * parent = 0);
-		~CConnector();
-		
-		void login(const QString &user, const QString &passwd);
-		
-	private slots:
-		void readFromServer();
-		void handleError(QAbstractSocket::SocketError error);
-		
-	signals:
-		void readedModuleForms(const ModuleForms &);
-		void chatMessage(const QString &login, const QString &msg);
+		AConnector(QObject * parent = 0);
+		~AConnector();
+
+		virtual void login(const QString& user, const QString& passwd);
+
+	protected slots:
+		virtual void handleError(QAbstractSocket::SocketError error);
+		virtual void readFromServer();
 		
 	private:
 		QXmlSimpleReader m_reader;
-		CPackageParser *m_parser;
+		APackageParser *m_parser;
 		
 		QString m_readed;
+
 };
 
 #endif

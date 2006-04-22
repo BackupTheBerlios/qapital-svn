@@ -49,7 +49,7 @@ class DTServerConnection : public QThread
 	signals:
 		void error(QTcpSocket::SocketError socketError);
 		void requestSendToAll(const QString &msg);
-// 		void requestSendToAll(const QDomDocument &pkg);
+		
 		void requestRemoveConnection(DTServerConnection *self);
 		
 		void requestAuth(DTServerConnection *cnx, const QString &, const QString &);

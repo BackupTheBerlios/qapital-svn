@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2006 by David Cuadrado                                  *
- *   krawek@gmail.com                                                      *
+ *   krawek@gmail.com                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,44 +18,39 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef CCONNECTOR_H
-#define CCONNECTOR_H
+#include "aapplication.h"
 
-#include "cconnectorbase.h"
+#include "cfirstrundialog.h"
 
-#include <QStringList>
-#include <QXmlSimpleReader>
+#include <dconfig.h>
 
-#include "global.h"
-
-class CPackageParser;
-
-/**
- * Maneja las conexiones al servidor, asi mismo tambien maneja los errores de conexion
- * @author David Cuadrado <krawek@gmail.com>
-*/
-class CConnector : public CConnectorBase
+AApplication::AApplication(int & argc, char ** argv) : DApplication(argc, argv)
 {
-	Q_OBJECT;
-	public:
-		CConnector(QObject * parent = 0);
-		~CConnector();
-		
-		void login(const QString &user, const QString &passwd);
-		
-	private slots:
-		void readFromServer();
-		void handleError(QAbstractSocket::SocketError error);
-		
-	signals:
-		void readedModuleForms(const ModuleForms &);
-		void chatMessage(const QString &login, const QString &msg);
-		
-	private:
-		QXmlSimpleReader m_reader;
-		CPackageParser *m_parser;
-		
-		QString m_readed;
-};
+	
+}
 
-#endif
+
+AApplication::~AApplication()
+{
+}
+
+bool AApplication::firstRun()
+{
+	CFirstRunDialog configurator;
+	
+// 	configurator.welcomePage()->setMessage("Test");
+	
+	if ( configurator.exec() != QDialog::Rejected )
+	{
+		DCONFIG->setValue("Home", configurator.home());
+		DCONFIG->setValue("Repository", configurator.repository());
+		
+		DCONFIG->sync();
+		
+		return true;
+	}
+
+	return false;
+}
+
+

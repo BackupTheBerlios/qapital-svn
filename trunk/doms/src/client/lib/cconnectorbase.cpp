@@ -18,44 +18,55 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef CCONNECTOR_H
-#define CCONNECTOR_H
-
 #include "cconnectorbase.h"
 
-#include <QStringList>
-#include <QXmlSimpleReader>
+#include <QDataStream>
+
+#include <ddebug.h>
 
 #include "global.h"
 
-class CPackageParser;
-
-/**
- * Maneja las conexiones al servidor, asi mismo tambien maneja los errores de conexion
- * @author David Cuadrado <krawek@gmail.com>
-*/
-class CConnector : public CConnectorBase
+CConnectorBase::CConnectorBase(QObject * parent) : QTcpSocket(parent)
 {
-	Q_OBJECT;
-	public:
-		CConnector(QObject * parent = 0);
-		~CConnector();
-		
-		void login(const QString &user, const QString &passwd);
-		
-	private slots:
-		void readFromServer();
-		void handleError(QAbstractSocket::SocketError error);
-		
-	signals:
-		void readedModuleForms(const ModuleForms &);
-		void chatMessage(const QString &login, const QString &msg);
-		
-	private:
-		QXmlSimpleReader m_reader;
-		CPackageParser *m_parser;
-		
-		QString m_readed;
-};
+	connect(this, SIGNAL(readyRead()), this, SLOT(readFromServer()));
+	connect(this, SIGNAL(error ( QAbstractSocket::SocketError)), this, SLOT(handleError(QAbstractSocket::SocketError)));
+	
+	connect(this, SIGNAL(connected()), this, SLOT(flushQueue()));
+}
 
-#endif
+
+CConnectorBase::~CConnectorBase()
+{
+}
+
+void CConnectorBase::readFromServer()
+{
+}
+
+void CConnectorBase::sendToServer(const QString &text)
+{
+	dDebug() << "Sending: " << text;
+	
+	if ( state() == QAbstractSocket::ConnectedState )
+	{
+		QTextStream out(this);
+		out << text << endl;
+		flush();
+	}
+	else
+	{
+		m_queue << text;
+	}
+}
+
+void CConnectorBase::flushQueue()
+{
+	D_FUNCINFO;
+	while ( m_queue.count() > 0 )
+	{
+		sendToServer( m_queue.takeFirst());
+	}
+}
+
+
+

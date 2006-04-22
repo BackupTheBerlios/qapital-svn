@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2006 by David Cuadrado                                  *
- *   krawek@gmail.com                                                      *
+ *   krawek@gmail.com                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,44 +18,52 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef CCONNECTOR_H
-#define CCONNECTOR_H
+#include "aapplication.h"
+#include "amainwindow.h"
 
-#include "cconnectorbase.h"
+#include <dconfig.h>
+#include <dapplicationproperties.h> // dAppProp
 
-#include <QStringList>
-#include <QXmlSimpleReader>
 
-#include "global.h"
+#include <QStyle>
+#include <QMessageBox>
 
-class CPackageParser;
 
-/**
- * Maneja las conexiones al servidor, asi mismo tambien maneja los errores de conexion
- * @author David Cuadrado <krawek@gmail.com>
-*/
-class CConnector : public CConnectorBase
+int main(int argc, char **argv)
 {
-	Q_OBJECT;
-	public:
-		CConnector(QObject * parent = 0);
-		~CConnector();
-		
-		void login(const QString &user, const QString &passwd);
-		
-	private slots:
-		void readFromServer();
-		void handleError(QAbstractSocket::SocketError error);
-		
-	signals:
-		void readedModuleForms(const ModuleForms &);
-		void chatMessage(const QString &login, const QString &msg);
-		
-	private:
-		QXmlSimpleReader m_reader;
-		CPackageParser *m_parser;
-		
-		QString m_readed;
-};
+	AApplication app(argc, argv);
+	
+	app.setStyle("plastique");
+	
+	app.setPalette(app.style()->standardPalette());
+	app.setApplicationName("domsadmin");
+	
+	DCONFIG->beginGroup("General");
+	
+	dAppProp->setHomeDir( DCONFIG->value("Home", "/").toString() );
+	dAppProp->setCacheDir( DCONFIG->value("Repository", "/").toString() );
+	
+	QString home = dAppProp->homeDir();
+	if ( home == "/" || home.isEmpty() )
+	{
+		if (! app.firstRun() )
+		{
+			QMessageBox::critical(0, app.applicationName(), QObject::tr("Please configure the application first!"));
+			
+			return 0;
+		}
+		else
+		{
+			dAppProp->setHomeDir( DCONFIG->value("Home", "/").toString() );
+			dAppProp->setCacheDir( DCONFIG->value("Repository", "/").toString() );
+		}
+	}
+	
+	dAppProp->setThemeDir(dAppProp->homeDir()+"/data/themes/default");
+	
+	AMainWindow mw;
+	mw.show();
+	
+	return app.exec();
+}
 
-#endif

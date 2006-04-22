@@ -18,44 +18,46 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef CCONNECTOR_H
-#define CCONNECTOR_H
+#ifndef AMAINWINDOW_H
+#define AMAINWINDOW_H
 
-#include "cconnectorbase.h"
+#include <dmainwindow.h>
+#include <dactionmanager.h>
 
-#include <QStringList>
-#include <QXmlSimpleReader>
+#include "aconnector.h"
 
-#include "global.h"
+// Tools
+#include "chelpbrowser.h"
 
-class CPackageParser;
+// Modules
+#include "chelpwidget.h"
 
 /**
- * Maneja las conexiones al servidor, asi mismo tambien maneja los errores de conexion
  * @author David Cuadrado <krawek@gmail.com>
 */
-class CConnector : public CConnectorBase
+class AMainWindow : public DMainWindow
 {
 	Q_OBJECT;
 	public:
-		CConnector(QObject * parent = 0);
-		~CConnector();
-		
-		void login(const QString &user, const QString &passwd);
+		AMainWindow(QWidget *parent = 0);
+		~AMainWindow();
 		
 	private slots:
-		void readFromServer();
-		void handleError(QAbstractSocket::SocketError error);
-		
-	signals:
-		void readedModuleForms(const ModuleForms &);
-		void chatMessage(const QString &login, const QString &msg);
+		void showConnectDialog();
 		
 	private:
-		QXmlSimpleReader m_reader;
-		CPackageParser *m_parser;
+		void setupActions();
+		void setupMenu();
+		void setupToolbar();
 		
-		QString m_readed;
+	private:
+		CHelpWidget *m_helper;
+		CHelpBrowser *m_helpBrowser;
+		
+		DActionManager *m_actionManager;
+		
+		AConnector *m_connector;
+	
 };
 
 #endif

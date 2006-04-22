@@ -25,7 +25,7 @@
 
 #include "dwizard.h"
 
-class CWFirstPage;
+class CWWelcomePage;
 class CWSecondPage;
 
 class QLineEdit;
@@ -64,24 +64,31 @@ class CFirstRunDialog : public DWizard
 		 * @return la ruta del directorio repository
 		 */
 		QString repository();
+		
+		CWWelcomePage *welcomePage();
 
 	private:
-		CWFirstPage *m_firstPage;
+		CWWelcomePage *m_welcomePage;
 		CWSecondPage *m_secondPage;
 		
 		QString kthome;
 		QString ktrepos;
 };
 
-class CWFirstPage : public DWizardPage
+class CWWelcomePage : public DWizardPage
 {
 	Q_OBJECT
 	public:
-		CWFirstPage(QWidget *parent = 0);
-		~CWFirstPage();
-
+		CWWelcomePage(QWidget *parent = 0);
+		~CWWelcomePage();
+		
+		void setMessage(const QString &msg);
+		
 		bool isComplete() { return true; };
 		void reset() { };
+		
+	private:
+		QLabel *m_message;
 };
 
 class CWSecondPage : public DWizardPage

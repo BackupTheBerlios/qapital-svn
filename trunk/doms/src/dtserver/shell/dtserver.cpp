@@ -21,6 +21,8 @@
 #include "dtserver.h"
 #include "dtserverconnection.h"
 
+#include <QHostInfo>
+
 #include <ddebug.h>
 
 #include "serrorpackage.h"
@@ -29,6 +31,56 @@
 
 DTServer::DTServer(QObject *parent) : QTcpServer(parent)
 {
+}
+
+DTServer::DTServer(DTS::ConnectionType type, const QString &host, QObject *parent) : QTcpServer(parent)
+{
+	openConnection( type, host);
+}
+
+DTServer::~DTServer()
+{
+}
+
+bool DTServer::openConnection(DTS::ConnectionType type, const QString &host)
+{
+	QList<QHostAddress> addrs = QHostInfo::fromName(host).addresses();
+	
+	if ( !addrs.isEmpty() )
+	{
+		int port = 0;
+		
+		switch(type)
+		{
+			case DTS::Admin:
+			{
+				port = DTS::ADMIN_PORT;
+			}
+			break;
+			case DTS::Client:
+			{
+				port = DTS::CLIENT_PORT;
+			}
+			break;
+		}
+		
+		if(! listen(QHostAddress(addrs[0]), port) )
+		{
+			dError() << "Can't connect to " << host<<":"<<port<< " error was: " << errorString();
+			return false;
+		}
+		else
+		{
+			m_type = type;
+		}
+	}
+	else
+	{
+		dError() << "Error while try to resolve " << host;
+		return false;
+	}
+	
+	return true;
 }
 
 void DTServer::incomingConnection(int socketDescriptor)

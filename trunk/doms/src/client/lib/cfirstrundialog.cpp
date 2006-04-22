@@ -40,8 +40,8 @@ CFirstRunDialog::CFirstRunDialog() : DWizard(0)
 {
 	setModal(true);
 	
-	m_firstPage = new CWFirstPage;
-	addPage(m_firstPage);
+	m_welcomePage = new CWWelcomePage;
+	addPage(m_welcomePage);
 	
 	m_secondPage = new CWSecondPage;
 	addPage(m_secondPage);
@@ -66,22 +66,32 @@ QString CFirstRunDialog::repository()
 	return m_secondPage->repository();
 }
 
-// CWFirstPage
-CWFirstPage::CWFirstPage(QWidget *parent) : DWizardPage(tr("Welcome"), parent)
+CWWelcomePage *CFirstRunDialog::welcomePage()
+{
+	return m_welcomePage;
+}
+
+// CWWelcomePage
+CWWelcomePage::CWWelcomePage(QWidget *parent) : DWizardPage(tr("Welcome"), parent)
 {
 	QImage img(wizard1_xpm);
 	
 	setPixmap( QPixmap::fromImage(KImageEffect::blend(img, 0.1f, palette().color(QPalette::Background), KImageEffect::DiagonalGradient, true)) );
 
-	QLabel *msg = new QLabel(tr("<h3>DOMS</h3><br>"
+	m_message = new QLabel(tr("<h3>DOMS</h3><br>"
 			"In this wizard you need set a values for proper application configuration<br><br>"
 			"<em>--The Doms Team</em>"));
 	
-	setWidget(msg);
+	setWidget(m_message);
 }
 
-CWFirstPage::~ CWFirstPage()
+CWWelcomePage::~ CWWelcomePage()
 {
+}
+
+void CWWelcomePage::setMessage(const QString &msg)
+{
+	m_message->setText( msg);
 }
 
 

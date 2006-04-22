@@ -29,13 +29,8 @@
 
 #include "global.h"
 
-CConnector::CConnector(QObject * parent) : QTcpSocket(parent)
+CConnector::CConnector(QObject * parent) : CConnectorBase(parent)
 {
-	connect(this, SIGNAL(readyRead()), this, SLOT(readFromServer()));
-	connect(this, SIGNAL(error ( QAbstractSocket::SocketError)), this, SLOT(handleError(QAbstractSocket::SocketError)));
-	
-	connect(this, SIGNAL(connected()), this, SLOT(flushQueue()));
-	
 	m_parser = new CPackageParser;
 	m_reader.setContentHandler(m_parser);
 	m_reader.setErrorHandler(m_parser);
@@ -80,37 +75,12 @@ void CConnector::readFromServer()
 	}
 }
 
-void CConnector::sendToServer(const QString &text)
-{
-	dDebug() << "Sending: " << text;
-	
-	if ( state() == QAbstractSocket::ConnectedState )
-	{
-		QTextStream out(this);
-		out << text << endl;
-		flush();
-	}
-	else
-	{
-		m_queue << text;
-	}
-}
-
 void CConnector::login(const QString &user, const QString &passwd)
 {
 	QString toSend = CConnectPackage(user, passwd).toString();
 	toSend.remove('\n');
 	
 	sendToServer( toSend );
-}
-
-void CConnector::flushQueue()
-{
-	D_FUNCINFO;
-	while ( m_queue.count() > 0 )
-	{
-		sendToServer( m_queue.takeFirst());
-	}
 }
 
 void CConnector::handleError(QAbstractSocket::SocketError error)

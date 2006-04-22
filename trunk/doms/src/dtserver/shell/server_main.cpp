@@ -44,28 +44,38 @@ int main(int argc, char **argv)
 	
 	DApplicationProperties::instance()->setHomeDir( DCONFIG->value("Home", 0).toString() );
 	
-	DTServer server;
+	
+	
+	// Cliente
+	DTServer clientServer;
 	
 	DCONFIG->beginGroup("Connection");
+	
 	QString host = DCONFIG->value("Host", "localhost").toString();
-	int port = DCONFIG->value("Port", 0).toInt();
 	
-	dDebug() << "Opening server on " << host << ":" << port;
-	
-	QList<QHostAddress> addrs = QHostInfo::fromName(host).addresses();
-	
-	if ( !addrs.isEmpty() )
+	if ( !clientServer.openConnection( DTS::Client, host ) )
 	{
-		if(! server.listen(QHostAddress(addrs[0]), port) )
-		{
-			dError() << "Can't connecto to " << host<<":"<<port<< " error was: " <<  server.errorString();
-			return 255;
-		}
+		dDebug() << QObject::tr("Can't open client connection on %1").arg(host);
+		return 255;
 	}
 	else
 	{
-		dError() << "Error while try to resolve " << host;
+		dDebug() << QObject::tr("Open client connection on %1:%2").arg(host).arg(clientServer.serverPort());
+	}
+	
+	// Administrador
+	
+	DTServer adminServer;
+	
+	if ( !adminServer.openConnection( DTS::Admin, host ) )
+	{
+		dDebug() << QObject::tr("Can't open admin connection on %1").arg(host);
+		
 		return 255;
+	}
+	else
+	{
+		dDebug() << QObject::tr("Open admin connection on %1:%2").arg(host).arg(adminServer.serverPort());
 	}
 	
 	return app.exec();

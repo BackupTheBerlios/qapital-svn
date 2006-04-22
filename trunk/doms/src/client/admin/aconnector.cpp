@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2006 by David Cuadrado                                  *
- *   krawek@gmail.com                                                      *
+ *   krawek@gmail.com                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,44 +18,60 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef CCONNECTOR_H
-#define CCONNECTOR_H
+#include "aconnector.h"
 
-#include "cconnectorbase.h"
+#include "cconnectpackage.h"
 
-#include <QStringList>
-#include <QXmlSimpleReader>
+#include <ddebug.h>
 
-#include "global.h"
-
-class CPackageParser;
-
-/**
- * Maneja las conexiones al servidor, asi mismo tambien maneja los errores de conexion
- * @author David Cuadrado <krawek@gmail.com>
-*/
-class CConnector : public CConnectorBase
+AConnector::AConnector(QObject * parent) : CConnectorBase(parent)
 {
-	Q_OBJECT;
-	public:
-		CConnector(QObject * parent = 0);
-		~CConnector();
-		
-		void login(const QString &user, const QString &passwd);
-		
-	private slots:
-		void readFromServer();
-		void handleError(QAbstractSocket::SocketError error);
-		
-	signals:
-		void readedModuleForms(const ModuleForms &);
-		void chatMessage(const QString &login, const QString &msg);
-		
-	private:
-		QXmlSimpleReader m_reader;
-		CPackageParser *m_parser;
-		
-		QString m_readed;
-};
+	m_parser = new APackageParser;
+	m_reader.setContentHandler(m_parser);
+	m_reader.setErrorHandler(m_parser);
+}
 
-#endif
+
+AConnector::~AConnector()
+{
+}
+
+
+void AConnector::login(const QString& user, const QString& passwd)
+{
+	QString toSend = CConnectPackage(user, passwd).toString();
+	toSend.remove('\n');
+	
+	sendToServer( toSend );
+}
+
+void AConnector::handleError(QAbstractSocket::SocketError error)
+{
+	dError() << "Error: " << error;
+}
+
+void AConnector::readFromServer()
+{
+	while(canReadLine())
+	{
+		m_readed += readLine();
+	}
+	
+	QXmlInputSource xmlsource;
+	xmlsource.setData(m_readed);
+			
+	dDebug() << "READED: " << m_readed;
+	
+	if ( m_reader.parse(&xmlsource) )
+	{
+// 		QString root = m_parser->root();
+		
+		
+		m_readed = "";
+	}
+	else
+	{
+		
+	}
+}
+

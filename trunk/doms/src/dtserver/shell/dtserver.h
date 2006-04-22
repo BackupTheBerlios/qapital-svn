@@ -26,13 +26,19 @@
 
 #include "dtserverconnection.h"
 
+#include "dtsglobal.h"
+
 class DTServer : public QTcpServer
 {
-	Q_OBJECT
-
+	Q_OBJECT;
+	
 	public:
 		DTServer(QObject *parent = 0);
+		DTServer(DTS::ConnectionType type, const QString &host, QObject *parent = 0);
+		~DTServer();
 		void sendToAll(const QDomDocument &pkg);
+		
+		bool openConnection(DTS::ConnectionType type, const QString &host);
 		
 	public slots:
 		void sendToAll(const QString &msg);
@@ -49,6 +55,8 @@ class DTServer : public QTcpServer
 		
 	private:
 		QList<DTServerConnection *> m_connections;
+		
+		DTS::ConnectionType m_type;
 };
 
 #endif

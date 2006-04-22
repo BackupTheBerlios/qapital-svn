@@ -8,7 +8,8 @@ target.path = /bin/
 HEADERS += spackageparser.h \
            dtserver.h \
            dtserverclient.h \
-           dtserverconnection.h 
+           dtserverconnection.h \
+           dtsglobal.h 
 SOURCES += server_main.cpp \
            spackageparser.cpp \
            dtserver.cpp \

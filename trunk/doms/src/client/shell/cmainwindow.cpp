@@ -50,7 +50,7 @@ CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0)
 	
 	::pclose( process );
 	
-	QString title = QString::fromLocal8Bit(stdout);
+	QString title = QString::fromLocal8Bit(stdout).remove('\n');
 	
 	if ( !title.isEmpty() )
 	{
@@ -89,8 +89,7 @@ CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0)
 	
 	DCONFIG->beginGroup("TipOfDay");
 	bool showTips = qvariant_cast<bool>(DCONFIG->value("ShowOnStart", true ));
-
-
+	
 	if ( showTips )
 	{
 		QTimer::singleShot(0, this, SLOT(showTipDialog()));
