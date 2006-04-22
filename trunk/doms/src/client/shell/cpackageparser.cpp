@@ -84,7 +84,8 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 		}
 		else if ( qname == "Module" )
 		{
-			m_currentModuleKey = atts.value("key");
+			m_currentModule.key = atts.value("key");
+			m_currentModule.text = atts.value("text");
 		}
 		else if ( qname == "Message" )
 		{
@@ -121,7 +122,7 @@ bool CPackageParser::endElement(const QString&, const QString& , const QString& 
 	{
 		if ( qname == "Module" )
 		{
-			m_moduleForms.insert(m_currentModuleKey, m_currentForms);
+			m_moduleForms.insert(m_currentModule, m_currentForms);
 		}
 	}
 	else if ( m_root == "Resources" )

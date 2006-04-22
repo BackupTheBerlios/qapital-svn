@@ -26,6 +26,9 @@
 #include <QTreeWidget>
 #include <dtreelistwidget.h>
 
+#include "cmodulebuttonbar.h"
+#include "global.h"
+
 class DTreeWidgetSearchLine;
 class QBoxLayout;
 
@@ -39,6 +42,8 @@ class CModuleWidget : public QWidget
 	public:
 		CModuleWidget(const QString &moduleMame, QWidget *parent = 0);
 		~CModuleWidget();
+		
+		CModuleButtonBar *addButtonBar(int flags);
 		
 		QBoxLayout *boxLayout();
 		

@@ -23,6 +23,7 @@
 
 #include <QString>
 #include <QHash>
+#include <QMap>
 #include <QList>
 
 #include <dglobal.h>
@@ -33,8 +34,25 @@ struct FormData
 	QString document;
 };
 
+struct ModuleInfo
+{
+	QString key;
+	QString text;
+};
+
+inline bool operator==(const ModuleInfo &e1, const ModuleInfo &e2)
+{
+	return e1.key == e2.key && e1.text == e2.text;
+}
+
+inline uint qHash(const ModuleInfo &key)
+{
+	return qHash(key.key) ^ key.text.length();
+}
+
+
 typedef QList<FormData> FormDataList;
-typedef QHash<QString, FormDataList> ModuleForms;
+typedef QHash<ModuleInfo, FormDataList> ModuleForms;
 typedef QHash<QString, QString> XMLResults;
 
 #endif

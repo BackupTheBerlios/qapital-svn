@@ -175,25 +175,80 @@ void CMainWindow::buildModules(const ModuleForms &modules)
 {
 	m_formManager->setForms(modules);
 	
-	foreach(QString moduleName, modules.keys())
+	setUpdatesEnabled(false);
+	
+	foreach(ModuleInfo module, modules.keys())
 	{
-		CModuleWidget *module = 0;
+		CModuleWidget *moduleWidget = 0;
 		DDockWindow::Position pos = DDockWindow::Left;
 		
-		if ( moduleName.toLower() == tr("clients") )
+		QString title;
+		
+		if ( module.key == "pct" )
 		{
-			module = new CClientModuleWidget(tr("Clients") );
+			title = tr("Pacients");
+			moduleWidget = new CClientModuleWidget(title);
 			
+		}
+		else if ( module.key == "gnr" )
+		{
+			title = tr("General");
+			moduleWidget = new CGeneralModuleWidget( title);
+		}
+		else if ( module.key == "agn" )
+		{
+			title = tr("Agend");
+			moduleWidget = new CAgendModuleWidget(title );
+			
+			pos = DDockWindow::Right;
+		}
+		else if ( module.key == "ort" )
+		{
+			title = tr("Orthodoncy");
+			moduleWidget = new COrthodoncyModuleWidget(title);
+		}
+		else if ( module.key == "edd" )
+		{
+			title = tr("Endodoncy");
+			moduleWidget = new CEndodoncyModuleWidget( title);
+		}
+		else if ( module.key == "prd" )
+		{
+			title = tr("Periodoncy");
+			moduleWidget = new CPeriodoncyModuleWidget( title);
+		}
+		else if ( module.key == "pad" )
+		{
+			title = tr("Phonoaudiology");
+			moduleWidget = new CPhonoaudiologyWidgetModule(title );
+		}
+		else if ( module.key == "rpt" )
+		{
+			title = tr("Reports");
+			moduleWidget = new CReportModuleWidget(title);
+			
+			pos = DDockWindow::Right;
 		}
 		else
 		{
-			module = new CModuleWidget(moduleName);
+			moduleWidget = new CModuleWidget(module.text);
 		}
 		
-		toolWindow(pos)->addWidget( moduleName, module);
+		if ( module.text.isEmpty() )
+		{
+			toolWindow(pos)->addWidget( title, moduleWidget);
+		}
+		else
+		{
+			toolWindow(pos)->addWidget( module.text, moduleWidget);
+		}
 		
-		connect(module, SIGNAL(requestForm(const QString &, int)), m_formManager, SLOT(loadForm(const QString &, int)));
+		connect(moduleWidget, SIGNAL(requestForm(const QString &, int)), m_formManager, SLOT(loadForm(const QString &, int)));
+		
+		moduleWidget->setAutoFillBackground(true);
 	}
+	
+	setUpdatesEnabled(true);
 }
 
 void CMainWindow::showChat()

@@ -63,7 +63,7 @@ class CPackageParser : public QXmlDefaultHandler
 		bool m_readChar;
 		
 		QList<FormData > m_currentForms;
-		QString m_currentModuleKey;
+		ModuleInfo m_currentModule;
 		
 		ModuleForms m_moduleForms;
 		

@@ -3,12 +3,60 @@
 # Subdir relative project main directory: ./src/client/shell
 # Target is an application:  ../../../bin/domsclient.bin
 
+QT += xml network svg x 
 INSTALLS += data \
             target 
 target.path = /bin/ 
 data.files += data/es \
               data/en 
 data.path = /data/ 
+KDEV_QTVER = 4 
+TARGETDEPS += ../../../src/client/packages/libpackages.a \
+              ../../../src/client/modules/clients/libclients.a \
+              ../../../src/client/modules/help/libhelp.a \
+              ../../../src/client/lib/libdclient.a \
+              ../../../src/client/modules/phonoaudiology/libphonoaudiology.a \
+              ../../../src/client/modules/periodoncy/libperiodoncy.a \
+              ../../../src/client/modules/endodoncy/libendodoncy.a \
+              ../../../src/client/modules/orthodoncy/liborthodoncy.a \
+              ../../../src/client/modules/general/libgeneral.a \
+              ../../../src/client/modules/agend/libagend.a \
+              ../../../src/client/modules/reports/libreports.a 
+LIBS += -ldgui \
+        -ldcore \
+        ../../../src/client/packages/libpackages.a \
+        ../../../src/client/modules/clients/libclients.a \
+        ../../../src/client/modules/help/libhelp.a \
+        ../../../src/client/lib/libdclient.a \
+        ../../../src/client/modules/phonoaudiology/libphonoaudiology.a \
+        ../../../src/client/modules/periodoncy/libperiodoncy.a \
+        ../../../src/client/modules/endodoncy/libendodoncy.a \
+        ../../../src/client/modules/orthodoncy/liborthodoncy.a \
+        ../../../src/client/modules/general/libgeneral.a \
+        ../../../src/client/modules/agend/libagend.a \
+        ../../../src/client/modules/reports/libreports.a 
+INCLUDEPATH += ../../../src/client/modules/reports \
+               ../../../src/client/modules/phonoaudiology \
+               ../../../src/client/modules/periodoncy \
+               ../../../src/client/modules/endodoncy \
+               ../../../src/client/modules/orthodoncy \
+               ../../../src/client/modules/general \
+               ../../../src/client/modules/agend \
+               ../../../src/client/modules/help \
+               ../../../src/client/modules/clients \
+               ../../../src/client/packages \
+               ../../../src/client/lib \
+               ../../../src/dlib/dgui \
+               ../../../src/dlib/dcore 
+MOC_DIR = .moc 
+UI_DIR = .ui 
+OBJECTS_DIR = .obj 
+QMAKE_LIBDIR = ../../../src/dlib/dgui \
+               ../../../src/dlib/dcore 
+TARGET = ../../../bin/domsclient.bin 
+CONFIG += release \
+          warn_on 
+TEMPLATE = app 
 HEADERS += cmainwindow.h \
            cpackageparser.h \
            capplication.h \
@@ -20,30 +68,3 @@ SOURCES += client_main.cpp \
            capplication.cpp \
            cchatwindow.cpp \
            cconnector.cpp 
-QT += xml svg network
-KDEV_QTVER = 4
-TARGETDEPS += ../../../src/client/packages/libpackages.a \
-../../../src/client/modules/clients/libclients.a \
-../../../src/client/modules/help/libhelp.a \
-../../../src/client/lib/libdclient.a
-LIBS += -ldgui \
--ldcore \
-../../../src/client/packages/libpackages.a \
-../../../src/client/modules/clients/libclients.a \
-../../../src/client/modules/help/libhelp.a \
-../../../src/client/lib/libdclient.a
-INCLUDEPATH += ../../../src/client/modules/help \
-../../../src/client/modules/clients \
-../../../src/client/packages \
-../../../src/client/lib \
-../../../src/dlib/dgui \
-../../../src/dlib/dcore
-MOC_DIR = .moc
-UI_DIR = .ui
-OBJECTS_DIR = .obj
-QMAKE_LIBDIR = ../../../src/dlib/dgui \
-../../../src/dlib/dcore
-TARGET = ../../../bin/domsclient.bin
-CONFIG += release \
-warn_on
-TEMPLATE = app

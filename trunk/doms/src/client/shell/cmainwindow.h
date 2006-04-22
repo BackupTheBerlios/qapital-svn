@@ -38,6 +38,13 @@
 // Modules
 #include "cclientmodulewidget.h"
 #include "chelpwidget.h"
+#include "cgeneralmodulewidget.h"
+#include "cagendmodulewidget.h"
+#include "corthodoncymodulewidget.h"
+#include "cphonoaudiologywidgetmodule.h"
+#include "cperiodoncymodulewidget.h"
+#include "cendodoncymodulewidget.h"
+#include "creportmodulewidget.h"
 
 /**
  * Ventana principal de la aplicacion cliente

@@ -1,10 +1,34 @@
 <Index>
-	<Module key="general" >
-		<FormFile path="register.dfm" id="0" />
-		<FormFile path="history.dfm" id="1" />
+	<Module key="pct" text="Pacientes" >
+		<FormFile path="pacients/add_pacient.dfm" id="0" />
 	</Module>
-	<Module key="clients" >
-		<FormFile path="add_client.dfm" id="0" />
+	
+	<Module key="gnr" text="General" >
+		<FormFile path="general/add_general_history.dfm" id="0" />
+	</Module>
+	
+	<Module key="agn" text="Agenda" >
+		<FormFile path="agend/add_cite.dfm" id="0" />
+	</Module>
+	
+	<Module key="ort" text="Ortodoncia" >
+		<FormFile path="orthodoncy/add_pacient.dfm" id="0" />
+	</Module>
+	
+	<Module key="edd" text="Endodoncia" >
+		<FormFile path="endodoncy/add_pacient.dfm" id="0" />
+	</Module>
+	
+	<Module key="prd" text="Periodoncia" >
+		<FormFile path="periodoncy/add_periodoncy_history.dfm" id="0" />
+	</Module>
+
+	<Module key="pad" text="Fonoaudiologia" >
+		<FormFile path="phonoaudiology/add_pacient.dfm" id="0" />
+	</Module>
+	
+	<Module key="rpt" text="Reportes" >
+		<FormFile path="reports/report1.dfm" id="0" />
 	</Module>
 </Index>
 

@@ -17,79 +17,22 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#ifndef CGENERALMODULEWIDGET_H
+#define CGENERALMODULEWIDGET_H
 
-#include "cformmanager.h"
+#include <cmodulewidget.h>
 
-#include <QFile>
-#include <QTextStream>
-#include <QDir>
-
-#include <dapplicationproperties.h>
-#include <ddebug.h>
-
-CFormManager::CFormManager(QObject *parent) : QObject(parent)
+/**
+	@author David Cuadrado <krawek@gmail.com>
+*/
+class CGeneralModuleWidget : public CModuleWidget
 {
-	m_builder = new CFormBuilder;
-	
-	m_formsPath = dAppProp->cacheDir()+"/forms";
-	
-	QDir dir(m_formsPath);
-	if ( !dir.exists() )
-	{
-		dir.mkpath(m_formsPath);
-	}
-}
+	Q_OBJECT;
+	public:
+		CGeneralModuleWidget(const QString &title, QWidget *parent = 0);
 
-CFormManager::~CFormManager()
-{
-	delete m_builder;
-}
+		~CGeneralModuleWidget();
 
-void CFormManager::setForms(const ModuleForms &moduleForms)
-{
-	D_FUNCINFO;
-	
-	foreach(ModuleInfo module, moduleForms.keys() )
-	{
-		FormDataList forms = moduleForms.value(module);
-		
-		foreach(const FormData data, forms)
-		{
-			QFile file(m_formsPath+"/"+module.key+"-"+QString::number(data.id));
-			
-			if ( file.open(QIODevice::WriteOnly | QIODevice::Text))
-			{
-				QTextStream out(&file);
-				
-				out << data.document;
-				file.close();
-			}
-		}
-	}
-}
+};
 
-
-void CFormManager::loadForm(const QString &module, int id)
-{
-	dDebug() << "Loading form from " << module << " with id: " << id;
-	QString moduleKey = module.toLower();
-	QFile file(m_formsPath+"/"+moduleKey+"-"+QString::number(id));
-	
-	if ( file.exists() )
-	{
-		if ( file.open(QIODevice::ReadOnly | QIODevice::Text))
-		{
-			QString document = file.readAll();
-			
-			QWidget *form = m_builder->form( document );
-			emit formLoaded( form, m_builder->formTitle());
-		}
-	}
-	else
-	{
-		dError() << "Form from module " << moduleKey << " with id = " << id << " doesn't exists";
-	}
-}
-
-
-
+#endif

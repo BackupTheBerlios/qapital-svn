@@ -19,23 +19,29 @@
  ***************************************************************************/
 
 #include "cclientmodulewidget.h"
-
-#include "global.h"
-
-#include "cmodulebuttonbar.h"
+#include <QHeaderView>
 
 CClientModuleWidget::CClientModuleWidget(const QString &title, QWidget *parent) : CModuleWidget(title, parent)
 {
 	setWindowIcon(QIcon(THEME_DIR+"/icons/users.png"));
 	
 	
-	CModuleButtonBar *buttonBar = new CModuleButtonBar( CModuleButtonBar::Add | CModuleButtonBar::Del );
+	CModuleButtonBar *buttonBar = addButtonBar( CModuleButtonBar::Add | CModuleButtonBar::Del );
 	
 	connect(buttonBar, SIGNAL(buttonClicked( int )), this, SLOT(doAction(int)));
 	
-	boxLayout()->addWidget( buttonBar );
+	m_pTree->setHeaderLabels(QStringList() << tr("Name")<<tr("Last name"));
+	m_pTree->header()->show();
 	
-	buttonBar->show();
+	// For testing purpose
+	
+	addPacient( "Pepito","Perez"); 
+	addPacient( "David ","Cuadrado");
+	addPacient( "Carlos ","Giraldo"); 
+	addPacient(  "Jonathan"," Guzman"); 
+	addPacient(  "Andres ","XLS"); 
+	addPacient(  "Alguien"," mas"); 
+	addPacient(  "Homero"," Simpson" );
 }
 
 
@@ -70,6 +76,12 @@ void CClientModuleWidget::doAction(int buttonId)
 	}
 }
 
+void CClientModuleWidget::addPacient(const QString &name, const QString &lastName)
+{
+	QTreeWidgetItem *item = new QTreeWidgetItem(m_pTree);
+	item->setText(0, name);
+	item->setText(1, lastName);
+}
 
 
 

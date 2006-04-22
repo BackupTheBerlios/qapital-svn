@@ -59,6 +59,7 @@ SSuccessPackage::SSuccessPackage(const QString& msg): QDomDocument()
 						QString name = e.attribute("key");
 						module = createElement("Module");
 						module.setAttribute("key", name);
+						module.setAttribute("text", e.attribute("text"));
 						
 						parseModule( e, module );
 						

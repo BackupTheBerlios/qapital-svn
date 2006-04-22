@@ -4,7 +4,14 @@
 # Target is a subdirs project 
 
 SUBDIRS += clients \
-           help 
+           help \
+           agend \
+           general \
+           orthodoncy \
+           endodoncy \
+           periodoncy \
+           phonoaudiology \
+           reports 
 KDEV_QTVER = 4
 CONFIG += release \
 warn_on

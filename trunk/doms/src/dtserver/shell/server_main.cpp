@@ -55,12 +55,12 @@ int main(int argc, char **argv)
 	
 	if ( !clientServer.openConnection( DTS::Client, host ) )
 	{
-		dDebug() << QObject::tr("Can't open client connection on %1").arg(host);
+		dFatal() << QObject::tr("Can't open client server on %1").arg(host);
 		return 255;
 	}
 	else
 	{
-		dDebug() << QObject::tr("Open client connection on %1:%2").arg(host).arg(clientServer.serverPort());
+		dDebug() << QObject::tr("Open client server on %1:%2").arg(host).arg(clientServer.serverPort());
 	}
 	
 	// Administrador
@@ -69,13 +69,13 @@ int main(int argc, char **argv)
 	
 	if ( !adminServer.openConnection( DTS::Admin, host ) )
 	{
-		dDebug() << QObject::tr("Can't open admin connection on %1").arg(host);
+		dFatal() << QObject::tr("Can't open admin server on %1").arg(host);
 		
 		return 255;
 	}
 	else
 	{
-		dDebug() << QObject::tr("Open admin connection on %1:%2").arg(host).arg(adminServer.serverPort());
+		dDebug() << QObject::tr("Open admin server on %1:%2").arg(host).arg(adminServer.serverPort());
 	}
 	
 	return app.exec();
@@ -87,7 +87,6 @@ void write_test_config()
 	DCONFIG->setValue("Home", "/path/to/home");
 	DCONFIG->beginGroup("Connection");
 	DCONFIG->setValue("Host", "localhost");
-	DCONFIG->setValue("Port", 31337);
 	DCONFIG->sync();
 	exit(0);
 }

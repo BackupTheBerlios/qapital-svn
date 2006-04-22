@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2006 by David Cuadrado                                  *
- *   krawek@gmail.com                                                      *
+ *   krawek@gmail.com                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -17,61 +17,15 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#include "corthodoncymodulewidget.h"
 
-
-#include "cmodulewidget.h"
-
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QToolButton>
-
-#include <dtreewidgetsearchline.h>
-
-#include "global.h"
-
-CModuleWidget::CModuleWidget(const QString &moduleMame, QWidget *parent) : QWidget(parent)
-{
-	QVBoxLayout *layout = new QVBoxLayout(this);
-	
-	QHBoxLayout *search = new QHBoxLayout;
-	
-	QToolButton *button = new QToolButton;
-	button->setIcon( QIcon(THEME_DIR+"/icons/clear_right.png"));
-	
-	
-	search->addWidget(button);
-	
-	m_pTree = new DTreeListWidget;
-	
-	m_pSearch = new DTreeWidgetSearchLine(tr("Search here")+"...", this, m_pTree);
-	search->addWidget( m_pSearch );
-	
-	m_pSearch->setSearchColumns(QList<int>() << 0 );
-	
-	layout->addLayout(search);
-	
-	layout->addWidget(m_pTree);
-	
-	
-	connect(button, SIGNAL(clicked()), m_pSearch, SLOT(clear()));
-}
-
-
-CModuleWidget::~CModuleWidget()
+COrthodoncyModuleWidget::COrthodoncyModuleWidget(const QString &title, QWidget *parent) : CModuleWidget(title, parent)
 {
 }
 
-CModuleButtonBar *CModuleWidget::addButtonBar(int flags)
+
+COrthodoncyModuleWidget::~COrthodoncyModuleWidget()
 {
-	CModuleButtonBar *bar = new CModuleButtonBar(flags);
-	boxLayout()->addWidget( bar );
-	
-	return bar;
 }
 
-QBoxLayout *CModuleWidget::boxLayout()
-{
-	return qobject_cast<QVBoxLayout *>(layout());
-}
 

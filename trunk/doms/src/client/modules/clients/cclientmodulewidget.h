@@ -34,6 +34,8 @@ class CClientModuleWidget : public CModuleWidget
 		CClientModuleWidget(const QString &title, QWidget *parent = 0);
 		~CClientModuleWidget();
 		
+		void addPacient(const QString &name, const QString &lastName);
+		
 	public slots:
 		void doAction(int buttonId);
 
