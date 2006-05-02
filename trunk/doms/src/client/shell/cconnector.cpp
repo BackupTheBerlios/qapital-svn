@@ -66,6 +66,11 @@ void CConnector::readFromServer()
 			XMLResults results = m_parser->results();
 			emit chatMessage(results["login"], results["message"]);
 		}
+		else if ( root == "Error" )
+		{
+			XMLResults results = m_parser->results();
+			emit message(Msg::Error, "Error "+results["id"]+": "+results["message"] );
+		}
 		
 		m_readed = "";
 	}

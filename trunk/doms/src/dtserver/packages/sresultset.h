@@ -79,6 +79,11 @@ class SResultSet : public QDomDocument
 		 * @param results 
 		 */
 		void setRecord(const QStringList &fields, const QList<QVariant> &results);
+		
+		QMap<QString, QStringList> map() const;
+		
+	private:
+		QMap<QString, QStringList> m_map;
 
 };
 

@@ -27,6 +27,7 @@
 #include <QStatusBar>
 #include <QMenu>
 #include <QToolBar>
+#include <QMessageBox>
 
 #include "cconnectiondialog.h"
 
@@ -78,7 +79,6 @@ CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0)
 	
 	connect(m_connector, SIGNAL(chatMessage( const QString&, const QString& )), m_chat, SLOT(setChatMessage( const QString&, const QString&)));
 	
-	
 	setupActions();
 	setupToolbar();
 	setupMenu();
@@ -96,6 +96,8 @@ CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0)
 	}
 	
 // 	QTimer::singleShot(800, this, SLOT(showConnectDialog()));
+	
+	connectToOutput( m_connector );
 }
 
 void CMainWindow::setupActions()
@@ -243,9 +245,15 @@ void CMainWindow::buildModules(const ModuleForms &modules)
 			toolWindow(pos)->addWidget( module.text, moduleWidget);
 		}
 		
-		connect(moduleWidget, SIGNAL(requestForm(const QString &, int)), m_formManager, SLOT(loadForm(const QString &, int)));
 		
-		moduleWidget->setAutoFillBackground(true);
+		if (  moduleWidget )
+		{
+			connect(moduleWidget, SIGNAL(requestForm(const QString &, int)), m_formManager, SLOT(loadForm(const QString &, int)));
+			
+			moduleWidget->setAutoFillBackground(true);
+			
+			connectToOutput( moduleWidget);
+		}
 	}
 	
 	setUpdatesEnabled(true);
@@ -278,4 +286,32 @@ void CMainWindow::showTipDialog()
 	m_tipDialog->show();
 }
 
+
+void CMainWindow::handleMessage(Msg::Type type, const QString &message)
+{
+	switch(type)
+	{
+		case Msg::Error:
+		{
+			QMessageBox::critical(this, tr("Error"), message,QMessageBox::Ok , 0 );
+		}
+		break;
+		case Msg::Info:
+		{
+			
+		}
+		break;
+		case Msg::Warning:
+		{
+			
+		}
+		break;
+	}
+}
+
+
+void CMainWindow::connectToOutput(const QObject *o)
+{
+	connect(o, SIGNAL(message(Msg::Type, const QString &)), this, SLOT(handleMessage( Msg::Type, const QString& )));
+}
 

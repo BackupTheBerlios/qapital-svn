@@ -50,6 +50,7 @@ class CConnector : public CConnectorBase
 	signals:
 		void readedModuleForms(const ModuleForms &);
 		void chatMessage(const QString &login, const QString &msg);
+		void message(Msg::Type t, const QString &message);
 		
 	private:
 		QXmlSimpleReader m_reader;

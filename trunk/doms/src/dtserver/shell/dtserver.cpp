@@ -31,11 +31,6 @@
 
 DTServer::DTServer(QObject *parent) : QTcpServer(parent)
 {
-	SResultSet rs = SDBM->execRawQuery("select * from test;");
-	
-	dDebug() << rs.toString();
-	
-	dDebug() << SDBM->lastError().text();
 }
 
 DTServer::DTServer(DTS::ConnectionType type, const QString &host, QObject *parent) : QTcpServer(parent)
@@ -139,21 +134,32 @@ void DTServer::removeConnection(DTServerConnection *cnx)
 
 void DTServer::authenticate(DTServerConnection *cnx, const QString &login, const QString &password)
 {
-#warning FIXME: realizar la validacion aqui!
 	// TODO: HACER VALIDACION!
 	// TODO: Hacer una blacklist!
+	// TODO: encriptar el password
+	
 	dDebug() << "Request auth!";
 	dDebug() << "Login: " << login << " Password: " << password;
 	
-// 	cnx->sendToClient( SErrorPackage(1, "Bad password or login") );
+	DTSelect select(QStringList() << "password", "users" );
+	select.setWhere("login="+SQLSTR(login));
 	
-	// Cuando se verique como correcto
-	cnx->setLogin(login);
+	SResultSet rs = SDBM->execQuery(&select);
 	
-	cnx->sendToClient( SSuccessPackage("weeeeeeee"));
-	cnx->sendToClient( SResourcePackage() );
+	QString truePasswd = rs.map()["password"][0];
 	
-// 	cnx->close(); 
+	if ( truePasswd.isEmpty() || password != truePasswd )
+	{
+		cnx->sendToClient( SErrorPackage(1, tr("Bad password or login") ) );
+		cnx->close();
+	}
+	else
+	{
+		cnx->setLogin(login);
+	
+		cnx->sendToClient( SSuccessPackage(tr("Welcome to the jungle")));
+		cnx->sendToClient( SResourcePackage() );
+	}
 }
 
 

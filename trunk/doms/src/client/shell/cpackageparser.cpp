@@ -66,9 +66,11 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 	{
 		if ( qname == "Id" )
 		{
+			m_values.insert("id", atts.value("value"));
 		}
 		else if ( qname == "Message" )
 		{
+			m_values.insert("message", atts.value("value"));
 		}
 	}
 	else if ( m_root == "Success" )

@@ -29,7 +29,7 @@
 
 #include <QObject>
 
-
+#include "dtquery.h"
 #include "sresultset.h"
 
 class SDatabase;
@@ -96,6 +96,9 @@ class SDatabase : public QObject, public QSqlDatabase
 		 * @param host 
 		 */
 		void setupConnection(const QString & dbname, const QString & login, const QString & password, const QString & host );
+		
+		
+		SResultSet execQuery(const DTQuery *query );
 
 	signals:
 		/**

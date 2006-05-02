@@ -28,6 +28,16 @@
 
 #include <dglobal.h>
 
+namespace Msg
+{
+	enum Type
+	{
+		Info,
+		Warning,
+		Error
+	};
+}
+
 struct FormData
 {
 	int id;

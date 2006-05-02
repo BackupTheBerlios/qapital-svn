@@ -49,6 +49,7 @@ class CModuleWidget : public QWidget
 		
 	signals:
 		void requestForm(const QString &module, int formId);
+		void message(Msg::Type, const QString &message);
 		
 	protected:
 		DTreeListWidget *m_pTree;

@@ -58,7 +58,7 @@ void DTServerConnection::run()
 			QXmlInputSource xmlsource;
 			xmlsource.setData(readed);
 			
-			dDebug() << "READED: " << readed;
+// 			dDebug() << "READED: " << readed;
 			
 			if ( m_reader.parse(&xmlsource) )
 			{
@@ -91,7 +91,7 @@ void DTServerConnection::run()
 
 void DTServerConnection::sendToClient(const QString &msg)
 {
-	dDebug() << "SENDING: " << msg;
+// 	dDebug() << "SENDING: " << msg;
 	QTextStream out(m_client);
 	
 	out << msg << endl;

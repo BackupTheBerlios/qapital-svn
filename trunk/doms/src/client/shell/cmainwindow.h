@@ -59,6 +59,8 @@ class CMainWindow : public DMainWindow
 		
 		QSize sizeHint() const { return QSize(600,600); };
 		
+		void connectToOutput(const QObject *o);
+		
 	private:
 		void setupActions();
 		void setupMenu();
@@ -72,6 +74,8 @@ class CMainWindow : public DMainWindow
 		void showChat();
 		void showHelp(const QString &title, const QString &page);
 		void showTipDialog();
+		
+		void handleMessage(Msg::Type type, const QString &message);
 		
 	protected:
 		void closeEvent(QCloseEvent *);

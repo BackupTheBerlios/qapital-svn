@@ -112,3 +112,8 @@ void SDatabase::setupConnection(const QString &dbname, const QString & login, co
 	setPassword(password);
 }
 
+SResultSet SDatabase::execQuery(const DTQuery *query )
+{
+	return execRawQuery(query->toString());
+}
+

@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "sresultset.h"
+#include <ddebug.h>
 
 SResultSet::SResultSet() : QDomDocument()
 {
@@ -45,6 +46,15 @@ void SResultSet::setRecord(const QStringList &fields, const QStringList &results
 		QDomText resultText = this->createTextNode(results[i]);
 		fieldElement.appendChild(resultText);
 		recordElement.appendChild(fieldElement);
+		
+		if ( !m_map.contains( field ) )
+		{
+			m_map.insert(field, QStringList() << results[i]);
+		}
+		else
+		{
+			m_map[field] << results[i];
+		}
 	}
 	
 	documentElement().appendChild(recordElement);
@@ -61,7 +71,23 @@ void SResultSet::setRecord(const QStringList &fields, const QList<QVariant> &res
 		QDomText resultText = this->createTextNode(results[i].toString());
 		fieldElement.appendChild(resultText);
 		recordElement.appendChild(fieldElement);
+		
+		if ( !m_map.contains( field ) )
+		{
+			m_map.insert(field, QStringList() << results[i].toString());
+		}
+		else
+		{
+			m_map[field] << results[i].toString();
+		}
 	}
 	
 	documentElement().appendChild(recordElement);
 }
+
+QMap<QString, QStringList> SResultSet::map() const
+{
+	return m_map;
+}
+
+
