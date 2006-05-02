@@ -39,10 +39,6 @@ CConnectorBase::~CConnectorBase()
 {
 }
 
-void CConnectorBase::readFromServer()
-{
-}
-
 void CConnectorBase::sendToServer(const QString &text)
 {
 	dDebug() << "Sending: " << text;

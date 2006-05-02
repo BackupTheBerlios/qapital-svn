@@ -26,6 +26,7 @@
 
 #include <dconfig.h>
 #include <dapplicationproperties.h> // dAppProp
+#include <ddebug.h>
 
 int main(int argc, char **argv)
 {

@@ -48,7 +48,7 @@ class CConnectorBase : public QTcpSocket
 		virtual void handleError(QAbstractSocket::SocketError error) = 0;
 		
 		void flushQueue();
-				
+		
 	private:
 		QStringList m_queue;
 };

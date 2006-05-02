@@ -182,6 +182,19 @@ bool CFormBuilder::endElement(const QString&, const QString& , const QString& qn
 		m_widgets.takeLast();
 	}
 	
+	if ( qname == "Form" )
+	{
+		QHBoxLayout *buttons = new QHBoxLayout;
+		
+		QPushButton *ok = new QPushButton( QObject::tr("Ok") );
+		buttons->addWidget( ok );
+		
+		QPushButton *cancel = new QPushButton( QObject::tr("Cancel") );
+		buttons->addWidget( cancel );
+		
+		qobject_cast<QBoxLayout*>(m_form->layout())->addLayout(buttons);
+	}
+	
 	return true;
 }
 
