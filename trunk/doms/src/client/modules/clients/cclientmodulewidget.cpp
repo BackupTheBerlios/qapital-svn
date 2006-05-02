@@ -55,12 +55,12 @@ void CClientModuleWidget::doAction(int buttonId)
 	{
 		case CModuleButtonBar::Add:
 		{
-			emit requestForm( "General", 0);
+			emit requestForm( "pct", 0);
 		}
 		break;
 		case CModuleButtonBar::Del:
 		{
-			emit requestForm( "General", 1);
+			emit requestForm( "pct", 1);
 		}
 		break;
 		case CModuleButtonBar::Query:

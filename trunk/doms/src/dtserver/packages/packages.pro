@@ -6,11 +6,13 @@
 HEADERS += serrorpackage.h \
            ssuccesspackage.h \
            schatpackage.h \
-           sresourcepackage.h 
+           sresourcepackage.h \
+           sresultset.h 
 SOURCES += serrorpackage.cpp \
            ssuccesspackage.cpp \
            schatpackage.cpp \
-           sresourcepackage.cpp 
+           sresourcepackage.cpp \
+           sresultset.cpp 
 QT += xml
 KDEV_QTVER = 4
 INCLUDEPATH += ../../../src/dlib/dgui \

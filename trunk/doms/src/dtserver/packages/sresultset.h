@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2006 by David Cuadrado                                  *
- *   krawek@gmail.com                                                      *
+ *   Copyright (C) 2005 by David Cuadrado                                  *
+ *   krawek@gmail.com                                           	   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,46 +18,68 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef FORTUNESERVER_H
-#define FORTUNESERVER_H
+#ifndef SRESULTSET_H
+#define SRESULTSET_H
 
-#include <QStringList>
-#include <QTcpServer>
+#include <qdom.h>
+#include <qstring.h>
+#include <qstringlist.h>
 
-#include "dtserverconnection.h"
-#include "sdatabase.h"
+#include <QVariant>
 
-#include "dtsglobal.h"
+/**
+Esta clase es creada cuando se hace una consulta a la base de datos, el formato de la misma es el siguiente:
 
-class DTServer : public QTcpServer
+<results>
+ <record>
+  <columna1>valor</columna1>
+  <columna2>valor</columna2>
+ </record>
+ <record>
+  <columna11>valor</columna11>
+  <columna12>valor</columna12>
+  <columna13>valor</columna13>
+ </record>
+</results>
+
+En caso de error retornara:
+
+<error>
+ <last>last query</last>
+ <errormsg>error message</errormsg>
+</error>
+
+
+@author David Cuadrado \<krawek@gmail.com\>
+*/
+
+class SResultSet : public QDomDocument
 {
-	Q_OBJECT;
-	
 	public:
-		DTServer(QObject *parent = 0);
-		DTServer(DTS::ConnectionType type, const QString &host, QObject *parent = 0);
-		~DTServer();
-		void sendToAll(const QDomDocument &pkg);
+    		/**
+    		 * Constructor
+    		 * @return 
+    		 */
+    		SResultSet();
+    		/**
+    		 * Destructor
+    		 * @return 
+    		 */
+    		~SResultSet();
+		/**
+		 * Pone los records
+		 * @param fields 
+		 * @param results 
+		 */
+		void setRecord(const QStringList &fields, const QStringList &results);
 		
-		bool openConnection(DTS::ConnectionType type, const QString &host);
-		
-	public slots:
-		void sendToAll(const QString &msg);
-		void removeConnection(DTServerConnection *cnx);
-		void authenticate(DTServerConnection *cnx,const QString &login, const QString &password);
-		
-		
-	private:
-		void handle(const DTServerConnection *cnx);
-		
-		
-	protected:
-		void incomingConnection(int socketDescriptor);
-		
-	private:
-		QList<DTServerConnection *> m_connections;
-		
-		DTS::ConnectionType m_type;
+		/**
+		 * Pone los records
+		 * @param fields 
+		 * @param results 
+		 */
+		void setRecord(const QStringList &fields, const QList<QVariant> &results);
+
 };
 
 #endif

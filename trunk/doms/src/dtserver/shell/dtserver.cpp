@@ -31,6 +31,11 @@
 
 DTServer::DTServer(QObject *parent) : QTcpServer(parent)
 {
+	SResultSet rs = SDBM->execRawQuery("select * from test;");
+	
+	dDebug() << rs.toString();
+	
+	dDebug() << SDBM->lastError().text();
 }
 
 DTServer::DTServer(DTS::ConnectionType type, const QString &host, QObject *parent) : QTcpServer(parent)
@@ -134,6 +139,7 @@ void DTServer::removeConnection(DTServerConnection *cnx)
 
 void DTServer::authenticate(DTServerConnection *cnx, const QString &login, const QString &password)
 {
+#warning FIXME: realizar la validacion aqui!
 	// TODO: HACER VALIDACION!
 	// TODO: Hacer una blacklist!
 	dDebug() << "Request auth!";
@@ -149,3 +155,5 @@ void DTServer::authenticate(DTServerConnection *cnx, const QString &login, const
 	
 // 	cnx->close(); 
 }
+
+

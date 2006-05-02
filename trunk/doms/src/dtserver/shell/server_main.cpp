@@ -23,6 +23,7 @@
 #include <QHostInfo>
 
 #include "dtserver.h"
+#include "sdatabase.h"
 
 #include <dconfig.h>
 #include <ddebug.h>
@@ -38,20 +39,35 @@ int main(int argc, char **argv)
 	app.setApplicationName("dtserver");
 
 	// Uncomment if you want initial config
-	//write_test_config();
+// 	write_test_config();
 	
 	DCONFIG->beginGroup("General");
 	
 	DApplicationProperties::instance()->setHomeDir( DCONFIG->value("Home", 0).toString() );
 	
+	// Cargar configuracion del servidor
+	DCONFIG->beginGroup("Database");
+	QString login = DCONFIG->value("Login").toString();
+	QString passwd = DCONFIG->value("Password").toString();
+	QString dbhost = DCONFIG->value("Host").toString();
+	QString dbname = DCONFIG->value("Name").toString();
 	
+	// Conectar a la base de datos
+	SDBM->setupConnection(dbname, login, passwd, dbhost );
 	
-	// Cliente
-	DTServer clientServer;
+	if ( !SDBM->open() )
+	{
+		dDebug() << "Error while trying open database" ;
+		return 255;
+	}
 	
+	// Clientes
 	DCONFIG->beginGroup("Connection");
 	
 	QString host = DCONFIG->value("Host", "localhost").toString();
+	
+	// Cliente
+	DTServer clientServer;
 	
 	if ( !clientServer.openConnection( DTS::Client, host ) )
 	{
@@ -87,6 +103,13 @@ void write_test_config()
 	DCONFIG->setValue("Home", "/path/to/home");
 	DCONFIG->beginGroup("Connection");
 	DCONFIG->setValue("Host", "localhost");
+	
+	DCONFIG->beginGroup("Database");
+	DCONFIG->setValue("Name", "doms");
+	DCONFIG->setValue("Host", "localhost");
+	DCONFIG->setValue("Login", "domsadmin");
+	DCONFIG->setValue("Password", "domsadmin");
+	
 	DCONFIG->sync();
 	exit(0);
 }

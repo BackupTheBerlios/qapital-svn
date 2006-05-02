@@ -8,31 +8,14 @@
 		</VBox>
 	</HBox>
 	<HBox>
-		<Input type="date" />
-		<VBox>
-			<Input label="Nombres" />
-			<Input label="Apellidos" />
-		</VBox>
+		<Input label="EPS" />
+		<Input label="Tipo de vinculacion" />
 	</HBox>
-	<HBox>
-		<VGroupBox title="Sexo" >
-			<RadioButton label="Masculino" />
-			<RadioButton label="Femenino" />
-		</VGroupBox>
-		<VGroupBox title="Estado civil" >
-			<RadioButton label="Soltero" />
-			<RadioButton label="Casado" />
-			<RadioButton label="Viudo" />
-			<RadioButton label="Union libre" />
-		</VGroupBox>
-		<VGroupBox title="Documento de identidad" >
-			<RadioButton label="Tarjeta de identidad" />
-			<RadioButton label="Cedula de ciudadania" />
-			<RadioButton label="C.E." />
-			<RadioButton label="Pasaporte" />
-			<Input label="No." />
-		</VGroupBox>
-	</HBox>
+	<VBox>
+		<Input label="Servicio de urgencias medicas" />
+		<Input label="Motivo de consulta" />
+		<Input label="Remitido por" />
+	</VBox>
 	<Label text="Marque lo que tenga" />
 	<VGroupBox title="Enfermedades" >
 		<CheckBox label="Alergias" />
