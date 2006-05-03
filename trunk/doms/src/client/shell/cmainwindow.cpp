@@ -28,6 +28,7 @@
 #include <QMenu>
 #include <QToolBar>
 #include <QMessageBox>
+#include <QScrollArea>
 
 #include "cconnectiondialog.h"
 
@@ -66,7 +67,7 @@ CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0)
 	
 	m_formManager = new CFormManager(this);
 	
-	connect(m_formManager, SIGNAL(formLoaded(QWidget *, const QString &)), this, SLOT(addForm(QWidget *, const QString &)));
+	connect(m_formManager, SIGNAL(formLoaded(CForm *, const QString &)), this, SLOT(addForm(CForm *, const QString &)));
 	
 	connect(m_connector, SIGNAL(readedModuleForms( const ModuleForms& )), this, SLOT(buildModules(const ModuleForms &)));
 	
@@ -164,12 +165,15 @@ void CMainWindow::showConnectDialog()
 	}
 }
 
-void CMainWindow::addForm(QWidget *form, const QString &title)
+void CMainWindow::addForm(CForm *form, const QString &title)
 {
 	D_FUNCINFO;
 	if ( form )
 	{
-		addWidget( form, title, false);
+		QScrollArea *scroll = new QScrollArea;
+		scroll->setWidget(form);
+		
+		addWidget( scroll, title, false);
 	}
 }
 

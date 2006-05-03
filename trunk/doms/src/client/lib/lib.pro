@@ -15,23 +15,29 @@ HEADERS += global.h \
            cformmanager.h \
            cfirstrundialog.h \
            cconnectiondialog.h \
-           cconnectorbase.h 
+           cconnectorbase.h \
+           formwidgetiface.h \
+           formlineedit.h \
+           cform.h 
 SOURCES += cmodulewidget.cpp \
            cformbuilder.cpp \
            cmodulebuttonbar.cpp \
            cformmanager.cpp \
            cfirstrundialog.cpp \
            cconnectiondialog.cpp \
-           cconnectorbase.cpp 
-QT += xml svg network 
-KDEV_QTVER = 4 
+           cconnectorbase.cpp \
+           formwidgetiface.cpp \
+           formlineedit.cpp \
+           cform.cpp 
+QT += xml svg network
+KDEV_QTVER = 4
 INCLUDEPATH += ../../../src/dlib/dgui \
-               ../../../src/dlib/dcore 
-MOC_DIR = .moc 
-UI_DIR = .ui 
-OBJECTS_DIR = .obj 
-TARGET = dclient 
+../../../src/dlib/dcore
+MOC_DIR = .moc
+UI_DIR = .ui
+OBJECTS_DIR = .obj
+TARGET = dclient
 CONFIG += release \
-          warn_on \
-          staticlib 
-TEMPLATE = lib 
+warn_on \
+staticlib
+TEMPLATE = lib

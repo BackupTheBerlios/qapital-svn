@@ -29,6 +29,8 @@
 
 #include <dglobal.h>
 
+#include "formlineedit.h"
+
 CFormBuilder::CFormBuilder() : QXmlDefaultHandler(), m_readChar(false), m_form(0)
 {
 }
@@ -90,20 +92,26 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 		}
 		else if ( qname == "Label" )
 		{
-			QLabel *label = new QLabel( atts.value("text") ,m_widgets.last());
+			QLabel *label = new QLabel( atts.value("text") /*,m_widgets.last()*/);
 
 			m_widgets.last()->layout()->addWidget(label);
 		}
 		else if ( qname == "Input" )
 		{
-			QHBoxLayout *ly = new QHBoxLayout(m_widgets.last());
+			QHBoxLayout *ly = new QHBoxLayout;
 			
 			QString type = atts.value("type");
+			QString dbfield = atts.value("dbfield"); // FIXME
 			
 			if( type.isEmpty() )
 			{
 				ly->addWidget(new QLabel(atts.value("label")));
-				ly->addWidget(new QLineEdit);
+				
+				FormLineEdit *lineEdit = new FormLineEdit;
+				lineEdit->setFieldInfo( dbfield );
+				ly->addWidget(lineEdit);
+				
+				m_form->addInput(lineEdit);
 			}
 			else if (type == "date" )
 			{
@@ -115,11 +123,10 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 			{
 				boxLayout->addLayout(ly);
 			}
-			
 		}
 		else if ( qname == "Table" )
 		{
-			QTableWidget *table = new QTableWidget(atts.value("rows").toInt(), atts.value("columns").toInt(), m_widgets.last());
+			QTableWidget *table = new QTableWidget(atts.value("rows").toInt(), atts.value("columns").toInt()/*, m_widgets.last()*/);
 			
 			QStringList headers = atts.value("vheaders").split(";");
 			if ( headers.count() > 1 )
@@ -231,11 +238,9 @@ bool CFormBuilder::fatalError ( const QXmlParseException & exception )
 	return true;
 }
 
-QWidget *CFormBuilder::form(const QString &document)
+CForm *CFormBuilder::form(const QString &document)
 {
-	QScrollArea *scroll = new QScrollArea;
-	
-	m_form = new QWidget;
+	m_form = new CForm;
 	QVBoxLayout *layout = new QVBoxLayout(m_form);
 	
 	m_widgets << m_form;
@@ -253,9 +258,9 @@ QWidget *CFormBuilder::form(const QString &document)
 		return 0;
 	}
 	
-	scroll->setWidget(m_form);
+	m_form->debug();
 	
-	return scroll;
+	return m_form;
 }
 
 QString CFormBuilder::formTitle() const

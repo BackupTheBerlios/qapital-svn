@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2006 by David Cuadrado                                  *
- *   krawek@gmail.com                                                      *
+ *   krawek@gmail.com                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -17,47 +17,25 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#include "formlineedit.h"
 
-
-#ifndef CFORMBUILDER_H
-#define CFORMBUILDER_H
-
-#include <QXmlDefaultHandler>
-
-#include "cform.h"
-
-/**
- * Esta clase se encarga de analizar el lenguaje de formularios, se podria entender esta clase como un compilador o interprete.
- * @author David Cuadrado <krawek@gmail.com>
-*/
-class CFormBuilder : public QXmlDefaultHandler
+FormLineEdit::FormLineEdit(const QString &text) : QLineEdit(text)
 {
-	public:
-		CFormBuilder();
-		~CFormBuilder();
-		
-		bool startElement(const QString& , const QString& , const QString& qname, const QXmlAttributes& atts);
-		
-		bool endElement( const QString& ns, const QString& localname, const QString& qname);
-		
-		bool characters ( const QString & ch );
-		
-		bool error ( const QXmlParseException & exception );
-		bool fatalError ( const QXmlParseException & exception );
-		
-		CForm *form(const QString &document);
-		QString formTitle() const;
-		
-	private:
-		QString m_root, m_qname;
-		
-		bool m_readChar;
-		
-		QWidgetList m_widgets;
-		
-		CForm *m_form;
-		
-		QString m_charData;
-};
+}
 
-#endif
+
+FormLineEdit::~FormLineEdit()
+{
+}
+
+void FormLineEdit::setFieldValue(const QVariant &v)
+{
+	setText(v.toString());
+}
+
+QString FormLineEdit::fieldValue() const
+{
+	return text();
+}
+
+

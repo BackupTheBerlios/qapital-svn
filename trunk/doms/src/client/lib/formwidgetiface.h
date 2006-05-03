@@ -18,79 +18,36 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "cformmanager.h"
+#ifndef FORMWIDGETIFACE_H
+#define FORMWIDGETIFACE_H
 
-#include <QFile>
-#include <QTextStream>
-#include <QDir>
+#include <QString>
+#include <QStringList>
+#include <QVariant>
 
-#include <dapplicationproperties.h>
-#include <ddebug.h>
+/**
+ * @author David Cuadrado <krawek@gmail.com>
+*/
 
-CFormManager::CFormManager(QObject *parent) : QObject(parent)
+#define DEBUG_FORM 1
+
+class FormWidgetIface
 {
-	m_builder = new CFormBuilder;
-	
-	m_formsPath = dAppProp->cacheDir()+"/forms";
-	
-	QDir dir(m_formsPath);
-	if ( !dir.exists() )
-	{
-		dir.mkpath(m_formsPath);
-	}
-}
-
-CFormManager::~CFormManager()
-{
-	delete m_builder;
-}
-
-void CFormManager::setForms(const ModuleForms &moduleForms)
-{
-	D_FUNCINFO;
-	
-	foreach(ModuleInfo module, moduleForms.keys() )
-	{
-		FormDataList forms = moduleForms.value(module);
+	public:
+		FormWidgetIface();
+		virtual ~FormWidgetIface();
+		virtual void setFieldValue(const QVariant &data) = 0;
+		virtual QString fieldValue() const = 0;
+		void setFieldInfo(const QString &table_field );
+		void setField(const QString &field);
+		void setTable(const QString &table);
 		
-		foreach(const FormData data, forms)
-		{
-			QFile file(m_formsPath+"/"+module.key+"-"+QString::number(data.id));
-			
-			if ( file.open(QIODevice::WriteOnly | QIODevice::Text))
-			{
-				QTextStream out(&file);
-				
-				out << data.document;
-				file.close();
-			}
-		}
-	}
-}
+		QString table() const;
+		QString field() const;
+		
+	private:
+		QString m_table, m_field;
+		
+};
 
-
-void CFormManager::loadForm(const QString &module, int id)
-{
-	dDebug() << "Loading form from " << module << " with id: " << id;
-	
-	QString moduleKey = module.toLower();
-	QFile file(m_formsPath+"/"+moduleKey+"-"+QString::number(id));
-	
-	if ( file.exists() )
-	{
-		if ( file.open(QIODevice::ReadOnly | QIODevice::Text))
-		{
-			QString document = file.readAll();
-			
-			CForm *form = m_builder->form( document );
-			emit formLoaded( form, m_builder->formTitle());
-		}
-	}
-	else
-	{
-		dError() << "Form from module " << moduleKey << " with id = " << id << " doesn't exists";
-	}
-}
-
-
-
+#endif

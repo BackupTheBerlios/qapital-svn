@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2006 by David Cuadrado                                  *
- *   krawek@gmail.com                                                      *
+ *   krawek@gmail.com                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,79 +18,52 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "cformmanager.h"
+#include "cform.h"
 
-#include <QFile>
-#include <QTextStream>
-#include <QDir>
-
-#include <dapplicationproperties.h>
 #include <ddebug.h>
 
-CFormManager::CFormManager(QObject *parent) : QObject(parent)
+CForm::CForm() : QWidget()
 {
-	m_builder = new CFormBuilder;
-	
-	m_formsPath = dAppProp->cacheDir()+"/forms";
-	
-	QDir dir(m_formsPath);
-	if ( !dir.exists() )
-	{
-		dir.mkpath(m_formsPath);
-	}
 }
 
-CFormManager::~CFormManager()
+
+CForm::~CForm()
 {
-	delete m_builder;
+	DEND;
 }
 
-void CFormManager::setForms(const ModuleForms &moduleForms)
+void CForm::addInput(FormWidgetIface *input)
 {
 	D_FUNCINFO;
-	
-	foreach(ModuleInfo module, moduleForms.keys() )
+	if ( input )
 	{
-		FormDataList forms = moduleForms.value(module);
+		if ( input->table().isEmpty() ) return;
 		
-		foreach(const FormData data, forms)
+		if ( !m_inputMap.contains( input->table() ) )
 		{
-			QFile file(m_formsPath+"/"+module.key+"-"+QString::number(data.id));
-			
-			if ( file.open(QIODevice::WriteOnly | QIODevice::Text))
-			{
-				QTextStream out(&file);
-				
-				out << data.document;
-				file.close();
-			}
+			m_inputMap.insert(input->table(), QList<FormWidgetIface *>() << input );
+		}
+		else
+		{
+			m_inputMap[input->table()] << input;
 		}
 	}
 }
 
-
-void CFormManager::loadForm(const QString &module, int id)
+void CForm::debug()
 {
-	dDebug() << "Loading form from " << module << " with id: " << id;
-	
-	QString moduleKey = module.toLower();
-	QFile file(m_formsPath+"/"+moduleKey+"-"+QString::number(id));
-	
-	if ( file.exists() )
+	dDebug() << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
+	for(int i = 0; i < m_inputMap.count(); i++)
 	{
-		if ( file.open(QIODevice::ReadOnly | QIODevice::Text))
+		QString table = m_inputMap.keys()[i];
+		
+		
+		dDebug() << "----- Table " << table << " -----";
+		QList<FormWidgetIface*> fields = m_inputMap[table];
+		for(int j = 0; j < fields.count(); j++)
 		{
-			QString document = file.readAll();
-			
-			CForm *form = m_builder->form( document );
-			emit formLoaded( form, m_builder->formTitle());
+			dDebug() << "#### Field: " << fields[j]->field();
 		}
 	}
-	else
-	{
-		dError() << "Form from module " << moduleKey << " with id = " << id << " doesn't exists";
-	}
+	dDebug() << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
 }
-
-
-

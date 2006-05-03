@@ -3,8 +3,8 @@
 		<Image filename="logo.svg" />
 		<Input type="date" />
 		<VBox>
-			<Input label="Nombres" />
-			<Input label="Apellidos" />
+			<Input label="Nombres" dbfield="user:login" />
+			<Input label="Apellidos" dbfield="user:password" />
 		</VBox>
 	</HBox>
 	<VGroupBox title="Informacion personal" >

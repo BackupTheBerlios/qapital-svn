@@ -41,7 +41,7 @@ class CFormManager : public QObject
 		void loadForm(const QString &module, int id);
 		
 	signals:
-		void formLoaded(QWidget *widget, const QString &title);
+		void formLoaded(CForm *widget, const QString &title);
 		
 	private:
 		CFormBuilder *m_builder;
