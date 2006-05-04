@@ -106,6 +106,8 @@ void DTServer::handle(const DTServerConnection *cnx)
 	connect(cnx, SIGNAL(requestRemoveConnection(DTServerConnection *)), this, SLOT(removeConnection(DTServerConnection *)));
 	
 	connect(cnx, SIGNAL(requestAuth(DTServerConnection *, const QString &, const QString &)), this, SLOT(authenticate(DTServerConnection *,const QString &, const QString &)));
+	
+	connect(cnx, SIGNAL(requestOperation( const DTQuery* )), this, SLOT(doOperation( const DTQuery* )));
 }
 
 
@@ -146,11 +148,19 @@ void DTServer::authenticate(DTServerConnection *cnx, const QString &login, const
 	
 	SResultSet rs = SDBM->execQuery(&select);
 	
+	if ( !rs.isValid() )
+	{
+		cnx->sendToClient( SErrorPackage(1, tr("Bad login") ) );
+		cnx->close();
+		
+		return;
+	}
+	
 	QString truePasswd = rs.map()["password"][0];
 	
 	if ( truePasswd.isEmpty() || password != truePasswd )
 	{
-		cnx->sendToClient( SErrorPackage(1, tr("Bad password or login") ) );
+		cnx->sendToClient( SErrorPackage(3, tr("Bad password") ) );
 		cnx->close();
 	}
 	else
@@ -161,5 +171,13 @@ void DTServer::authenticate(DTServerConnection *cnx, const QString &login, const
 		cnx->sendToClient( SResourcePackage() );
 	}
 }
+
+void DTServer::doOperation(const DTQuery *query)
+{
+	SResultSet rs = SDBM->execQuery(query);
+	
+	
+}
+
 
 

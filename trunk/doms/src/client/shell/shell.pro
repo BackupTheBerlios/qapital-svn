@@ -3,7 +3,7 @@
 # Subdir relative project main directory: ./src/client/shell
 # Target is an application:  ../../../bin/domsclient.bin
 
-QT += xml network svg x 
+QT += xml network svg 
 INSTALLS += data \
             target 
 target.path = /bin/ 
@@ -24,10 +24,10 @@ TARGETDEPS += ../../../src/client/packages/libpackages.a \
               ../../../src/client/modules/reports/libreports.a 
 LIBS += -ldgui \
         -ldcore \
+        ../../../src/client/lib/libdclient.a \
         ../../../src/client/packages/libpackages.a \
         ../../../src/client/modules/clients/libclients.a \
         ../../../src/client/modules/help/libhelp.a \
-        ../../../src/client/lib/libdclient.a \
         ../../../src/client/modules/phonoaudiology/libphonoaudiology.a \
         ../../../src/client/modules/periodoncy/libperiodoncy.a \
         ../../../src/client/modules/endodoncy/libendodoncy.a \

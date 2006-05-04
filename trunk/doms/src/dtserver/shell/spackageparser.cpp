@@ -67,6 +67,31 @@ bool SPackageParser::startElement( const QString& , const QString& , const QStri
 			m_values[qname] = atts.value("value");
 		}
 	}
+	else if ( m_root == "Insert" )
+	{
+		if ( qname == "field" )
+		{
+			QString field = atts.value("id");
+			QString value = atts.value("value");
+			
+			m_values[qname] += field+"::"+value+"||"; // FIXME!
+		}
+		else if ( qname == "Table" )
+		{
+			QString table = atts.value("id");
+			
+			m_values[qname] = table;
+		}
+	}
+	else if ( m_root == "Update" )
+	{
+	}
+	else if ( m_root == "Select" )
+	{
+	}
+	else if ( m_root == "Delete" )
+	{
+	}
 	else
 	{
 		return false;

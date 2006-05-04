@@ -24,6 +24,12 @@
 #include <qwidget.h>
 #include "formwidgetiface.h"
 
+// Packages
+#include "cinsertpackage.h"
+#include "cselectpackage.h"
+#include "cupdatepackage.h"
+#include "cdeletepackage.h"
+
 /**
  * @author David Cuadrado <krawek@gmail.com>
 */
@@ -37,6 +43,17 @@ class CForm : public QWidget
 		void addInput(FormWidgetIface *input);
 		
 		void debug();
+		
+	public slots:
+		void addButtonClicked();
+		void cancelButtonClicked();
+		void resetButtonClicked();
+		
+		
+	signals:
+		void requestSentToServer(const QString &package);
+// 	signals:
+// 		void requestInsert(const QString &table, const QStringList &fields, const QStringList &values);
 		
 	private:
 		/**

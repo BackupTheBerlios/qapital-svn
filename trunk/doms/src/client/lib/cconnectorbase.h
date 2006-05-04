@@ -42,8 +42,10 @@ class CConnectorBase : public QTcpSocket
 		
 		virtual void login(const QString &user, const QString &passwd) = 0;
 		
-	protected slots:
+	public slots:
 		virtual void sendToServer(const QString &text);
+		
+	protected slots:
 		virtual void readFromServer() = 0;
 		virtual void handleError(QAbstractSocket::SocketError error) = 0;
 		

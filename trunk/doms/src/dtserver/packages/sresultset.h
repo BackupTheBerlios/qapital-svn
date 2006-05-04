@@ -82,6 +82,8 @@ class SResultSet : public QDomDocument
 		
 		QMap<QString, QStringList> map() const;
 		
+		bool isValid() const;
+		
 	private:
 		QMap<QString, QStringList> m_map;
 

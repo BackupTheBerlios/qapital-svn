@@ -10,15 +10,17 @@ target.path = /bin/
 KDEV_QTVER = 4 
 TARGETDEPS += ../../../src/client/lib/libdclient.a \
               ../../../src/dlib/dgui/libdgui.so \
-              ../../../src/dlib/dcore/libdcore.so 
-LIBS += ../../../src/client/lib/libdclient.a \
+              ../../../src/dlib/dcore/libdcore.so \
+              ../../../src/client/packages/libpackages.a 
+LIBS += -ldcore \
         -ldgui \
-        -ldcore 
+        ../../../src/client/lib/libdclient.a \
+        ../../../src/client/packages/libpackages.a 
 INCLUDEPATH += ../../../src/client/lib \
                ../../../src/dlib/dgui \
                ../../../src/dlib/dcore 
-QMAKE_LIBDIR = ../../../src/dlib/dgui \
-               ../../../src/dlib/dcore 
+QMAKE_LIBDIR = ../../../src/dlib/dcore \
+               ../../../src/dlib/dgui 
 TARGET = ../../../bin/dformcreator.bin 
 CONFIG += release \
           warn_on 

@@ -73,6 +73,28 @@ void DTServerConnection::run()
 				{
 					emit requestSendToAll(  SChatPackage(m_login,values["Message"]).toString().remove('\n') );
 				}
+				else if ( root == "Insert" )
+				{
+					QStringList fields_and_values = values["field"].split("||");
+					
+					QStringList fieldsList, valuesList;
+					
+					foreach(QString field_and_value, fields_and_values )
+					{
+						QStringList tmpFields = field_and_value.split("::");
+						
+						if ( tmpFields.count() != 2 ) continue;
+						
+						fieldsList << tmpFields[0];
+						valuesList << tmpFields[1];
+					}
+					
+					QString table = values["Table"];
+					
+					DTInsert *insert = new DTInsert(table, fieldsList, valuesList);
+					
+					emit requestOperation( insert );
+				}
 			}
 			else
 			{

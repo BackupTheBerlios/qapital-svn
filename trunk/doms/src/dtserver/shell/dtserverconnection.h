@@ -28,6 +28,8 @@
 #include "dtserverclient.h"
 #include "spackageparser.h"
 
+#include "dtquery.h"
+
 class DTServerConnection : public QThread
 {
 	Q_OBJECT;
@@ -53,6 +55,8 @@ class DTServerConnection : public QThread
 		void requestRemoveConnection(DTServerConnection *self);
 		
 		void requestAuth(DTServerConnection *cnx, const QString &, const QString &);
+		
+		void requestOperation(const DTQuery *query);
 
 	private:
 		DTServerClient *m_client;

@@ -41,7 +41,7 @@ CConnectorBase::~CConnectorBase()
 
 void CConnectorBase::sendToServer(const QString &text)
 {
-	dDebug() << "Sending: " << text;
+// 	dDebug() << "Sending: " << text;
 	
 	if ( state() == QAbstractSocket::ConnectedState )
 	{

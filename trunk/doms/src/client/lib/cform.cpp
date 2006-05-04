@@ -57,7 +57,6 @@ void CForm::debug()
 	{
 		QString table = m_inputMap.keys()[i];
 		
-		
 		dDebug() << "----- Table " << table << " -----";
 		QList<FormWidgetIface*> fields = m_inputMap[table];
 		for(int j = 0; j < fields.count(); j++)
@@ -67,3 +66,38 @@ void CForm::debug()
 	}
 	dDebug() << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
 }
+
+
+void CForm::addButtonClicked()
+{
+	D_FUNCINFO;
+	
+	foreach(QString table, m_inputMap.keys())
+	{
+		QList<FormWidgetIface*> formInputs = m_inputMap[table];
+		
+		QStringList fields, values;
+		foreach(FormWidgetIface *formWidgetInput, formInputs)
+		{
+			fields << formWidgetInput->field();
+			values << formWidgetInput->fieldValue();
+		}
+		
+		CInsertPackage insert(table, fields, values);
+		
+		emit requestSentToServer( insert.toString(0) );
+	}
+}
+
+void CForm::cancelButtonClicked()
+{
+	D_FUNCINFO;
+}
+
+void CForm::resetButtonClicked()
+{
+	D_FUNCINFO;
+}
+
+
+

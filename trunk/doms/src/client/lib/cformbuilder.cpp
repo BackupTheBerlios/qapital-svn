@@ -196,8 +196,12 @@ bool CFormBuilder::endElement(const QString&, const QString& , const QString& qn
 		QPushButton *ok = new QPushButton( QObject::tr("Ok") );
 		buttons->addWidget( ok );
 		
+		QObject::connect(ok, SIGNAL(clicked()), m_form, SLOT(addButtonClicked()));
+		
 		QPushButton *cancel = new QPushButton( QObject::tr("Cancel") );
 		buttons->addWidget( cancel );
+		
+		QObject::connect(cancel, SIGNAL(clicked()), m_form, SLOT(cancelButtonClicked()));
 		
 		qobject_cast<QBoxLayout*>(m_form->layout())->addLayout(buttons);
 	}

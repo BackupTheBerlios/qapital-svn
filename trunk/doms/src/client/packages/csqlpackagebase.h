@@ -18,81 +18,38 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "cconnector.h"
+#ifndef CSQLPACKAGEBASE_H
+#define CSQLPACKAGEBASE_H
 
-#include <QDataStream>
+#include <QDomDocument>
+#include <QStringList>
 
-#include <ddebug.h>
+/**
+ * Esta clase solo puede ser usada mediante el mecanismo de herencia
+ * @author David Cuadrado <krawek@gmail.com>
+*/
 
-#include "cconnectpackage.h"
-#include "cpackageparser.h"
-
-#include "global.h"
-
-CConnector::CConnector(QObject * parent) : CConnectorBase(parent)
+class CSqlPackageBase : public QDomDocument
 {
-	m_parser = new CPackageParser;
-	m_reader.setContentHandler(m_parser);
-	m_reader.setErrorHandler(m_parser);
-}
-
-
-CConnector::~CConnector()
-{
-}
-
-void CConnector::readFromServer()
-{
-	while(canReadLine())
-	{
-		m_readed += readLine();
-	}
-	
-	QXmlInputSource xmlsource;
-	xmlsource.setData(m_readed);
-			
-// 	dDebug() << "READED: " << m_readed;
-	
-	if ( m_reader.parse(&xmlsource) )
-	{
-		QString root = m_parser->root();
-		
-		if( root == "Success")
+	protected:
+		enum Order
 		{
-			emit readedModuleForms( m_parser->moduleForms() );
-			
-			emit message(Msg::Info, m_parser->results()["message"]);
-		}
-		else if(root == "Chat" )
-		{
-			XMLResults results = m_parser->results();
-			emit chatMessage(results["login"], results["message"]);
-		}
-		else if ( root == "Error" )
-		{
-			XMLResults results = m_parser->results();
-			emit message(Msg::Error, "Error "+results["id"]+": "+results["message"] );
-		}
+			NoOrder = 0,
+			Asc = 1,
+			Desc = 0
+		};
+		CSqlPackageBase();
+		~CSqlPackageBase();
 		
-		m_readed = "";
-	}
-	else
-	{
+		void addTable(const QString &table, const QStringList &fields = QStringList() );
+		void addTable(const QString &table, const QStringList &fields, const QStringList &values );
 		
-	}
-}
+		void setWhere(const QString &where);
+		void setCondition(const QString &condition);
+		void setOrderBy(const QString &field, Order o);
 
-void CConnector::login(const QString &user, const QString &passwd)
-{
-	QString toSend = CConnectPackage(user, passwd).toString();
-	toSend.remove('\n');
-	
-	sendToServer( toSend );
-}
+};
 
-void CConnector::handleError(QAbstractSocket::SocketError error)
-{
-	dError() << "Error: " << error;
-}
+#endif
 
 

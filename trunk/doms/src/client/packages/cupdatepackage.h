@@ -17,82 +17,20 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+ 
+#ifndef CUPDATEPACKAGE_H
+#define CUPDATEPACKAGE_H
 
-#include "cconnector.h"
+#include "csqlpackagebase.h"
 
-#include <QDataStream>
-
-#include <ddebug.h>
-
-#include "cconnectpackage.h"
-#include "cpackageparser.h"
-
-#include "global.h"
-
-CConnector::CConnector(QObject * parent) : CConnectorBase(parent)
+/**
+ * @author David Cuadrado <krawek@gmail.com>
+*/
+class CUpdatePackage : public CSqlPackageBase
 {
-	m_parser = new CPackageParser;
-	m_reader.setContentHandler(m_parser);
-	m_reader.setErrorHandler(m_parser);
-}
+	public:
+		CUpdatePackage(const QString &table, const QStringList &fields);
+		~CUpdatePackage();
+};
 
-
-CConnector::~CConnector()
-{
-}
-
-void CConnector::readFromServer()
-{
-	while(canReadLine())
-	{
-		m_readed += readLine();
-	}
-	
-	QXmlInputSource xmlsource;
-	xmlsource.setData(m_readed);
-			
-// 	dDebug() << "READED: " << m_readed;
-	
-	if ( m_reader.parse(&xmlsource) )
-	{
-		QString root = m_parser->root();
-		
-		if( root == "Success")
-		{
-			emit readedModuleForms( m_parser->moduleForms() );
-			
-			emit message(Msg::Info, m_parser->results()["message"]);
-		}
-		else if(root == "Chat" )
-		{
-			XMLResults results = m_parser->results();
-			emit chatMessage(results["login"], results["message"]);
-		}
-		else if ( root == "Error" )
-		{
-			XMLResults results = m_parser->results();
-			emit message(Msg::Error, "Error "+results["id"]+": "+results["message"] );
-		}
-		
-		m_readed = "";
-	}
-	else
-	{
-		
-	}
-}
-
-void CConnector::login(const QString &user, const QString &passwd)
-{
-	QString toSend = CConnectPackage(user, passwd).toString();
-	toSend.remove('\n');
-	
-	sendToServer( toSend );
-}
-
-void CConnector::handleError(QAbstractSocket::SocketError error)
-{
-	dError() << "Error: " << error;
-}
-
-
+#endif

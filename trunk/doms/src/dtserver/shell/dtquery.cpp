@@ -235,9 +235,9 @@ DTUpdate::DTUpdate(QString table, QStringList fields, QStringList values) : DTQu
 	for (int i = 0; i < fields.count(); i++)
 	{
 		if ( i == values.count() - 1)
-			m_query += fields[i] + " = " + values[i];
+			m_query += fields[i] + " = " + SQLSTR(values[i]);
 		else
-			m_query += fields[i] + " = " + values[i] + ",";
+			m_query += fields[i] + " = " + SQLSTR(values[i]) + ",";
 	}
 }
 
@@ -245,16 +245,34 @@ DTUpdate::~DTUpdate()
 {
 }
 
-DTInsert::DTInsert(QString table, QStringList values) : DTQuery(DTQuery::Insert)
+DTInsert::DTInsert(const QString &table, const QStringList &fields, const QStringList &values) : DTQuery(DTQuery::Insert)
 {
-	m_query = "insert into " + table + " values ( ";
+	m_query = "insert into " + table + " (";
+	
+	QStringList::const_iterator fieldIt = fields.begin();
+	
+	while( fieldIt != fields.end() )
+	{
+		if ( fieldIt == fields.end() - 1)
+		{
+			m_query += *fieldIt +") ";
+		}
+		else
+		{
+			m_query += *fieldIt +",";
+		}
+		
+		++fieldIt;
+	}
+	
+	m_query += " values ( ";;
 	
 	for (int i = 0; i < values.count(); i++)
 	{
 		if ( i == values.count() - 1)
-			m_query += values[i];
+			m_query += SQLSTR(values[i]);
 		else
-			m_query += values[i] + ",";
+			m_query += SQLSTR(values[i]) + ",";
 	}
 	
 	m_query += " )";

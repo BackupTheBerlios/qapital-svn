@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2006 by David Cuadrado                                  *
- *   krawek@gmail.com                                                      *
+ *   krawek@gmail.com                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,48 +18,21 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef FORTUNESERVER_H
-#define FORTUNESERVER_H
+#include "cinsertpackage.h"
 
-#include <QStringList>
-#include <QTcpServer>
-
-#include "dtserverconnection.h"
-#include "sdatabase.h"
-
-#include "dtsglobal.h"
-
-class DTServer : public QTcpServer
+CInsertPackage::CInsertPackage(const QString &table, const QStringList &fields, const QStringList &values) : CSqlPackageBase()
 {
-	Q_OBJECT;
+	QDomElement root = createElement("Insert");
 	
-	public:
-		DTServer(QObject *parent = 0);
-		DTServer(DTS::ConnectionType type, const QString &host, QObject *parent = 0);
-		~DTServer();
-		void sendToAll(const QDomDocument &pkg);
-		
-		bool openConnection(DTS::ConnectionType type, const QString &host);
-		
-	public slots:
-		void sendToAll(const QString &msg);
-		void removeConnection(DTServerConnection *cnx);
-		void authenticate(DTServerConnection *cnx,const QString &login, const QString &password);
-		
-		void doOperation(const DTQuery *query);
-		
-		
-	private:
-		void handle(const DTServerConnection *cnx);
-		
-		
-	protected:
-		void incomingConnection(int socketDescriptor);
-		
-	private:
-		QList<DTServerConnection *> m_connections;
-		
-		DTS::ConnectionType m_type;
-};
+	appendChild( root );
+	
+	addTable(table, fields, values);
+	
+}
 
-#endif
+
+CInsertPackage::~CInsertPackage()
+{
+}
+
+

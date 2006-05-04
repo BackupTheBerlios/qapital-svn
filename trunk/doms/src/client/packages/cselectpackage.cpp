@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2006 by David Cuadrado                                  *
- *   krawek@gmail.com                                                      *
+ *   krawek@gmail.com                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -17,49 +17,29 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#include "cselectpackage.h"
 
-#ifndef FORTUNESERVER_H
-#define FORTUNESERVER_H
-
-#include <QStringList>
-#include <QTcpServer>
-
-#include "dtserverconnection.h"
-#include "sdatabase.h"
-
-#include "dtsglobal.h"
-
-class DTServer : public QTcpServer
+CSelectPackage::CSelectPackage(const QString &table, const QStringList &fields, bool distinct) : CSqlPackageBase()
 {
-	Q_OBJECT;
+	QDomElement root = createElement("Select");
 	
-	public:
-		DTServer(QObject *parent = 0);
-		DTServer(DTS::ConnectionType type, const QString &host, QObject *parent = 0);
-		~DTServer();
-		void sendToAll(const QDomDocument &pkg);
-		
-		bool openConnection(DTS::ConnectionType type, const QString &host);
-		
-	public slots:
-		void sendToAll(const QString &msg);
-		void removeConnection(DTServerConnection *cnx);
-		void authenticate(DTServerConnection *cnx,const QString &login, const QString &password);
-		
-		void doOperation(const DTQuery *query);
-		
-		
-	private:
-		void handle(const DTServerConnection *cnx);
-		
-		
-	protected:
-		void incomingConnection(int socketDescriptor);
-		
-	private:
-		QList<DTServerConnection *> m_connections;
-		
-		DTS::ConnectionType m_type;
-};
+	if (distinct)
+	{
+		root.setAttribute( "distinct", QString::number(1) );
+	}
+	else
+	{
+		root.setAttribute( "distinct", QString::number(0) );
+	}
+	
+	appendChild( root );
+	
+	addTable( table, fields );
+}
 
-#endif
+
+CSelectPackage::~CSelectPackage()
+{
+}
+
+

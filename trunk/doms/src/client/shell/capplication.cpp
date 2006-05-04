@@ -41,6 +41,7 @@ bool CApplication::firstRun()
 	
 	if ( configurator.exec() != QDialog::Rejected )
 	{
+		DCONFIG->beginGroup("General");
 		DCONFIG->setValue("Home", configurator.home());
 		DCONFIG->setValue("Repository", configurator.repository());
 		

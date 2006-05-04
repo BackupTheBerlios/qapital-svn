@@ -91,6 +91,7 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 		}
 		else if ( qname == "Message" )
 		{
+			m_values.insert("message", atts.value("value"));
 		}
 	}
 	else if ( m_root == "Resources" )

@@ -174,6 +174,8 @@ void CMainWindow::addForm(CForm *form, const QString &title)
 		scroll->setWidget(form);
 		
 		addWidget( scroll, title, false);
+		
+		connect(form, SIGNAL(requestSentToServer(const QString &)), m_connector, SLOT(sendToServer( const QString& )));
 	}
 }
 
@@ -302,7 +304,7 @@ void CMainWindow::handleMessage(Msg::Type type, const QString &message)
 		break;
 		case Msg::Info:
 		{
-			
+			statusBar()->showMessage(message);
 		}
 		break;
 		case Msg::Warning:

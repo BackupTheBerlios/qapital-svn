@@ -90,4 +90,7 @@ QMap<QString, QStringList> SResultSet::map() const
 	return m_map;
 }
 
-
+bool SResultSet::isValid() const
+{
+	return !m_map.isEmpty();
+}

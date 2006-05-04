@@ -4,9 +4,19 @@
 # Target is a library:  
 
 HEADERS += cconnectpackage.h \
-           cchatpackage.h 
+           cchatpackage.h \
+           cselectpackage.h \
+           cupdatepackage.h \
+           cinsertpackage.h \
+           cdeletepackage.h \
+           csqlpackagebase.h 
 SOURCES += cconnectpackage.cpp \
-           cchatpackage.cpp 
+           cchatpackage.cpp \
+           cselectpackage.cpp \
+           cupdatepackage.cpp \
+           cinsertpackage.cpp \
+           cdeletepackage.cpp \
+           csqlpackagebase.cpp 
 QT += xml
 KDEV_QTVER = 4
 INCLUDEPATH += ../../../src/dlib/dgui \

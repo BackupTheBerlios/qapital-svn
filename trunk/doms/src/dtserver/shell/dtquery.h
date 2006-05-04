@@ -186,7 +186,7 @@ class DTInsert : public DTQuery
 		 * @param values 
 		 * @return 
 		 */
-		DTInsert(QString table, QStringList values);
+		DTInsert(const QString &table, const QStringList &fields, const QStringList &values);
 		/**
 		 * Destructor
 		 * @return 
