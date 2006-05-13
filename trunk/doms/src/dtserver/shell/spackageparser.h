@@ -45,7 +45,6 @@ class SPackageParser : public QXmlDefaultHandler
 		QString root() const;
 		QMap<QString, QString> values() const;
 		
-	private:
 		void reset();
 		
 	private:

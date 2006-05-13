@@ -42,6 +42,8 @@ class DTServerConnection : public QThread
 		void close();
 		void setLogin(const QString &login);
 		
+		bool isLogged() const;
+		
 	private:
 		
 	public slots:
@@ -64,6 +66,8 @@ class DTServerConnection : public QThread
 		QXmlSimpleReader m_reader;
 		SPackageParser *m_parser;
 		QString m_login;
+		
+		bool m_isLogged;
 };
 
 #endif

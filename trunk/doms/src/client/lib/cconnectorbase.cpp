@@ -41,13 +41,20 @@ CConnectorBase::~CConnectorBase()
 
 void CConnectorBase::sendToServer(const QString &text)
 {
-// 	dDebug() << "Sending: " << text;
+	dDebug() << "Sending: " << text;
+	
+// 	reset();
 	
 	if ( state() == QAbstractSocket::ConnectedState )
 	{
 		QTextStream out(this);
-		out << text << endl;
+		
+		QString toSend(text);
+		toSend.remove('\n');
+		
+		out << text+"%%" << endl;
 		flush();
+		
 	}
 	else
 	{
@@ -60,8 +67,10 @@ void CConnectorBase::flushQueue()
 	D_FUNCINFO;
 	while ( m_queue.count() > 0 )
 	{
-		sendToServer( m_queue.takeFirst());
+		sendToServer( m_queue.takeFirst() );
 	}
+	
+	m_queue.clear();
 }
 
 

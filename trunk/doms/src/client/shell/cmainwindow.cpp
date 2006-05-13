@@ -45,14 +45,14 @@ CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0)
 	
 #ifdef Q_WS_X11
 	static const uint SIZE = 40960; //40 KiB
-        static char stdout[ SIZE ];
+        static char buff[ SIZE ];
 	
 	FILE *process = ::popen( "fortune", "r" );
-	stdout[ std::fread( (void*)stdout, sizeof(char), SIZE-1, process ) ] = '\0';
+	buff[ std::fread( (void*)buff, sizeof(char), SIZE-1, process ) ] = '\0';
 	
 	::pclose( process );
 	
-	QString title = QString::fromLocal8Bit(stdout).remove('\n');
+	QString title = QString::fromLocal8Bit(buff).remove('\n');
 	
 	if ( !title.isEmpty() )
 	{

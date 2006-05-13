@@ -35,12 +35,12 @@ CClientModuleWidget::CClientModuleWidget(const QString &title, QWidget *parent) 
 	
 	// For testing purpose
 	
-	addPacient( "Pepito","Perez"); 
+	addPacient( "Pepito","Perez");
 	addPacient( "David ","Cuadrado");
-	addPacient( "Carlos ","Giraldo"); 
-	addPacient(  "Jonathan"," Guzman"); 
-	addPacient(  "Andres ","XLS"); 
-	addPacient(  "Alguien"," mas"); 
+	addPacient( "Carlos ","Giraldo");
+	addPacient(  "Jonathan"," Guzman");
+	addPacient(  "Andres ","XLS");
+	addPacient(  "Alguien"," mas");
 	addPacient(  "Homero"," Simpson" );
 }
 

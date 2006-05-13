@@ -46,10 +46,23 @@ void CConnector::readFromServer()
 	while(canReadLine())
 	{
 		m_readed += readLine();
+		
+		if ( m_readed.endsWith("%%\n") )
+		{
+			break;
+		}
+	}
+// 	m_readed = QString(readAll());
+	
+	if ( m_readed.isEmpty() )
+	{
+		return;
 	}
 	
+	m_readed.remove(m_readed.lastIndexOf("%%"), 2);
+	
 	QXmlInputSource xmlsource;
-	xmlsource.setData(m_readed);
+	xmlsource.setData(m_readed+'\n');
 			
 // 	dDebug() << "READED: " << m_readed;
 	
@@ -78,7 +91,7 @@ void CConnector::readFromServer()
 	}
 	else
 	{
-		
+		dDebug() << "Error parsing: " << m_readed;
 	}
 }
 

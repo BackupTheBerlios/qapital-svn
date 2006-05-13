@@ -53,12 +53,20 @@ void DTServerConnection::run()
 		while(m_client->canReadLine())
 		{
 			readed += m_client->readLine();
+			if ( readed.endsWith("%%\n") )
+			{
+				break;
+			}
 		}
+		
+		
 		
 		if ( !readed.isEmpty() )
 		{
+			readed.remove(readed.lastIndexOf("%%"), 2);
+			
 			QXmlInputSource xmlsource;
-			xmlsource.setData(readed);
+			xmlsource.setData(readed+'\n');
 			
 // 			dDebug() << "READED: " << readed;
 			
@@ -77,7 +85,7 @@ void DTServerConnection::run()
 				}
 				else if ( root == "Insert" )
 				{
-					QStringList fields_and_values = values["field"].split("||");
+					QStringList fields_and_values = values["field"].split(DTS::FIELD_SEPARATOR);
 					
 					QStringList fieldsList, valuesList;
 					
@@ -91,7 +99,7 @@ void DTServerConnection::run()
 						valuesList << tmpFields[1];
 					}
 					
-					QString table = values["Table"];
+					QString table = values["table"];
 					
 					DTInsert *insert = new DTInsert(table, fieldsList, valuesList);
 					
@@ -173,11 +181,13 @@ void DTServerConnection::run()
 			}
 			else
 			{
-				sendToClient( SErrorPackage(0, tr("Bad package")) );
-				if ( !readed.isEmpty() )
-				{
-					close();
-				}
+				m_parser->reset();
+				SHOW_VAR(readed);
+// 				sendToClient( SErrorPackage(0, tr("Bad package ")+readed) );
+// 				if ( !readed.isEmpty() )
+// 				{
+// 					close();
+// 				}
 			}
 		}
 	}
@@ -189,15 +199,20 @@ void DTServerConnection::run()
 void DTServerConnection::sendToClient(const QString &msg)
 {
 // 	dDebug() << "SENDING: " << msg;
+	m_client->reset();
+	
 	QTextStream out(m_client);
 	
-	out << msg << endl;
+	QString toSend(msg);
+	toSend.remove('\n');
+	
+	out << toSend+"%%" << endl;
 	m_client->flush();
 }
 
 void DTServerConnection::sendToClient(const QDomDocument &doc)
 {
-	sendToClient( doc.toString());
+	sendToClient( doc.toString(0));
 }
 
 void DTServerConnection::close()
@@ -213,3 +228,7 @@ void DTServerConnection::setLogin(const QString &login)
 	m_login = login;
 }
 
+bool DTServerConnection::isLogged() const
+{
+	return !m_login.isEmpty();
+}

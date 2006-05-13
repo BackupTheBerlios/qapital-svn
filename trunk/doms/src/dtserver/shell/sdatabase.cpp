@@ -74,6 +74,12 @@ SResultSet SDatabase::execRawQuery(const QString &sql)
 		rs.setRecord( fields, values);
 	}
 	
+	QString error = lastError().text();
+	if ( error != " ")
+	{
+		dFatal() << error;
+	}
+	
 	return rs;
 }
 

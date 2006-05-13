@@ -131,6 +131,8 @@ void DTServer::sendToAll(const QDomDocument &pkg)
 void DTServer::removeConnection(DTServerConnection *cnx)
 {
 	D_FUNCINFO;
+	cnx->close();
+	cnx->setLogin(0);
 	m_connections.removeAll(cnx);
 }
 
@@ -143,7 +145,12 @@ void DTServer::authenticate(DTServerConnection *cnx, const QString &login, const
 	dDebug() << "Request auth!";
 	dDebug() << "Login: " << login << " Password: " << password;
 	
-	DTSelect select(QStringList() << "password", "users" );
+	if ( cnx->isLogged())
+	{
+		return;
+	}
+	
+	DTSelect select(QStringList() << "password", "dt_users" );
 	select.setWhere("login="+SQLSTR(login));
 	
 	SResultSet rs = SDBM->execQuery(&select);
