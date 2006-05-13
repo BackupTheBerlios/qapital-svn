@@ -17,44 +17,33 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#ifndef FORMBUTTONGROUP_H
+#define FORMBUTTONGROUP_H
 
-#ifndef SPACKAGEPARSER_H
-#define SPACKAGEPARSER_H
+#include <qgroupbox.h>
+#include <formwidgetiface.h>
 
-#include <qxml.h>
-#include <QMap>
+#include <QButtonGroup>
+
+class QAbstractButton;
 
 /**
  * @author David Cuadrado <krawek@gmail.com>
 */
-class SPackageParser : public QXmlDefaultHandler
+
+class FormButtonGroup : public QGroupBox, public FormWidgetIface
 {
 	public:
-		SPackageParser();
-		~SPackageParser();
+		FormButtonGroup(Qt::Orientation o = Qt::Vertical);
+		~FormButtonGroup();
 		
-		bool startElement(const QString& , const QString& , const QString& qname, const QXmlAttributes& atts);
+		void setFieldValue(const QVariant &v);
+		QString fieldValue() const;
 		
-		bool endElement( const QString& ns, const QString& localname, const QString& qname);
-		
-		bool characters ( const QString & ch );
-		
-		bool error ( const QXmlParseException & exception );
-		bool fatalError ( const QXmlParseException & exception );
-		
-		QString root() const;
-		QMap<QString, QString> values() const;
+		void addButton(QAbstractButton *button, int id);
 		
 	private:
-		void reset();
-		
-	private:
-		QString m_root, m_qname;
-		
-		QMap<QString, QString> m_values;
-		
-		bool m_isParsing;
-		bool m_readCharacters;
+		QButtonGroup *m_buttonGroup;
 };
 
 #endif

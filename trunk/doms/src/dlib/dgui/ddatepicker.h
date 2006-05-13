@@ -40,6 +40,7 @@ class DDatePicker : public QFrame
 		DDatePicker(QWidget *parent = 0);
 		~DDatePicker();
 		void setDate(const QDate &date);
+		QDate date() const;
 		
 	private:
 		void fillWeeks(const QDate &date);
@@ -67,8 +68,8 @@ class DDatePicker : public QFrame
 		
 		class EditableButton;
 		
-		 QToolButton *m_mounth;
-		 EditableButton *m_year;
+		QToolButton *m_mounth;
+		EditableButton *m_year;
 };
 
 class DDatePicker::EditableButton : public QToolButton

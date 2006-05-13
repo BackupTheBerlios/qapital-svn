@@ -18,43 +18,25 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef SPACKAGEPARSER_H
-#define SPACKAGEPARSER_H
+#ifndef FORMDATEWIDGET_H
+#define FORMDATEWIDGET_H
 
-#include <qxml.h>
-#include <QMap>
+#include <ddatewidget.h>
+#include "formwidgetiface.h"
 
 /**
  * @author David Cuadrado <krawek@gmail.com>
 */
-class SPackageParser : public QXmlDefaultHandler
+
+class FormDateWidget : public DDateWidget, public FormWidgetIface
 {
 	public:
-		SPackageParser();
-		~SPackageParser();
+		FormDateWidget();
+		~FormDateWidget();
 		
-		bool startElement(const QString& , const QString& , const QString& qname, const QXmlAttributes& atts);
+		void setFieldValue(const QVariant &data);
+		QString fieldValue() const;
 		
-		bool endElement( const QString& ns, const QString& localname, const QString& qname);
-		
-		bool characters ( const QString & ch );
-		
-		bool error ( const QXmlParseException & exception );
-		bool fatalError ( const QXmlParseException & exception );
-		
-		QString root() const;
-		QMap<QString, QString> values() const;
-		
-	private:
-		void reset();
-		
-	private:
-		QString m_root, m_qname;
-		
-		QMap<QString, QString> m_values;
-		
-		bool m_isParsing;
-		bool m_readCharacters;
 };
 
 #endif

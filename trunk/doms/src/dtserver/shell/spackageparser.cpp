@@ -20,9 +20,11 @@
 
 #include "spackageparser.h"
 
+#include "dtsglobal.h"
+
 #include <ddebug.h>
 
-SPackageParser::SPackageParser() : QXmlDefaultHandler(), m_isParsing(false)
+SPackageParser::SPackageParser() : QXmlDefaultHandler(), m_isParsing(false), m_readCharacters(false)
 {
 }
 
@@ -74,9 +76,9 @@ bool SPackageParser::startElement( const QString& , const QString& , const QStri
 			QString field = atts.value("id");
 			QString value = atts.value("value");
 			
-			m_values[qname] += field+"::"+value+"||"; // FIXME!
+			m_values[qname] += field+"::"+value+DTS::FIELD_SEPARATOR; // FIXME!
 		}
-		else if ( qname == "Table" )
+		else if ( qname == "table" )
 		{
 			QString table = atts.value("id");
 			
@@ -85,12 +87,59 @@ bool SPackageParser::startElement( const QString& , const QString& , const QStri
 	}
 	else if ( m_root == "Update" )
 	{
+		if ( qname == "field" )
+		{
+			QString field = atts.value("id");
+			QString value = atts.value("value");
+			
+			m_values[qname] += field+"::"+value+DTS::FIELD_SEPARATOR; // FIXME!
+		}
+		else if ( qname == "table" )
+		{
+			QString table = atts.value("id");
+			
+			m_values[qname] = table;
+		}
+		else if ( qname == "where" || qname == "condition" )
+		{
+			m_readCharacters = true;
+		}
 	}
 	else if ( m_root == "Select" )
 	{
+		if ( qname == "Select" )
+		{
+			m_values["distinct"] = atts.value("distinct", "0");
+		}
+		else if ( qname == "field" )
+		{
+			QString field = atts.value("id");
+			
+			m_values[qname] += field+DTS::FIELD_SEPARATOR;
+		}
+		else if ( qname == "table" )
+		{
+			QString table = atts.value("id");
+			
+			m_values[qname] += table+DTS::FIELD_SEPARATOR;
+		}
+		else if ( qname == "where" || qname == "condition" )
+		{
+			m_readCharacters = true;
+		}
 	}
 	else if ( m_root == "Delete" )
 	{
+		if ( qname == "table" )
+		{
+			QString table = atts.value("id");
+			
+			m_values[qname] = table;
+		}
+		else if ( qname == "where" || qname == "condition" )
+		{
+			m_readCharacters = true;
+		}
 	}
 	else
 	{
@@ -110,6 +159,24 @@ bool SPackageParser::endElement(const QString&, const QString& , const QString& 
 	if ( qname == m_root )
 	{
 		m_isParsing = false;
+	}
+	
+	return true;
+}
+
+bool SPackageParser::characters ( const QString & ch )
+{
+	if (m_readCharacters )
+	{
+		if ( m_root == "Insert" || m_root == "Update" || m_root == "Delete" || m_root == "Select" )
+		{
+			if ( m_qname == "where" || m_qname == "condition" )
+			{
+				m_values[m_qname] = ch;
+			}
+		}
+		
+		m_readCharacters = false;
 	}
 	
 	return true;

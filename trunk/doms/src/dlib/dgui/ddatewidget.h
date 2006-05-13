@@ -18,43 +18,40 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef SPACKAGEPARSER_H
-#define SPACKAGEPARSER_H
+#ifndef DDATEWIDGET_H
+#define DDATEWIDGET_H
 
-#include <qxml.h>
-#include <QMap>
+#include <qwidget.h>
+#include <QDate>
+
+class QComboBox;
+class QSpinBox;
 
 /**
  * @author David Cuadrado <krawek@gmail.com>
 */
-class SPackageParser : public QXmlDefaultHandler
+class DDateWidget : public QWidget
 {
+	Q_OBJECT;
 	public:
-		SPackageParser();
-		~SPackageParser();
+		DDateWidget(QWidget *parent = 0);
+		DDateWidget(const QDate &date, QWidget *parent = 0);
+		~DDateWidget();
 		
-		bool startElement(const QString& , const QString& , const QString& qname, const QXmlAttributes& atts);
-		
-		bool endElement( const QString& ns, const QString& localname, const QString& qname);
-		
-		bool characters ( const QString & ch );
-		
-		bool error ( const QXmlParseException & exception );
-		bool fatalError ( const QXmlParseException & exception );
-		
-		QString root() const;
-		QMap<QString, QString> values() const;
+		void setDate(const QDate &date);
+		QDate date() const;
 		
 	private:
-		void reset();
+		void init(const QDate &date);
+		
+	private slots:
+		void updateDateValues(int);
 		
 	private:
-		QString m_root, m_qname;
+		QDate m_date;
 		
-		QMap<QString, QString> m_values;
-		
-		bool m_isParsing;
-		bool m_readCharacters;
+		QSpinBox *m_day, *m_year;
+		QComboBox *m_mounth;
 };
 
 #endif

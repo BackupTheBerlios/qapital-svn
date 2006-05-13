@@ -29,6 +29,8 @@ namespace DTS
 	
 	const int ADMIN_PORT = 9420;
 	const int CLIENT_PORT = 1415;
+	
+	const QString FIELD_SEPARATOR = ",";
 };
 
 

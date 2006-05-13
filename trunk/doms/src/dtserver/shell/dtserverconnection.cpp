@@ -27,6 +27,8 @@
 #include "serrorpackage.h"
 #include "schatpackage.h"
 
+#include "dtsglobal.h"
+
 DTServerConnection::DTServerConnection(int socketDescriptor, QObject *parent) : QThread(parent)
 {
 	m_client = new DTServerClient(this);
@@ -93,7 +95,80 @@ void DTServerConnection::run()
 					
 					DTInsert *insert = new DTInsert(table, fieldsList, valuesList);
 					
+					if ( !values["where"].isEmpty() )
+					{
+						insert->setWhere( values["where"] );
+					}
+					
+					if ( !values["condition"].isEmpty() )
+					{
+						insert->setCondition( values["condition"] );
+					}
+					
 					emit requestOperation( insert );
+				}
+				else if ( root == "Update" )
+				{
+					QStringList fields_and_values = values["field"].split(DTS::FIELD_SEPARATOR);
+					
+					QStringList fieldsList, valuesList;
+					
+					foreach(QString field_and_value, fields_and_values )
+					{
+						QStringList tmpFields = field_and_value.split("::");
+						
+						if ( tmpFields.count() != 2 ) continue;
+						
+						fieldsList << tmpFields[0];
+						valuesList << tmpFields[1];
+					}
+					
+					QString table = values["table"];
+					
+					DTUpdate *update = new DTUpdate(table, fieldsList, valuesList);
+					
+					if ( !values["where"].isEmpty() )
+					{
+						update->setWhere( values["where"] );
+					}
+					
+					if ( !values["condition"].isEmpty() )
+					{
+						update->setCondition( values["condition"] );
+					}
+					
+					emit requestOperation( update );
+				}
+				else if ( root == "Delete" )
+				{
+					QString table = values["table"];
+					
+					DTDelete *del = new DTDelete(table);
+					
+					if ( !values["where"].isEmpty() )
+					{
+						del->setWhere( values["where"] );
+					}
+					
+					if ( !values["condition"].isEmpty() )
+					{
+						del->setCondition( values["condition"] );
+					}
+					
+					emit requestOperation( del );
+				}
+				else if ( root == "Select" )
+				{
+					QString fields = values["field"];
+					QString tables = values["tables"];
+					
+					//remove the last (,)
+					fields = fields.remove(fields.count(),1);
+					tables = tables.remove(tables.count(),1);
+					
+					DTSelect *select = new DTSelect(QStringList() << fields, QStringList() << tables, values["distinct"].toInt() );
+					
+					emit requestOperation( select);
 				}
 			}
 			else

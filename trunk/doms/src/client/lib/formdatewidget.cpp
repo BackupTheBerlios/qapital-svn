@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2006 by David Cuadrado                                  *
- *   krawek@gmail.com                                                      *
+ *   krawek@gmail.com                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -17,44 +17,25 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#include "formdatewidget.h"
 
-#ifndef SPACKAGEPARSER_H
-#define SPACKAGEPARSER_H
-
-#include <qxml.h>
-#include <QMap>
-
-/**
- * @author David Cuadrado <krawek@gmail.com>
-*/
-class SPackageParser : public QXmlDefaultHandler
+FormDateWidget::FormDateWidget()
+ : DDateWidget()
 {
-	public:
-		SPackageParser();
-		~SPackageParser();
-		
-		bool startElement(const QString& , const QString& , const QString& qname, const QXmlAttributes& atts);
-		
-		bool endElement( const QString& ns, const QString& localname, const QString& qname);
-		
-		bool characters ( const QString & ch );
-		
-		bool error ( const QXmlParseException & exception );
-		bool fatalError ( const QXmlParseException & exception );
-		
-		QString root() const;
-		QMap<QString, QString> values() const;
-		
-	private:
-		void reset();
-		
-	private:
-		QString m_root, m_qname;
-		
-		QMap<QString, QString> m_values;
-		
-		bool m_isParsing;
-		bool m_readCharacters;
-};
+}
 
-#endif
+
+FormDateWidget::~FormDateWidget()
+{
+}
+
+void FormDateWidget::setFieldValue(const QVariant &data)
+{
+	setDate(data.toDate());
+}
+
+QString FormDateWidget::fieldValue() const
+{
+	return date().toString( Qt::ISODate );
+}
+

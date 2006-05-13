@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2006 by David Cuadrado                                  *
- *   krawek@gmail.com                                                      *
+ *   krawek@gmail.com                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,43 +18,56 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef SPACKAGEPARSER_H
-#define SPACKAGEPARSER_H
+#include "formbuttongroup.h"
 
-#include <qxml.h>
-#include <QMap>
+#include <QAbstractButton>
+#include <QBoxLayout>
 
-/**
- * @author David Cuadrado <krawek@gmail.com>
-*/
-class SPackageParser : public QXmlDefaultHandler
+FormButtonGroup::FormButtonGroup(Qt::Orientation o)
+ : QGroupBox(), FormWidgetIface()
 {
-	public:
-		SPackageParser();
-		~SPackageParser();
-		
-		bool startElement(const QString& , const QString& , const QString& qname, const QXmlAttributes& atts);
-		
-		bool endElement( const QString& ns, const QString& localname, const QString& qname);
-		
-		bool characters ( const QString & ch );
-		
-		bool error ( const QXmlParseException & exception );
-		bool fatalError ( const QXmlParseException & exception );
-		
-		QString root() const;
-		QMap<QString, QString> values() const;
-		
-	private:
-		void reset();
-		
-	private:
-		QString m_root, m_qname;
-		
-		QMap<QString, QString> m_values;
-		
-		bool m_isParsing;
-		bool m_readCharacters;
-};
+	m_buttonGroup = new QButtonGroup(this);
+	
+	switch(o)
+	{
+		case Qt::Horizontal:
+		{
+			new QBoxLayout(QBoxLayout::LeftToRight, this);
+		}
+		break;
+		default:
+		{
+			new QBoxLayout(QBoxLayout::TopToBottom, this);
+		}
+		break;
+	}
+}
 
-#endif
+
+FormButtonGroup::~FormButtonGroup()
+{
+}
+
+void FormButtonGroup::setFieldValue(const QVariant &v)
+{
+	int id = v.toInt();
+	
+	QAbstractButton *button = m_buttonGroup->button(id);
+	
+	if (button)
+	{
+		button->setChecked(true);
+	}
+}
+
+QString FormButtonGroup::fieldValue() const
+{
+	return QString::number(m_buttonGroup->checkedId());
+}
+
+void FormButtonGroup::addButton(QAbstractButton *button, int id)
+{
+	layout()->addWidget(button);
+	m_buttonGroup->addButton(button, id);
+}
+

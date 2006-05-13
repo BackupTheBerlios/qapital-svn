@@ -29,7 +29,7 @@
 
 #include <dglobal.h>
 
-#include "formlineedit.h"
+#include "formwidgets.h"
 
 CFormBuilder::CFormBuilder() : QXmlDefaultHandler(), m_readChar(false), m_form(0)
 {
@@ -99,13 +99,24 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 		else if ( qname == "Input" )
 		{
 			QHBoxLayout *ly = new QHBoxLayout;
+			ly->setMargin(0);
+// 			ly->setSpacing(0);
 			
+			QBoxLayout *boxLayout = qobject_cast<QBoxLayout *>(m_widgets.last()->layout());
+			if ( boxLayout )
+			{
+				boxLayout->addLayout(ly);
+			}
+			
+			QString label = atts.value("label");
 			QString type = atts.value("type");
 			QString dbfield = atts.value("dbfield"); // FIXME
 			
-			if( type.isEmpty() )
+			
+			
+			if( type.isEmpty() || type == "text" )
 			{
-				ly->addWidget(new QLabel(atts.value("label")));
+				ly->addWidget(new QLabel(label));
 				
 				FormLineEdit *lineEdit = new FormLineEdit;
 				lineEdit->setFieldInfo( dbfield );
@@ -115,13 +126,49 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 			}
 			else if (type == "date" )
 			{
-				ly->addWidget( new DDatePicker );
+				FormDateWidget *date = new FormDateWidget;
+				ly->addWidget( date );
+				
+				date->setFieldInfo( dbfield );
+				m_form->addInput(date );
 			}
-			
-			QBoxLayout *boxLayout = qobject_cast<QBoxLayout *>(m_widgets.last()->layout());
-			if ( boxLayout )
+			else if ( type == "calendar" )
 			{
-				boxLayout->addLayout(ly);
+				FormDatePicker *picker = new FormDatePicker;
+				ly->addWidget(picker );
+				
+				picker->setFieldInfo( dbfield );
+				m_form->addInput( picker );
+			}
+			else if ( type == "options" )
+			{
+				int orientation = atts.value("orientation", "0").toInt();
+				
+				FormButtonGroup *buttonGroup = 0;
+				
+				switch(orientation)
+				{
+					case 1:
+					{
+						buttonGroup = new FormButtonGroup(Qt::Horizontal);
+					}
+					default:
+					{
+						buttonGroup = new FormButtonGroup(Qt::Vertical);
+					}
+				}
+				
+				if ( !buttonGroup) return false;
+				
+				buttonGroup->setTitle( label );
+				
+				ly->addWidget( buttonGroup );
+				
+				buttonGroup->setFieldInfo( dbfield );
+				
+				m_form->addInput( buttonGroup );
+				
+				m_widgets << buttonGroup;
 			}
 		}
 		else if ( qname == "Table" )
@@ -158,7 +205,25 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 		else if ( qname == "RadioButton" )
 		{
 			QRadioButton *button = new QRadioButton(atts.value("label"));
-			m_widgets.last()->layout()->addWidget(button);
+			
+			if ( dynamic_cast<FormButtonGroup *>(m_widgets.last() ) )
+			{
+// 				dDebug() << atts.value("id", "NO TIENE");
+				QString idStr = atts.value("id", "");
+				if ( idStr.isEmpty() )
+				{
+					dError() << "Please set radio button id for button: "<< atts.value("label") ;
+// 					return false;
+				}
+				
+				int id = idStr.toInt();
+				
+				qobject_cast<FormButtonGroup *>(m_widgets.last())->addButton(button, id);
+			}
+			else
+			{
+				m_widgets.last()->layout()->addWidget(button);
+			}
 		}
 		else if ( qname == "Image" )
 		{
@@ -174,6 +239,7 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 				svg->load(REPOSITORY+"/"+fileName);
 				
 				m_widgets.last()->layout()->addWidget(svg);
+				svg->resize(w, h); // FIXME
 			}
 		}
 	}
@@ -187,6 +253,13 @@ bool CFormBuilder::endElement(const QString&, const QString& , const QString& qn
 	if ( qname == "HBox" || qname == "VBox" || qname == "VGroupBox" || qname == "HGroupBox" )
 	{
 		m_widgets.takeLast();
+	}
+	else if (qname == "Input" )
+	{
+		if ( dynamic_cast<FormButtonGroup*>(m_widgets.last()))
+		{
+			m_widgets.takeLast();
+		}
 	}
 	
 	if ( qname == "Form" )

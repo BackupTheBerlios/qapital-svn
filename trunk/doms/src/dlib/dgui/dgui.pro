@@ -56,7 +56,8 @@ HEADERS += ccbar.h \
            dthemedocument.h \
            dthememanager.h \
            dclicklineedit.h \
-           dtreewidgetsearchline.h 
+           dtreewidgetsearchline.h \
+           ddatewidget.h 
 SOURCES += ccbar.cpp \
            ccbutton.cpp \
            collapsiblewidget.cpp \
@@ -104,7 +105,8 @@ SOURCES += ccbar.cpp \
            dthemedocument.cpp \
            dthememanager.cpp \
            dclicklineedit.cpp \
-           dtreewidgetsearchline.cpp 
+           dtreewidgetsearchline.cpp \
+           ddatewidget.cpp 
 RESOURCES += images.qrc
 QT += xml
 KDEV_QTVER = 4

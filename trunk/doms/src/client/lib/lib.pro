@@ -3,24 +3,11 @@
 # Subdir relative project main directory: ./src/client/lib
 # Target is a library:  dclient
 
-QT += xml network svg 
 INSTALLS += include \
             target 
 target.path = /lib/ 
 include.files += *.h 
 include.path = /include/client/ 
-KDEV_QTVER = 4 
-INCLUDEPATH += ../../../src/client/packages \
-               ../../../src/dlib/dgui \
-               ../../../src/dlib/dcore 
-MOC_DIR = .moc 
-UI_DIR = .ui 
-OBJECTS_DIR = .obj 
-TARGET = dclient 
-CONFIG += release \
-          warn_on \
-          staticlib 
-TEMPLATE = lib 
 HEADERS += global.h \
            cmodulewidget.h \
            cformbuilder.h \
@@ -31,7 +18,11 @@ HEADERS += global.h \
            cconnectorbase.h \
            formwidgetiface.h \
            formlineedit.h \
-           cform.h 
+           cform.h \
+           formdatewidget.h \
+           formdatepicker.h \
+           formbuttongroup.h \
+           formwidgets.h 
 SOURCES += cmodulewidget.cpp \
            cformbuilder.cpp \
            cmodulebuttonbar.cpp \
@@ -41,4 +32,20 @@ SOURCES += cmodulewidget.cpp \
            cconnectorbase.cpp \
            formwidgetiface.cpp \
            formlineedit.cpp \
-           cform.cpp 
+           cform.cpp \
+           formdatewidget.cpp \
+           formdatepicker.cpp \
+           formbuttongroup.cpp 
+QT += xml network svg
+KDEV_QTVER = 4
+INCLUDEPATH += ../../../src/client/packages \
+../../../src/dlib/dgui \
+../../../src/dlib/dcore
+MOC_DIR = .moc
+UI_DIR = .ui
+OBJECTS_DIR = .obj
+TARGET = dclient
+CONFIG += release \
+warn_on \
+staticlib
+TEMPLATE = lib

@@ -31,7 +31,7 @@ CSqlPackageBase::~CSqlPackageBase()
 
 void CSqlPackageBase::addTable(const QString &table, const QStringList &fields )
 {
-	QDomElement tableElement = createElement("Table");
+	QDomElement tableElement = createElement("table");
 	tableElement.setAttribute( "id", table);
 	
 	foreach(QString field, fields)
@@ -47,7 +47,7 @@ void CSqlPackageBase::addTable(const QString &table, const QStringList &fields )
 
 void CSqlPackageBase::addTable(const QString &table, const QStringList &fields, const QStringList &values ) // FIXME: eliminar esta funcion y ponerl la funcionalidad en la funcion de arriba
 {
-	QDomElement tableElement = createElement("Table");
+	QDomElement tableElement = createElement("table");
 	tableElement.setAttribute( "id", table);
 	
 	QStringList::const_iterator fieldsIt = fields.begin();

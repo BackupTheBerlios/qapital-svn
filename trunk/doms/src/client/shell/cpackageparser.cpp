@@ -168,8 +168,6 @@ bool CPackageParser::characters ( const QString & ch )
 			if ( m_qname == "Svg" )
 			{
 				m_resources.last().second = ch;
-				
-				m_readChar = true;
 			}
 		}
 		
