@@ -34,20 +34,23 @@
 class FormWidgetIface
 {
 	public:
+		struct TableField
+		{
+			QString field;
+			QString table;
+		};
+		
 		FormWidgetIface();
 		virtual ~FormWidgetIface();
 		virtual void setFieldValue(const QVariant &data) = 0;
 		virtual QString fieldValue() const = 0;
-		void setFieldInfo(const QString &table_field );
-		void setField(const QString &field);
-		void setTable(const QString &table);
 		
-		QString table() const;
-		QString field() const;
+		void setFieldInfo(const QString &table_field );
+		
+		QList<TableField> fields() const;
 		
 	private:
-		QString m_table, m_field;
-		
+		QList<TableField> m_fields;
 };
 
 #endif

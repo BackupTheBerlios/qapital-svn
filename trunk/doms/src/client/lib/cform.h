@@ -41,6 +41,7 @@ class CForm : public QWidget
 		~CForm();
 		
 		void addInput(FormWidgetIface *input);
+		void setTables(const QStringList &tables);
 		
 		void debug();
 		
@@ -60,6 +61,8 @@ class CForm : public QWidget
 		 * La llave es el nombre de la tabla, el valor es una lista de widgets de donde se pueden sacar la tabla a la que pertenece, el campo en la tabla y el valor actual.
 		 */
 		QMap<QString, QList<FormWidgetIface*> > m_inputMap;
+		
+		QStringList m_tables;
 };
 
 #endif

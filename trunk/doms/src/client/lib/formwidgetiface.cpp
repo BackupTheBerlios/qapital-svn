@@ -17,7 +17,9 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 #include "formwidgetiface.h"
+#include <ddebug.h>
 
 FormWidgetIface::FormWidgetIface()
 {
@@ -30,31 +32,23 @@ FormWidgetIface::~FormWidgetIface()
 
 void FormWidgetIface::setFieldInfo(const QString &table_field )
 {
-	QStringList table_and_field = table_field.split(':');
+	QStringList tafs = table_field.split("->");
 	
-	if ( table_and_field.count() != 2 ) return;
-	
-	setTable(table_and_field[0]);
-	setField(table_and_field[1]);
+	foreach(QString field, tafs )
+	{
+		QStringList table_and_field = field.split(':');
+		
+		if ( table_and_field.count() != 2 ) continue;
+		TableField field;
+		field.table = table_and_field[0];
+		field.field = table_and_field[1];
+		
+		m_fields << field;
+	}
 }
 
-void FormWidgetIface::setField(const QString &field)
+QList<FormWidgetIface::TableField> FormWidgetIface::fields() const
 {
-	m_field = field;
-}
-
-void FormWidgetIface::setTable(const QString &table)
-{
-	m_table = table;
-}
-
-QString FormWidgetIface::table() const
-{
-	return m_table;
-}
-
-QString FormWidgetIface::field() const
-{
-	return m_field;
+	return m_fields;
 }
 

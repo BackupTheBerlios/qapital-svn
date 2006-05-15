@@ -1,4 +1,4 @@
-<Form title="Ingresar paciente" >
+<Form title="Ingresar paciente" tables="doms_persons doms_pacients" >
 	<HBox>
 		<Image filename="logo.svg" width="100" height="100" />
 		<VBox>
@@ -22,12 +22,12 @@
 				<RadioButton label="Viudo" id="2" />
 				<RadioButton label="Union libre" id="3" />
 			</Input>
-			<Input type="options" label="Documento de identidad" orientation="0" dbfield="doms_persons:idDocumentType">
+			<Input type="options" label="Documento de identidad" orientation="0" dbfield="doms_persons:idDocumentType" >
 				<RadioButton label="Tarjeta de identidad" id="0" />
 				<RadioButton label="Cedula de ciudadania" id="1" />
 				<RadioButton label="Cedula extrajera" id="2" />
 				<RadioButton label="Pasaporte" id="3" />
-				<Input label="No." dbfield="doms_persons:idDocument" />
+				<Input label="No." dbfield="doms_persons:idDocument->doms_pacients:idDocument" />
 			</Input>
 		</HBox>
 		<HBox>

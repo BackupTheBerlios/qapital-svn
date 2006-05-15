@@ -37,15 +37,16 @@ void CForm::addInput(FormWidgetIface *input)
 	D_FUNCINFO;
 	if ( input )
 	{
-		if ( input->table().isEmpty() ) return;
-		
-		if ( !m_inputMap.contains( input->table() ) )
+		foreach(FormWidgetIface::TableField field, input->fields() )
 		{
-			m_inputMap.insert(input->table(), QList<FormWidgetIface *>() << input );
-		}
-		else
-		{
-			m_inputMap[input->table()] << input;
+			if ( !m_inputMap.contains( field.table ) )
+			{
+				m_inputMap.insert(field.table, QList<FormWidgetIface *>() << input );
+			}
+			else
+			{
+				m_inputMap[field.table] << input;
+			}
 		}
 	}
 }
@@ -53,17 +54,17 @@ void CForm::addInput(FormWidgetIface *input)
 void CForm::debug()
 {
 	dDebug() << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
-	for(int i = 0; i < m_inputMap.count(); i++)
-	{
-		QString table = m_inputMap.keys()[i];
-		
-		dDebug() << "----- Table " << table << " -----";
-		QList<FormWidgetIface*> fields = m_inputMap[table];
-		for(int j = 0; j < fields.count(); j++)
-		{
-			dDebug() << "#### Field: " << fields[j]->field();
-		}
-	}
+// 	for(int i = 0; i < m_inputMap.count(); i++)
+// 	{
+// 		QString table = m_inputMap.keys()[i];
+// 		
+// 		dDebug() << "----- Table " << table << " -----";
+// 		QList<FormWidgetIface*> fields = m_inputMap[table];
+// 		for(int j = 0; j < fields.count(); j++)
+// 		{
+// 			dDebug() << "#### Field: " << fields[j]->field();
+// 		}
+// 	}
 	dDebug() << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
 }
 
@@ -72,14 +73,14 @@ void CForm::addButtonClicked()
 {
 	D_FUNCINFO;
 	
-	foreach(QString table, m_inputMap.keys())
+	foreach(QString table, m_tables)
 	{
 		QList<FormWidgetIface*> formInputs = m_inputMap[table];
 		
 		QStringList fields, values;
 		foreach(FormWidgetIface *formWidgetInput, formInputs)
 		{
-			fields << formWidgetInput->field();
+			fields << formWidgetInput->fields()[0].field; // FIXME: this sucks
 			values << formWidgetInput->fieldValue();
 		}
 		
@@ -102,4 +103,7 @@ void CForm::resetButtonClicked()
 }
 
 
-
+void CForm::setTables(const QStringList &tables)
+{
+	m_tables = tables;
+}

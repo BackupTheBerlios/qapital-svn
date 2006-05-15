@@ -51,6 +51,10 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 		if ( qname == "Form" )
 		{
 			m_form->setWindowTitle(atts.value("title"));
+			
+			QStringList tables = atts.value("tables").split(' ');
+			m_form->setTables(tables);
+			
 		}
 		else if ( qname == "HBox" )
 		{
@@ -112,14 +116,13 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 			QString type = atts.value("type");
 			QString dbfield = atts.value("dbfield"); // FIXME
 			
-			
-			
 			if( type.isEmpty() || type == "text" )
 			{
 				ly->addWidget(new QLabel(label));
 				
 				FormLineEdit *lineEdit = new FormLineEdit;
 				lineEdit->setFieldInfo( dbfield );
+				
 				ly->addWidget(lineEdit);
 				
 				m_form->addInput(lineEdit);

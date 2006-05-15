@@ -64,7 +64,7 @@ create table doms_pacients (
 	responsiblePerson character varying(50),
 	responsibleRelationchip character varying(50),
 	responsiblePhone character varying(10),
-	responsibleOccupation character varying(10),
+	responsibleOccupation character varying(80),
 	referenceName character varying(50),
 	referenceRelationchip character varying(20),
 	referenePhone character varying(10),
@@ -75,7 +75,7 @@ create table doms_pacients (
 
 create table doms_employee(
 	idDocument character varying(15) references doms_persons(idDocument) on delete cascade on update cascade,
-	charge character varying(10)
+	charge character varying(50)
 );
 
 create table doms_speciality (
@@ -124,7 +124,7 @@ create table doms_clinic (
 	name character varying(50),
 	address character varying(30),
 	phone character varying(10),
-	seat character varying(10)
+	seat character varying(50)
 );
 -- 
 -- Fgeneral(
