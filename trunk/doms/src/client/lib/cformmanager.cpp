@@ -69,7 +69,7 @@ void CFormManager::setForms(const ModuleForms &moduleForms)
 }
 
 
-void CFormManager::loadForm(const QString &module, int id)
+CForm *CFormManager::loadForm(const QString &module, int id)
 {
 	dDebug() << "Loading form from " << module << " with id: " << id;
 	
@@ -83,13 +83,15 @@ void CFormManager::loadForm(const QString &module, int id)
 			QString document = file.readAll();
 			
 			CForm *form = m_builder->form( document );
-			emit formLoaded( form, m_builder->formTitle());
+			return form;
 		}
 	}
 	else
 	{
 		dError() << "Form from module " << moduleKey << " with id = " << id << " doesn't exists";
 	}
+	
+	return 0;
 }
 
 

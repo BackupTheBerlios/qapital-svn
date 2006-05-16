@@ -39,7 +39,7 @@
 #include <dglobal.h>
 #include <dtip.h>
 
-CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0)
+CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0), m_formRequester(0)
 {
 	setWindowTitle(tr("Client"));
 	
@@ -66,8 +66,6 @@ CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0)
 	m_connector = new CConnector;
 	
 	m_formManager = new CFormManager(this);
-	
-	connect(m_formManager, SIGNAL(formLoaded(CForm *, const QString &)), this, SLOT(addForm(CForm *, const QString &)));
 	
 	connect(m_connector, SIGNAL(readedModuleForms( const ModuleForms& )), this, SLOT(buildModules(const ModuleForms &)));
 	
@@ -165,7 +163,7 @@ void CMainWindow::showConnectDialog()
 	}
 }
 
-void CMainWindow::addForm(CForm *form, const QString &title)
+void CMainWindow::addForm(CForm *form)
 {
 	D_FUNCINFO;
 	if ( form )
@@ -173,9 +171,10 @@ void CMainWindow::addForm(CForm *form, const QString &title)
 		QScrollArea *scroll = new QScrollArea;
 		scroll->setWidget(form);
 		
-		addWidget( scroll, title, false);
+		addWidget( scroll, form->windowTitle(), false);
 		
 		connect(form, SIGNAL(requestSentToServer(const QString &)), m_connector, SLOT(sendToServer( const QString& )));
+		connect(form, SIGNAL(requestOperation(CForm *, const CSqlPackageBase *)), this, SLOT(doOperation(CForm *, const CSqlPackageBase *)));
 	}
 }
 
@@ -254,11 +253,13 @@ void CMainWindow::buildModules(const ModuleForms &modules)
 		
 		if (  moduleWidget )
 		{
-			connect(moduleWidget, SIGNAL(requestForm(const QString &, int)), m_formManager, SLOT(loadForm(const QString &, int)));
+			connect(moduleWidget, SIGNAL(requestForm(const QString &, int)), this, SLOT(loadForm(const QString &, int)));
 			
 			moduleWidget->setAutoFillBackground(true);
 			
 			connectToOutput( moduleWidget);
+			
+			m_moduleWidgets.insert(module.key, moduleWidget);
 		}
 	}
 	
@@ -319,5 +320,30 @@ void CMainWindow::handleMessage(Msg::Type type, const QString &message)
 void CMainWindow::connectToOutput(const QObject *o)
 {
 	connect(o, SIGNAL(message(Msg::Type, const QString &)), this, SLOT(handleMessage( Msg::Type, const QString& )));
+}
+
+
+void CMainWindow::doOperation(CForm *form, const CSqlPackageBase *package)
+{
+	if ( !package )
+	{
+		dFatal() << "Fatal error !!!";
+		return;
+	}
+	
+	m_formRequester = form; // FIXME
+	
+	m_connector->sendToServer( package->toString(0) );
+	
+}
+
+void CMainWindow::loadForm(const QString &module, int id)
+{
+	CForm *form = m_formManager->loadForm( module, id );
+	
+	if ( form )
+	{
+		addForm( form );
+	}
 }
 

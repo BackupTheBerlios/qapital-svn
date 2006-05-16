@@ -59,8 +59,6 @@ void DTServerConnection::run()
 			}
 		}
 		
-		
-		
 		if ( !readed.isEmpty() )
 		{
 			readed.remove(readed.lastIndexOf("%%"), 2);
@@ -113,7 +111,7 @@ void DTServerConnection::run()
 						insert->setCondition( values["condition"] );
 					}
 					
-					emit requestOperation( insert );
+					emit requestOperation( this, insert );
 				}
 				else if ( root == "Update" )
 				{
@@ -145,7 +143,7 @@ void DTServerConnection::run()
 						update->setCondition( values["condition"] );
 					}
 					
-					emit requestOperation( update );
+					emit requestOperation( this, update );
 				}
 				else if ( root == "Delete" )
 				{
@@ -163,7 +161,7 @@ void DTServerConnection::run()
 						del->setCondition( values["condition"] );
 					}
 					
-					emit requestOperation( del );
+					emit requestOperation( this, del );
 				}
 				else if ( root == "Select" )
 				{
@@ -176,18 +174,17 @@ void DTServerConnection::run()
 					
 					DTSelect *select = new DTSelect(QStringList() << fields, QStringList() << tables, values["distinct"].toInt() );
 					
-					emit requestOperation( select);
+					emit requestOperation( this, select);
 				}
 			}
 			else
 			{
 				m_parser->reset();
-				SHOW_VAR(readed);
-// 				sendToClient( SErrorPackage(0, tr("Bad package ")+readed) );
-// 				if ( !readed.isEmpty() )
-// 				{
-// 					close();
-// 				}
+				sendToClient( SErrorPackage(0, tr("Bad package ")+readed) );
+				if ( !readed.isEmpty() )
+				{
+					close();
+				}
 			}
 		}
 	}
@@ -232,3 +229,4 @@ bool DTServerConnection::isLogged() const
 {
 	return !m_login.isEmpty();
 }
+

@@ -29,6 +29,8 @@
 #include "ssuccesspackage.h"
 #include "sresourcepackage.h"
 
+#include "postgreserrorhandler.h"
+
 DTServer::DTServer(QObject *parent) : QTcpServer(parent)
 {
 }
@@ -107,7 +109,7 @@ void DTServer::handle(const DTServerConnection *cnx)
 	
 	connect(cnx, SIGNAL(requestAuth(DTServerConnection *, const QString &, const QString &)), this, SLOT(authenticate(DTServerConnection *,const QString &, const QString &)));
 	
-	connect(cnx, SIGNAL(requestOperation( const DTQuery* )), this, SLOT(doOperation( const DTQuery* )));
+	connect(cnx, SIGNAL(requestOperation( DTServerConnection *,const DTQuery* )), this, SLOT(doOperation(DTServerConnection *, const DTQuery* )));
 }
 
 
@@ -179,11 +181,18 @@ void DTServer::authenticate(DTServerConnection *cnx, const QString &login, const
 	}
 }
 
-void DTServer::doOperation(const DTQuery *query)
+void DTServer::doOperation(DTServerConnection *cnx, const DTQuery *query)
 {
 	SResultSet rs = SDBM->execQuery(query);
 	
-	
+	if ( SDBM->lastError().isValid() )
+	{
+		cnx->sendToClient( PostgresErrorHandler::handle( SDBM->lastError() ) );
+	}
+	else
+	{
+		cnx->sendToClient(rs);
+	}
 }
 
 

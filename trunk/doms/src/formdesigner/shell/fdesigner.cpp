@@ -100,7 +100,7 @@ void FDesigner::analize()
 // 	D_FUNCINFO;
 	QString text = m_editor->toPlainText();
 	
-	QWidget *w = m_builder->form( text );
+	CForm *w = m_builder->form( text );
 	
 	if( w && m_currentForm )
 	{
@@ -112,7 +112,7 @@ void FDesigner::analize()
 		}
 		
 		m_currentForm->setCentralWidget( w );
-		m_currentForm->setWindowTitle( m_builder->formTitle() );
+		m_currentForm->setWindowTitle( w->windowTitle() );
 		m_currentForm->adjustSize();
 		m_formCode[m_currentForm] = text;
 		

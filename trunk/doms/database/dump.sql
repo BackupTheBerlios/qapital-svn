@@ -122,7 +122,7 @@ create table doms_pacient_sickness(
 
 create table doms_clinic (
 	name character varying(50),
-	address character varying(30),
+	address character varying(50),
 	phone character varying(10),
 	seat character varying(50)
 );

@@ -30,6 +30,10 @@
 
 #include "dtquery.h"
 
+/**
+ * Esta clase representa cada conexion de un cliente al servidor, es un hilo.
+ * @author David Cuadrado <krawek@gmail.com>
+ */
 class DTServerConnection : public QThread
 {
 	Q_OBJECT;
@@ -58,7 +62,7 @@ class DTServerConnection : public QThread
 		
 		void requestAuth(DTServerConnection *cnx, const QString &, const QString &);
 		
-		void requestOperation(const DTQuery *query);
+		void requestOperation(DTServerConnection *cnx, const DTQuery *query);
 
 	private:
 		DTServerClient *m_client;

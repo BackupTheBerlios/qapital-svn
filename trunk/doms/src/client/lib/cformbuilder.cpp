@@ -342,13 +342,3 @@ CForm *CFormBuilder::form(const QString &document)
 	
 	return m_form;
 }
-
-QString CFormBuilder::formTitle() const
-{
-	if ( m_form )
-	{
-		return m_form->windowTitle();
-	}
-	
-	return QObject::tr("Form");
-}

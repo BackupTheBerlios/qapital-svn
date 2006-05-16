@@ -26,6 +26,7 @@
 #include <QStringList>
 
 /**
+ * Esta clase representa los clientes del servidor
  * @author David Cuadrado <krawek@gmail.com>
 */
 class DTServerClient : public QTcpSocket

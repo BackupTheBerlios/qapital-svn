@@ -30,24 +30,17 @@
 /**
 Esta clase es creada cuando se hace una consulta a la base de datos, el formato de la misma es el siguiente:
 
-<results>
- <record>
-  <columna1>valor</columna1>
-  <columna2>valor</columna2>
- </record>
- <record>
-  <columna11>valor</columna11>
-  <columna12>valor</columna12>
-  <columna13>valor</columna13>
- </record>
-</results>
-
-En caso de error retornara:
-
-<error>
- <last>last query</last>
- <errormsg>error message</errormsg>
-</error>
+<Results>
+ <Record>
+  <field name="columna01" value="valor01" />
+  <field name="columna02" value="valor02" />
+ </Record>
+ <Record>
+  <field name="columna11" value="valor11" />
+  <field name="columna12" value="valor12" />
+  <field name="columna13" value="valor12" />
+ </Record>
+</Results>
 
 
 @author David Cuadrado \<krawek@gmail.com\>

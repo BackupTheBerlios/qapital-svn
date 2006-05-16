@@ -52,8 +52,7 @@ void CConnector::readFromServer()
 			break;
 		}
 	}
-// 	m_readed = QString(readAll());
-	
+		
 	if ( m_readed.isEmpty() )
 	{
 		return;
@@ -62,29 +61,34 @@ void CConnector::readFromServer()
 	m_readed.remove(m_readed.lastIndexOf("%%"), 2);
 	
 	QXmlInputSource xmlsource;
-	xmlsource.setData(m_readed+'\n');
-			
-// 	dDebug() << "READED: " << m_readed;
+	xmlsource.setData(m_readed);
+	
+	dDebug() << "READED: " << m_readed;
 	
 	if ( m_reader.parse(&xmlsource) )
 	{
 		QString root = m_parser->root();
 		
-		if( root == "Success")
+		if ( root == "Results" )
 		{
-			emit readedModuleForms( m_parser->moduleForms() );
+			QList<XMLResults> results = m_parser->results();
 			
-			emit message(Msg::Info, m_parser->results()["message"]);
 		}
 		else if(root == "Chat" )
 		{
-			XMLResults results = m_parser->results();
-			emit chatMessage(results["login"], results["message"]);
+			XMLResults result = m_parser->results()[0];
+			emit chatMessage(result["login"], result["message"]);
 		}
 		else if ( root == "Error" )
 		{
-			XMLResults results = m_parser->results();
-			emit message(Msg::Error, "Error "+results["id"]+": "+results["message"] );
+			XMLResults result = m_parser->results()[0];
+			emit message(Msg::Error, "Error "+result["id"]+": "+result["message"] );
+		}
+		else if( root == "Success")
+		{
+			emit readedModuleForms( m_parser->moduleForms() );
+			
+			emit message(Msg::Info, m_parser->results()[0]["message"]);
 		}
 		
 		m_readed = "";
@@ -93,6 +97,8 @@ void CConnector::readFromServer()
 	{
 		dDebug() << "Error parsing: " << m_readed;
 	}
+	
+	if( canReadLine() ) emit readyRead(); // HACK: Si los mensajes son enviados muy rapido, el socket no lo detecta
 }
 
 void CConnector::login(const QString &user, const QString &passwd)
@@ -106,6 +112,25 @@ void CConnector::login(const QString &user, const QString &passwd)
 void CConnector::handleError(QAbstractSocket::SocketError error)
 {
 	dError() << "Error: " << error;
+	
+	switch(error)
+	{
+		case QAbstractSocket::RemoteHostClosedError:
+		{
+			emit message(Msg::Error, tr("The conection was lost.") );
+		}
+		break;
+		case QAbstractSocket::ConnectionRefusedError:
+		{
+			emit message(Msg::Error, tr("The conection was refused by the server.") );
+		}
+		break;
+		case QAbstractSocket::HostNotFoundError:
+		{
+			emit message(Msg::Error, tr("Host not found.") );
+		}
+		break;
+	}
 }
 
 

@@ -25,7 +25,7 @@
 #include "formwidgetiface.h"
 
 /**
-	@author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado <krawek@gmail.com>
 */
 class FormLineEdit : public QLineEdit, public FormWidgetIface
 {

@@ -11,27 +11,29 @@ HEADERS += spackageparser.h \
            dtserverconnection.h \
            dtsglobal.h \
            sdatabase.h \
-           dtquery.h 
+           dtquery.h \
+           postgreserrorhandler.h 
 SOURCES += server_main.cpp \
            spackageparser.cpp \
            dtserver.cpp \
            dtserverclient.cpp \
            dtserverconnection.cpp \
            sdatabase.cpp \
-           dtquery.cpp 
-QT += network xml sql 
-KDEV_QTVER = 4 
-TARGETDEPS += ../../../src/dtserver/packages/libpackages.a 
+           dtquery.cpp \
+           postgreserrorhandler.cpp 
+QT += network xml sql
+KDEV_QTVER = 4
+TARGETDEPS += ../../../src/dtserver/packages/libpackages.a
 LIBS += -ldcore \
-        ../../../src/dtserver/packages/libpackages.a 
+../../../src/dtserver/packages/libpackages.a
 INCLUDEPATH += ../../../src/dtserver/packages \
-               ../../../src/dlib/dgui \
-               ../../../src/dlib/dcore 
-MOC_DIR = .moc 
-UI_DIR = .ui 
-OBJECTS_DIR = .obj 
-QMAKE_LIBDIR = ../../../src/dlib/dcore 
-TARGET = ../../../bin/domserver.bin 
+../../../src/dlib/dgui \
+../../../src/dlib/dcore
+MOC_DIR = .moc
+UI_DIR = .ui
+OBJECTS_DIR = .obj
+QMAKE_LIBDIR = ../../../src/dlib/dcore
+TARGET = ../../../bin/domserver.bin
 CONFIG += release \
-          warn_on 
-TEMPLATE = app 
+warn_on
+TEMPLATE = app

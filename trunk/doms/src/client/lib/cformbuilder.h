@@ -46,7 +46,6 @@ class CFormBuilder : public QXmlDefaultHandler
 		bool fatalError ( const QXmlParseException & exception );
 		
 		CForm *form(const QString &document);
-		QString formTitle() const;
 		
 	private:
 		QString m_root, m_qname;

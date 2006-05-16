@@ -50,7 +50,7 @@ class CPackageParser : public QXmlDefaultHandler
 		
 		ModuleForms moduleForms() const;
 		
-		XMLResults results() const;
+		QList<XMLResults> results() const;
 		
 	private:
 		void reset();
@@ -67,9 +67,8 @@ class CPackageParser : public QXmlDefaultHandler
 		
 		ModuleForms m_moduleForms;
 		
-		XMLResults m_values;
-		
-		QList<QPair<QString, QString> > m_resources;
+		QList<XMLResults> m_valuesList;
+		QList<QPair<QString, QString> > m_resources; // ###: Es posible ponerlo en m_valuesList ?
 };
 
 #endif

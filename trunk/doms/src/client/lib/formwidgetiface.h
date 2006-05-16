@@ -26,6 +26,7 @@
 #include <QVariant>
 
 /**
+ * Interfaz para todos los widgets de entrada que pertenecen a un formulario, esta clase es util para tener una interfaz común respecto a los datos que retorna cada widget.
  * @author David Cuadrado <krawek@gmail.com>
 */
 

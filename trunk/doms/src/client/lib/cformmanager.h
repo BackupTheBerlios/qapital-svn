@@ -27,6 +27,7 @@
 #include "global.h"
 
 /**
+ * Gestiona los documentos de formulario que el servidor envia al cliente, tiene funciones utiles para cargar los diferentes documentos.
  * @author David Cuadrado <krawek@gmail.com>
 */
 class CFormManager : public QObject
@@ -38,10 +39,7 @@ class CFormManager : public QObject
 		
 	public slots:
 		void setForms(const ModuleForms &forms);
-		void loadForm(const QString &module, int id);
-		
-	signals:
-		void formLoaded(CForm *widget, const QString &title);
+		CForm *loadForm(const QString &module, int id);
 		
 	private:
 		CFormBuilder *m_builder;

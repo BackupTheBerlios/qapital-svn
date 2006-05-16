@@ -38,7 +38,7 @@ void CPackageParser::reset()
 	
 	m_currentForms.clear();
 	m_resources.clear();
-	m_values.clear();
+	m_valuesList.clear();
 }
 
 
@@ -50,6 +50,8 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 		m_root = qname;
 		
 		m_isParsing = true;
+		
+		m_valuesList << XMLResults();
 	}
 	else if( m_root == "Chat" )
 	{
@@ -58,19 +60,34 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 			QString login = atts.value("login");
 			QString msg = atts.value("value");
 			
-			m_values.insert("login", login);
-			m_values.insert("message", msg);
+			m_valuesList.last().insert("login", login);
+			m_valuesList.last().insert("message", msg);
+		}
+	}
+	else if ( m_root == "Results" )
+	{
+		if ( m_qname == "field" )
+		{
+			m_valuesList.last().insert(atts.value("name"), atts.value("value"));
+		}
+		else if ( m_qname == "Record" )
+		{
+			m_valuesList << XMLResults();
+		}
+		else if ( m_qname == m_root )
+		{
+			m_valuesList.clear();
 		}
 	}
 	else if ( m_root == "Error" )
 	{
 		if ( qname == "Id" )
 		{
-			m_values.insert("id", atts.value("value"));
+			m_valuesList.last().insert("id", atts.value("value"));
 		}
 		else if ( qname == "Message" )
 		{
-			m_values.insert("message", atts.value("value"));
+			m_valuesList.last().insert("message", atts.value("value"));
 		}
 	}
 	else if ( m_root == "Success" )
@@ -91,7 +108,7 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 		}
 		else if ( qname == "Message" )
 		{
-			m_values.insert("message", atts.value("value"));
+			m_valuesList.last().insert("message", atts.value("value"));
 		}
 	}
 	else if ( m_root == "Resources" )
@@ -203,8 +220,8 @@ QString CPackageParser::root() const
 	return m_root;
 }
 
-XMLResults CPackageParser::results() const
+QList<XMLResults> CPackageParser::results() const
 {
-	return m_values;
+	return m_valuesList;
 }
 

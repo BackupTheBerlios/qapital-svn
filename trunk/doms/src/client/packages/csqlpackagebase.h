@@ -31,6 +31,8 @@
 
 class CSqlPackageBase : public QDomDocument
 {
+	public:
+		virtual ~CSqlPackageBase();
 	protected:
 		enum Order
 		{
@@ -39,7 +41,6 @@ class CSqlPackageBase : public QDomDocument
 			Desc = 0
 		};
 		CSqlPackageBase();
-		~CSqlPackageBase();
 		
 		void addTable(const QString &table, const QStringList &fields = QStringList() );
 		void addTable(const QString &table, const QStringList &fields, const QStringList &values );

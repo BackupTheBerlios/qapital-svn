@@ -18,53 +18,28 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef CFORM_H
-#define CFORM_H
+#ifndef POSTGRESERRORHANDLER_H
+#define POSTGRESERRORHANDLER_H
 
-#include <qwidget.h>
-#include "formwidgetiface.h"
-
-// Packages
-#include "cinsertpackage.h"
-#include "cselectpackage.h"
-#include "cupdatepackage.h"
-#include "cdeletepackage.h"
+#include "serrorpackage.h"
+#include <QSqlError>
 
 /**
- * Esta clase es el formulario que se despliega al usuario final.
+ * Esta clase analiza los errores enviados por postgres y los traduce a un lenguaje que el usuario de la aplicación pueda entender.
  * @author David Cuadrado <krawek@gmail.com>
 */
-class CForm : public QWidget
+class PostgresErrorHandler
 {
-	Q_OBJECT;
 	public:
-		CForm();
-		~CForm();
+		PostgresErrorHandler();
+		~PostgresErrorHandler();
 		
-		void addInput(FormWidgetIface *input);
-		void setTables(const QStringList &tables);
-		
-		void debug();
-		
-	public slots:
-		void addButtonClicked();
-		void cancelButtonClicked();
-		void resetButtonClicked();
-		
-		
-	signals:
-		void requestSentToServer(const QString &package);
-		void requestOperation(CForm *self, const CSqlPackageBase *sql );
-		
-	private:
 		/**
-		 * La llave es el nombre de la tabla, el valor es una lista de widgets de donde se pueden sacar la tabla a la que pertenece, el campo en la tabla y el valor actual.
+		 * Recibe la cadena de error del servidor postgres y retorna un paquete de error que será enviado al usuario.
+		 * @param error 
+		 * @return 
 		 */
-		QMap<QString, QList<FormWidgetIface*> > m_inputMap;
-		
-		QStringList m_tables;
+		static SErrorPackage handle(const QSqlError &error);
 };
 
 #endif
-
-

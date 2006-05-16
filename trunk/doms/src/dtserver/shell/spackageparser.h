@@ -25,6 +25,7 @@
 #include <QMap>
 
 /**
+ * Analizador de paquetes XML que el cliente envia al servidor, esta clase analiza utilizando <a href="http://www.saxproject.org">SAX2</a>.
  * @author David Cuadrado <krawek@gmail.com>
 */
 class SPackageParser : public QXmlDefaultHandler
@@ -42,9 +43,21 @@ class SPackageParser : public QXmlDefaultHandler
 		bool error ( const QXmlParseException & exception );
 		bool fatalError ( const QXmlParseException & exception );
 		
+		/**
+		 * Retorna el elemento raiz del documento XML.
+		 * @return 
+		 */
 		QString root() const;
+		
+		/**
+		 * Retorna una mapa, donde cada tag es la llave que contiene valores.
+		 * @return 
+		 */
 		QMap<QString, QString> values() const;
 		
+		/**
+		 * Esta funcion restaura el analizador.
+		 */
 		void reset();
 		
 	private:

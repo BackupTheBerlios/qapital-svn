@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2006 by David Cuadrado                                  *
- *   krawek@gmail.com                                                      *
+ *   krawek@gmail.com                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,53 +18,25 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef CFORM_H
-#define CFORM_H
+#include "postgreserrorhandler.h"
 
-#include <qwidget.h>
-#include "formwidgetiface.h"
+#include <QObject>
 
-// Packages
-#include "cinsertpackage.h"
-#include "cselectpackage.h"
-#include "cupdatepackage.h"
-#include "cdeletepackage.h"
-
-/**
- * Esta clase es el formulario que se despliega al usuario final.
- * @author David Cuadrado <krawek@gmail.com>
-*/
-class CForm : public QWidget
+PostgresErrorHandler::PostgresErrorHandler()
 {
-	Q_OBJECT;
-	public:
-		CForm();
-		~CForm();
-		
-		void addInput(FormWidgetIface *input);
-		void setTables(const QStringList &tables);
-		
-		void debug();
-		
-	public slots:
-		void addButtonClicked();
-		void cancelButtonClicked();
-		void resetButtonClicked();
-		
-		
-	signals:
-		void requestSentToServer(const QString &package);
-		void requestOperation(CForm *self, const CSqlPackageBase *sql );
-		
-	private:
-		/**
-		 * La llave es el nombre de la tabla, el valor es una lista de widgets de donde se pueden sacar la tabla a la que pertenece, el campo en la tabla y el valor actual.
-		 */
-		QMap<QString, QList<FormWidgetIface*> > m_inputMap;
-		
-		QStringList m_tables;
-};
+}
 
-#endif
+PostgresErrorHandler::~PostgresErrorHandler()
+{
+}
+
+SErrorPackage PostgresErrorHandler::handle(const QSqlError &error)
+{
+	SErrorPackage package(error.number(), QObject::tr("PostgresErrorHandler %1").arg(error.databaseText()));
+	
+	// TODO: Analizar los textos!
+	
+	return package;
+}
 
 

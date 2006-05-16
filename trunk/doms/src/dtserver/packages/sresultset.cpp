@@ -37,23 +37,33 @@ SResultSet::~SResultSet()
 
 void SResultSet::setRecord(const QStringList &fields, const QStringList &results)
 {
-	QDomElement recordElement = this->createElement("record");
+	QDomElement recordElement = this->createElement("Record");
 	
-	for (int i = 0; i < results.count(); i++)
+	int counter = 0;
+	foreach(QString field, fields)
 	{
-		QString field = fields[i];
-		QDomElement fieldElement = this->createElement(field.remove('(').remove(')'));
-		QDomText resultText = this->createTextNode(results[i]);
-		fieldElement.appendChild(resultText);
+		QDomElement fieldElement = this->createElement("field"); //field.remove('(').remove(')'));
+		fieldElement.setAttribute("name", field);
+		fieldElement.setAttribute("value", results[counter]);
+		
 		recordElement.appendChild(fieldElement);
 		
 		if ( !m_map.contains( field ) )
 		{
-			m_map.insert(field, QStringList() << results[i]);
+			m_map.insert(field, QStringList() << results[counter]);
 		}
 		else
 		{
-			m_map[field] << results[i];
+			m_map[field] << results[counter];
+		}
+		
+		if ( !m_map.contains( field ) )
+		{
+			m_map.insert(field, QStringList() << results[counter]);
+		}
+		else
+		{
+			m_map[field] << results[counter];
 		}
 	}
 	
@@ -62,24 +72,27 @@ void SResultSet::setRecord(const QStringList &fields, const QStringList &results
 
 void SResultSet::setRecord(const QStringList &fields, const QList<QVariant> &results)
 {
-	QDomElement recordElement = this->createElement("record");
+	QDomElement recordElement = this->createElement("Record");
 	
-	for (int i = 0; i < results.count(); i++)
+	int counter = 0;
+	foreach(QString field, fields)
 	{
-		QString field = fields[i];
-		QDomElement fieldElement = this->createElement(field.remove('(').remove(')'));
-		QDomText resultText = this->createTextNode(results[i].toString());
-		fieldElement.appendChild(resultText);
+		QDomElement fieldElement = this->createElement("field"); //field.remove('(').remove(')'));
+		fieldElement.setAttribute("name", field);
+		fieldElement.setAttribute("value", results[counter].toString());
+		
 		recordElement.appendChild(fieldElement);
 		
 		if ( !m_map.contains( field ) )
 		{
-			m_map.insert(field, QStringList() << results[i].toString());
+			m_map.insert(field, QStringList() << results[counter].toString());
 		}
 		else
 		{
-			m_map[field] << results[i].toString();
+			m_map[field] << results[counter].toString();
 		}
+		
+		counter++;
 	}
 	
 	documentElement().appendChild(recordElement);

@@ -86,9 +86,7 @@ void CForm::addButtonClicked()
 		
 		CInsertPackage insert(table, fields, values);
 		
-		emit requestSentToServer( insert.toString(0) );
-		
-		dDebug() << "INSERTANDO: " << insert.toString();
+		emit requestOperation( this, &insert );
 	}
 }
 

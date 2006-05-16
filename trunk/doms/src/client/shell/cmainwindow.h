@@ -46,6 +46,8 @@
 #include "cendodoncymodulewidget.h"
 #include "creportmodulewidget.h"
 
+#include "csqlpackagebase.h"
+
 /**
  * Ventana principal de la aplicacion cliente
  * @author David Cuadrado <krawek@gmail.com>
@@ -69,13 +71,17 @@ class CMainWindow : public DMainWindow
 	private slots:
 		void showConnectDialog();
 		void buildModules(const ModuleForms &modules);
-		void addForm(CForm *form, const QString &title);
+		
+		void loadForm(const QString &module, int id);
+		void addForm(CForm *form);
 		
 		void showChat();
 		void showHelp(const QString &title, const QString &page);
 		void showTipDialog();
 		
 		void handleMessage(Msg::Type type, const QString &message);
+		
+		void doOperation(CForm *form, const CSqlPackageBase *package);
 		
 	protected:
 		void closeEvent(QCloseEvent *);
@@ -89,6 +95,10 @@ class CMainWindow : public DMainWindow
 		
 		CHelpWidget *m_helper;
 		CHelpBrowser *m_helpBrowser;
+		
+		CForm *m_formRequester;
+		
+		QHash<QString, CModuleWidget *> m_moduleWidgets;
 		
 	private:
 		DActionManager *m_actionManager;

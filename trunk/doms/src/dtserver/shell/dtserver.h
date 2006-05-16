@@ -29,6 +29,10 @@
 
 #include "dtsglobal.h"
 
+/**
+ * Esta es la clase controladora, esta clase representa el servidor.
+ * @author David Cuadrado <krawek@gmail.com>
+ */
 class DTServer : public QTcpServer
 {
 	Q_OBJECT;
@@ -46,7 +50,7 @@ class DTServer : public QTcpServer
 		void removeConnection(DTServerConnection *cnx);
 		void authenticate(DTServerConnection *cnx,const QString &login, const QString &password);
 		
-		void doOperation(const DTQuery *query);
+		void doOperation(DTServerConnection *cnx, const DTQuery *query);
 		
 		
 	private:

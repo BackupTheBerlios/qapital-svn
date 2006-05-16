@@ -16,7 +16,8 @@ LIBS += -ldcore \
         -ldgui \
         ../../../src/client/lib/libdclient.a \
         ../../../src/client/packages/libpackages.a 
-INCLUDEPATH += ../../../src/client/lib \
+INCLUDEPATH += ../../../src/client/packages \
+               ../../../src/client/lib \
                ../../../src/dlib/dgui \
                ../../../src/dlib/dcore 
 QMAKE_LIBDIR = ../../../src/dlib/dcore \

@@ -27,6 +27,7 @@
 #include <QButtonGroup>
 
 /**
+ * Abstraccion de una barra de botones.
  * @author David Cuadrado <krawek@gmail.com>
 */
 class CModuleButtonBar : public QFrame
