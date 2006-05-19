@@ -78,6 +78,8 @@ CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0), m_formRequester(0)
 	
 	connect(m_connector, SIGNAL(chatMessage( const QString&, const QString& )), m_chat, SLOT(setChatMessage( const QString&, const QString&)));
 	
+	connect(m_connector, SIGNAL(operationFinished( const QList< XMLResults >& )), this, SLOT(operationResults( const QList< XMLResults >& )));
+	
 	setupActions();
 	setupToolbar();
 	setupMenu();
@@ -136,10 +138,7 @@ void CMainWindow::setupMenu()
 void CMainWindow::setupToolbar()
 {
 	QToolBar *toolBar = new QToolBar(this);
-	
 	toolBar->addAction(m_actionManager->find("connect"));
-	
-	
 	addToolBar( Qt::TopToolBarArea, toolBar );
 }
 
@@ -195,7 +194,6 @@ void CMainWindow::buildModules(const ModuleForms &modules)
 		{
 			title = tr("Pacients");
 			moduleWidget = new CClientModuleWidget(title);
-			
 		}
 		else if ( module.key == "gnr" )
 		{
@@ -249,7 +247,6 @@ void CMainWindow::buildModules(const ModuleForms &modules)
 		{
 			toolWindow(pos)->addWidget( module.text, moduleWidget);
 		}
-		
 		
 		if (  moduleWidget )
 		{
@@ -334,7 +331,14 @@ void CMainWindow::doOperation(CForm *form, const CSqlPackageBase *package)
 	m_formRequester = form; // FIXME
 	
 	m_connector->sendToServer( package->toString(0) );
-	
+}
+
+void CMainWindow::operationResults(const QList<XMLResults> &results )
+{
+	if ( m_formRequester )
+	{
+		(m_formRequester)->setOperationResult(results);
+	}
 }
 
 void CMainWindow::loadForm(const QString &module, int id)

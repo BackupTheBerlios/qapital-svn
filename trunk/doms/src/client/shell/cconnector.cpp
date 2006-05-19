@@ -32,8 +32,6 @@
 CConnector::CConnector(QObject * parent) : CConnectorBase(parent)
 {
 	m_parser = new CPackageParser;
-	m_reader.setContentHandler(m_parser);
-	m_reader.setErrorHandler(m_parser);
 }
 
 
@@ -59,13 +57,10 @@ void CConnector::readFromServer()
 	}
 	
 	m_readed.remove(m_readed.lastIndexOf("%%"), 2);
-	
-	QXmlInputSource xmlsource;
-	xmlsource.setData(m_readed);
-	
+
 	dDebug() << "READED: " << m_readed;
 	
-	if ( m_reader.parse(&xmlsource) )
+	if ( m_parser->parse( m_readed ) )
 	{
 		QString root = m_parser->root();
 		
@@ -73,6 +68,7 @@ void CConnector::readFromServer()
 		{
 			QList<XMLResults> results = m_parser->results();
 			
+			emit operationFinished( results );
 		}
 		else if(root == "Chat" )
 		{

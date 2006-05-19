@@ -51,9 +51,9 @@ class CConnector : public CConnectorBase
 		void readedModuleForms(const ModuleForms &);
 		void chatMessage(const QString &login, const QString &msg);
 		void message(Msg::Type t, const QString &message);
+		void operationFinished(const QList<XMLResults> &results );
 		
 	private:
-		QXmlSimpleReader m_reader;
 		CPackageParser *m_parser;
 		
 		QString m_readed;

@@ -37,6 +37,7 @@ SResultSet::~SResultSet()
 
 void SResultSet::setRecord(const QStringList &fields, const QStringList &results)
 {
+	SHOW_VAR(results);
 	QDomElement recordElement = this->createElement("Record");
 	
 	int counter = 0;
@@ -65,6 +66,7 @@ void SResultSet::setRecord(const QStringList &fields, const QStringList &results
 		{
 			m_map[field] << results[counter];
 		}
+		counter++;
 	}
 	
 	documentElement().appendChild(recordElement);

@@ -24,6 +24,8 @@
 #include <qwidget.h>
 #include "formwidgetiface.h"
 
+#include "global.h"
+
 // Packages
 #include "cinsertpackage.h"
 #include "cselectpackage.h"
@@ -43,6 +45,8 @@ class CForm : public QWidget
 		
 		void addInput(FormWidgetIface *input);
 		void setTables(const QStringList &tables);
+		
+		void setOperationResult(const QList<XMLResults> &results);
 		
 		void debug();
 		

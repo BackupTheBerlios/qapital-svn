@@ -32,10 +32,21 @@ PostgresErrorHandler::~PostgresErrorHandler()
 
 SErrorPackage PostgresErrorHandler::handle(const QSqlError &error)
 {
+// 	new row for relation "doms_persons" violates check constraint doms_persons_email_check
+// 	insert or update on table "doms_pacients" violates foreign key constraint "doms_pacients_iddocument_fkey"
+	
+	QString text = error.databaseText().toLower();
+	
+	if ( text.contains("duplicate key") )
+	{
+		SErrorPackage package(error.number(), QObject::tr("Seems like pacients already exists"));
+		
+		return package;
+	}
+	
 	SErrorPackage package(error.number(), QObject::tr("PostgresErrorHandler %1").arg(error.databaseText()));
 	
 	// TODO: Analizar los textos!
-	
 	return package;
 }
 

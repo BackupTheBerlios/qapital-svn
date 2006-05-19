@@ -52,6 +52,10 @@ class CPackageParser : public QXmlDefaultHandler
 		
 		QList<XMLResults> results() const;
 		
+		QString document() const;
+		
+		bool parse(const QString &document);
+		
 	private:
 		void reset();
 		
@@ -69,6 +73,8 @@ class CPackageParser : public QXmlDefaultHandler
 		
 		QList<XMLResults> m_valuesList;
 		QList<QPair<QString, QString> > m_resources; // ###: Es posible ponerlo en m_valuesList ?
+		
+		QString m_document;
 };
 
 #endif

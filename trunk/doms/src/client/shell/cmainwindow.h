@@ -82,6 +82,7 @@ class CMainWindow : public DMainWindow
 		void handleMessage(Msg::Type type, const QString &message);
 		
 		void doOperation(CForm *form, const CSqlPackageBase *package);
+		void operationResults(const QList<XMLResults> &results );
 		
 	protected:
 		void closeEvent(QCloseEvent *);

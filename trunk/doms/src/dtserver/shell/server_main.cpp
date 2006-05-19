@@ -44,6 +44,7 @@ int main(int argc, char **argv)
 	DCONFIG->beginGroup("General");
 	
 	DApplicationProperties::instance()->setHomeDir( DCONFIG->value("Home", 0).toString() );
+	DApplicationProperties::instance()->setDataDir( DApplicationProperties::instance()->homeDir()+"/data/en/" ); // ###: por ahora solo funciona en ingles... pero esta escrito en español... debe traducirse cuando sea posible, esto lo hago para no editar ambos archivos en tiempo de desarrollo.
 	
 	// Cargar configuracion del servidor
 	DCONFIG->beginGroup("Database");

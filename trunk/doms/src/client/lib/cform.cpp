@@ -93,15 +93,31 @@ void CForm::addButtonClicked()
 void CForm::cancelButtonClicked()
 {
 	D_FUNCINFO;
+	
 }
 
 void CForm::resetButtonClicked()
 {
 	D_FUNCINFO;
+	
 }
 
 
 void CForm::setTables(const QStringList &tables)
 {
 	m_tables = tables;
+}
+
+void CForm::setOperationResult(const QList<XMLResults> &results)
+{
+	SHOW_VAR(results.count());
+	foreach(XMLResults result, results)
+	{
+		QHash<QString, QString>::const_iterator i = result.constBegin();
+		while (i != result.constEnd()) 
+		{
+			dDebug() << i.key() << ": " << i.value() << endl;
+			++i;
+		}
+	}
 }

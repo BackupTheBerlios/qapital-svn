@@ -66,7 +66,8 @@ SResultSet SDatabase::execRawQuery(const QString &sql)
 	while(query.next())
 	{
 		QStringList values;
-		for(int i = 0; i < record.count(); i++)
+		
+		for(int i = 0; i < query.record().count() ; i++)
 		{
 			values << query.value(i).toString();
 		}

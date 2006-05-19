@@ -166,11 +166,11 @@ void DTServerConnection::run()
 				else if ( root == "Select" )
 				{
 					QString fields = values["field"];
-					QString tables = values["tables"];
+					QString tables = values["table"];
 					
 					//remove the last (,)
-					fields = fields.remove(fields.count(),1);
-					tables = tables.remove(tables.count(),1);
+					fields = fields.remove(fields.count()-1,1);
+					tables = tables.remove(tables.count()-1,1);
 					
 					DTSelect *select = new DTSelect(QStringList() << fields, QStringList() << tables, values["distinct"].toInt() );
 					

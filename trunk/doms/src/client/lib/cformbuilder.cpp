@@ -239,6 +239,8 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 			{
 				QSvgWidget *svg = new QSvgWidget;
 				
+				QObject::connect(svg->renderer(), SIGNAL(repaintNeeded ()), svg, SLOT(update()));
+				
 				svg->load(REPOSITORY+"/"+fileName);
 				
 				m_widgets.last()->layout()->addWidget(svg);

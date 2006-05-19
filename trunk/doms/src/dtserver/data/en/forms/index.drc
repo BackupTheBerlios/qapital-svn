@@ -1,34 +1,90 @@
 <Index>
 	<Module key="pct" text="Pacientes" >
-		<FormFile path="pacients/add_pacient.dfm" id="0" />
+		<list>
+			<column header="H1" field="" />
+			<column header="H2" field="" />
+			<column header="H3" field="" />
+		</list>
+		<forms>
+			<FormFile path="pacients/add_pacient.dfm" id="0" />
+		</forms>
 	</Module>
 	
 	<Module key="gnr" text="General" >
-		<FormFile path="general/add_general_history.dfm" id="0" />
+		<list>
+			<column header="H1" field="" />
+			<column header="H2" field="" />
+			<column header="H3" field="" />
+		</list>
+		<forms>
+			<FormFile path="general/add_general_history.dfm" id="0" />
+		</forms>
 	</Module>
 	
 	<Module key="agn" text="Agenda" >
-		<FormFile path="agend/add_cite.dfm" id="0" />
+		<list>
+			<column header="H1" field="" />
+			<column header="H2" field="" />
+			<column header="H3" field="" />
+		</list>
+		<forms>
+			<FormFile path="agend/add_cite.dfm" id="0" />
+		</forms>
 	</Module>
 	
 	<Module key="ort" text="Ortodoncia" >
-		<FormFile path="orthodoncy/add_pacient.dfm" id="0" />
+		<list>
+			<column header="H1" field="" />
+			<column header="H2" field="" />
+			<column header="H3" field="" />
+		</list>
+		<forms>
+			<FormFile path="orthodoncy/add_pacient.dfm" id="0" />
+		</forms>
 	</Module>
 	
 	<Module key="edd" text="Endodoncia" >
-		<FormFile path="endodoncy/add_pacient.dfm" id="0" />
+		<list>
+			<column header="H1" field="" />
+			<column header="H2" field="" />
+			<column header="H3" field="" />
+		</list>
+		<forms>
+			<FormFile path="endodoncy/add_pacient.dfm" id="0" />
+		</forms>
 	</Module>
 	
 	<Module key="prd" text="Periodoncia" >
-		<FormFile path="periodoncy/add_periodoncy_history.dfm" id="0" />
+		<list>
+			<column header="H1" field="" />
+			<column header="H2" field="" />
+			<column header="H3" field="" />
+		</list>
+		<forms>
+			<FormFile path="periodoncy/add_periodoncy_history.dfm" id="0" />
+		</forms>
 	</Module>
 
 	<Module key="pad" text="Fonoaudiologia" >
-		<FormFile path="phonoaudiology/add_pacient.dfm" id="0" />
+		<list>
+			<column header="H1" field="" />
+			<column header="H2" field="" />
+			<column header="H3" field="" />
+		</list>
+		<forms>
+			<FormFile path="phonoaudiology/add_pacient.dfm" id="0" />
+		</forms>
 	</Module>
 	
 	<Module key="rpt" text="Reportes" >
-		<FormFile path="reports/report1.dfm" id="0" />
+		<list>
+			<column header="H1" field="" />
+			<column header="H2" field="" />
+			<column header="H3" field="" />
+		</list>
+		<forms>
+			<FormFile path="reports/report1.dfm" id="0" />
+		</forms>
 	</Module>
 </Index>
 

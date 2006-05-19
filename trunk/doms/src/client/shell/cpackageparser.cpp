@@ -66,15 +66,16 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 	}
 	else if ( m_root == "Results" )
 	{
-		if ( m_qname == "field" )
+		if ( qname == "field" )
 		{
+			SHOW_VAR(atts.value("name") << atts.value("value"));
 			m_valuesList.last().insert(atts.value("name"), atts.value("value"));
 		}
-		else if ( m_qname == "Record" )
+		else if ( qname == "Record" )
 		{
 			m_valuesList << XMLResults();
 		}
-		else if ( m_qname == m_root )
+		else if ( qname == m_root )
 		{
 			m_valuesList.clear();
 		}
@@ -135,6 +136,13 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 
 bool CPackageParser::endElement(const QString&, const QString& , const QString& qname)
 {
+	if (!m_isParsing)
+	{
+		reset();
+		m_root = qname;
+		m_valuesList << XMLResults();
+	}
+	
 	if ( m_root == "Error" )
 	{
 	}
@@ -224,4 +232,30 @@ QList<XMLResults> CPackageParser::results() const
 {
 	return m_valuesList;
 }
+
+QString CPackageParser::document() const
+{
+	return m_document;
+}
+
+bool CPackageParser::parse(const QString &document)
+{
+	QXmlSimpleReader m_reader;
+	m_reader.setContentHandler(this);
+	m_reader.setErrorHandler(this);
+	
+	QXmlInputSource xmlsource;
+	xmlsource.setData(document);
+	
+	
+	if( m_reader.parse(&xmlsource) )
+	{
+		m_document = document;
+		return true;
+	}
+	
+	m_document = QString();
+	return false;
+}
+
 
