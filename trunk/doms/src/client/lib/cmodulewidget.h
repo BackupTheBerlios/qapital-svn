@@ -45,6 +45,8 @@ class CModuleWidget : public QWidget
 		
 		CModuleButtonBar *addButtonBar(int flags);
 		
+		void setup(const ModuleInfo &module);
+		
 		QBoxLayout *boxLayout();
 		
 	signals:
@@ -54,6 +56,7 @@ class CModuleWidget : public QWidget
 	protected:
 		DTreeListWidget *m_pTree;
 		DTreeWidgetSearchLine *m_pSearch;
+		ModuleInfo m_moduleInfo;
 };
 
 #endif

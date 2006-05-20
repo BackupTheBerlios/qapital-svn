@@ -7,10 +7,10 @@
 		</VBox>
 	</HBox>
 	<VGroupBox title="Informacion personal" >
-		<VBox>
+		<HBox>
 			<Input label="Nombres" dbfield="doms_persons:name" />
 			<Input label="Apellidos" dbfield="doms_persons:lastName" />
-		</VBox>
+		</HBox>
 		<HBox>
 			<Input type="options" label="Sexo" orientation="0" dbfield="doms_persons:genre" >
 				<RadioButton label="Masculino" id="0" />

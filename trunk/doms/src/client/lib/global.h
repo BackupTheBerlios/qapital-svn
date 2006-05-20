@@ -48,11 +48,22 @@ struct ModuleInfo
 {
 	QString key;
 	QString text;
+	
+	/**
+	 * Contiene una lista de header-campo.
+	 */
+	QList< QPair<QString, QString > > listInfo;
+};
+
+struct DBField
+{
+	QString name;
+	QString table;
 };
 
 inline bool operator==(const ModuleInfo &e1, const ModuleInfo &e2)
 {
-	return e1.key == e2.key && e1.text == e2.text;
+	return e1.key == e2.key/* && e1.text == e2.text*/;
 }
 
 inline uint qHash(const ModuleInfo &key)

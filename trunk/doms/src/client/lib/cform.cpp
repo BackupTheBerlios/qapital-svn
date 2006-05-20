@@ -22,6 +22,8 @@
 
 #include <ddebug.h>
 
+#include "global.h"
+
 CForm::CForm() : QWidget()
 {
 }
@@ -37,7 +39,7 @@ void CForm::addInput(FormWidgetIface *input)
 	D_FUNCINFO;
 	if ( input )
 	{
-		foreach(FormWidgetIface::TableField field, input->fields() )
+		foreach(DBField field, input->fields() )
 		{
 			if ( !m_inputMap.contains( field.table ) )
 			{
@@ -80,7 +82,7 @@ void CForm::addButtonClicked()
 		QStringList fields, values;
 		foreach(FormWidgetIface *formWidgetInput, formInputs)
 		{
-			fields << formWidgetInput->fields()[0].field; // FIXME: this sucks
+			fields << formWidgetInput->fields()[0].name; // FIXME: this sucks
 			values << formWidgetInput->fieldValue();
 		}
 		

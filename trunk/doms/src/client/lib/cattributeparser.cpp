@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2006 by David Cuadrado                                  *
- *   krawek@gmail.com                                                      *
+ *   krawek@gmail.com                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,41 +18,49 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef FORMWIDGETIFACE_H
-#define FORMWIDGETIFACE_H
+#include "cattributeparser.h"
 
-#include <QString>
-#include <QStringList>
-#include <QVariant>
-
-#include "global.h"
-
-/**
- * Interfaz para todos los widgets de entrada que pertenecen a un formulario, esta clase es util para tener una interfaz común respecto a los datos que retorna cada widget.
- * @author David Cuadrado <krawek@gmail.com>
-*/
-
-#define DEBUG_FORM 1
-
-class FormWidgetIface
+CAttributeParser::CAttributeParser()
 {
-	public:
-		FormWidgetIface();
-		virtual ~FormWidgetIface();
-		virtual void setFieldValue(const QVariant &data) = 0;
-		virtual QString fieldValue() const = 0;
-		
-		void setFieldInfo(const QString &table_field );
-		
-		QVector<DBField> fields() const;
-		DBField field() const;
-		DBField foreignField() const;
-		
-		bool hasForeignKey() const;
-		
-		
-	private:
-		QVector<DBField> m_fields;
-};
+}
 
-#endif
+
+CAttributeParser::~CAttributeParser()
+{
+}
+
+DBField CAttributeParser::parseField(const QString &fieldStr)
+{
+	QStringList list = fieldStr.split(':');
+	
+	DBField field;
+	
+	if ( list.count() == 2 )
+	{
+		field.table = list[0];
+		field.name = list[1];
+	}
+	
+	return field;
+}
+
+QPair<DBField, DBField> CAttributeParser::parseFKField(const QString &fieldStr)
+{
+	QStringList list = fieldStr.split("->");
+	
+	DBField primary;
+	DBField foreign;
+	
+	if ( list.count() == 2 )
+	{
+		primary = CAttributeParser::parseField(list[0]);
+		foreign = CAttributeParser::parseField(list[1]);
+	}
+	
+	return qMakePair(primary, foreign);
+}
+
+QStringList CAttributeParser::parseHeaders(const QString &headersStr)
+{
+	return headersStr.split(';');
+}

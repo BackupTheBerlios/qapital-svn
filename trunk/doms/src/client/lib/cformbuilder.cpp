@@ -30,6 +30,7 @@
 #include <dglobal.h>
 
 #include "formwidgets.h"
+#include "cattributeparser.h"
 
 CFormBuilder::CFormBuilder() : QXmlDefaultHandler(), m_readChar(false), m_form(0)
 {
@@ -178,16 +179,16 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 		{
 			QTableWidget *table = new QTableWidget(atts.value("rows").toInt(), atts.value("columns").toInt()/*, m_widgets.last()*/);
 			
-			QStringList headers = atts.value("vheaders").split(";");
+			QStringList headers = CAttributeParser::parseHeaders( atts.value("vheaders"));
 			if ( headers.count() > 1 )
 			{
 				table->setVerticalHeaderLabels (headers);
 			}
 			
-			headers = atts.value("hheaders").split(";");
+			headers = CAttributeParser::parseHeaders( atts.value("hheaders"));
 			if ( !headers.isEmpty() )
 			{
-				table->setHorizontalHeaderLabels (headers);
+				table->setHorizontalHeaderLabels(headers);
 			}
 			
 			m_widgets.last()->layout()->addWidget(table);

@@ -68,7 +68,6 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 	{
 		if ( qname == "field" )
 		{
-			SHOW_VAR(atts.value("name") << atts.value("value"));
 			m_valuesList.last().insert(atts.value("name"), atts.value("value"));
 		}
 		else if ( qname == "Record" )
@@ -104,8 +103,13 @@ bool CPackageParser::startElement( const QString& , const QString& , const QStri
 		}
 		else if ( qname == "Module" )
 		{
+			m_currentModule = ModuleInfo();
 			m_currentModule.key = atts.value("key");
 			m_currentModule.text = atts.value("text");
+		}
+		else if ( qname == "column" )
+		{
+			m_currentModule.listInfo << qMakePair(atts.value("header"), atts.value("field"));
 		}
 		else if ( qname == "Message" )
 		{

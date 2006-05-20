@@ -52,7 +52,7 @@ SSuccessPackage::SSuccessPackage(const QString& msg): QDomDocument()
 			while(!n.isNull()) 
 			{
 				QDomElement e = n.toElement();
-				if(!e.isNull()) 
+				if(!e.isNull())
 				{
 					if ( e.tagName() == "Module" )
 					{
@@ -83,13 +83,27 @@ void SSuccessPackage::parseModule(QDomElement &element, QDomElement &module)
 {
 	QDomNode n = element.firstChild();
 	
-	while(!n.isNull()) 
+	while(!n.isNull())
 	{
 		QDomElement e = n.toElement();
 		
-		if ( e.tagName() == "FormFile" )
+		if ( e.tagName() == "forms" )
 		{
-			addForm( module, e.attribute( "id").toInt(), DATA_DIR+"/forms/"+e.attribute( "path") );
+			QDomNode n1 = e.firstChild();
+			while (! n1.isNull() )
+			{
+				QDomElement e1 = n1.toElement();
+				
+				if ( e1.tagName() == "FormFile" )
+				{
+					addForm( module, e1.attribute( "id").toInt(), DATA_DIR+"/forms/"+e1.attribute( "path") );
+				}
+				n1 = n.nextSibling();
+			}
+		}
+		else if ( e.tagName() == "list" )
+		{
+			module.appendChild( e );
 		}
 		
 		n = n.nextSibling();

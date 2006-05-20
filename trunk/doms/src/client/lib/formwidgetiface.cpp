@@ -21,6 +21,8 @@
 #include "formwidgetiface.h"
 #include <ddebug.h>
 
+#include <cattributeparser.h>
+
 FormWidgetIface::FormWidgetIface()
 {
 }
@@ -32,23 +34,37 @@ FormWidgetIface::~FormWidgetIface()
 
 void FormWidgetIface::setFieldInfo(const QString &table_field )
 {
-	QStringList tafs = table_field.split("->");
-	
-	foreach(QString field, tafs )
+	if ( table_field.contains("->") )
 	{
-		QStringList table_and_field = field.split(':');
-		
-		if ( table_and_field.count() != 2 ) continue;
-		TableField field;
-		field.table = table_and_field[0];
-		field.field = table_and_field[1];
-		
-		m_fields << field;
+		QPair<DBField, DBField> fields = CAttributeParser::parseFKField( table_field );
+		m_fields << fields.first; m_fields << fields.second;
+	}
+	else
+	{
+		m_fields << CAttributeParser::parseField( table_field );
 	}
 }
 
-QList<FormWidgetIface::TableField> FormWidgetIface::fields() const
+QVector<DBField> FormWidgetIface::fields() const
 {
 	return m_fields;
 }
 
+bool FormWidgetIface::hasForeignKey() const
+{
+	return m_fields.count() == 2;
+}
+
+DBField FormWidgetIface::field() const
+{
+	return m_fields[0];
+}
+
+DBField FormWidgetIface::foreignField() const
+{
+	if ( !hasForeignKey())
+	{
+		return DBField();
+	}
+	return m_fields[1];
+}

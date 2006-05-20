@@ -252,6 +252,8 @@ void CMainWindow::buildModules(const ModuleForms &modules)
 		{
 			connect(moduleWidget, SIGNAL(requestForm(const QString &, int)), this, SLOT(loadForm(const QString &, int)));
 			
+			moduleWidget->setup(module);
+			
 			moduleWidget->setAutoFillBackground(true);
 			
 			connectToOutput( moduleWidget);

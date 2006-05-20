@@ -17,42 +17,26 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#ifndef CATTRIBUTEPARSER_H
+#define CATTRIBUTEPARSER_H
 
-#ifndef FORMWIDGETIFACE_H
-#define FORMWIDGETIFACE_H
-
-#include <QString>
-#include <QStringList>
-#include <QVariant>
-
-#include "global.h"
+#include <global.h>
 
 /**
- * Interfaz para todos los widgets de entrada que pertenecen a un formulario, esta clase es util para tener una interfaz común respecto a los datos que retorna cada widget.
  * @author David Cuadrado <krawek@gmail.com>
 */
-
-#define DEBUG_FORM 1
-
-class FormWidgetIface
+class CAttributeParser
 {
+	protected:
+		CAttributeParser();
+		~CAttributeParser();
+		
 	public:
-		FormWidgetIface();
-		virtual ~FormWidgetIface();
-		virtual void setFieldValue(const QVariant &data) = 0;
-		virtual QString fieldValue() const = 0;
+		static DBField parseField(const QString &fieldStr);
+		static QPair<DBField, DBField> parseFKField(const QString &fieldStr);
 		
-		void setFieldInfo(const QString &table_field );
-		
-		QVector<DBField> fields() const;
-		DBField field() const;
-		DBField foreignField() const;
-		
-		bool hasForeignKey() const;
-		
-		
-	private:
-		QVector<DBField> m_fields;
+		static QStringList parseHeaders(const QString &headersStr);
+
 };
 
 #endif

@@ -25,6 +25,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QToolButton>
+#include <QHeaderView>
 
 #include <dtreewidgetsearchline.h>
 
@@ -74,4 +75,24 @@ QBoxLayout *CModuleWidget::boxLayout()
 {
 	return qobject_cast<QVBoxLayout *>(layout());
 }
+
+void CModuleWidget::setup(const ModuleInfo &module)
+{
+	// TODO: guardar los cambios de la BD
+	
+	QStringList headers;
+	
+	typedef QPair<QString, QString> StringPair;
+	
+	foreach(StringPair info, module.listInfo)
+	{
+		headers << info.first;
+	}
+	
+	m_pTree->setHeaderLabels(headers);
+	m_pTree->header()->show();
+	
+	m_moduleInfo = module;
+}
+
 

@@ -22,7 +22,8 @@ HEADERS += global.h \
            formdatewidget.h \
            formdatepicker.h \
            formbuttongroup.h \
-           formwidgets.h 
+           formwidgets.h \
+           cattributeparser.h 
 SOURCES += cmodulewidget.cpp \
            cformbuilder.cpp \
            cmodulebuttonbar.cpp \
@@ -35,7 +36,8 @@ SOURCES += cmodulewidget.cpp \
            cform.cpp \
            formdatewidget.cpp \
            formdatepicker.cpp \
-           formbuttongroup.cpp 
+           formbuttongroup.cpp \
+           cattributeparser.cpp 
 QT += xml network svg
 KDEV_QTVER = 4
 INCLUDEPATH += ../../../src/client/packages \

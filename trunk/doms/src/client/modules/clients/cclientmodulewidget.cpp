@@ -79,8 +79,9 @@ void CClientModuleWidget::doAction(int buttonId)
 void CClientModuleWidget::addPacient(const QString &name, const QString &lastName)
 {
 	QTreeWidgetItem *item = new QTreeWidgetItem(m_pTree);
-	item->setText(0, name);
-	item->setText(1, lastName);
+	item->setText(0, "ID");
+	item->setText(1, name);
+	item->setText(2, lastName);
 }
 
 
