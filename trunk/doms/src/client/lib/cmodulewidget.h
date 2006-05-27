@@ -29,17 +29,25 @@
 #include "cmodulebuttonbar.h"
 #include "global.h"
 
+#include "cdatabaserequesteriface.h"
+
 class DTreeWidgetSearchLine;
 class QBoxLayout;
+class CSqlPackageBase;
 
 /**
  * Clase base para la interfaz de todos los modulos
  * @author David Cuadrado <krawek@gmail.com>
 */
-class CModuleWidget : public QWidget
+class CModuleWidget : public QWidget, public CDatabaseRequesterIface
 {
 	Q_OBJECT;
 	public:
+		enum UserRoles
+		{
+			Field = 38
+		};
+		
 		CModuleWidget(const QString &moduleMame, QWidget *parent = 0);
 		~CModuleWidget();
 		
@@ -49,14 +57,22 @@ class CModuleWidget : public QWidget
 		
 		QBoxLayout *boxLayout();
 		
+		void addItem(const QStringList &cols);
+		
+		virtual void setOperationResult(const QList<XMLResults> &results);
+		
+	public slots:
+		virtual void fill();
+		
 	signals:
 		void requestForm(const QString &module, int formId);
 		void message(Msg::Type, const QString &message);
+		void requestOperation(CModuleWidget *self, const CSqlPackageBase *sql );
 		
 	protected:
 		DTreeListWidget *m_pTree;
 		DTreeWidgetSearchLine *m_pSearch;
-		ModuleInfo m_moduleInfo;
+		ModuleInfo m_pModuleInfo;
 };
 
 #endif

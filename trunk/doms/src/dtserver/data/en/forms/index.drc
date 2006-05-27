@@ -1,9 +1,9 @@
 <Index>
 	<Module key="pct" text="Pacientes" >
 		<list>
-			<column header="Identificacion" field="" />
-			<column header="Nombre" field="" />
-			<column header="Apellido" field="" />
+			<column header="Identificacion" field="doms_persons:idDocument->doms_pacients:idDocument" />
+			<column header="Nombre" field="doms_persons:name" />
+			<column header="Apellido" field="doms_persons:lastName" />
 		</list>
 		<forms>
 			<FormFile path="pacients/add_pacient.dfm" id="0" />
@@ -12,9 +12,9 @@
 	
 	<Module key="gnr" text="General" >
 		<list>
-			<column header="GH1" field="" />
-			<column header="GH2" field="" />
-			<column header="GH3" field="" />
+			<column header="GH1" field="zzz" />
+			<column header="GH2" field="zzz" />
+			<column header="GH3" field="zzz" />
 		</list>
 		<forms>
 			<FormFile path="general/add_general_history.dfm" id="0" />
@@ -23,9 +23,9 @@
 	
 	<Module key="agn" text="Agenda" >
 		<list>
-			<column header="AH1" field="" />
-			<column header="AH2" field="" />
-			<column header="AH3" field="" />
+			<column header="AH1" field="zzz" />
+			<column header="AH2" field="zzz" />
+			<column header="AH3" field="xxx" />
 		</list>
 		<forms>
 			<FormFile path="agend/add_cite.dfm" id="0" />
@@ -34,9 +34,9 @@
 	
 	<Module key="ort" text="Ortodoncia" >
 		<list>
-			<column header="H1" field="" />
-			<column header="H2" field="" />
-			<column header="H3" field="" />
+			<column header="H1" field="x" />
+			<column header="H2" field="x" />
+			<column header="H3" field="x" />
 		</list>
 		<forms>
 			<FormFile path="orthodoncy/add_pacient.dfm" id="0" />
@@ -45,9 +45,9 @@
 	
 	<Module key="edd" text="Endodoncia" >
 		<list>
-			<column header="H1" field="" />
-			<column header="H2" field="" />
-			<column header="H3" field="" />
+			<column header="H1" field="x" />
+			<column header="H2" field="x" />
+			<column header="H3" field="x" />
 		</list>
 		<forms>
 			<FormFile path="endodoncy/add_pacient.dfm" id="0" />
@@ -56,9 +56,9 @@
 	
 	<Module key="prd" text="Periodoncia" >
 		<list>
-			<column header="H1" field="" />
-			<column header="H2" field="" />
-			<column header="H3" field="" />
+			<column header="H1" field="x" />
+			<column header="H2" field="x" />
+			<column header="H3" field="x" />
 		</list>
 		<forms>
 			<FormFile path="periodoncy/add_periodoncy_history.dfm" id="0" />
@@ -67,9 +67,9 @@
 
 	<Module key="pad" text="Fonoaudiologia" >
 		<list>
-			<column header="H1" field="" />
-			<column header="H2" field="" />
-			<column header="H3" field="" />
+			<column header="H1" field="x" />
+			<column header="H2" field="xx" />
+			<column header="H3" field="x" />
 		</list>
 		<forms>
 			<FormFile path="phonoaudiology/add_pacient.dfm" id="0" />
@@ -78,9 +78,9 @@
 	
 	<Module key="rpt" text="Reportes" >
 		<list>
-			<column header="H1" field="" />
-			<column header="H2" field="" />
-			<column header="H3" field="" />
+			<column header="H1" field="x" />
+			<column header="H2" field="x" />
+			<column header="H3" field="x" />
 		</list>
 		<forms>
 			<FormFile path="reports/report1.dfm" id="0" />

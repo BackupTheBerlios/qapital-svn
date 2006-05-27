@@ -34,6 +34,9 @@ class CClientModuleWidget : public CModuleWidget
 		CClientModuleWidget(const QString &title, QWidget *parent = 0);
 		~CClientModuleWidget();
 		
+		/**
+		 * @TODO: esta funcion debe ser eliminada!
+		 */
 		void addPacient(const QString &name, const QString &lastName);
 		
 	public slots:

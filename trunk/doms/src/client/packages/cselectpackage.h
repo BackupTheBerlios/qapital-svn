@@ -32,7 +32,7 @@
 class CSelectPackage : public CSqlPackageBase
 {
 	public:
-		CSelectPackage(const QString &table, const QStringList &fields, bool distinct = false);
+		CSelectPackage(const QStringList &tables, const QStringList &fields, bool distinct = false);
 		~CSelectPackage();
 		
 };

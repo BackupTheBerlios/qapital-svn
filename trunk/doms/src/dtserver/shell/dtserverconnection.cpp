@@ -174,6 +174,12 @@ void DTServerConnection::run()
 					
 					DTSelect *select = new DTSelect(QStringList() << fields, QStringList() << tables, values["distinct"].toInt() );
 					
+					if ( values.contains( "where" ) )
+					select->setWhere( values["where"] );
+					
+					if ( values.contains("condition") )
+					select->setCondition( values["condition"] );
+					
 					emit requestOperation( this, select);
 				}
 			}

@@ -23,7 +23,8 @@ HEADERS += global.h \
            formdatepicker.h \
            formbuttongroup.h \
            formwidgets.h \
-           cattributeparser.h 
+           cattributeparser.h \
+           cdatabaserequesteriface.h 
 SOURCES += cmodulewidget.cpp \
            cformbuilder.cpp \
            cmodulebuttonbar.cpp \

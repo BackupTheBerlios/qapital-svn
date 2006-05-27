@@ -35,10 +35,18 @@ DBField CAttributeParser::parseField(const QString &fieldStr)
 	
 	DBField field;
 	
-	if ( list.count() == 2 )
+	if ( list.count() >= 2 )
 	{
-		field.table = list[0];
-		field.name = list[1];
+		field.table = list[0].toLower();
+		
+		if ( list[1].contains("->" ) )
+		{
+			field.name = list[1].split("->")[0].toLower();
+		}
+		else
+		{
+			field.name = list[1].toLower();
+		}
 	}
 	
 	return field;

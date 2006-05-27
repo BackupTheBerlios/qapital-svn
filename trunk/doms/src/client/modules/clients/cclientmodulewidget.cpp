@@ -30,11 +30,8 @@ CClientModuleWidget::CClientModuleWidget(const QString &title, QWidget *parent) 
 	
 	connect(buttonBar, SIGNAL(buttonClicked( int )), this, SLOT(doAction(int)));
 	
-	m_pTree->setHeaderLabels(QStringList() << tr("Name")<<tr("Last name"));
-	m_pTree->header()->show();
-	
-	// For testing purpose
-	
+#if 0
+	// For testing purpose	
 	addPacient( "Pepito","Perez");
 	addPacient( "David ","Cuadrado");
 	addPacient( "Carlos ","Giraldo");
@@ -42,6 +39,7 @@ CClientModuleWidget::CClientModuleWidget(const QString &title, QWidget *parent) 
 	addPacient(  "Andres ","XLS");
 	addPacient(  "Alguien"," mas");
 	addPacient(  "Homero"," Simpson" );
+#endif
 }
 
 
@@ -55,12 +53,12 @@ void CClientModuleWidget::doAction(int buttonId)
 	{
 		case CModuleButtonBar::Add:
 		{
-			emit requestForm( "pct", 0);
+			emit requestForm( m_pModuleInfo.key, 0);
 		}
 		break;
 		case CModuleButtonBar::Del:
 		{
-			emit requestForm( "pct", 1);
+			emit requestForm( m_pModuleInfo.key, 1);
 		}
 		break;
 		case CModuleButtonBar::Query:
@@ -79,7 +77,7 @@ void CClientModuleWidget::doAction(int buttonId)
 void CClientModuleWidget::addPacient(const QString &name, const QString &lastName)
 {
 	QTreeWidgetItem *item = new QTreeWidgetItem(m_pTree);
-	item->setText(0, "ID");
+	item->setText(0, "ID"); // FIXME!!!
 	item->setText(1, name);
 	item->setText(2, lastName);
 }

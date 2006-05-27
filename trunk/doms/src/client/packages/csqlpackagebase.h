@@ -45,6 +45,7 @@ class CSqlPackageBase : public QDomDocument
 		void addTable(const QString &table, const QStringList &fields = QStringList() );
 		void addTable(const QString &table, const QStringList &fields, const QStringList &values );
 		
+	public:
 		void setWhere(const QString &where);
 		void setCondition(const QString &condition);
 		void setOrderBy(const QString &field, Order o);

@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2006 by David Cuadrado                                  *
- *   krawek@gmail.com                                                       *
+ *   krawek@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,48 +18,23 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "cselectpackage.h"
-#include "ddebug.h"
 
-CSelectPackage::CSelectPackage(const QStringList &tables, const QStringList &fields, bool distinct) : CSqlPackageBase()
+#ifndef DATABASEREQUESTERIFACE_H
+#define DATABASEREQUESTERIFACE_H
+
+#include "global.h"
+
+class CDatabaseRequesterIface
 {
-	QDomElement root = createElement("Select");
-	
-	if (distinct)
-	{
-		root.setAttribute( "distinct", QString::number(1) );
-	}
-	else
-	{
-		root.setAttribute( "distinct", QString::number(0) );
-	}
-	
-	appendChild( root );
-	
-	QString table;
-	
-	QStringList::const_iterator it = tables.begin();
-	
-	while(it != tables.end())
-	{
-		if ( it+1 == tables.end() )
-		{
-			table += *it;
-		}
-		else
-		{
-			table += *it + ",";
-		}
+	protected:
+		CDatabaseRequesterIface() {};
 		
-		++it;
-	}
-	
-	addTable( table, fields );
-}
+	public:
+		virtual ~CDatabaseRequesterIface() {};
+		virtual void setOperationResult(const QList<XMLResults> &results) = 0;
+};
 
+#endif
 
-CSelectPackage::~CSelectPackage()
-{
-}
 
 

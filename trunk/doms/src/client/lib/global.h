@@ -28,6 +28,8 @@
 
 #include <dglobal.h>
 
+typedef QPair<QString, QString> StringPair;
+
 namespace Msg
 {
 	enum Type
@@ -52,7 +54,7 @@ struct ModuleInfo
 	/**
 	 * Contiene una lista de header-campo.
 	 */
-	QList< QPair<QString, QString > > listInfo;
+	QList< StringPair > listInfo;
 };
 
 struct DBField
@@ -60,6 +62,8 @@ struct DBField
 	QString name;
 	QString table;
 };
+
+#define TABLE_DOT_ATT(field) field.table+"."+field.name
 
 inline bool operator==(const ModuleInfo &e1, const ModuleInfo &e2)
 {
@@ -71,10 +75,10 @@ inline uint qHash(const ModuleInfo &key)
 	return qHash(key.key) ^ key.text.length();
 }
 
-
 typedef QList<FormData> FormDataList;
 typedef QHash<ModuleInfo, FormDataList> ModuleForms;
 typedef QHash<QString, QString> XMLResults;
+
 
 #endif
 

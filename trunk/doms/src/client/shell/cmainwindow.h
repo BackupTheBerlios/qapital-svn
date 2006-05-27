@@ -22,6 +22,7 @@
 #define CMAINWINDOW_H
 
 #include <dmainwindow.h>
+#include <QQueue>
 
 #include "cconnector.h"
 #include "cformmanager.h"
@@ -30,6 +31,8 @@
 #include "global.h"
 
 #include <dactionmanager.h>
+
+
 
 // Tools
 #include "cchatwindow.h"
@@ -82,6 +85,8 @@ class CMainWindow : public DMainWindow
 		void handleMessage(Msg::Type type, const QString &message);
 		
 		void doOperation(CForm *form, const CSqlPackageBase *package);
+		void doOperation(CModuleWidget *module, const CSqlPackageBase *package);
+		
 		void operationResults(const QList<XMLResults> &results );
 		
 	protected:
@@ -97,7 +102,7 @@ class CMainWindow : public DMainWindow
 		CHelpWidget *m_helper;
 		CHelpBrowser *m_helpBrowser;
 		
-		CForm *m_formRequester;
+		QQueue<CDatabaseRequesterIface *> m_requesterQueue;
 		
 		QHash<QString, CModuleWidget *> m_moduleWidgets;
 		

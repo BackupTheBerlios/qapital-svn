@@ -39,7 +39,7 @@
 #include <dglobal.h>
 #include <dtip.h>
 
-CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0), m_formRequester(0)
+CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0)
 {
 	setWindowTitle(tr("Client"));
 	
@@ -195,62 +195,63 @@ void CMainWindow::buildModules(const ModuleForms &modules)
 			title = tr("Pacients");
 			moduleWidget = new CClientModuleWidget(title);
 		}
-		else if ( module.key == "gnr" )
-		{
-			title = tr("General");
-			moduleWidget = new CGeneralModuleWidget( title);
-		}
-		else if ( module.key == "agn" )
-		{
-			title = tr("Agend");
-			moduleWidget = new CAgendModuleWidget(title );
-			
-			pos = DDockWindow::Right;
-		}
-		else if ( module.key == "ort" )
-		{
-			title = tr("Orthodoncy");
-			moduleWidget = new COrthodoncyModuleWidget(title);
-		}
-		else if ( module.key == "edd" )
-		{
-			title = tr("Endodoncy");
-			moduleWidget = new CEndodoncyModuleWidget( title);
-		}
-		else if ( module.key == "prd" )
-		{
-			title = tr("Periodoncy");
-			moduleWidget = new CPeriodoncyModuleWidget( title);
-		}
-		else if ( module.key == "pad" )
-		{
-			title = tr("Phonoaudiology");
-			moduleWidget = new CPhonoaudiologyWidgetModule(title );
-		}
-		else if ( module.key == "rpt" )
-		{
-			title = tr("Reports");
-			moduleWidget = new CReportModuleWidget(title);
-			
-			pos = DDockWindow::Right;
-		}
-		else
-		{
-			moduleWidget = new CModuleWidget(module.text);
-		}
-		
-		if ( module.text.isEmpty() )
-		{
-			toolWindow(pos)->addWidget( title, moduleWidget);
-		}
-		else
-		{
-			toolWindow(pos)->addWidget( module.text, moduleWidget);
-		}
+// 		else if ( module.key == "gnr" )
+// 		{
+// 			title = tr("General");
+// 			moduleWidget = new CGeneralModuleWidget( title);
+// 		}
+// 		else if ( module.key == "agn" )
+// 		{
+// 			title = tr("Agend");
+// 			moduleWidget = new CAgendModuleWidget(title );
+// 			
+// 			pos = DDockWindow::Right;
+// 		}
+// 		else if ( module.key == "ort" )
+// 		{
+// 			title = tr("Orthodoncy");
+// 			moduleWidget = new COrthodoncyModuleWidget(title);
+// 		}
+// 		else if ( module.key == "edd" )
+// 		{
+// 			title = tr("Endodoncy");
+// 			moduleWidget = new CEndodoncyModuleWidget( title);
+// 		}
+// 		else if ( module.key == "prd" )
+// 		{
+// 			title = tr("Periodoncy");
+// 			moduleWidget = new CPeriodoncyModuleWidget( title);
+// 		}
+// 		else if ( module.key == "pad" )
+// 		{
+// 			title = tr("Phonoaudiology");
+// 			moduleWidget = new CPhonoaudiologyWidgetModule(title );
+// 		}
+// 		else if ( module.key == "rpt" )
+// 		{
+// 			title = tr("Reports");
+// 			moduleWidget = new CReportModuleWidget(title);
+// 			
+// 			pos = DDockWindow::Right;
+// 		}
+// 		else
+// 		{
+// 			moduleWidget = new CModuleWidget(module.text);
+// 		}
 		
 		if (  moduleWidget )
 		{
+			if ( module.text.isEmpty() )
+			{
+				toolWindow(pos)->addWidget( title, moduleWidget);
+			}
+			else
+			{
+				toolWindow(pos)->addWidget( module.text, moduleWidget);
+			}
+			
 			connect(moduleWidget, SIGNAL(requestForm(const QString &, int)), this, SLOT(loadForm(const QString &, int)));
+			connect(moduleWidget, SIGNAL(requestOperation(CModuleWidget *, const CSqlPackageBase *) ), this, SLOT(doOperation(CModuleWidget *, const CSqlPackageBase * )));
 			
 			moduleWidget->setup(module);
 			
@@ -330,16 +331,25 @@ void CMainWindow::doOperation(CForm *form, const CSqlPackageBase *package)
 		return;
 	}
 	
-	m_formRequester = form; // FIXME
+	m_requesterQueue.enqueue(form);
 	
+	m_connector->sendToServer( package->toString(0) );
+}
+
+void CMainWindow::doOperation(CModuleWidget *module, const CSqlPackageBase *package)
+{
+	D_FUNCINFO;
+	m_requesterQueue.enqueue(module);
 	m_connector->sendToServer( package->toString(0) );
 }
 
 void CMainWindow::operationResults(const QList<XMLResults> &results )
 {
-	if ( m_formRequester )
+	CDatabaseRequesterIface *requester = m_requesterQueue.dequeue();
+	
+	if ( requester )
 	{
-		(m_formRequester)->setOperationResult(results);
+		requester->setOperationResult(results);
 	}
 }
 

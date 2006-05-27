@@ -32,11 +32,13 @@
 #include "cupdatepackage.h"
 #include "cdeletepackage.h"
 
+#include "cdatabaserequesteriface.h"
+
 /**
  * Esta clase es el formulario que se despliega al usuario final.
  * @author David Cuadrado <krawek@gmail.com>
 */
-class CForm : public QWidget
+class CForm : public QWidget, public CDatabaseRequesterIface
 {
 	Q_OBJECT;
 	public:
