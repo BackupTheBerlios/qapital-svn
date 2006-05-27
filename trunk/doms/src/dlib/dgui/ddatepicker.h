@@ -24,7 +24,7 @@
 #include <QFrame>
 #include <QToolButton>
 
-#include "ddatetable.h"
+#include "dgui/ddatetable.h"
 
 class QComboBox;
 class QLabel;
@@ -68,8 +68,8 @@ class DDatePicker : public QFrame
 		
 		class EditableButton;
 		
-		QToolButton *m_mounth;
-		EditableButton *m_year;
+		 QToolButton *m_mounth;
+		 EditableButton *m_year;
 };
 
 class DDatePicker::EditableButton : public QToolButton

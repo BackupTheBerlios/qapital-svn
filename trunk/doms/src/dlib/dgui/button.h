@@ -28,7 +28,7 @@
 #include <QStyleOptionButton>
 #include <QTimer>
 
-#include "comdefs.h"
+#include "dgui/comdefs.h"
 
 namespace Ideal {
 

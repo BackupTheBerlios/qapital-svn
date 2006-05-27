@@ -39,6 +39,8 @@
 #include <dglobal.h>
 #include <dtip.h>
 
+#include <dapplication.h>
+
 CMainWindow::CMainWindow() : DMainWindow(), m_helpBrowser(0)
 {
 	setWindowTitle(tr("Client"));

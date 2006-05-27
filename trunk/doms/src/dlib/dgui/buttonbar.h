@@ -29,7 +29,7 @@
 #include <QResizeEvent>
 #include <QBoxLayout>
 
-#include "comdefs.h"
+#include "dgui/comdefs.h"
 
 #include <QLayout>
 

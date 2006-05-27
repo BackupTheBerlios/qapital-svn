@@ -24,6 +24,7 @@
 #include <QString>
 #include <QStringList>
 #include <QVariant>
+#include <QVector>
 
 #include "global.h"
 

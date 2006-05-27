@@ -3,11 +3,25 @@
 # Subdir relative project main directory: ./src/dlib/dgui
 # Target is a library:  
 
+RESOURCES += images.qrc 
+QT += xml 
 INSTALLS += include \
             target 
 target.path = /lib/ 
 include.files += *.h 
-include.path = /include/dgui/ 
+include.path = /include/dgui 
+KDEV_QTVER = 4 
+LIBS += -ldcore 
+INCLUDEPATH += ../../../src/dlib/dcore \
+               ../ 
+MOC_DIR = .moc 
+UI_DIR = .ui 
+OBJECTS_DIR = .obj 
+QMAKE_LIBDIR = ../dcore 
+CONFIG += release \
+          warn_on \
+          dll 
+TEMPLATE = lib 
 HEADERS += ccbar.h \
            ccbutton.h \
            collapsiblewidget.h \
@@ -22,9 +36,6 @@ HEADERS += ccbar.h \
            dflatbutton.h \
            dfontchooser.h \
            dformfactory.h \
-           dgradientcreator.h \
-           dgradientselector.h \
-           dgradientviewer.h \
            dimagebutton.h \
            doptionaldialog.h \
            dradiobuttongroup.h \
@@ -32,7 +43,6 @@ HEADERS += ccbar.h \
            dsqueezelabel.h \
            dtabdialog.h \
            dtabwidget.h \
-           dtip.h \
            dtoolbox.h \
            dtreelistwidget.h \
            dvhbox.h \
@@ -57,7 +67,9 @@ HEADERS += ccbar.h \
            dthememanager.h \
            dclicklineedit.h \
            dtreewidgetsearchline.h \
-           ddatewidget.h 
+           ddatewidget.h \
+           dosd.h \
+           dtipdialog.h 
 SOURCES += ccbar.cpp \
            ccbutton.cpp \
            collapsiblewidget.cpp \
@@ -72,9 +84,6 @@ SOURCES += ccbar.cpp \
            dflatbutton.cpp \
            dfontchooser.cpp \
            dformfactory.cpp \
-           dgradientcreator.cpp \
-           dgradientselector.cpp \
-           dgradientviewer.cpp \
            dimagebutton.cpp \
            doptionaldialog.cpp \
            dradiobuttongroup.cpp \
@@ -82,7 +91,6 @@ SOURCES += ccbar.cpp \
            dsqueezelabel.cpp \
            dtabdialog.cpp \
            dtabwidget.cpp \
-           dtip.cpp \
            dtoolbox.cpp \
            dtreelistwidget.cpp \
            dvhbox.cpp \
@@ -106,15 +114,20 @@ SOURCES += ccbar.cpp \
            dthememanager.cpp \
            dclicklineedit.cpp \
            dtreewidgetsearchline.cpp \
-           ddatewidget.cpp 
-RESOURCES += images.qrc
-QT += xml
-KDEV_QTVER = 4
-INCLUDEPATH += ../../../src/dlib/dcore
-MOC_DIR = .moc
-UI_DIR = .ui
-OBJECTS_DIR = .obj
-CONFIG += release \
-warn_on \
-dll
-TEMPLATE = lib
+           ddatewidget.cpp \
+           dosd.cpp \
+           dtipdialog.cpp 
+linux-g++{
+  HEADERS += dterm.h \
+  dtermtab.h \
+  dflashwidget.h
+  SOURCES += dterm.cpp \
+  dtermtab.cpp \
+  dflashwidget.cpp
+}
+
+macosx{
+}
+
+win32{
+}

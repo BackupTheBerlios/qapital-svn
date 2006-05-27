@@ -7,6 +7,7 @@ INSTALLS += default
 default.files += default 
 default.path = /data/themes/ 
 KDEV_QTVER = 4 
+INCLUDEPATH += ../../dlib/ 
 CONFIG += release \
           warn_on \
           staticlib 

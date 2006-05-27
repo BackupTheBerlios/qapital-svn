@@ -7,7 +7,8 @@ QT += xml
 KDEV_QTVER = 4 
 INCLUDEPATH += ../../../../src/client/lib \
                ../../../../src/dlib/dgui \
-               ../../../../src/dlib/dcore 
+               ../../../../src/dlib/dcore \
+               ../../../dlib/ 
 CONFIG += release \
           warn_on \
           staticlib 

@@ -25,6 +25,7 @@
 #include <QHash>
 #include <QMap>
 #include <QList>
+#include <QPair>
 
 #include <dglobal.h>
 

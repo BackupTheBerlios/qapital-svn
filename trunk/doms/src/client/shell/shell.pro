@@ -3,7 +3,7 @@
 # Subdir relative project main directory: ./src/client/shell
 # Target is an application:  ../../../bin/domsclient.bin
 
-QT += xml network svg 
+QT += xml svg network 
 INSTALLS += data \
             target 
 target.path = /bin/ 
@@ -47,7 +47,8 @@ INCLUDEPATH += ../../../src/client/modules/reports \
                ../../../src/client/packages \
                ../../../src/client/lib \
                ../../../src/dlib/dgui \
-               ../../../src/dlib/dcore 
+               ../../../src/dlib/dcore \
+               ../../dlib/ 
 MOC_DIR = .moc 
 UI_DIR = .ui 
 OBJECTS_DIR = .obj 

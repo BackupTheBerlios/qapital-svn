@@ -19,8 +19,8 @@
  ***************************************************************************/
 
 
-#include "dbrushadjuster.h"
-#include "ddebug.h"
+#include "dcore/dbrushadjuster.h"
+#include "dcore/ddebug.h"
 
 #include <QPixmap>
 DBrushAdjuster::DBrushAdjuster()

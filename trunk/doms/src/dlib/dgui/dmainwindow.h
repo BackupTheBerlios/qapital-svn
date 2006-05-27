@@ -26,7 +26,7 @@
 #include <QMainWindow>
 #define MWCLASS QMainWindow
 
-#include "ddockwindow.h"
+#include "dgui/ddockwindow.h"
 #include <QList>
 #include <QEvent>
 

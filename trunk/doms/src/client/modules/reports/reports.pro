@@ -3,14 +3,15 @@
 # Subdir relative project main directory: ./src/client/modules/reports
 # Target is a library:  
 
-HEADERS += creportmodulewidget.h 
-SOURCES += creportmodulewidget.cpp 
 QT += xml 
 KDEV_QTVER = 4 
 INCLUDEPATH += ../../../../src/client/lib \
                ../../../../src/dlib/dgui \
-               ../../../../src/dlib/dcore 
+               ../../../../src/dlib/dcore \
+               ../../../dlib/ 
 CONFIG += release \
           warn_on \
           staticlib 
 TEMPLATE = lib 
+HEADERS += creportmodulewidget.h 
+SOURCES += creportmodulewidget.cpp 

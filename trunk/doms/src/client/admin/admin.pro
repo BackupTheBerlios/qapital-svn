@@ -3,16 +3,7 @@
 # Subdir relative project main directory: ./src/client/admin
 # Target is an application:  ../../../bin/domsadmin.bin
 
-HEADERS += amainwindow.h \
-           aapplication.h \
-           aconnector.h \
-           apackageparser.h 
-SOURCES += main_admin.cpp \
-           amainwindow.cpp \
-           aapplication.cpp \
-           aconnector.cpp \
-           apackageparser.cpp 
-QT += xml network 
+QT += xml network svg 
 KDEV_QTVER = 4 
 TARGETDEPS += ../../../src/client/lib/libdclient.a \
               ../../../src/dlib/dgui/libdgui.so \
@@ -29,7 +20,8 @@ INCLUDEPATH += ../../../src/client/shell \
                ../../../src/client/packages \
                ../../../src/client/lib \
                ../../../src/dlib/dgui \
-               ../../../src/dlib/dcore 
+               ../../../src/dlib/dcore \
+               ../../dlib/ 
 MOC_DIR = .moc 
 UI_DIR = .ui 
 OBJECTS_DIR = .obj 
@@ -39,3 +31,12 @@ TARGET = ../../../bin/domsadmin.bin
 CONFIG += release \
           warn_on 
 TEMPLATE = app 
+HEADERS += amainwindow.h \
+           aapplication.h \
+           aconnector.h \
+           apackageparser.h 
+SOURCES += main_admin.cpp \
+           amainwindow.cpp \
+           aapplication.cpp \
+           aconnector.cpp \
+           apackageparser.cpp 

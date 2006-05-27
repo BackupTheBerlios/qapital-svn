@@ -4,7 +4,7 @@
 # Target is an application:  ../../../bin/dformcreator.bin
 
 RESOURCES += icons.qrc 
-QT += xml svg 
+QT += xml network svg 
 INSTALLS += target 
 target.path = /bin/ 
 KDEV_QTVER = 4 
@@ -19,7 +19,8 @@ LIBS += -ldcore \
 INCLUDEPATH += ../../../src/client/packages \
                ../../../src/client/lib \
                ../../../src/dlib/dgui \
-               ../../../src/dlib/dcore 
+               ../../../src/dlib/dcore \
+               ../../dlib/ 
 QMAKE_LIBDIR = ../../../src/dlib/dcore \
                ../../../src/dlib/dgui 
 TARGET = ../../../bin/dformcreator.bin 

@@ -35,7 +35,7 @@
 #include <QPainterPath>
 #include <QImage>
 
-#include "ccbutton.h"
+#include "dgui/ccbutton.h"
 
 class QPainterPath;
 

@@ -27,7 +27,7 @@
 #include <QStringList>
 #include <QString>
 
-#include "spellinterface.h"
+#include "dcore/spellinterface.h"
 
 
 struct AspellSpeller;

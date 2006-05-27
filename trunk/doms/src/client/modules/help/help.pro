@@ -3,22 +3,24 @@
 # Subdir relative project main directory: ./src/client/modules/help
 # Target is a library:  
 
+QT += xml 
 INSTALLS += data 
-data.files += data/en data/es 
+data.files += data/en \
+              data/es 
 data.path = /data/ 
+KDEV_QTVER = 4 
+INCLUDEPATH += ../../../../src/client/lib \
+               ../../../../src/dlib/dgui \
+               ../../../../src/dlib/dcore \
+               ../../../dlib/ 
+MOC_DIR = .moc 
+UI_DIR = .ui 
+OBJECTS_DIR = .obj 
+CONFIG += release \
+          warn_on \
+          staticlib 
+TEMPLATE = lib 
 HEADERS += chelpbrowser.h \
            chelpwidget.h 
 SOURCES += chelpbrowser.cpp \
            chelpwidget.cpp 
-QT += xml
-KDEV_QTVER += 4
-INCLUDEPATH += ../../../../src/client/lib \
-../../../../src/dlib/dgui \
-../../../../src/dlib/dcore
-MOC_DIR = .moc
-UI_DIR = .ui
-OBJECTS_DIR = .obj
-CONFIG += release \
-warn_on \
-staticlib
-TEMPLATE = lib

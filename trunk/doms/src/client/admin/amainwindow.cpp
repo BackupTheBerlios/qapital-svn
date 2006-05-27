@@ -25,6 +25,7 @@
 #include <QToolBar>
 
 #include "global.h"
+#include <dapplication.h>
 
 #include "cconnectiondialog.h"
 

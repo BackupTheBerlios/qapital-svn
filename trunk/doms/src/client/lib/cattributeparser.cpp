@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "cattributeparser.h"
+#include <QStringList>
 
 CAttributeParser::CAttributeParser()
 {

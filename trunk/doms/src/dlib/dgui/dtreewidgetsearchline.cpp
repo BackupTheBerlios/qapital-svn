@@ -70,7 +70,7 @@ DTreeWidgetSearchLine::DTreeWidgetSearchLine(QWidget *parent, QTreeWidget *treeW
 
 DTreeWidgetSearchLine::DTreeWidgetSearchLine(QWidget *parent,
                                        const QList<QTreeWidget *> &treeWidgets) :
-		DClickLineEdit(tr("Search here..."),parent)
+		DClickLineEdit(tr("Search"),parent)
 {
     d = new DTreeWidgetSearchLinePrivate;
 

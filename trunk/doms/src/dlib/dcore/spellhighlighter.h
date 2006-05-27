@@ -23,7 +23,7 @@
 
 #include <qsyntaxhighlighter.h>
 
-#include "speller.h"
+#include "dcore/speller.h"
 
 /**
  * @if english
