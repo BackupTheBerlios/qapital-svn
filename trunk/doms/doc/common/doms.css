@@ -353,7 +353,7 @@ caption {
 }
 
 
-A.qindex {}
+/* A.qindex {} */
 A.qindexRef {}
 A.el { text-decoration: none; font-weight: bold }
 A.elRef { font-weight: bold }
