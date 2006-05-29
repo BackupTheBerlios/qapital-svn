@@ -3,16 +3,19 @@
 # Subdir relative project main directory: ./src/dtserver/shell
 # Target is an application:  ../../../bin/domserver.bin
 
-QT += network xml sql -gui 
+QT += sql network xml -gui  
+KDEV_QTVER = 4 
 INSTALLS += target 
 target.path = /bin/ 
-KDEV_QTVER = 4 
-TARGETDEPS += ../../../src/dtserver/packages/libpackages.a 
+TARGETDEPS += ../../../src/dtserver/packages/libpackages.a \
+              ../../../3rdparty/psql/libpsql.a 
 LIBS += -ldcore \
-        ../../../src/dtserver/packages/libpackages.a 
+        ../../../src/dtserver/packages/libpackages.a \
+        ../../../3rdparty/psql/libpsql.a 
 INCLUDEPATH += ../../../src/dtserver/packages \
                ../../../src/dlib/dgui \
                ../../../src/dlib/dcore \
+               ../../../3rdparty/psql \
                ../../dlib 
 MOC_DIR = .moc 
 UI_DIR = .ui 
@@ -38,3 +41,8 @@ SOURCES += server_main.cpp \
            sdatabase.cpp \
            dtquery.cpp \
            postgreserrorhandler.cpp 
+
+unix:LIBS += -lpq
+win32:LIBS += libpqdll.lib
+
+

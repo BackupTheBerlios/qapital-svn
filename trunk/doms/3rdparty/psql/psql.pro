@@ -3,10 +3,8 @@
 # Subdir relative project main directory: ./3rdparty/psql
 # Target is a library:  
 
-QT += sql 
+QT = sql 
 DEPENDPATH = . 
-INSTALLS += target 
-target.path = /plugins/ 
 LIBS += -lpq 
 INCLUDEPATH += . 
 MOC_DIR = .moc 
@@ -14,13 +12,11 @@ UI_DIR = .ui
 OBJECTS_DIR = .obj 
 CONFIG += release \
           warn_on \
-          plugin 
+          staticlib 
 TEMPLATE = lib 
 HEADERS += qsql_psql.h 
 SOURCES += qsql_psql.cpp 
-
-linux-g++  {
-INCLUDEPATH += /usr/include/postgresql
+target.path = /plugins/
+linux-g++{
+  INCLUDEPATH += /usr/include/postgresql
 }
-
-

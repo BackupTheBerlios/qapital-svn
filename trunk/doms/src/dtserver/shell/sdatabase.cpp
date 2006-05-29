@@ -26,11 +26,13 @@
 
 #include <ddebug.h>
 
+#include "qsql_psql.h"
+
 SDatabase *SDatabase::m_instance = 0;
 
-SDatabase::SDatabase(QObject *parent) : QObject(parent), QSqlDatabase("QPSQL")
+SDatabase::SDatabase(QObject *parent) : QObject(parent), QSqlDatabase()
 {
-	
+	addDatabase(new QPSQLDriver(this) );
 }
 
 
