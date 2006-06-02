@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2005 by David Cuadrado                                  *
- *   krawek@gmail.com                                           	   *
+ *   krawek@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -30,9 +30,8 @@
 
 SDatabase *SDatabase::m_instance = 0;
 
-SDatabase::SDatabase(QObject *parent) : QObject(parent), QSqlDatabase()
+SDatabase::SDatabase(QObject *parent) : QObject(parent), QSqlDatabase(new QPSQLDriver(this))
 {
-	addDatabase(new QPSQLDriver(this) );
 }
 
 

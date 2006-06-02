@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 	
 	if ( !SDBM->open() )
 	{
-		dDebug() << "Error while trying open database" ;
+		dDebug() << "Error while trying open database: " << SDBM->lastError().text() ;
 		return 255;
 	}
 	

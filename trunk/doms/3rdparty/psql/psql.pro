@@ -3,7 +3,7 @@
 # Subdir relative project main directory: ./3rdparty/psql
 # Target is a library:  
 
-QT = sql 
+QT += sql 
 DEPENDPATH = . 
 LIBS += -lpq 
 INCLUDEPATH += . 
