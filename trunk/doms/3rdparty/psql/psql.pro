@@ -17,6 +17,3 @@ TEMPLATE = lib
 HEADERS += qsql_psql.h 
 SOURCES += qsql_psql.cpp 
 target.path = /plugins/
-linux-g++{
-  INCLUDEPATH += /usr/include/postgresql
-}
