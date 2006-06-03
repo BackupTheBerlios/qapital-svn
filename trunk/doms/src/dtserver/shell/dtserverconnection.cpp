@@ -201,7 +201,7 @@ void DTServerConnection::run()
 
 void DTServerConnection::sendToClient(const QString &msg)
 {
-// 	dDebug() << "SENDING: " << msg;
+	dDebug() << "SENDING: " << msg;
 	m_client->reset();
 	
 	QTextStream out(m_client);

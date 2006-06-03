@@ -63,6 +63,7 @@ SSuccessPackage::SSuccessPackage(const QString& msg): QDomDocument()
 						
 						parseModule( e, module );
 						
+						
 						documentElement().appendChild(module);
 					}
 				}
@@ -81,33 +82,24 @@ SSuccessPackage::SSuccessPackage(const QString& msg): QDomDocument()
 
 void SSuccessPackage::parseModule(QDomElement &element, QDomElement &module)
 {
-	QDomNode n = element.firstChild();
+	QDomNode n1 = element.firstChildElement("forms").firstChild();
 	
-	while(!n.isNull())
+	while (! n1.isNull() )
 	{
-		QDomElement e = n.toElement();
+		SHOW_VAR(n1.toElement().tagName());
 		
-		if ( e.tagName() == "forms" )
-		{
-			QDomNode n1 = e.firstChild();
-			while (! n1.isNull() )
-			{
-				QDomElement e1 = n1.toElement();
-				
-				if ( e1.tagName() == "FormFile" )
-				{
-					addForm( module, e1.attribute( "id").toInt(), DATA_DIR+"/forms/"+e1.attribute( "path") );
-				}
-				n1 = n.nextSibling();
-			}
-		}
-		else if ( e.tagName() == "list" )
-		{
-			module.appendChild( e );
-		}
+		QDomElement e1 = n1.toElement();
 		
-		n = n.nextSibling();
+		if ( e1.tagName() == "FormFile" )
+		{
+			addForm( module, e1.attribute( "id").toInt(), DATA_DIR+"/forms/"+e1.attribute( "path") );
+			
+			dDebug() << e1.attribute( "path");
+		}
+		n1 = n1.nextSibling();
 	}
+
+	module.appendChild( element.firstChildElement("list") );
 }
 
 
