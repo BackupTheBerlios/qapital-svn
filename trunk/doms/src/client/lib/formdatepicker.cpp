@@ -38,3 +38,8 @@ QString FormDatePicker::fieldValue() const
 	return date().toString(Qt::ISODate);
 }
 
+bool FormDatePicker::isModified() const
+{
+	return true;
+}
+

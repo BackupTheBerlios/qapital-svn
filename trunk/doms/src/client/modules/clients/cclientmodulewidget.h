@@ -25,7 +25,7 @@
 
 /**
  * Este modulo sirve como interfaz para gestionar clientes o pacientes
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class CClientModuleWidget : public CModuleWidget
 {

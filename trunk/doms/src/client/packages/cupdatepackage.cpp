@@ -20,12 +20,27 @@
 
 #include "cupdatepackage.h"
 
-CUpdatePackage::CUpdatePackage(const QString &table, const QStringList &fields) : CSqlPackageBase()
+CUpdatePackage::CUpdatePackage(const QString &table, const QStringList &fields, const QStringList &values) : CSqlPackageBase()
 {
 	QDomElement root = createElement("Update");
 	
 	appendChild( root );
-	addTable( table, fields);
+	addTable( table, fields, values);
+}
+
+CUpdatePackage::CUpdatePackage(const QStringList &tables, const QList<QStringList> &fields, const QList<QStringList> &values) : CSqlPackageBase()
+{
+	QDomElement root = createElement("Update");
+	
+	appendChild( root );
+	
+	int count = 0;
+	foreach(QString table, tables )
+	{
+		addTable(table, fields[count], values[count]);
+		
+		++count;
+	}
 }
 
 

@@ -27,7 +27,7 @@ class QTextBrowser;
 class QLineEdit;
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class CChatWindow : public QDialog
 {

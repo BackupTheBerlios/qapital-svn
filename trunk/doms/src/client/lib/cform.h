@@ -34,9 +34,11 @@
 
 #include "cdatabaserequesteriface.h"
 
+class QPushButton;
+
 /**
  * Esta clase es el formulario que se despliega al usuario final.
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class CForm : public QWidget, public CDatabaseRequesterIface
 {
@@ -52,6 +54,13 @@ class CForm : public QWidget, public CDatabaseRequesterIface
 		
 		void debug();
 		
+		void setup(const QString &key);
+		void addButtons();
+		
+		void setModuleName(const QString &mname);
+		QString moduleName() const;
+		QString id() const;
+		
 	public slots:
 		void addButtonClicked();
 		void cancelButtonClicked();
@@ -61,14 +70,18 @@ class CForm : public QWidget, public CDatabaseRequesterIface
 	signals:
 		void requestSentToServer(const QString &package);
 		void requestOperation(CForm *self, const CSqlPackageBase *sql );
+		void close();
 		
 	private:
 		/**
 		 * La llave es el nombre de la tabla, el valor es una lista de widgets de donde se pueden sacar la tabla a la que pertenece, el campo en la tabla y el valor actual.
 		 */
 		QMap<QString, QList<FormWidgetIface*> > m_inputMap;
-		
 		QStringList m_tables;
+		QString m_keyValue;
+		QPushButton *m_ok, *m_cancel;
+		
+		QString m_moduleName;
 };
 
 #endif

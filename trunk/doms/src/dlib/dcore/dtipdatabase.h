@@ -26,7 +26,7 @@
 
 /**
  * @struct DTip
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
  */
 
 struct DTip

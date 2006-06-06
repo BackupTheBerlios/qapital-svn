@@ -26,7 +26,7 @@
 
 /**
  * Analizador de paquetes XML que el cliente envia al servidor, esta clase analiza utilizando <a href="http://www.saxproject.org">SAX2</a>.
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class SPackageParser : public QXmlDefaultHandler
 {

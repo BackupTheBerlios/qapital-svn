@@ -33,7 +33,7 @@
  * @elseif spanish
  * @short Esta clase provee de un visualizador de path.
  * @endif
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class DDisplayPath : public QFrame
 {

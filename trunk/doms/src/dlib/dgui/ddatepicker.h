@@ -30,7 +30,7 @@ class QComboBox;
 class QLabel;
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 
 class DDatePicker : public QFrame

@@ -26,7 +26,7 @@
 
 /**
  * Esta clase analiza los errores enviados por postgres y los traduce a un lenguaje que el usuario de la aplicación pueda entender.
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class PostgresErrorHandler
 {

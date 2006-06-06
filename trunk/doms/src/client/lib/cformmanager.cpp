@@ -42,6 +42,13 @@ CFormManager::CFormManager(QObject *parent) : QObject(parent)
 
 CFormManager::~CFormManager()
 {
+	// Borrar cache de formas
+	QDir dir(m_formsPath);
+	foreach(QString form, dir.entryList() )
+	{
+		QFile::remove(m_formsPath+"/"+form);
+	}
+	
 	delete m_builder;
 }
 
@@ -83,6 +90,7 @@ CForm *CFormManager::loadForm(const QString &module, int id)
 			QString document = file.readAll();
 			
 			CForm *form = m_builder->form( document );
+			form->setModuleName(module);
 			return form;
 		}
 	}

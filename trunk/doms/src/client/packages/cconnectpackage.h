@@ -25,7 +25,7 @@
 
 /**
  * Paquete que se envia al servidor para pedir una conexion
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class CConnectPackage : public QDomDocument
 {

@@ -176,6 +176,9 @@ void CMainWindow::addForm(CForm *form)
 		
 		connect(form, SIGNAL(requestSentToServer(const QString &)), m_connector, SLOT(sendToServer( const QString& )));
 		connect(form, SIGNAL(requestOperation(CForm *, const CSqlPackageBase *)), this, SLOT(doOperation(CForm *, const CSqlPackageBase *)));
+		
+		connect(form, SIGNAL(close()), this, SLOT(closeTab()));
+		
 	}
 }
 
@@ -252,7 +255,7 @@ void CMainWindow::buildModules(const ModuleForms &modules)
 				toolWindow(pos)->addWidget( module.text, moduleWidget);
 			}
 			
-			connect(moduleWidget, SIGNAL(requestForm(const QString &, int)), this, SLOT(loadForm(const QString &, int)));
+			connect(moduleWidget, SIGNAL(requestForm(const QString &, int, const QString &)), this, SLOT(loadForm(const QString &, int, const QString &)));
 			connect(moduleWidget, SIGNAL(requestOperation(CModuleWidget *, const CSqlPackageBase *) ), this, SLOT(doOperation(CModuleWidget *, const CSqlPackageBase * )));
 			
 			moduleWidget->setup(module);
@@ -351,17 +354,24 @@ void CMainWindow::operationResults(const QList<XMLResults> &results )
 	
 	if ( requester )
 	{
+		// TODO: Mejorar a forma de hacer esto
+		if ( dynamic_cast<CForm *>(requester ) )
+		{
+			m_moduleWidgets[requester->id()]->fill();
+		}
+		
 		requester->setOperationResult(results);
 	}
 }
 
-void CMainWindow::loadForm(const QString &module, int id)
+void CMainWindow::loadForm(const QString &module, int id, const QString &key)
 {
+	D_FUNCINFO;
 	CForm *form = m_formManager->loadForm( module, id );
-	
 	if ( form )
 	{
 		addForm( form );
+		form->setup(key);
 	}
 }
 

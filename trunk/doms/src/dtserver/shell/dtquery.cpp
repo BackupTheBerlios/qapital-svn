@@ -37,7 +37,7 @@ QString DTQuery::toString() const
 	return m_query + " " + m_cwhere;
 }
 
-int DTQuery::type()
+int DTQuery::type() const
 {
 	return m_type;
 }

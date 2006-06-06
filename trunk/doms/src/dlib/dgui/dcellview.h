@@ -39,7 +39,7 @@ typedef QHash<int, QVariant> ItemData;
 /**
  * 
  * @short The DCellViewItem class provides an item for use with the DCellView class.
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 
 class DCellViewItem
@@ -79,7 +79,7 @@ class DCellViewItem
 };
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
  */
 class DCellView : public QTableView
 {

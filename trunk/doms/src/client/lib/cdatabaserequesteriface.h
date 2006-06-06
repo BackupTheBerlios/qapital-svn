@@ -32,6 +32,7 @@ class CDatabaseRequesterIface
 	public:
 		virtual ~CDatabaseRequesterIface() {};
 		virtual void setOperationResult(const QList<XMLResults> &results) = 0;
+		virtual QString id() const = 0;
 };
 
 #endif

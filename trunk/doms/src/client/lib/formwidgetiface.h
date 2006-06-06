@@ -30,7 +30,7 @@
 
 /**
  * Interfaz para todos los widgets de entrada que pertenecen a un formulario, esta clase es util para tener una interfaz común respecto a los datos que retorna cada widget.
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 
 #define DEBUG_FORM 1
@@ -42,6 +42,8 @@ class FormWidgetIface
 		virtual ~FormWidgetIface();
 		virtual void setFieldValue(const QVariant &data) = 0;
 		virtual QString fieldValue() const = 0;
+		virtual bool isModified() const = 0;
+		
 		
 		void setFieldInfo(const QString &table_field );
 		
@@ -50,7 +52,6 @@ class FormWidgetIface
 		DBField foreignField() const;
 		
 		bool hasForeignKey() const;
-		
 		
 	private:
 		QVector<DBField> m_fields;

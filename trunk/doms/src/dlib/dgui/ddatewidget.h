@@ -28,7 +28,7 @@ class QComboBox;
 class QSpinBox;
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class DDateWidget : public QWidget
 {

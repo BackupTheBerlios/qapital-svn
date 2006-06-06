@@ -33,7 +33,7 @@ typedef QHash<QString, DAction *> QActionDict;
 
 /**
  * @short la clase DActionManager provee de un manejador de acciones, este manejador facilita el acceso y ordenamiento a las acciones contieniendo todas las acciones de la aplicacion.
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 
 class DActionManager : public QObject

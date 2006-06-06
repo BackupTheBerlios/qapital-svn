@@ -33,7 +33,7 @@ class QTreeWidget;
 class QTableWidgetItem;
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 
 class DConfigurationDialog : public QDialog

@@ -32,7 +32,7 @@
 
 /**
  * Esta clase representa cada conexion de un cliente al servidor, es un hilo.
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
  */
 class DTServerConnection : public QThread
 {

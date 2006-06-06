@@ -33,7 +33,7 @@
  * Esta clase representa un dialogo que es opcional
  * @endif
  * 
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class DOptionalDialog : public QDialog
 {

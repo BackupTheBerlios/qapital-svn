@@ -29,7 +29,7 @@
 #include "dcore/spellinterface.h"
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class Speller : public QObject
 {

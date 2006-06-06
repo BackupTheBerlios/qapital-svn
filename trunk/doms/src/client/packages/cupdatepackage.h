@@ -24,12 +24,13 @@
 #include "csqlpackagebase.h"
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class CUpdatePackage : public CSqlPackageBase
 {
 	public:
-		CUpdatePackage(const QString &table, const QStringList &fields);
+		CUpdatePackage(const QString &table, const QStringList &fields, const QStringList &values);
+		CUpdatePackage(const QStringList &tables, const QList<QStringList> &fields, const QList<QStringList> &values);
 		~CUpdatePackage();
 };
 

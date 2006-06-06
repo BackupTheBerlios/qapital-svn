@@ -31,7 +31,7 @@
 
 /**
  * Esta es la clase controladora, esta clase representa el servidor.
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
  */
 class DTServer : public QTcpServer
 {

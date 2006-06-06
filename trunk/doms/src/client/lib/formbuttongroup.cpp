@@ -71,3 +71,8 @@ void FormButtonGroup::addButton(QAbstractButton *button, int id)
 	m_buttonGroup->addButton(button, id);
 }
 
+bool FormButtonGroup::isModified() const
+{
+	return true;
+}
+

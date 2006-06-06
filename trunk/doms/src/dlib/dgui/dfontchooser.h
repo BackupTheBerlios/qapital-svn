@@ -26,7 +26,7 @@
 class QComboBox;
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class DFontChooser : public QFrame
 {

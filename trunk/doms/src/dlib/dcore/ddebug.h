@@ -25,7 +25,7 @@
 #include <QColor>
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 
 #ifdef __GNUC__

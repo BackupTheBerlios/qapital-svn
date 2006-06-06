@@ -29,7 +29,7 @@
 class QAbstractButton;
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 
 class FormButtonGroup : public QGroupBox, public FormWidgetIface
@@ -42,6 +42,7 @@ class FormButtonGroup : public QGroupBox, public FormWidgetIface
 		QString fieldValue() const;
 		
 		void addButton(QAbstractButton *button, int id);
+		bool isModified() const;
 		
 	private:
 		QButtonGroup *m_buttonGroup;

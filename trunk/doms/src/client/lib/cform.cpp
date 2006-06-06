@@ -22,6 +22,9 @@
 
 #include <ddebug.h>
 
+#include <QHBoxLayout>
+#include <QPushButton>
+
 #include "global.h"
 
 CForm::CForm() : QWidget()
@@ -55,25 +58,35 @@ void CForm::addInput(FormWidgetIface *input)
 
 void CForm::debug()
 {
+#if 0
 	dDebug() << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
-// 	for(int i = 0; i < m_inputMap.count(); i++)
-// 	{
-// 		QString table = m_inputMap.keys()[i];
-// 		
-// 		dDebug() << "----- Table " << table << " -----";
-// 		QList<FormWidgetIface*> fields = m_inputMap[table];
-// 		for(int j = 0; j < fields.count(); j++)
-// 		{
-// 			dDebug() << "#### Field: " << fields[j]->field();
-// 		}
-// 	}
+	for(int i = 0; i < m_inputMap.count(); i++)
+	{
+		QString table = m_inputMap.keys()[i];
+		
+		dDebug() << "----- Table " << table << " -----";
+		QList<FormWidgetIface*> fields = m_inputMap[table];
+		for(int j = 0; j < fields.count(); j++)
+		{
+			dDebug() << "#### Field: " << fields[j]->field();
+		}
+	}
 	dDebug() << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
+#endif
 }
 
+#define MASS_OPERATION 0
 
 void CForm::addButtonClicked()
 {
 	D_FUNCINFO;
+	
+#if MASS_OPERATION
+	QList<QStringList> fieldsList, valuesList;
+#endif
+
+	QString keyField;
+	
 	
 	foreach(QString table, m_tables)
 	{
@@ -82,20 +95,54 @@ void CForm::addButtonClicked()
 		QStringList fields, values;
 		foreach(FormWidgetIface *formWidgetInput, formInputs)
 		{
-			fields << formWidgetInput->fields()[0].name; // FIXME: this sucks
+			// Falla si el nombre de la fk y pk son diferentes?
+			QString fieldName = formWidgetInput->fields()[0].name; // FIXME: this sucks
+			
+			if ( formWidgetInput->fields().count() == 2 )
+			{
+				keyField = fieldName;
+			}
+			
+			fields << fieldName;
 			values << formWidgetInput->fieldValue();
 		}
-		
-		CInsertPackage insert(table, fields, values);
-		
+#if MASS_OPERATION
+		fieldsList << fields;
+		valuesList << values;
+#else
+		if ( m_keyValue.isEmpty() )
+		{
+			CInsertPackage insert(table, fields, values);
+			emit requestOperation( this, &insert );
+		}
+		else
+		{
+			CUpdatePackage update(table, fields, values);
+			update.setWhere(keyField+"="+m_keyValue);
+			emit requestOperation( this, &update);
+		}
+#endif
+	}
+	
+#if MASS_OPERATION
+	if ( m_keyValue.isEmpty() )
+	{
+		CInsertPackage insert(m_tables, fieldsList, valuesList);
 		emit requestOperation( this, &insert );
 	}
+	else
+	{
+		CUpdatePackage update(m_tables, fieldsList, valuesList);
+		update.setWhere(keyField+"="+m_keyValue);
+		emit requestOperation( this, &update);
+	}
+#endif
 }
 
 void CForm::cancelButtonClicked()
 {
 	D_FUNCINFO;
-	
+	emit close();
 }
 
 void CForm::resetButtonClicked()
@@ -112,14 +159,99 @@ void CForm::setTables(const QStringList &tables)
 
 void CForm::setOperationResult(const QList<XMLResults> &results)
 {
-	SHOW_VAR(results.count());
-	foreach(XMLResults result, results)
+	// TODO: llenar el formulario con los valores que llegan aqui!
+	
+	foreach ( XMLResults result, results)
 	{
-		QHash<QString, QString>::const_iterator i = result.constBegin();
-		while (i != result.constEnd()) 
+		foreach(QString table, m_tables) // Maximo 3 iteraciones
 		{
-			dDebug() << i.key() << ": " << i.value() << endl;
-			++i;
+			QList<FormWidgetIface*> formInputs = m_inputMap[table];
+			foreach(FormWidgetIface *formWidgetInput, formInputs) // No mas de 20
+			{
+				foreach(DBField field, formWidgetInput->fields() ) // Maximo 2 iteraciones
+				{
+					if ( result.contains(field.name) )
+					{
+						formWidgetInput->setFieldValue(result[field.name] );
+						break;
+					}
+				}
+			}
 		}
 	}
 }
+
+void CForm::setup(const QString &key)
+{
+	D_FUNCINFO << key;
+	if ( key.isEmpty() ) return;
+	
+	m_keyValue = key;
+	
+	if ( m_ok )
+	{
+		m_ok->setText(tr("Modify"));
+	}
+	
+	QStringList attributes;
+	QString where;
+	
+	foreach(QString table, m_tables)
+	{
+		QList<FormWidgetIface*> formInputs = m_inputMap[table];
+		
+		foreach(FormWidgetIface *formWidgetInput, formInputs)
+		{
+			QString fieldName = TABLE_DOT_ATT(formWidgetInput->fields()[0]);
+			
+			if ( formWidgetInput->fields().count() == 2 )
+			{
+				where = fieldName + "=" + m_keyValue;
+			}
+			
+			attributes << fieldName;
+		}
+	}
+	
+	// Llenamos la lista!
+	CSelectPackage select(m_tables, attributes);
+	if ( !where.isEmpty() )
+	{
+		select.setWhere( where);
+	}
+	
+	emit requestOperation( this, &select);
+}
+
+void CForm::addButtons()
+{
+	QHBoxLayout *buttons = new QHBoxLayout;
+		
+	m_ok = new QPushButton( tr("Ok") );
+	buttons->addWidget( m_ok );
+		
+	connect(m_ok, SIGNAL(clicked()), this, SLOT(addButtonClicked()));
+		
+	m_cancel = new QPushButton( tr("Cancel") );
+	buttons->addWidget( m_cancel );
+		
+	connect(m_cancel, SIGNAL(clicked()), this, SLOT(cancelButtonClicked()));
+		
+	qobject_cast<QBoxLayout*>(layout())->addLayout(buttons);
+}
+
+void CForm::setModuleName(const QString &mname)
+{
+	m_moduleName = mname;
+}
+
+QString CForm::moduleName() const
+{
+	return m_moduleName;
+}
+
+QString CForm::id() const
+{
+	return m_moduleName;
+}
+

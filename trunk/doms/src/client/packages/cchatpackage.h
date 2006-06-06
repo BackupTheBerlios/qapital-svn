@@ -25,7 +25,7 @@
 
 /**
  * Paquete de chat
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 
 class CChatPackage : public QDomDocument

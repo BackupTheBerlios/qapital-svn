@@ -26,7 +26,7 @@
 #include <QX11EmbedContainer>
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class DFlashWidget : public QX11EmbedContainer
 {

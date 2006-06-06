@@ -32,7 +32,7 @@ class CPackageParser;
 
 /**
  * Maneja las conexiones al servidor, asi mismo tambien maneja los errores de conexion
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class CConnector : public CConnectorBase
 {

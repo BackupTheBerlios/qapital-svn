@@ -28,7 +28,7 @@
 
 /**
  * Gestiona los documentos de formulario que el servidor envia al cliente, tiene funciones utiles para cargar los diferentes documentos.
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class CFormManager : public QObject
 {

@@ -31,7 +31,7 @@
 class DWizardPage;
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 
 class DWizard : public QDialog

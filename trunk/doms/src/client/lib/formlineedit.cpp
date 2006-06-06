@@ -38,4 +38,9 @@ QString FormLineEdit::fieldValue() const
 	return text();
 }
 
+bool FormLineEdit::isModified() const
+{
+	return QLineEdit::isModified();
+}
+
 

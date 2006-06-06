@@ -24,7 +24,7 @@
 #include <QTabWidget>
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class DTabWidget : public QTabWidget
 {

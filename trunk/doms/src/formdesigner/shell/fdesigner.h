@@ -38,7 +38,7 @@ class QWorkspace;
 class QBoxLayout;
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class FDesigner : public QMainWindow
 {

@@ -37,7 +37,7 @@ class CSqlPackageBase;
 
 /**
  * Clase base para la interfaz de todos los modulos
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class CModuleWidget : public QWidget, public CDatabaseRequesterIface
 {
@@ -61,15 +61,20 @@ class CModuleWidget : public QWidget, public CDatabaseRequesterIface
 		
 		virtual void setOperationResult(const QList<XMLResults> &results);
 		
-		int column(const QString &header);
-		int column(const DBField &field);
+		int column(const QString &header) const;
+		int column(const DBField &field) const;
+		
+		
+		QString currentKey() const;
+		
+		QString id() const;
 		
 	public slots:
 		virtual void fill();
 		virtual void removeCurrentItem();
 		
 	signals:
-		void requestForm(const QString &module, int formId);
+		void requestForm(const QString &module, int formId, const QString &key = QString() );
 		void message(Msg::Type, const QString &message);
 		void requestOperation(CModuleWidget *self, const CSqlPackageBase *sql );
 		
@@ -78,7 +83,9 @@ class CModuleWidget : public QWidget, public CDatabaseRequesterIface
 		DTreeWidgetSearchLine *m_pSearch;
 		ModuleInfo m_pModuleInfo;
 		DBField m_pPrimaryKey;
-		bool m_pIsDirty;
+		
+	private:
+		bool m_isDirty;
 };
 
 #endif

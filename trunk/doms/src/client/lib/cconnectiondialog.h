@@ -27,7 +27,7 @@ class QLineEdit;
 
 /**
  * Dialogo de conexion
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class CConnectionDialog : public DTabDialog
 {

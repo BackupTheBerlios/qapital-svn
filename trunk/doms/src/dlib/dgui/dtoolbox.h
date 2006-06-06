@@ -24,7 +24,7 @@
 #include <QToolBox>
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class DToolBox : public QToolBox
 {

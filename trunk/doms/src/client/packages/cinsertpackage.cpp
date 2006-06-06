@@ -30,6 +30,21 @@ CInsertPackage::CInsertPackage(const QString &table, const QStringList &fields, 
 	
 }
 
+CInsertPackage::CInsertPackage(const QStringList &tables, const QList<QStringList> &fields, const QList<QStringList> &values) : CSqlPackageBase()
+{
+	QDomElement root = createElement("Insert");
+	
+	appendChild( root );
+	
+	int count = 0;
+	foreach(QString table, tables )
+	{
+		addTable(table, fields[count], values[count]);
+		
+		++count;
+	}
+}
+
 
 CInsertPackage::~CInsertPackage()
 {

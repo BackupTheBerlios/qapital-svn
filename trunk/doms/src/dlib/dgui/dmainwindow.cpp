@@ -166,51 +166,51 @@ void DMainWindow::addWidget(DLSTabWidget *tab, QWidget *widget, const QString &t
 void DMainWindow::removeWidget(QWidget *widget)
 {
 	if (!m_pWidgets.contains(widget))
-    {
-        return; //not a widget in main window
-    }
+	{
+		return; //not a widget in main window
+	}
     
-    if (m_pWidgetTabs.contains(widget))
-    {
-        DLSTabWidget *tab = m_pWidgetTabs[widget];
-	if (tab->indexOf(widget) >= 0 && m_pActiveTabWidget->count() > 1)
-        {
-		tab->removeTab(tab->indexOf(widget));
-            widget->setParent(0);
-            if (tab->count() == 0)
-            {
-                if (tab->closeButton())
-                {
-                    tab->closeButton()->hide();
-                }
+	if (m_pWidgetTabs.contains(widget))
+	{
+		DLSTabWidget *tab = m_pWidgetTabs[widget];
+		if (tab->indexOf(widget) >= 0 && m_pActiveTabWidget->count() > 0)
+		{
+			tab->removeTab(tab->indexOf(widget));
+			widget->setParent(0);
+			if (tab->count() == 0)
+			{
+				if (tab->closeButton())
+				{
+					tab->closeButton()->hide();
+				}
                 //remove and delete tabwidget if it is not the first one
-                if (tab != m_pTabs.first())
-                {
-                    QPair<int, int> idx = m_pCentral->indexOf(tab);
-                    m_pTabs.removeAll(tab);
-                    m_pActiveTabWidget = m_pTabs.first();
-                    m_pCentral->removeDock(idx.first, idx.second, true);
-                }
+				if (tab != m_pTabs.first())
+				{
+					QPair<int, int> idx = m_pCentral->indexOf(tab);
+					m_pTabs.removeAll(tab);
+					m_pActiveTabWidget = m_pTabs.first();
+					m_pCentral->removeDock(idx.first, idx.second, true);
+				}
                 //only temporarily remove the first tabwidget
-                else
-                {
-                    m_pCentral->removeDock(0, 0, false);
-                    m_pFirstRemoved = true;
-                }
+				else
+				{
+					m_pCentral->removeDock(0, 0, false);
+					m_pFirstRemoved = true;
+				}
                 //focus smth in m_pActiveTabWidget
-                if (m_pActiveTabWidget)
-                {
-                    if (m_pActiveTabWidget->currentWidget())
-                    {
-			    m_pActiveTabWidget->currentWidget()->setFocus();
-                    }
-                }
-            }
-        }
-    }
+				if (m_pActiveTabWidget)
+				{
+					if (m_pActiveTabWidget->currentWidget())
+					{
+						m_pActiveTabWidget->currentWidget()->setFocus();
+					}
+				}
+			}
+		}
+	}
     
-    m_pWidgets.removeAll(widget);
-    m_pWidgetTabs.remove(widget);
+	m_pWidgets.removeAll(widget);
+	m_pWidgetTabs.remove(widget);
 }
 
 DLSTabWidget *DMainWindow::splitHorizontal() 
@@ -265,16 +265,19 @@ DLSTabWidget *DMainWindow::createTab()
 bool DMainWindow::eventFilter(QObject *obj, QEvent *ev)
 {
     QWidget *w = (QWidget*)obj;
-    if (!m_pWidgets.contains(w))
-    {
-        return MWCLASS::eventFilter(obj, ev);
-    }
     
     if ((m_pCurrentWidget != w) && (ev->type() == QEvent::FocusIn))
     {
         m_pCurrentWidget = w;
         emit widgetChanged(w);
     }
+    
+    
+    if (!m_pWidgets.contains(w))
+    {
+	    return MWCLASS::eventFilter(obj, ev);
+    }
+    
 //     else if (ev->type() == QEvent::IconChange)
 //     {
 //         if (m_pWidgetTabs.contains(w))
@@ -304,7 +307,7 @@ void DMainWindow::tabContext(QWidget *, const QPoint &)
     //nothing to do here, should be reimplemented
 }
 
-void DMainWindow::closeTab(QWidget *)
+void DMainWindow::closeTab(QWidget *w)
 {
-    //nothing to do here, should be reimplemented
+	removeWidget( w );
 }

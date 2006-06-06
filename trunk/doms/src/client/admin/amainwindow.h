@@ -33,7 +33,7 @@
 #include "chelpwidget.h"
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class AMainWindow : public DMainWindow
 {

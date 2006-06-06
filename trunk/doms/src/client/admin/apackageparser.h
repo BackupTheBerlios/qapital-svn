@@ -23,7 +23,7 @@
 #include <QXmlDefaultHandler>
 
 /**
-	@author David Cuadrado <krawek@gmail.com>
+	@author David Cuadrado \<krawek@gmail.com\>
 */
 class APackageParser : public QXmlDefaultHandler
 {

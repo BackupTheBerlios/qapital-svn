@@ -26,7 +26,7 @@
 
 /**
  * Esta clase solo puede ser usada mediante el mecanismo de herencia
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 
 class CSqlPackageBase : public QDomDocument

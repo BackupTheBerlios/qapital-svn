@@ -53,7 +53,7 @@
 
 /**
  * Ventana principal de la aplicacion cliente
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class CMainWindow : public DMainWindow
 {
@@ -75,7 +75,7 @@ class CMainWindow : public DMainWindow
 		void showConnectDialog();
 		void buildModules(const ModuleForms &modules);
 		
-		void loadForm(const QString &module, int id);
+		void loadForm(const QString &module, int id, const QString &key);
 		void addForm(CForm *form);
 		
 		void showChat();

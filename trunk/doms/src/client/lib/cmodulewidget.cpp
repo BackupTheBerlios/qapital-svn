@@ -40,7 +40,7 @@
 #include "cupdatepackage.h"
 #include "cattributeparser.h"
 
-CModuleWidget::CModuleWidget(const QString &moduleMame, QWidget *parent) : QWidget(parent), m_pIsDirty(false)
+CModuleWidget::CModuleWidget(const QString &moduleMame, QWidget *parent) : QWidget(parent), m_isDirty(false)
 {
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	
@@ -136,7 +136,12 @@ void CModuleWidget::addItem(const QStringList &cols)
 
 void CModuleWidget::setOperationResult(const QList<XMLResults> &results)
 {
-	D_FUNCINFO;
+	D_FUNCINFO << results.count();
+	
+	if ( results.count() > 1 )
+	{
+		m_pTree->clear();
+	}
 	
 	QTreeWidgetItem *data = m_pTree->headerItem();
 	
@@ -160,8 +165,7 @@ void CModuleWidget::setOperationResult(const QList<XMLResults> &results)
 		}
 	}
 	// Volvemos a llenar la lista....
-	// TODO: Implementar un mecanismo de dirty
-	if ( m_pIsDirty )
+	if ( m_isDirty )
 	{
 		fill();
 	}
@@ -171,7 +175,7 @@ void CModuleWidget::fill()
 {
 	D_FUNCINFO;
 	
-	m_pIsDirty = false;
+	m_isDirty = false;
 	
 	m_pTree->clear();
 	
@@ -203,7 +207,10 @@ void CModuleWidget::fill()
 			DBField field = CAttributeParser::parseField( info.second );
 			
 			if ( ! tables.contains( field.table ) )
+			{
 				tables << field.table;
+			}
+			
 			attributes << TABLE_DOT_ATT(field);
 		}
 	}
@@ -222,19 +229,29 @@ void CModuleWidget::fill()
 
 void CModuleWidget::removeCurrentItem()
 {
+	D_FUNCINFO;
 	CDeletePackage deleteSqlPkg(m_pPrimaryKey.table);
 	
-	QString current = m_pTree->currentItem()->text( column(m_pPrimaryKey) );
+	QString current = currentKey();
 	
 	deleteSqlPkg.setWhere(m_pPrimaryKey.name+"="+current);
 	
-	m_pIsDirty = true;
+	m_isDirty = true;
 	
 	emit requestOperation( this, &deleteSqlPkg);
 }
 
+QString CModuleWidget::currentKey() const
+{
+	if ( ! m_pTree->currentItem() ) return QString();
+	
+	QString current = m_pTree->currentItem()->text( column(m_pPrimaryKey) );
+	return current;
+}
 
-int CModuleWidget::column(const QString &header)
+
+
+int CModuleWidget::column(const QString &header) const
 {
 	QTreeWidgetItem *item = m_pTree->headerItem();
 	
@@ -245,23 +262,29 @@ int CModuleWidget::column(const QString &header)
 			return i;
 		}
 	}
+	
+	return -1;
 }
 
-int CModuleWidget::column(const DBField &field)
+int CModuleWidget::column(const DBField &field) const
 {
 	QTreeWidgetItem *item = m_pTree->headerItem();
 	
 	for(int i = 0; i < item->columnCount(); i++)
 	{
 		QString dataField = item->data(i, Field).toString();
-		SHOW_VAR(dataField);
-		SHOW_VAR(field.name);
-		SHOW_VAR(field.table);
+		
 		if ( dataField.toLower().contains(field.name) ) // FIXME: Esto tiene grandes probabilidades de fallar
 		{
 			return i;
 		}
 	}
+	
+	return -1;
 }
 
+QString CModuleWidget::id() const
+{
+	return m_pModuleInfo.key;
+}
 

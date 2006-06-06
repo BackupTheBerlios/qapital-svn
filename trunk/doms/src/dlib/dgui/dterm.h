@@ -26,7 +26,7 @@
 #include <QX11EmbedContainer>
 
 /**
-	@author David Cuadrado <krawek@gmail.com>
+	@author David Cuadrado \<krawek@gmail.com\>
 */
 class DTerm : public QX11EmbedContainer
 {

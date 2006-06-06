@@ -28,7 +28,7 @@
 #include "global.h"
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class CPackageParser : public QXmlDefaultHandler
 {

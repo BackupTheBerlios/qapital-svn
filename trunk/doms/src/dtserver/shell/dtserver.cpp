@@ -191,7 +191,29 @@ void DTServer::doOperation(DTServerConnection *cnx, const DTQuery *query)
 	}
 	else
 	{
-		cnx->sendToClient(rs);
+// 		switch(query->type() )
+// 		{
+// 			case DTQuery::Select:
+// 			{
+				cnx->sendToClient(rs);
+// 			}
+// 			break;
+// 			case DTQuery::Insert:
+// 			{
+// 				
+// 			}
+// 			break;
+// 			case DTQuery::Delete:
+// 			{
+// 				
+// 			}
+// 			break;
+// 			case DTQuery::Update:
+// 			{
+// 				
+// 			}
+// 			break;
+// 		}
 	}
 }
 

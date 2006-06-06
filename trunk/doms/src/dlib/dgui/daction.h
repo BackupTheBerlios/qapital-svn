@@ -27,7 +27,7 @@ class DActionManager;
 
 /**
  * @brief la clase DAction hereda de QAction, para facilitar la creaccion de acciones, y dando un parametro para identificar las acciones.
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class DAction : public QAction
 {

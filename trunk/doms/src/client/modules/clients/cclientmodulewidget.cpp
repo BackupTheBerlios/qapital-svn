@@ -26,20 +26,9 @@ CClientModuleWidget::CClientModuleWidget(const QString &title, QWidget *parent) 
 	setWindowIcon(QIcon(THEME_DIR+"/icons/users.png"));
 	
 	
-	CModuleButtonBar *buttonBar = addButtonBar( CModuleButtonBar::Add | CModuleButtonBar::Del );
+	CModuleButtonBar *buttonBar = addButtonBar( CModuleButtonBar::Add | CModuleButtonBar::Del | CModuleButtonBar::Modify | CModuleButtonBar::Query );
 	
 	connect(buttonBar, SIGNAL(buttonClicked( int )), this, SLOT(doAction(int)));
-	
-#if 0
-	// For testing purpose	
-	addPacient( "Pepito","Perez");
-	addPacient( "David ","Cuadrado");
-	addPacient( "Carlos ","Giraldo");
-	addPacient(  "Jonathan"," Guzman");
-	addPacient(  "Andres ","XLS");
-	addPacient(  "Alguien"," mas");
-	addPacient(  "Homero"," Simpson" );
-#endif
 }
 
 
@@ -68,7 +57,8 @@ void CClientModuleWidget::doAction(int buttonId)
 		break;
 		case CModuleButtonBar::Modify:
 		{
-			
+			qDebug("Modify");
+			emit requestForm( m_pModuleInfo.key, 0, currentKey());
 		}
 		break;
 	}

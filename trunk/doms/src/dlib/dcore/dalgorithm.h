@@ -26,7 +26,7 @@
 
 /**
  * Class that contains generic useful algorithms
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 
 class DAlgorithm

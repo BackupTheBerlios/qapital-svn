@@ -32,7 +32,7 @@ class QTextBrowser;
 
 /**
  * @class DTipDialog
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
  */
 
 class DTipDialog : public QDialog

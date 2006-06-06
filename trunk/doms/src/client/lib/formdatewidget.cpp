@@ -39,3 +39,8 @@ QString FormDateWidget::fieldValue() const
 	return date().toString( Qt::ISODate );
 }
 
+bool FormDateWidget::isModified() const
+{
+	return true;
+}
+

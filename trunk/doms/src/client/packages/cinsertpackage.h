@@ -23,12 +23,14 @@
 #include "csqlpackagebase.h"
 
 /**
-	@author David Cuadrado <krawek@gmail.com>
+	@author David Cuadrado \<krawek@gmail.com\>
 */
 class CInsertPackage : public CSqlPackageBase
 {
 	public:
 		CInsertPackage(const QString &table, const QStringList &fields, const QStringList &values);
+		CInsertPackage(const QStringList &tables, const QList<QStringList> &fields, const QList<QStringList> &values);
+		
 		~CInsertPackage();
 
 };

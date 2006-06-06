@@ -25,7 +25,7 @@
 #include <formwidgetiface.h>
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class FormDatePicker : public DDatePicker, public FormWidgetIface
 {
@@ -34,6 +34,7 @@ class FormDatePicker : public DDatePicker, public FormWidgetIface
 		~FormDatePicker();
 		void setFieldValue(const QVariant &v);
 		QString fieldValue() const;
+		bool isModified() const;
 };
 
 #endif

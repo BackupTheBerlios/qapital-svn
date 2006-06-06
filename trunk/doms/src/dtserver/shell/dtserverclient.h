@@ -27,7 +27,7 @@
 
 /**
  * Esta clase representa los clientes del servidor
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class DTServerClient : public QTcpSocket
 {

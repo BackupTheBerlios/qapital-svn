@@ -29,7 +29,7 @@
 
 /**
  * A image pressable
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 
 class DImageButton : public QPushButton

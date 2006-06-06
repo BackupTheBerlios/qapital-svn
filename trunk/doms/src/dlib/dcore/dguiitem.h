@@ -32,7 +32,7 @@
  * @elseif spanish
  * Clase que representa un item de la interfaz, esta clase tiene datos como tooltips, texto, aceleradores, etc...
  * @endif
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class DGuiItem
 {

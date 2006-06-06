@@ -25,7 +25,7 @@
 #include "formwidgetiface.h"
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 
 class FormDateWidget : public DDateWidget, public FormWidgetIface
@@ -37,6 +37,9 @@ class FormDateWidget : public DDateWidget, public FormWidgetIface
 		void setFieldValue(const QVariant &data);
 		QString fieldValue() const;
 		
+		bool isModified() const;
+		
+	private:
 };
 
 #endif

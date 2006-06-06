@@ -27,7 +27,7 @@
 #include <QButtonGroup>
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 class DRadioButtonGroup : public QGroupBox
 {

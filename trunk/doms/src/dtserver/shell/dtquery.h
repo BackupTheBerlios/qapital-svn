@@ -71,7 +71,7 @@ class DTQuery : public QObject
 		 * Obtiene el tipo de consulta
 		 * @return 
 		 */
-		int type();
+		int type() const;
 		
 	protected:
 		QString m_query;

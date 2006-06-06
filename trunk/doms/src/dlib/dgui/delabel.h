@@ -26,7 +26,7 @@
 #include <QMouseEvent>
 
 /**
- * @author David Cuadrado <krawek@gmail.com>
+ * @author David Cuadrado \<krawek@gmail.com\>
 */
 
 class DELabel : public DSqueezeLabel

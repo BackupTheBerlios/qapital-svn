@@ -21,7 +21,7 @@
 class DHelpWidgetManager;
 
 /**
- * @author David Alejandro Cuadrado Cabrera <krawek@gmail.com>
+ * @author David Alejandro Cuadrado Cabrera \<krawek@gmail.com\>
 */
 class CHelpWidget : public CModuleWidget
 {
