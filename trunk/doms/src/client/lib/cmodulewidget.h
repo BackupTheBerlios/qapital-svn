@@ -61,8 +61,12 @@ class CModuleWidget : public QWidget, public CDatabaseRequesterIface
 		
 		virtual void setOperationResult(const QList<XMLResults> &results);
 		
+		int column(const QString &header);
+		int column(const DBField &field);
+		
 	public slots:
 		virtual void fill();
+		virtual void removeCurrentItem();
 		
 	signals:
 		void requestForm(const QString &module, int formId);
@@ -73,6 +77,8 @@ class CModuleWidget : public QWidget, public CDatabaseRequesterIface
 		DTreeListWidget *m_pTree;
 		DTreeWidgetSearchLine *m_pSearch;
 		ModuleInfo m_pModuleInfo;
+		DBField m_pPrimaryKey;
+		bool m_pIsDirty;
 };
 
 #endif

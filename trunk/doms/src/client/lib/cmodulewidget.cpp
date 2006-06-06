@@ -40,7 +40,7 @@
 #include "cupdatepackage.h"
 #include "cattributeparser.h"
 
-CModuleWidget::CModuleWidget(const QString &moduleMame, QWidget *parent) : QWidget(parent)
+CModuleWidget::CModuleWidget(const QString &moduleMame, QWidget *parent) : QWidget(parent), m_pIsDirty(false)
 {
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	
@@ -159,11 +159,20 @@ void CModuleWidget::setOperationResult(const QList<XMLResults> &results)
 			addItem( itemData );
 		}
 	}
+	// Volvemos a llenar la lista....
+	// TODO: Implementar un mecanismo de dirty
+	if ( m_pIsDirty )
+	{
+		fill();
+	}
 }
 
 void CModuleWidget::fill()
 {
 	D_FUNCINFO;
+	
+	m_pIsDirty = false;
+	
 	m_pTree->clear();
 	
 	QStringList tables, attributes;
@@ -184,6 +193,8 @@ void CModuleWidget::fill()
 				tables << field.second.table;
 			}
 			attributes << TABLE_DOT_ATT(field.first);
+			
+			m_pPrimaryKey = field.first;
 			
 			where = TABLE_DOT_ATT(field.second)+"="+TABLE_DOT_ATT(field.first);
 		}
@@ -206,6 +217,51 @@ void CModuleWidget::fill()
 	}
 	
 	emit requestOperation( this, &select);
+}
+
+
+void CModuleWidget::removeCurrentItem()
+{
+	CDeletePackage deleteSqlPkg(m_pPrimaryKey.table);
+	
+	QString current = m_pTree->currentItem()->text( column(m_pPrimaryKey) );
+	
+	deleteSqlPkg.setWhere(m_pPrimaryKey.name+"="+current);
+	
+	m_pIsDirty = true;
+	
+	emit requestOperation( this, &deleteSqlPkg);
+}
+
+
+int CModuleWidget::column(const QString &header)
+{
+	QTreeWidgetItem *item = m_pTree->headerItem();
+	
+	for(int i = 0; i < item->columnCount(); i++)
+	{
+		if ( item->text(i) == header )
+		{
+			return i;
+		}
+	}
+}
+
+int CModuleWidget::column(const DBField &field)
+{
+	QTreeWidgetItem *item = m_pTree->headerItem();
+	
+	for(int i = 0; i < item->columnCount(); i++)
+	{
+		QString dataField = item->data(i, Field).toString();
+		SHOW_VAR(dataField);
+		SHOW_VAR(field.name);
+		SHOW_VAR(field.table);
+		if ( dataField.toLower().contains(field.name) ) // FIXME: Esto tiene grandes probabilidades de fallar
+		{
+			return i;
+		}
+	}
 }
 
 
