@@ -26,6 +26,8 @@
 class QTextBrowser;
 class QLineEdit;
 
+class TextWindow;
+
 /**
  * @author David Cuadrado \<krawek@gmail.com\>
 */
@@ -46,7 +48,7 @@ class CChatWindow : public QDialog
 		void textToSend(const QString &msg);
 		
 	private:
-		QTextBrowser *m_messageArea;
+		TextWindow *m_messageArea;
 		QLineEdit *m_prompt;
 };
 

@@ -55,6 +55,8 @@ class CForm : public QWidget, public CDatabaseRequesterIface
 		void debug();
 		
 		void setup(const QString &key);
+		void fillFields(const QString &ref);
+		
 		void addButtons();
 		
 		void setModuleName(const QString &mname);

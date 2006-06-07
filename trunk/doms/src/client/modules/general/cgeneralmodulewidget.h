@@ -30,8 +30,10 @@ class CGeneralModuleWidget : public CModuleWidget
 	Q_OBJECT;
 	public:
 		CGeneralModuleWidget(const QString &title, QWidget *parent = 0);
-
 		~CGeneralModuleWidget();
+		
+	private slots:
+		void doAction(int buttonId);
 
 };
 

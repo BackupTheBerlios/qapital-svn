@@ -202,9 +202,25 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 		else if ( qname == "CheckBox" )
 		{
 			QCheckBox *checkbox = new QCheckBox(atts.value("label"));
-
-			m_widgets.last()->layout()->addWidget(checkbox);
-
+			
+			if ( dynamic_cast<FormButtonGroup *>(m_widgets.last() ) )
+			{
+// 				dDebug() << atts.value("id", "NO TIENE");
+				QString idStr = atts.value("id", "");
+				if ( idStr.isEmpty() )
+				{
+					dError() << "Please set radio button id for button: "<< atts.value("label") ;
+// 					return false;
+				}
+				
+				int id = idStr.toInt();
+				
+				qobject_cast<FormButtonGroup *>(m_widgets.last())->addButton(checkbox, id);
+			}
+			else
+			{
+				m_widgets.last()->layout()->addWidget(checkbox);
+			}
 		}
 		else if ( qname == "RadioButton" )
 		{
@@ -212,7 +228,6 @@ bool CFormBuilder::startElement( const QString& , const QString& , const QString
 			
 			if ( dynamic_cast<FormButtonGroup *>(m_widgets.last() ) )
 			{
-// 				dDebug() << atts.value("id", "NO TIENE");
 				QString idStr = atts.value("id", "");
 				if ( idStr.isEmpty() )
 				{

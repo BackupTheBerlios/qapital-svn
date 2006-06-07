@@ -22,11 +22,44 @@
 CGeneralModuleWidget::CGeneralModuleWidget(const QString &title, QWidget *parent)
  : CModuleWidget(title, parent)
 {
+	setWindowIcon(QIcon(THEME_DIR+"/icons/people.png"));
+	
+	CModuleButtonBar *buttonBar = addButtonBar( CModuleButtonBar::Add | CModuleButtonBar::Del | CModuleButtonBar::Modify | CModuleButtonBar::Query );
+	
+	connect(buttonBar, SIGNAL(buttonClicked( int )), this, SLOT(doAction(int)));
 }
 
 
 CGeneralModuleWidget::~CGeneralModuleWidget()
 {
+}
+
+
+void CGeneralModuleWidget::doAction(int buttonId)
+{
+	switch(buttonId)
+	{
+		case CModuleButtonBar::Add:
+		{
+			emit requestForm( m_pModuleInfo.key, 0);
+		}
+		break;
+		case CModuleButtonBar::Del:
+		{
+			removeCurrentItem();
+		}
+		break;
+		case CModuleButtonBar::Query:
+		{
+			
+		}
+		break;
+		case CModuleButtonBar::Modify:
+		{
+			emit requestForm( m_pModuleInfo.key, 0, currentKey());
+		}
+		break;
+	}
 }
 
 

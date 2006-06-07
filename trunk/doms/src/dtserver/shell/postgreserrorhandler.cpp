@@ -43,6 +43,12 @@ SErrorPackage PostgresErrorHandler::handle(const QSqlError &error)
 		
 		return package;
 	}
+	else if ( text.contains("syntax error") )
+	{
+		SErrorPackage package(error.number(), QObject::tr("You're trying to do an invalid action"));
+		
+		return package;
+	}
 	
 	SErrorPackage package(error.number(), QObject::tr("PostgresErrorHandler %1").arg(error.databaseText()));
 	

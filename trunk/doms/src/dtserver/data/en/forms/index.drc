@@ -12,9 +12,8 @@
 	
 	<Module key="gnr" text="General" >
 		<list>
-			<column header="GH1" field="zzz" />
-			<column header="GH2" field="zzz" />
-			<column header="GH3" field="zzz" />
+			<column header="Identificacion" field="doms_persons:idDocument->doms_pacients:idDocument" />
+			<column header="Historia" field="doms_pacients:clinicHistory" />
 		</list>
 		<forms>
 			<FormFile path="general/add_general_history.dfm" id="0" />

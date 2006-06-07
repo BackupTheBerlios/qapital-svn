@@ -134,7 +134,6 @@ void CMainWindow::setupMenu()
 	
 	help->addAction(m_actionManager->find("tipofday"));
 	help->addAction(tr("About Qt..."), qApp, SLOT(aboutQt()));
-	
 }
 
 void CMainWindow::setupToolbar()
@@ -200,11 +199,11 @@ void CMainWindow::buildModules(const ModuleForms &modules)
 			title = tr("Pacients");
 			moduleWidget = new CClientModuleWidget(title);
 		}
-// 		else if ( module.key == "gnr" )
-// 		{
-// 			title = tr("General");
-// 			moduleWidget = new CGeneralModuleWidget( title);
-// 		}
+		else if ( module.key == "gnr" )
+		{
+			title = tr("General");
+			moduleWidget = new CGeneralModuleWidget( title);
+		}
 // 		else if ( module.key == "agn" )
 // 		{
 // 			title = tr("Agend");

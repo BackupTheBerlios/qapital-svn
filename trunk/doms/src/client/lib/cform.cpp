@@ -110,6 +110,8 @@ void CForm::addButtonClicked()
 		fieldsList << fields;
 		valuesList << values;
 #else
+		if ( fields.isEmpty() ) continue;
+		
 		if ( m_keyValue.isEmpty() )
 		{
 			CInsertPackage insert(table, fields, values);
@@ -170,6 +172,8 @@ void CForm::setOperationResult(const QList<XMLResults> &results)
 			{
 				foreach(DBField field, formWidgetInput->fields() ) // Maximo 2 iteraciones
 				{
+					SHOW_VAR(field.name);
+					SHOW_VAR(result.keys());
 					if ( result.contains(field.name) )
 					{
 						formWidgetInput->setFieldValue(result[field.name] );

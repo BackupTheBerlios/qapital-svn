@@ -7,6 +7,7 @@
 		</VBox>
 	</HBox>
 	<VGroupBox title="Informacion personal" >
+		<Input label="Historia clinica" dbfield="doms_pacients:clinicHistory" />
 		<HBox>
 			<Input label="Nombres" dbfield="doms_persons:name" />
 			<Input label="Apellidos" dbfield="doms_persons:lastName" />

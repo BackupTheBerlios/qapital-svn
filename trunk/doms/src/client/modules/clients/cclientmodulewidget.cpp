@@ -57,7 +57,6 @@ void CClientModuleWidget::doAction(int buttonId)
 		break;
 		case CModuleButtonBar::Modify:
 		{
-			qDebug("Modify");
 			emit requestForm( m_pModuleInfo.key, 0, currentKey());
 		}
 		break;

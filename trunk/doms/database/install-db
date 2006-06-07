@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo -n "Host: " 
+read HOST
+
+echo -n "Login: "
+read LOGIN
+
+echo -n "Database: "
+read DATABASE
+
+cat dump.sql | psql -h $HOST -U $LOGIN ${DATABASE}
+

@@ -28,6 +28,41 @@
 
 #include "cchatpackage.h"
 
+#include "global.h"
+#include <ddebug.h>
+
+
+class TextWindow : public QTextBrowser
+{
+	public:
+		TextWindow();
+		~TextWindow();
+		void addMessage(const QString &login, const QString &msg);
+};
+
+TextWindow::TextWindow()
+{
+}
+
+TextWindow::~TextWindow()
+{
+}
+
+void TextWindow::addMessage(const QString &login, const QString &msg)
+{
+	QString newText = Qt::escape(msg);
+	
+	newText = newText.replace(":)", QString("<img src=\"")+THEME_DIR+"/chat/smile.png" +"\" />");
+	newText = newText.replace(":(", QString("<img src=\"")+THEME_DIR+"/chat/sad.png" +"\" />");
+	newText = newText.replace("xD", QString("<img src=\"")+THEME_DIR+"/chat/laugh.png" +"\" />");
+	newText.remove('\n');
+	
+	append("<"+login+"> ");
+	insertHtml(newText+'\n');
+}
+
+
+
 CChatWindow::CChatWindow(QWidget *parent) : QDialog(parent)
 {
 	setModal(false);
@@ -35,7 +70,7 @@ CChatWindow::CChatWindow(QWidget *parent) : QDialog(parent)
 	
 	setWindowTitle(tr("Chat ;)"));
 	
-	m_messageArea = new QTextBrowser;
+	m_messageArea = new TextWindow;
 	layout->addWidget(m_messageArea);
 	
 	QHBoxLayout *lineLayout = new QHBoxLayout;
@@ -71,6 +106,6 @@ void CChatWindow::emitMessage()
 
 void CChatWindow::setChatMessage(const QString &login, const QString &msg)
 {
-	m_messageArea->append( "<"+login+"> "+msg);
+	m_messageArea->addMessage( login, msg);
 }
 

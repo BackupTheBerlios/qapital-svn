@@ -1,33 +1,16 @@
-<Form title="Historia Clinica" >
+<Form title="Historia Clinica"  tables="doms_pacients doms_general_history" >
 	<HBox>
 		<Image filename="logo.svg" />
 		<VBox>
 			<Label text="Historia clinica" />
-			<Input label="No." />
-			<Input label="Odontologo" />
+			<Input label="No." dbfield="doms_general_history:clinicHistory" />
+			<Input label="Odontologo" dbfield="" />
 		</VBox>
-	</HBox>
-	<HBox>
-		<Input label="EPS" />
-		<Input label="Tipo de vinculacion" />
+		<Input type="date" dbfield="doms_general_history:initDate" />
 	</HBox>
 	<VBox>
-		<Input label="Servicio de urgencias medicas" />
-		<Input label="Motivo de consulta" />
-		<Input label="Remitido por" />
+		<Input label="Motivo de consulta" dbfield="doms_general_history:reason" />
+		<Input label="Remitido por"  dbfield="doms_general_history:remitedBy" />
 	</VBox>
-	<Label text="Marque lo que tenga" />
-	<VGroupBox title="Enfermedades" >
-		<CheckBox label="Alergias" />
-		<CheckBox label="Transtornos de coagulacion" />
-		<CheckBox label="Enfermedades respiratorias " />
-		<CheckBox label="Alteraciones cardiacas " />
-		<CheckBox label="Fiebre reumatica " />
-		<CheckBox label="Cirugias " />
-		<CheckBox label="Enfermedad Renal " />
-		<CheckBox label="Hepatitis " />
-		<CheckBox label="Transtornos gastricos " />
-		<CheckBox label="Hipertension " />
-	</VGroupBox>
 </Form>
 

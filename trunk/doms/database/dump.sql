@@ -16,7 +16,8 @@ drop table doms_specialist cascade;
 drop table doms_speciality cascade;
 drop table dt_users cascade;
 drop table doms_cite cascade;
-drop table doms_pacient_sickness;
+drop table doms_pacient_sickness cascade;
+drop table doms_general_history cascade;
 
 drop domain doms_genre_domain cascade;
 drop domain doms_civil_state cascade;
@@ -49,7 +50,7 @@ create table doms_persons (
 	departament character varying(30), 
 	idDocument character varying(15) PRIMARY KEY,
 	idDocumentType doms_id_document_type,
-	address character varying(30), 
+	address character varying(30),
 	currentCity character varying(30),
 	phone character varying(10),
 	cellular character varying(10), 
@@ -58,7 +59,7 @@ create table doms_persons (
 
 create table doms_pacients (
 	idDocument character varying(15) references doms_persons(idDocument) on delete cascade on update cascade,
--- 	clinicHistory character varying(15) PRIMARY KEY,
+	clinicHistory character varying(15) PRIMARY KEY,
  	occupation character varying(20),
 	workPhone character varying(10),
 	responsiblePerson character varying(50),
@@ -69,8 +70,7 @@ create table doms_pacients (
 	referenceRelationchip character varying(20),
 	referenePhone character varying(10),
 	referenceOccupation character varying(20),
-	eps character varying(20),
-	PRIMARY KEY(idDocument)
+	eps character varying(20)
 );
 
 create table doms_employee(
@@ -116,7 +116,8 @@ create table doms_sickness (
 
 create table doms_pacient_sickness(
 	idDocument character varying(15) references doms_persons(idDocument),
-	idSickness character varying(30) references doms_sickness(idSickness)
+	idSickness character varying(30) references doms_sickness(idSickness),
+	primary key(idDocument, idSickness)
 );
 
 
@@ -126,14 +127,16 @@ create table doms_clinic (
 	phone character varying(10),
 	seat character varying(50)
 );
--- 
--- Fgeneral(
--- 	fecha DATE, 
--- 	historia_clinica references Paciente(historia_clinica), 
--- 	idEspecialista references Especialista(idEspecialista), 
--- 	motivo_ de_consulta TEXT, 
--- 	remitido_por TEXT
--- 	);
+
+create table doms_general_history (
+	initDate DATE,
+	clinicHistory character varying(15) references doms_pacients(clinicHistory),
+	idSpecialist character varying(6) references doms_specialist(idSpecialist),
+	reason text,
+	remitedBy text,
+	primary key(clinicHistory)
+);
+
 -- 
 -- Fendodoncia(
 -- 	idFormulario character varying(6)

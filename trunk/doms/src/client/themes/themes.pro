@@ -11,4 +11,4 @@ INCLUDEPATH += ../../dlib/
 CONFIG += release \
           warn_on \
           staticlib 
-TEMPLATE = lib 
+TEMPLATE = subdirs
